@@ -1,10 +1,5 @@
 package com.kltn.motelservice.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.time.LocalDateTime;
 
 public class PostDTO {
@@ -14,25 +9,34 @@ public class PostDTO {
 
     private String content;
 
-    private boolean isVerify;
+    private boolean isApproved;
+
+    private boolean isNotApproved;
+
+    private LocalDateTime createAt;
 
     private LocalDateTime lastUpdate;
 
     private boolean isDelete;
+
+    private String username;
 
     private AccomodationDTO accomodationDTO;
 
     public PostDTO() {
     }
 
-    public PostDTO(long id, String title, String content, boolean isVerify, LocalDateTime lastUpdate,
-                   boolean isDelete, AccomodationDTO accomodationDTO) {
+    public PostDTO(long id, String title, String content, boolean isApproved, boolean isNotApproved, LocalDateTime createAt,
+                   LocalDateTime lastUpdate, boolean isDelete, String username, AccomodationDTO accomodationDTO) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.isVerify = isVerify;
+        this.isApproved = isApproved;
+        this.isNotApproved = isNotApproved;
+        this.createAt = createAt;
         this.lastUpdate = lastUpdate;
         this.isDelete = isDelete;
+        this.username = username;
         this.accomodationDTO = accomodationDTO;
     }
 
@@ -60,12 +64,28 @@ public class PostDTO {
         this.content = content;
     }
 
-    public boolean isVerify() {
-        return isVerify;
+    public boolean isApproved() {
+        return isApproved;
     }
 
-    public void setVerify(boolean verify) {
-        isVerify = verify;
+    public void setApproved(boolean approved) {
+        isApproved = approved;
+    }
+
+    public boolean isNotApproved() {
+        return isNotApproved;
+    }
+
+    public void setNotApproved(boolean notApproved) {
+        isNotApproved = notApproved;
+    }
+
+    public LocalDateTime getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = createAt;
     }
 
     public LocalDateTime getLastUpdate() {
@@ -82,6 +102,14 @@ public class PostDTO {
 
     public void setDelete(boolean delete) {
         isDelete = delete;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public AccomodationDTO getAccomodationDTO() {

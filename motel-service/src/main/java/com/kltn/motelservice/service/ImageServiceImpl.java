@@ -3,7 +3,6 @@ package com.kltn.motelservice.service;
 import com.kltn.motelservice.entity.Image;
 import com.kltn.motelservice.entity.Post;
 import com.kltn.motelservice.exception.ImageException;
-import com.kltn.motelservice.model.ImageDTO;
 import com.kltn.motelservice.repository.ImageRepository;
 import com.kltn.motelservice.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;

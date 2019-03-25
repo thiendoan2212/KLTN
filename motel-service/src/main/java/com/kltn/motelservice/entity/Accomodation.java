@@ -10,35 +10,27 @@ public class Accomodation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank
     private double acreage;
 
-    @NotBlank
     private String address;
 
-    @NotBlank
     private double electricPrice;
 
-    @NotBlank
     private double waterPrice;
 
-    @NotBlank
     private boolean isInternet;
 
-    @NotBlank
     private boolean isToilet;
 
-    @NotBlank
     private double price;
 
-    @NotBlank
     private boolean isMezzanine;
 
-    @NotBlank
     private boolean isUpstair;
 
-    @NotBlank
     private boolean status;
+
+    private boolean isMotel;
 
     private double xCoordinate;
 
@@ -55,10 +47,9 @@ public class Accomodation {
     public Accomodation() {
     }
 
-    public Accomodation(@NotBlank double acreage, @NotBlank String address, @NotBlank double electricPrice,
-                        @NotBlank double waterPrice, @NotBlank boolean isInternet, @NotBlank boolean isToilet,
-                        @NotBlank double price, @NotBlank boolean isMezzanine, @NotBlank boolean isUpstair,
-                        @NotBlank boolean status, double xCoordinate, double yCoordinate, Post post, District district) {
+    public Accomodation(double acreage, String address, double electricPrice, double waterPrice, boolean isInternet,
+                        boolean isToilet, double price, boolean isMezzanine, boolean isUpstair, boolean status,
+                        boolean isMotel, double xCoordinate, double yCoordinate, Post post, District district) {
         this.acreage = acreage;
         this.address = address;
         this.electricPrice = electricPrice;
@@ -69,6 +60,7 @@ public class Accomodation {
         this.isMezzanine = isMezzanine;
         this.isUpstair = isUpstair;
         this.status = status;
+        this.isMotel = isMotel;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.post = post;
@@ -153,6 +145,14 @@ public class Accomodation {
 
     public void setUpstair(boolean upstair) {
         isUpstair = upstair;
+    }
+
+    public boolean isMotel() {
+        return isMotel;
+    }
+
+    public void setMotel(boolean motel) {
+        isMotel = motel;
     }
 
     public boolean isStatus() {

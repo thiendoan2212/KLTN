@@ -1,16 +1,5 @@
 package com.kltn.motelservice.model;
 
-import com.kltn.motelservice.entity.District;
-import com.kltn.motelservice.entity.Post;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class AccomodationDTO {
     private long id;
 
@@ -32,6 +21,8 @@ public class AccomodationDTO {
 
     private boolean isUpstair;
 
+    private boolean isMotel;
+
     private boolean status;
 
     private double xCoordinate;
@@ -46,8 +37,8 @@ public class AccomodationDTO {
     }
 
     public AccomodationDTO(long id, double acreage, String address, double electricPrice, double waterPrice, boolean isInternet,
-                           boolean isToilet, double price, boolean isMezzanine, boolean isUpstair, boolean status,
-                           double xCoordinate, double yCoordinate, Long idPost, Long idDistrict) {
+                           boolean isToilet, double price, boolean isMezzanine, boolean isUpstair, boolean isMotel,
+                           boolean status, double xCoordinate, double yCoordinate, Long idPost, Long idDistrict) {
         this.id = id;
         this.acreage = acreage;
         this.address = address;
@@ -58,6 +49,7 @@ public class AccomodationDTO {
         this.price = price;
         this.isMezzanine = isMezzanine;
         this.isUpstair = isUpstair;
+        this.isMotel = isMotel;
         this.status = status;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
@@ -151,6 +143,14 @@ public class AccomodationDTO {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public boolean isMotel() {
+        return isMotel;
+    }
+
+    public void setMotel(boolean motel) {
+        isMotel = motel;
     }
 
     public double getxCoordinate() {

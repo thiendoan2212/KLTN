@@ -17,11 +17,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/api")
 public class ImageController {
     @Autowired
     private ImageServiceImpl imageService;
 
-    @PostMapping("/post/{idPost}/uploadImage")
+    @PostMapping("/uploadImage/post/{idPost}")
     public ImageDTO uploadFile(@PathVariable Long idPost, @RequestParam("file") MultipartFile file) {
         Image image = imageService.storeImage(idPost, file);
 
@@ -33,7 +34,7 @@ public class ImageController {
         return new ImageDTO(image.getId(), image.getFileName(), file.getContentType(), fileDownloadUri, idPost);
     }
 
-    @PostMapping("/post/{idPost}/uploadMultipleFiles")
+    @PostMapping("/uploadMultipleFiles/post/{idPost}")
     public List<ImageDTO> uploadMultipleFiles(@PathVariable Long idPost, @RequestParam("files") MultipartFile[] files) {
         return Arrays.asList(files)
                 .stream()
@@ -52,7 +53,7 @@ public class ImageController {
                 .body(new ByteArrayResource(image.getData()));
     }
 
-    @GetMapping("/post/{idPost}/image")
+    @GetMapping("/image/post/{idPost}")
     public List<String> getImageByIdPost(@PathVariable Long idPost) {
         return imageService.getImageByIdPost(idPost);
     }

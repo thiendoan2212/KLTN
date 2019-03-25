@@ -1,10 +1,5 @@
 package com.kltn.motelservice.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
@@ -13,10 +8,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "post")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,13 +19,16 @@ public class Post {
     @NotBlank
     private String content;
 
-    private boolean isVerify;
+    private boolean isApproved;
 
     private LocalDateTime lastUpdate;
 
+    private boolean isNotApproved;
+
     private boolean isDelete;
 
-    @NotBlank
+    private LocalDateTime createAt;
+
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "post",
             orphanRemoval = true)
@@ -45,7 +39,6 @@ public class Post {
             orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-    @NotBlank
     @OneToOne(cascade = CascadeType.ALL,
             mappedBy = "post",
             fetch = FetchType.LAZY,
@@ -59,13 +52,15 @@ public class Post {
     public Post() {
     }
 
-    public Post(@NotBlank String title, @NotBlank String content, boolean isVerify, LocalDateTime lastUpdate,
-                boolean isDelete, @NotBlank List<Image> images, List<Comment> comments, @NotBlank Accomodation accomodation, User user) {
+    public Post(@NotBlank String title, @NotBlank String content, boolean isApproved, LocalDateTime lastUpdate, boolean isNotApproved,
+                boolean isDelete, LocalDateTime createAt, List<Image> images, List<Comment> comments, Accomodation accomodation, User user) {
         this.title = title;
         this.content = content;
-        this.isVerify = isVerify;
+        this.isApproved = isApproved;
         this.lastUpdate = lastUpdate;
+        this.isNotApproved = isNotApproved;
         this.isDelete = isDelete;
+        this.createAt = createAt;
         this.images = images;
         this.comments = comments;
         this.accomodation = accomodation;
@@ -96,12 +91,20 @@ public class Post {
         this.content = content;
     }
 
-    public boolean isVerify() {
-        return isVerify;
+    public boolean isApproved() {
+        return isApproved;
     }
 
-    public void setVerify(boolean verify) {
-        isVerify = verify;
+    public void setApproved(boolean approved) {
+        isApproved = approved;
+    }
+
+    public boolean isNotApproved() {
+        return isNotApproved;
+    }
+
+    public void setNotApproved(boolean notApproved) {
+        isNotApproved = notApproved;
     }
 
     public LocalDateTime getLastUpdate() {
@@ -118,6 +121,14 @@ public class Post {
 
     public void setDelete(boolean delete) {
         isDelete = delete;
+    }
+
+    public LocalDateTime getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = createAt;
     }
 
     public List<Image> getImages() {

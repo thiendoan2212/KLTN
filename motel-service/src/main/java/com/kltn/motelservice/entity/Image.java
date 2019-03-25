@@ -1,19 +1,11 @@
 package com.kltn.motelservice.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "image")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Image {
     @Id
     @GeneratedValue(generator = "uuid")
