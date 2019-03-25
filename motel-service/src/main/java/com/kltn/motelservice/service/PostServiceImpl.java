@@ -1,16 +1,17 @@
 package com.kltn.motelservice.service;
 
+import com.kltn.motelservice.entity.Accomodation;
+import com.kltn.motelservice.entity.District;
 import com.kltn.motelservice.entity.Post;
 import com.kltn.motelservice.entity.User;
 import com.kltn.motelservice.exception.PostException;
 import com.kltn.motelservice.exception.UserException;
 import com.kltn.motelservice.model.AccomodationDTO;
 import com.kltn.motelservice.model.PostDTO;
+import com.kltn.motelservice.repository.DistrictRepository;
 import com.kltn.motelservice.repository.PostRepository;
 import com.kltn.motelservice.repository.UserRepository;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,9 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    DistrictRepository districtRepository;
 
     ModelMapper modelMapper = new ModelMapper();
 
@@ -93,10 +97,16 @@ public class PostServiceImpl implements PostService {
                 post.setDelete(false);
                 post.setApproved(false);
                 post.setNotApproved(false);
+                Accomodation accomodation = modelMapper.map(postDTO.getAccomodationDTO(), Accomodation.class);
+                accomodation.setPost(post);
+                Optional<District> district = districtRepository.findById(postDTO.getAccomodationDTO().getIdDistrict());
+                accomodation.setDistrict(district.get());
+                post.setAccomodation(accomodation);
+
                 postRepository.save(post);
                 postDTO = modelMapper.map(post, PostDTO.class);
+                postDTO.setAccomodationDTO(modelMapper.map(accomodation, AccomodationDTO.class));
                 postDTO.setUsername(post.getUser().getUsername());
-
                 return postDTO;
             } else
                 throw new UserException("Không tìm thấy user " + postDTO.getUsername());
@@ -112,13 +122,24 @@ public class PostServiceImpl implements PostService {
         try {
             Optional<Post> post = postRepository.findById(id);
             if (post.isPresent()) {
-                post.get().setTitle(postDTO.getTitle());
-                post.get().setContent(postDTO.getContent());
+                postDTO.setId(id);
+                postDTO.setCreateAt(post.get().getCreateAt());
+                //Tạo post mới từ postDTO
+                post = Optional.of(modelMapper.map(postDTO, Post.class));
+                Optional<User> user = userRepository.findByUsername(postDTO.getUsername());
+                post.get().setUser(user.get());
+                //Tạo accomodation từ postDTO
+                Accomodation accomodation = modelMapper.map(postDTO.getAccomodationDTO(), Accomodation.class);
+                accomodation.setPost(post.get());
+                accomodation.setId(postDTO.getAccomodationDTO().getId());
+                Optional<District> district = districtRepository.findById(postDTO.getAccomodationDTO().getIdDistrict());
+                accomodation.setDistrict(district.get());
                 post.get().setLastUpdate(LocalDateTime.now());
-                post.get().setApproved(postDTO.isApproved());
-                post.get().setNotApproved(postDTO.isNotApproved());
+                post.get().setAccomodation(accomodation);
                 postRepository.save(post.get());
                 postDTO = modelMapper.map(post.get(), PostDTO.class);
+                postDTO.setAccomodationDTO(modelMapper.map(post.get().getAccomodation(), AccomodationDTO.class));
+                postDTO.setUsername(post.get().getUser().getUsername());
 
                 return postDTO;
             } else
@@ -135,8 +156,8 @@ public class PostServiceImpl implements PostService {
         try {
             Optional<Post> post = postRepository.findById(id);
             if (post.isPresent()) {
-                postRepository.delete(post.get());
-                return "Đã xóa post id" + id;
+                post.get().setDelete(true);
+                return "Đã xóa post id " + id;
             } else
                 throw new PostException("Không tìm thấy post id " + id);
 //                logger.error("Không tìm thấy post id " + id);

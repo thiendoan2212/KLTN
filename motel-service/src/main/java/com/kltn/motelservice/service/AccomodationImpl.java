@@ -30,10 +30,10 @@ public class AccomodationImpl implements AccomodationService {
     @Override
     public AccomodationDTO createAccomodation(AccomodationDTO accomodationDTO) {
         try {
-            Accomodation accomodation = modelMapper.map(accomodationDTO, Accomodation.class);
             Optional<Post> post = postRepository.findById(accomodationDTO.getIdPost());
             Optional<District> district = districtRepository.findById(accomodationDTO.getIdDistrict());
             if (post.isPresent()) {
+                Accomodation accomodation = modelMapper.map(accomodationDTO, Accomodation.class);
                 accomodation.setPost(post.get());
                 accomodation.setDistrict(district.get());
             } else {
@@ -49,7 +49,17 @@ public class AccomodationImpl implements AccomodationService {
     @Override
     public AccomodationDTO updateAccomodation(Long id, AccomodationDTO accomodationDTO) {
         try {
+            Optional<Accomodation> accomodation = accomodationRepository.findById(id);
+            if (accomodation.isPresent()) {
+                Optional<District> district = districtRepository.findById(accomodationDTO.getIdDistrict());
+                accomodation = Optional.of(modelMapper.map(accomodationDTO, Accomodation.class));
+                accomodation.get().setDistrict(district.get());
+                accomodationRepository.save(accomodation.get());
 
+                return accomodationDTO;
+            } else {
+                throw new AccomodationException("Không tìm thấy accomodation id " + accomodationDTO.getId());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -59,7 +69,12 @@ public class AccomodationImpl implements AccomodationService {
     @Override
     public String deleteAccomodation(Long id) {
         try {
-
+            Optional<Accomodation> accomodation = accomodationRepository.findById(id);
+            if (accomodation.isPresent()) {
+                accomodationRepository.delete(accomodation.get());
+            } else {
+                throw new AccomodationException("Không tìm thấy accomodation id " + id);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

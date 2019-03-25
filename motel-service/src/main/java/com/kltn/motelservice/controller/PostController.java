@@ -49,6 +49,4 @@ public class PostController {
     public String deletePost(@PathVariable Long id) {
         return postService.deletePost(id);
     }
-
-
 }
