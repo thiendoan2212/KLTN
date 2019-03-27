@@ -3,6 +3,8 @@ package com.kltn.motelservice.service;
 import com.kltn.motelservice.entity.Image;
 import com.kltn.motelservice.entity.Post;
 import com.kltn.motelservice.exception.ImageException;
+import com.kltn.motelservice.exception.PostException;
+import com.kltn.motelservice.model.ImageDTO;
 import com.kltn.motelservice.repository.ImageRepository;
 import com.kltn.motelservice.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,26 @@ public class ImageServiceImpl implements ImageService {
 
     @Autowired
     PostRepository postRepository;
+
+    @Override
+    public ImageDTO uploadFile(Long idPost, MultipartFile file) {
+        Optional<Post> post = postRepository.findById(idPost);
+        if (post.isPresent()) {
+            List<Image> images = imageRepository.findImageByPost(post.get());
+            for (Image image : images) {
+                imageRepository.delete(image);
+            }
+            Image image = storeImage(idPost, file);
+
+            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/api/image/")
+                    .path(image.getId())
+                    .toUriString();
+            return new ImageDTO(image.getId(), image.getFileName(), file.getContentType(), fileDownloadUri, idPost);
+        } else {
+            throw new PostException("Không tìm tháy post id " + idPost);
+        }
+    }
 
     @Override
     public Image storeImage(Long idPost, MultipartFile file) {
@@ -53,8 +75,8 @@ public class ImageServiceImpl implements ImageService {
         Optional<Post> post = postRepository.findById(idPost);
         List<Image> images = imageRepository.findImageByPost(post.get());
         for (Image image : images)
-             Uri.add(ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/image/")
+            Uri.add(ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/api/image/")
                     .path(image.getId())
                     .toUriString());
         return Uri;

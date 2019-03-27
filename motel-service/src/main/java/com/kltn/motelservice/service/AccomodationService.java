@@ -2,10 +2,9 @@ package com.kltn.motelservice.service;
 
 import com.kltn.motelservice.model.AccomodationDTO;
 
+import java.util.List;
+
 public interface AccomodationService {
-    AccomodationDTO createAccomodation(AccomodationDTO accomodationDTO);
-
-    AccomodationDTO updateAccomodation(Long id, AccomodationDTO accomodationDTO);
-
-    String deleteAccomodation(Long id);
+    List<AccomodationDTO> searchAccomodation(double acreageMin, double acreageMax, double priceMin,
+                                             double priceMax, boolean isMotel, Long idDistrict);
 }

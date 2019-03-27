@@ -7,5 +7,5 @@ public interface CommentService {
 
     CommentDTO updateComment(Long id, CommentDTO commentDTO);
 
-    void deleteComment(Long id);
+    String deleteComment(Long id);
 }

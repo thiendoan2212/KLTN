@@ -24,14 +24,7 @@ public class ImageController {
 
     @PostMapping("/uploadImage/post/{idPost}")
     public ImageDTO uploadFile(@PathVariable Long idPost, @RequestParam("file") MultipartFile file) {
-        Image image = imageService.storeImage(idPost, file);
-
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(image.getId())
-                .toUriString();
-
-        return new ImageDTO(image.getId(), image.getFileName(), file.getContentType(), fileDownloadUri, idPost);
+        return imageService.uploadFile(idPost, file);
     }
 
     @PostMapping("/uploadMultipleFiles/post/{idPost}")

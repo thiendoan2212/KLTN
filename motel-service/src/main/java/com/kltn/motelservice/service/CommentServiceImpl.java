@@ -4,6 +4,7 @@ import com.kltn.motelservice.entity.Comment;
 import com.kltn.motelservice.entity.Post;
 import com.kltn.motelservice.entity.User;
 import com.kltn.motelservice.exception.CommentException;
+import com.kltn.motelservice.exception.PostException;
 import com.kltn.motelservice.model.CommentDTO;
 import com.kltn.motelservice.repository.CommentRepository;
 import com.kltn.motelservice.repository.PostRepository;
@@ -27,24 +28,25 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     UserRepository userRepository;
 
-    private ModelMapper modelMapper = new ModelMapper();
+    ModelMapper modelMapper = new ModelMapper();
 
     @Override
     public CommentDTO createComment(CommentDTO commentDTO) {
         try {
-            if (commentDTO == null)
-                throw new NullPointerException("Đối tượng rỗng");
-            else {
+            Optional<Post> post = postRepository.findById(commentDTO.getIdPost());
+            if (post.isPresent()) {
                 Comment comment = new Comment();
                 comment.setContent(commentDTO.getContent());
                 comment.setLastUpdate(LocalDateTime.now());
-                Optional<Post> post = postRepository.findById(commentDTO.getIdPost());
                 Optional<User> user = userRepository.findByUsername(commentDTO.getUsername());
                 comment.setPost(post.get());
                 comment.setUser(user.get());
                 commentRepository.save(comment);
+                commentDTO = modelMapper.map(comment, CommentDTO.class);
+                commentDTO.setUsername(comment.getUser().getUsername());
                 return commentDTO;
-            }
+            } else
+                throw new PostException("Không tồn tại post id " + commentDTO.getIdPost());
         } catch (Exception e) {
             throw new CommentException("Xảy ra lỗi khi thêm bình luận ", e);
         }
@@ -53,32 +55,31 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentDTO updateComment(Long id, CommentDTO commentDTO) {
         try {
-            if (commentDTO == null)
-                throw new NullPointerException("Đối tượng rỗng");
+            Optional<Comment> comment = commentRepository.findById(id);
+            if (!comment.isPresent())
+                throw new CommentException("Comment id " + id + "không tồn tại!!!");
             else {
-                Optional<Comment> comment = commentRepository.findById(id);
-                if (!comment.isPresent())
-                    throw new CommentException("Comment id " + id + "không tồn tại!!!");
-                else {
-                    commentDTO.setId(id);
-                    comment.get().setContent(commentDTO.getContent());
-                    commentRepository.save(comment.get());
-                }
+                commentDTO.setId(id);
+                comment.get().setContent(commentDTO.getContent());
+                comment.get().setLastUpdate(LocalDateTime.now());
+                commentRepository.save(comment.get());
+                commentDTO = modelMapper.map(comment.get(), CommentDTO.class);
+                return commentDTO;
             }
-            return commentDTO;
         } catch (Exception e) {
             throw new CommentException("Xảy ra lỗi khi sửa bình luận ", e);
         }
     }
 
     @Override
-    public void deleteComment(Long id) {
+    public String deleteComment(Long id) {
         try {
             Optional<Comment> comment = commentRepository.findById(id);
             if (!comment.isPresent())
                 throw new CommentException("Comment id " + id + "không tồn tại!!!");
             else {
                 commentRepository.delete(comment.get());
+                return "Đã xóa comment id " + id;
             }
         } catch (Exception e) {
             throw new CommentException("Xảy ra lỗi khi xóa bình luận ", e);

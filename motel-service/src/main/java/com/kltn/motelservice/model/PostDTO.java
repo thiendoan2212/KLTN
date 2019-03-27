@@ -1,6 +1,7 @@
 package com.kltn.motelservice.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class PostDTO {
     private long id;
@@ -23,11 +24,13 @@ public class PostDTO {
 
     private AccomodationDTO accomodationDTO;
 
+    private List<CommentDTO> commentDTOS;
+
     public PostDTO() {
     }
 
     public PostDTO(long id, String title, String content, boolean isApproved, boolean isNotApproved, LocalDateTime createAt,
-                   LocalDateTime lastUpdate, boolean isDelete, String username, AccomodationDTO accomodationDTO) {
+                   LocalDateTime lastUpdate, boolean isDelete, String username, AccomodationDTO accomodationDTO, List<CommentDTO> commentDTOS) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -38,6 +41,7 @@ public class PostDTO {
         this.isDelete = isDelete;
         this.username = username;
         this.accomodationDTO = accomodationDTO;
+        this.commentDTOS = commentDTOS;
     }
 
     public long getId() {
@@ -118,5 +122,13 @@ public class PostDTO {
 
     public void setAccomodationDTO(AccomodationDTO accomodationDTO) {
         this.accomodationDTO = accomodationDTO;
+    }
+
+    public List<CommentDTO> getCommentDTOS() {
+        return commentDTOS;
+    }
+
+    public void setCommentDTOS(List<CommentDTO> commentDTOS) {
+        this.commentDTOS = commentDTOS;
     }
 }

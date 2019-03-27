@@ -29,7 +29,9 @@ public class AccomodationDTO {
 
     private double yCoordinate;
 
-    private Long idPost;
+//    private Long idPost;
+
+    private PostDTO postDTO;
 
     private Long idDistrict;
 
@@ -38,7 +40,7 @@ public class AccomodationDTO {
 
     public AccomodationDTO(long id, double acreage, String address, double electricPrice, double waterPrice, boolean isInternet,
                            boolean isToilet, double price, boolean isMezzanine, boolean isUpstair, boolean isMotel,
-                           boolean status, double xCoordinate, double yCoordinate, Long idPost, Long idDistrict) {
+                           boolean status, double xCoordinate, double yCoordinate, PostDTO postDTO, Long idDistrict) {
         this.id = id;
         this.acreage = acreage;
         this.address = address;
@@ -53,7 +55,7 @@ public class AccomodationDTO {
         this.status = status;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
-        this.idPost = idPost;
+        this.postDTO = postDTO;
         this.idDistrict = idDistrict;
     }
 
@@ -169,12 +171,12 @@ public class AccomodationDTO {
         this.yCoordinate = yCoordinate;
     }
 
-    public Long getIdPost() {
-        return idPost;
+    public PostDTO getPostDTO() {
+        return postDTO;
     }
 
-    public void setIdPost(Long idPost) {
-        this.idPost = idPost;
+    public void setPostDTO(PostDTO postDTO) {
+        this.postDTO = postDTO;
     }
 
     public Long getIdDistrict() {

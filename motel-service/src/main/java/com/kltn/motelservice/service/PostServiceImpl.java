@@ -1,12 +1,10 @@
 package com.kltn.motelservice.service;
 
-import com.kltn.motelservice.entity.Accomodation;
-import com.kltn.motelservice.entity.District;
-import com.kltn.motelservice.entity.Post;
-import com.kltn.motelservice.entity.User;
+import com.kltn.motelservice.entity.*;
 import com.kltn.motelservice.exception.PostException;
 import com.kltn.motelservice.exception.UserException;
 import com.kltn.motelservice.model.AccomodationDTO;
+import com.kltn.motelservice.model.CommentDTO;
 import com.kltn.motelservice.model.PostDTO;
 import com.kltn.motelservice.repository.DistrictRepository;
 import com.kltn.motelservice.repository.PostRepository;
@@ -73,6 +71,15 @@ public class PostServiceImpl implements PostService {
             if (post.isPresent()) {
                 PostDTO postDTO = modelMapper.map(post.get(), PostDTO.class);
                 postDTO.setAccomodationDTO(modelMapper.map(post.get().getAccomodation(), AccomodationDTO.class));
+                List<CommentDTO> commentDTOS = new ArrayList<>();
+                CommentDTO commentDTO = new CommentDTO();
+                for (Comment comment : post.get().getComments()) {
+                    commentDTO = modelMapper.map(comment, CommentDTO.class);
+                    commentDTO.setUsername(comment.getUser().getUsername());
+                    commentDTOS.add(commentDTO);
+                }
+                postDTO.setCommentDTOS(commentDTOS);
+
                 return postDTO;
             } else
                 throw new PostException("Post id " + id + " không tồn tại");
@@ -88,6 +95,7 @@ public class PostServiceImpl implements PostService {
         try {
             Optional<User> user = userRepository.findByUsername(postDTO.getUsername());
             if (user.isPresent()) {
+                //Gán value cho post
                 Post post = new Post();
                 post.setTitle(postDTO.getTitle());
                 post.setContent(postDTO.getContent());
@@ -97,6 +105,7 @@ public class PostServiceImpl implements PostService {
                 post.setDelete(false);
                 post.setApproved(false);
                 post.setNotApproved(false);
+                //Gán value cho accomodation
                 Accomodation accomodation = modelMapper.map(postDTO.getAccomodationDTO(), Accomodation.class);
                 accomodation.setPost(post);
                 Optional<District> district = districtRepository.findById(postDTO.getAccomodationDTO().getIdDistrict());
