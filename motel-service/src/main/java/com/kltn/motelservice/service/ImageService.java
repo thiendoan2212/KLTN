@@ -2,6 +2,7 @@ package com.kltn.motelservice.service;
 
 import com.kltn.motelservice.entity.Image;
 import com.kltn.motelservice.model.ImageDTO;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

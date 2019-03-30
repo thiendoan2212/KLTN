@@ -11,9 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AccomodationServiceImpl implements AccomodationService {
@@ -30,20 +28,24 @@ public class AccomodationServiceImpl implements AccomodationService {
 
 
     @Override
-    public List<AccomodationDTO> searchAccomodation(double acreageStart, double acreageEnd, double priceStart, double priceEnd, boolean isMotel, Long idDistrict) {
-        Optional<District> district = districtRepository.findById(idDistrict);
-        List<Accomodation> accomodations = accomodationRepository.findAccomodationsByAcreageBetweenAndMotelAndDistrict(acreageStart, acreageEnd,
-                isMotel, district.get());
-//        List<Accomodation> accomodations = accomodationRepository.findAccomodationByAcreageBetween(acreageStart, acreageEnd);
-        List<AccomodationDTO> accomodationDTOS = new ArrayList<>();
-        for (Accomodation accomodation : accomodations) {
-            AccomodationDTO accomodationDTO = modelMapper.map(accomodation, AccomodationDTO.class);
-            PostDTO postDTO = modelMapper.map(accomodation.getPost(), PostDTO.class);
-            postDTO.setUsername(accomodation.getPost().getUser().getUsername());
-            accomodationDTO.setPostDTO(postDTO);
-            accomodationDTOS.add(accomodationDTO);
-        }
-
-        return accomodationDTOS;
+    public List<AccomodationDTO> searchAccomodation(boolean bool) {
+//        Optional<District> district = districtRepository.findById(idDistrict);
+////        List<Accomodation> accomodations = accomodationRepository.findAccomodationsByAcreageBetweenAndMotelAndDistrict(acreageStart, acreageEnd,
+////                isMotel, district.get());
+////        List<Accomodation> accomodations = accomodationRepository.findAccomodationByAcreageBetween(acreageStart, acreageEnd);
+//        List<AccomodationDTO> accomodationDTOS = new ArrayList<>();
+////        for (Accomodation accomodation : accomodations) {
+////            AccomodationDTO accomodationDTO = modelMapper.map(accomodation, AccomodationDTO.class);
+////            PostDTO postDTO = modelMapper.map(accomodation.getPost(), PostDTO.class);
+////            postDTO.setUsername(accomodation.getPost().getUser().getUsername());
+////            accomodationDTO.setPostDTO(postDTO);
+////            accomodationDTOS.add(accomodationDTO);
+////        }
+//        List<Accomodation> accomodations = accomodationRepository.findAllByMotel(true);
+//        List<AccomodationDTO> accomodationDTOS = new ArrayList<>();
+//        for (Accomodation accomodation : accomodations) {
+//            accomodationDTOS.add(modelMapper.map(accomodation, AccomodationDTO.class));
+//        }
+        return null;
     }
 }

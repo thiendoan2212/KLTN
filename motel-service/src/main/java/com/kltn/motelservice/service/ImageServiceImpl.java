@@ -44,6 +44,7 @@ public class ImageServiceImpl implements ImageService {
         } else {
             throw new PostException("Không tìm tháy post id " + idPost);
         }
+//        return null;
     }
 
     @Override

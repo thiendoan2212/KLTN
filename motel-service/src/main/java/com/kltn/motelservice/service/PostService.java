@@ -7,6 +7,8 @@ import java.util.List;
 public interface PostService {
     List<PostDTO> getAllPost();
 
+    List<PostDTO> getAllPostApproved();
+
     List<PostDTO> getPostByUsername(String username);
 
     PostDTO getPostById(Long id);
@@ -15,7 +17,9 @@ public interface PostService {
 
     PostDTO updatePost(Long id, PostDTO postDTO);
 
-    String deletePost(Long id);
+    PostDTO deletePost(Long id);
+
+    String deletePostByAdmin(Long id);
 
     PostDTO ApprovePost(Long id, boolean isApprove);
 }

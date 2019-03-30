@@ -13,6 +13,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +35,9 @@ public class PostServiceImpl implements PostService {
     @Autowired
     DistrictRepository districtRepository;
 
+    @Autowired
+    ImageServiceImpl imageService;
+
     ModelMapper modelMapper = new ModelMapper();
 
     @Override
@@ -37,6 +46,34 @@ public class PostServiceImpl implements PostService {
             List<PostDTO> postDTOS = new ArrayList<>();
             List<Post> posts = postRepository.findAll();
             addAccomodation(posts, postDTOS);
+
+            return postDTOS;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<PostDTO> getAllPostApproved() {
+        try {
+//            EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("PostApproved");
+//            EntityManager em = emfactory.createEntityManager();
+//            CriteriaBuilder cb = em.getCriteriaBuilder();
+//            CriteriaQuery<Post> cq = cb.createQuery(Post.class);
+//            Root<Post> p = cq.from(Post.class);
+//            cq.select(Entity);
+////            q.select(p).where(cb.p.get("isApproved"), ));
+            EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("PostApproved");
+            EntityManager em = emfactory.createEntityManager();
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Post> query = cb.createQuery(Post.class);
+            Root<Post> post = query.from(Post.class);
+
+            List<PostDTO> postDTOS = new ArrayList<>();
+
+//            List<Post> posts = postRepository.findPostByApproved(true);
+//            addAccomodation(posts, postDTOS);
 
             return postDTOS;
         } catch (Exception e) {
@@ -67,17 +104,21 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDTO getPostById(Long id) {
         try {
-            Optional<Post> post = postRepository.findById(id);
+            Optional<Post> post = postRepository.findPostById(id);
             if (post.isPresent()) {
                 PostDTO postDTO = modelMapper.map(post.get(), PostDTO.class);
                 postDTO.setAccomodationDTO(modelMapper.map(post.get().getAccomodation(), AccomodationDTO.class));
+                postDTO.setUsername(post.get().getUser().getUsername());
                 List<CommentDTO> commentDTOS = new ArrayList<>();
-                CommentDTO commentDTO = new CommentDTO();
+                CommentDTO commentDTO;
                 for (Comment comment : post.get().getComments()) {
                     commentDTO = modelMapper.map(comment, CommentDTO.class);
                     commentDTO.setUsername(comment.getUser().getUsername());
                     commentDTOS.add(commentDTO);
                 }
+                List<String> images;
+                images = imageService.getImageByIdPost(id);
+                postDTO.setImageStrings(images);
                 postDTO.setCommentDTOS(commentDTOS);
 
                 return postDTO;
@@ -97,14 +138,13 @@ public class PostServiceImpl implements PostService {
             if (user.isPresent()) {
                 //Gán value cho post
                 Post post = new Post();
-                post.setTitle(postDTO.getTitle());
-                post.setContent(postDTO.getContent());
+                post = modelMapper.map(postDTO, Post.class);
                 post.setCreateAt(LocalDateTime.now());
                 post.setLastUpdate(LocalDateTime.now());
                 post.setUser(user.get());
-                post.setDelete(false);
-                post.setApproved(false);
-                post.setNotApproved(false);
+//                post.setDelete(false);
+//                post.setApproved(false);
+//                post.setNotApproved(false);
                 //Gán value cho accomodation
                 Accomodation accomodation = modelMapper.map(postDTO.getAccomodationDTO(), Accomodation.class);
                 accomodation.setPost(post);
@@ -132,6 +172,7 @@ public class PostServiceImpl implements PostService {
             Optional<Post> post = postRepository.findById(id);
             if (post.isPresent()) {
                 postDTO.setId(id);
+                postDTO.getAccomodationDTO().setId(post.get().getAccomodation().getId());
                 postDTO.setCreateAt(post.get().getCreateAt());
                 //Tạo post mới từ postDTO
                 post = Optional.of(modelMapper.map(postDTO, Post.class));
@@ -145,6 +186,7 @@ public class PostServiceImpl implements PostService {
                 accomodation.setDistrict(district.get());
                 post.get().setLastUpdate(LocalDateTime.now());
                 post.get().setAccomodation(accomodation);
+
                 postRepository.save(post.get());
                 postDTO = modelMapper.map(post.get(), PostDTO.class);
                 postDTO.setAccomodationDTO(modelMapper.map(post.get().getAccomodation(), AccomodationDTO.class));
@@ -161,12 +203,30 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public String deletePost(Long id) {
+    public PostDTO deletePost(Long id) {
         try {
             Optional<Post> post = postRepository.findById(id);
             if (post.isPresent()) {
-                post.get().setDelete(true);
-                return "Đã xóa post id " + id;
+                post.get().setDel(true);
+                postRepository.save(post.get());
+                PostDTO postDTO = modelMapper.map(post.get(), PostDTO.class);
+
+                return postDTO;
+            } else
+                throw new PostException("Không tìm thấy post id " + id);
+//                logger.error("Không tìm thấy post id " + id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String deletePostByAdmin(Long id) {
+        try {
+            Optional<Post> post = postRepository.findById(id);
+            if (post.isPresent()) {
+                postRepository.delete(post.get());
+                return "Admin đã xóa post id " + id;
             } else
                 throw new PostException("Không tìm thấy post id " + id);
 //                logger.error("Không tìm thấy post id " + id);
@@ -203,6 +263,9 @@ public class PostServiceImpl implements PostService {
         for (Post post : posts) {
             PostDTO postDTO = modelMapper.map(post, PostDTO.class);
             postDTO.setAccomodationDTO(modelMapper.map(post.getAccomodation(), AccomodationDTO.class));
+            postDTO.setUsername(post.getUser().getUsername());
+            List<String> images = imageService.getImageByIdPost(post.getId());
+            postDTO.setImageStrings(images);
             postDTOS.add(postDTO);
         }
     }

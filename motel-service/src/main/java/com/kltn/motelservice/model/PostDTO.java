@@ -10,15 +10,15 @@ public class PostDTO {
 
     private String content;
 
-    private boolean isApproved;
+    private boolean approved;
 
-    private boolean isNotApproved;
+    private boolean notApproved;
 
     private LocalDateTime createAt;
 
     private LocalDateTime lastUpdate;
 
-    private boolean isDelete;
+    private boolean del;
 
     private String username;
 
@@ -26,22 +26,25 @@ public class PostDTO {
 
     private List<CommentDTO> commentDTOS;
 
+    private List<String> imageStrings;
+
     public PostDTO() {
     }
 
-    public PostDTO(long id, String title, String content, boolean isApproved, boolean isNotApproved, LocalDateTime createAt,
-                   LocalDateTime lastUpdate, boolean isDelete, String username, AccomodationDTO accomodationDTO, List<CommentDTO> commentDTOS) {
+    public PostDTO(long id, String title, String content, boolean approved, boolean notApproved, LocalDateTime createAt, LocalDateTime lastUpdate,
+                   boolean del, String username, AccomodationDTO accomodationDTO, List<CommentDTO> commentDTOS, List<String> imageStrings) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.isApproved = isApproved;
-        this.isNotApproved = isNotApproved;
+        this.approved = approved;
+        this.notApproved = notApproved;
         this.createAt = createAt;
         this.lastUpdate = lastUpdate;
-        this.isDelete = isDelete;
+        this.del = del;
         this.username = username;
         this.accomodationDTO = accomodationDTO;
         this.commentDTOS = commentDTOS;
+        this.imageStrings = imageStrings;
     }
 
     public long getId() {
@@ -69,19 +72,19 @@ public class PostDTO {
     }
 
     public boolean isApproved() {
-        return isApproved;
+        return approved;
     }
 
     public void setApproved(boolean approved) {
-        isApproved = approved;
+        this.approved = approved;
     }
 
     public boolean isNotApproved() {
-        return isNotApproved;
+        return notApproved;
     }
 
     public void setNotApproved(boolean notApproved) {
-        isNotApproved = notApproved;
+        this.notApproved = notApproved;
     }
 
     public LocalDateTime getCreateAt() {
@@ -100,12 +103,12 @@ public class PostDTO {
         this.lastUpdate = lastUpdate;
     }
 
-    public boolean isDelete() {
-        return isDelete;
+    public boolean isDel() {
+        return del;
     }
 
-    public void setDelete(boolean delete) {
-        isDelete = delete;
+    public void setDel(boolean del) {
+        this.del = del;
     }
 
     public String getUsername() {
@@ -130,5 +133,13 @@ public class PostDTO {
 
     public void setCommentDTOS(List<CommentDTO> commentDTOS) {
         this.commentDTOS = commentDTOS;
+    }
+
+    public List<String> getImageStrings() {
+        return imageStrings;
+    }
+
+    public void setImageStrings(List<String> imageStrings) {
+        this.imageStrings = imageStrings;
     }
 }

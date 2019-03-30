@@ -12,7 +12,9 @@ import java.util.List;
 public interface AccomodationRepository extends JpaRepository<Accomodation, Long> {
     //    List<Accomodation> findAccomodationByAcreageBetweenAndPriceBetweenAndMotelAndDistrict(double acreageStart, double acreage, double priceMin,
 //                                                                                          double priceMax, boolean isMotel, District district);
-    List<Accomodation> findAccomodationByAcreageBetween(double acreageStart, double acreageEnd);
+//    List<Accomodation> findAccomodationByAcreageBetween(double acreageStart, double acreageEnd);
 
-    List<Accomodation> findAccomodationsByAcreageBetweenAndMotelAndDistrict(double acreageStart, double acreage, @Param("Motel") boolean isMotel, @Param("District") District district);
+//    List<Accomodation> findAccomodationsByAcreageBetweenAndMotelAndDistrict(double acreageStart, double acreage, @Param("Motel") boolean isMotel, @Param("District") District district);
+    List<Accomodation> findAllByStatus(boolean bool);
+
 }

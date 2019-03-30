@@ -18,8 +18,7 @@ public class AccomodationController {
     AccomodationServiceImpl accomodationService;
 
     @GetMapping("/accomodation/search")
-    public List<AccomodationDTO> searchAccomodation(@RequestBody SearchForm searchForm) {
-        return accomodationService.searchAccomodation(searchForm.getAcreageStart(), searchForm.getAcreageEnd(), searchForm.getPriceStart(),
-                searchForm.getPriceEnd(), searchForm.isMotel(), searchForm.getIdPost());
+    public List<AccomodationDTO> searchAccomodation() {
+        return accomodationService.searchAccomodation(true);
     }
 }

@@ -16,16 +16,16 @@ public class Post {
     @NotBlank
     private String title;
 
-    @NotBlank
+    @Lob
     private String content;
 
-    private boolean isApproved;
+    private boolean approved;
 
     private LocalDateTime lastUpdate;
 
-    private boolean isNotApproved;
+    private boolean notApproved;
 
-    private boolean isDelete;
+    private boolean del;
 
     private LocalDateTime createAt;
 
@@ -52,14 +52,14 @@ public class Post {
     public Post() {
     }
 
-    public Post(@NotBlank String title, @NotBlank String content, boolean isApproved, LocalDateTime lastUpdate, boolean isNotApproved,
-                boolean isDelete, LocalDateTime createAt, List<Image> images, List<Comment> comments, Accomodation accomodation, User user) {
+    public Post(@NotBlank String title, String content, boolean approved, LocalDateTime lastUpdate, boolean notApproved, boolean del,
+                LocalDateTime createAt, List<Image> images, List<Comment> comments, Accomodation accomodation, User user) {
         this.title = title;
         this.content = content;
-        this.isApproved = isApproved;
+        this.approved = approved;
         this.lastUpdate = lastUpdate;
-        this.isNotApproved = isNotApproved;
-        this.isDelete = isDelete;
+        this.notApproved = notApproved;
+        this.del = del;
         this.createAt = createAt;
         this.images = images;
         this.comments = comments;
@@ -92,19 +92,11 @@ public class Post {
     }
 
     public boolean isApproved() {
-        return isApproved;
+        return approved;
     }
 
     public void setApproved(boolean approved) {
-        isApproved = approved;
-    }
-
-    public boolean isNotApproved() {
-        return isNotApproved;
-    }
-
-    public void setNotApproved(boolean notApproved) {
-        isNotApproved = notApproved;
+        this.approved = approved;
     }
 
     public LocalDateTime getLastUpdate() {
@@ -115,12 +107,20 @@ public class Post {
         this.lastUpdate = lastUpdate;
     }
 
-    public boolean isDelete() {
-        return isDelete;
+    public boolean isNotApproved() {
+        return notApproved;
     }
 
-    public void setDelete(boolean delete) {
-        isDelete = delete;
+    public void setNotApproved(boolean notApproved) {
+        this.notApproved = notApproved;
+    }
+
+    public boolean isDel() {
+        return del;
+    }
+
+    public void setDel(boolean del) {
+        this.del = del;
     }
 
     public LocalDateTime getCreateAt() {

@@ -25,7 +25,7 @@ public class User {
 
     private String phone;
 
-    private boolean isBlock;
+    private boolean block;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -50,13 +50,12 @@ public class User {
     public User() {
     }
 
-    public User(@NotBlank @Size(min = 3, max = 50) String username, @NotBlank @Size(min = 6, max = 100) String password,
-                String address, String phone, boolean isBlock, List<Role> roles, List<Post> posts, List<Post> comments) {
+    public User(@NotBlank @Size(min = 3, max = 50) String username, @NotBlank @Size(min = 6, max = 100) String password, String address, String phone, boolean block, List<Role> roles, List<Post> posts, List<Post> comments) {
         this.username = username;
         this.password = password;
         this.address = address;
         this.phone = phone;
-        this.isBlock = isBlock;
+        this.block = block;
         this.roles = roles;
         this.posts = posts;
         this.comments = comments;
@@ -103,11 +102,11 @@ public class User {
     }
 
     public boolean isBlock() {
-        return isBlock;
+        return block;
     }
 
     public void setBlock(boolean block) {
-        isBlock = block;
+        this.block = block;
     }
 
     public List<Role> getRoles() {

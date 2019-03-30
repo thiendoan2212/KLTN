@@ -25,19 +25,168 @@
       <div class="row" id="time">
         <div class="col-lg-1"></div>
         <div class="col-lg-2 icon-time">
-          <i class="fas fa-search"></i>
+          <i class="fas fa-hourglass-start"></i>
         </div>
         <div class="col-lg-9">
           <div class="row">
             <div class="col-lg-12">
-              <p id="safe-fast">Giải pháp tìm kiếm mới</p>
+              <p id="safe-fast">An toàn và nhanh chóng</p>
             </div>
             <div class="col-lg-12">
-              <p id="safe-fast-detail">Tiết kiếm thời gian cho bạn với giải pháp và công nghệ mới</p>
+              <p id="safe-fast-detail">Với đội ngũ quản trị viên kiểm duyệt hiệu quả, chất lượng đem lại sự tin
+                tưởng</p>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="space"></div>
+<div class="container">
+  <div class="text-center">
+    <p id="news">Tin mới đăng</p>
+    <hr>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <!-- Card -->
+    <div class="col-lg-4 col-md-6" *ngFor="let postDTO of postDTOs">
+      <!-- Card -->
+      <div class="card">
+        <!-- Card image -->
+        <div class="view overlay">
+          <img class="card-img-top" src={{postDTO.images[0]}} width="350px"
+               alt="Card image cap">
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+        <!-- Card content -->
+
+        <div class="card-body">
+          <!-- Title -->
+          <a>
+            <h6 class="card-title font-weight-bold">{{postDTO.title}}</h6>
+          </a>
+          <div class=" d-flex justify-content-between">
+            <a *ngIf="!postDTO.accomodationDTO.motel; else motel" class="light-blue-text">
+              <p class="font-weight-bold house" ><i class="fas fa-home"></i> Nhà nguyên căn</p>
+            </a>
+            <ng-template #motel>
+              <a class="pink-text">
+                <p class="font-weight-bold house" ><i class="fas fa-home"></i> Phòng trọ</p>
+              </a>
+            </ng-template>
+            <p class="font-weight-bold dark-grey-text house">{{postDTO.accomodationDTO.price | currency:"VND"}}</p>
+          </div>
+          <!-- Text -->
+          <p class="card-text">Diện tích: {{postDTO.accomodationDTO.acreage}} m²</p>
+          <p class="card-text">Địa chỉ: {{postDTO.accomodationDTO.address}}</p>
+          <p class="card-text">{{postDTO.content | truncate:[20, '...']}}</p>
+        </div>
+      </div>
+    </div>
+    <!--&lt;!&ndash; Card &ndash;&gt;-->
+    <!--<div class="col-lg-4 col-md-6">-->
+      <!--&lt;!&ndash; Card &ndash;&gt;-->
+      <!--<div class="card">-->
+        <!--&lt;!&ndash; Card image &ndash;&gt;-->
+        <!--<div class="view overlay">-->
+          <!--<img class="card-img-top" src="http://media.phongtot.vn/xc5tx4cj/cho-thue-phong-tro-duong-vo-van-kiet-resized-piu4h.jpg" width="350px" height="232.9px"-->
+               <!--alt="Card image cap">-->
+          <!--<a>-->
+            <!--<div class="mask rgba-white-slight"></div>-->
+          <!--</a>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; Card content &ndash;&gt;-->
+
+        <!--<div class="card-body">-->
+          <!--&lt;!&ndash; Title &ndash;&gt;-->
+          <!--<a>-->
+            <!--<h6 class="card-title font-weight-bold">Card title</h6>-->
+          <!--</a>-->
+          <!--<div class=" d-flex justify-content-between">-->
+            <!--<a class="light-blue-text">-->
+              <!--<p class="font-weight-bold house" ><i class="fas fa-home"></i> Nhà nguyên căn</p>-->
+            <!--</a>-->
+            <!--<p class="font-weight-bold dark-grey-text house">300000VND</p>-->
+          <!--</div>-->
+          <!--&lt;!&ndash; Text &ndash;&gt;-->
+          <!--<p class="card-text">Diện tích: 50 m²</p>-->
+          <!--<p class="card-text">Địa chỉ: Thủ Đức</p>-->
+          <!--<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, quo?</p>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--&lt;!&ndash; Card &ndash;&gt;-->
+    <!--&lt;!&ndash; Card &ndash;&gt;-->
+    <!--<div class="col-lg-4 col-md-6">-->
+      <!--&lt;!&ndash; Card &ndash;&gt;-->
+      <!--<div class="card">-->
+        <!--&lt;!&ndash; Card image &ndash;&gt;-->
+        <!--<div class="view overlay">-->
+          <!--<img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg" width="350px" height="232.9px"-->
+               <!--alt="Card image cap">-->
+          <!--<a>-->
+            <!--<div class="mask rgba-white-slight"></div>-->
+          <!--</a>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; Card content &ndash;&gt;-->
+
+        <!--<div class="card-body">-->
+          <!--&lt;!&ndash; Title &ndash;&gt;-->
+          <!--<a>-->
+            <!--<h6 class="card-title font-weight-bold">Card title</h6>-->
+          <!--</a>-->
+          <!--<div class=" d-flex justify-content-between">-->
+            <!--<a class="light-blue-text">-->
+              <!--<p class="font-weight-bold house" ><i class="fas fa-home"></i> Nhà nguyên căn</p>-->
+            <!--</a>-->
+            <!--<p class="font-weight-bold dark-grey-text house">300000VND</p>-->
+          <!--</div>-->
+          <!--&lt;!&ndash; Text &ndash;&gt;-->
+          <!--<p class="card-text">Diện tích: 50 m²</p>-->
+          <!--<p class="card-text">Địa chỉ: Thủ Đức</p>-->
+          <!--<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, quo?</p>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--&lt;!&ndash; Card &ndash;&gt;-->
+    <!--&lt;!&ndash; Card &ndash;&gt;-->
+    <!--<div class="col-lg-4 col-md-6">-->
+      <!--&lt;!&ndash; Card &ndash;&gt;-->
+      <!--<div class="card">-->
+        <!--&lt;!&ndash; Card image &ndash;&gt;-->
+        <!--<div class="view overlay">-->
+          <!--<img class="card-img-top" src="http://media.phongtot.vn/xc5tx4cj/cho-thue-phong-tro-duong-vo-van-kiet-resized-piu4h.jpg" width="350px" height="232.9px"-->
+               <!--alt="Card image cap">-->
+          <!--<a>-->
+            <!--<div class="mask rgba-white-slight"></div>-->
+          <!--</a>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; Card content &ndash;&gt;-->
+
+        <!--<div class="card-body">-->
+          <!--&lt;!&ndash; Title &ndash;&gt;-->
+          <!--<a>-->
+            <!--<h6 class="card-title font-weight-bold">Card title</h6>-->
+          <!--</a>-->
+          <!--<div class=" d-flex justify-content-between">-->
+            <!--<a class="light-blue-text">-->
+              <!--<p class="font-weight-bold house" ><i class="fas fa-home"></i> Nhà nguyên căn</p>-->
+            <!--</a>-->
+            <!--<p class="font-weight-bold dark-grey-text house">300000VND</p>-->
+          <!--</div>-->
+          <!--&lt;!&ndash; Text &ndash;&gt;-->
+          <!--<p class="card-text">Diện tích: 50 m²</p>-->
+          <!--<p class="card-text">Địa chỉ: Thủ Đức</p>-->
+          <!--<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, quo?</p>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--&lt;!&ndash; Card &ndash;&gt;-->
+
   </div>
 </div>

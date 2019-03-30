@@ -1,7 +1,8 @@
 package com.kltn.motelservice.entity;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "accomodation")
@@ -18,19 +19,22 @@ public class Accomodation {
 
     private double waterPrice;
 
-    private boolean isInternet;
+    private boolean internet;
 
-    private boolean isToilet;
+    @Enumerated(EnumType.STRING)
+    @Id
+    @Column(length = 60)
+    private ToiletName toilet;
 
     private double price;
 
-    private boolean isMezzanine;
+    private boolean mezzanine;
 
-    private boolean isUpstair;
+    private int upstair;
 
     private boolean status;
 
-    private boolean isMotel;
+    private boolean motel;
 
     private double xCoordinate;
 
@@ -47,20 +51,20 @@ public class Accomodation {
     public Accomodation() {
     }
 
-    public Accomodation(double acreage, String address, double electricPrice, double waterPrice, boolean isInternet,
-                        boolean isToilet, double price, boolean isMezzanine, boolean isUpstair, boolean status,
-                        boolean isMotel, double xCoordinate, double yCoordinate, Post post, District district) {
+    public Accomodation(double acreage, String address, double electricPrice, double waterPrice, boolean internet,
+                        ToiletName toilet, double price, boolean mezzanine, int upstair, boolean status, boolean motel,
+                        double xCoordinate, double yCoordinate, Post post, District district) {
         this.acreage = acreage;
         this.address = address;
         this.electricPrice = electricPrice;
         this.waterPrice = waterPrice;
-        this.isInternet = isInternet;
-        this.isToilet = isToilet;
+        this.internet = internet;
+        this.toilet = toilet;
         this.price = price;
-        this.isMezzanine = isMezzanine;
-        this.isUpstair = isUpstair;
+        this.mezzanine = mezzanine;
+        this.upstair = upstair;
         this.status = status;
-        this.isMotel = isMotel;
+        this.motel = motel;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.post = post;
@@ -108,19 +112,19 @@ public class Accomodation {
     }
 
     public boolean isInternet() {
-        return isInternet;
+        return internet;
     }
 
     public void setInternet(boolean internet) {
-        isInternet = internet;
+        this.internet = internet;
     }
 
-    public boolean isToilet() {
-        return isToilet;
+    public ToiletName getToilet() {
+        return toilet;
     }
 
-    public void setToilet(boolean toilet) {
-        isToilet = toilet;
+    public void setToilet(ToiletName toilet) {
+        this.toilet = toilet;
     }
 
     public double getPrice() {
@@ -132,27 +136,19 @@ public class Accomodation {
     }
 
     public boolean isMezzanine() {
-        return isMezzanine;
+        return mezzanine;
     }
 
     public void setMezzanine(boolean mezzanine) {
-        isMezzanine = mezzanine;
+        this.mezzanine = mezzanine;
     }
 
-    public boolean isUpstair() {
-        return isUpstair;
+    public int getUpstair() {
+        return upstair;
     }
 
-    public void setUpstair(boolean upstair) {
-        isUpstair = upstair;
-    }
-
-    public boolean isMotel() {
-        return isMotel;
-    }
-
-    public void setMotel(boolean motel) {
-        isMotel = motel;
+    public void setUpstair(int upstair) {
+        this.upstair = upstair;
     }
 
     public boolean isStatus() {
@@ -161,6 +157,14 @@ public class Accomodation {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public boolean isMotel() {
+        return motel;
+    }
+
+    public void setMotel(boolean motel) {
+        this.motel = motel;
     }
 
     public double getxCoordinate() {

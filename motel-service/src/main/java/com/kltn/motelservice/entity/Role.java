@@ -1,7 +1,5 @@
 package com.kltn.motelservice.entity;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;

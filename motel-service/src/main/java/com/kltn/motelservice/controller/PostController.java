@@ -19,6 +19,11 @@ public class PostController {
     public List<PostDTO> getAllPost() {
         return postService.getAllPost();
     }
+//
+//    @GetMapping("/posts/approved")
+//    public List<PostDTO> getAllPostApproved() {
+//        return postService.getAllPostApproved();
+//    }
 
     @GetMapping("/post/user/{username}")
     public List<PostDTO> getPostByUsername(@PathVariable String username) {
@@ -45,8 +50,13 @@ public class PostController {
         return postService.updatePost(id, postDTO);
     }
 
-    @DeleteMapping("/post/{id}")
-    public String deletePost(@PathVariable Long id) {
+    @PutMapping("/post/delete/{id}")
+    public PostDTO deletePost(@PathVariable Long id) {
         return postService.deletePost(id);
+    }
+
+    @DeleteMapping("/post/{id}")
+    public String deletePostByAdmin(@PathVariable Long id) {
+        return postService.deletePostByAdmin(id);
     }
 }

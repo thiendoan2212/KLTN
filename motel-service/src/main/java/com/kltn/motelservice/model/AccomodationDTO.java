@@ -11,25 +11,23 @@ public class AccomodationDTO {
 
     private double waterPrice;
 
-    private boolean isInternet;
+    private boolean internet;
 
-    private boolean isToilet;
+    private String toilet;
 
     private double price;
 
-    private boolean isMezzanine;
+    private boolean mezzanine;
 
-    private boolean isUpstair;
+    private boolean upstair;
 
-    private boolean isMotel;
+    private boolean motel;
 
     private boolean status;
 
     private double xCoordinate;
 
     private double yCoordinate;
-
-//    private Long idPost;
 
     private PostDTO postDTO;
 
@@ -38,20 +36,20 @@ public class AccomodationDTO {
     public AccomodationDTO() {
     }
 
-    public AccomodationDTO(long id, double acreage, String address, double electricPrice, double waterPrice, boolean isInternet,
-                           boolean isToilet, double price, boolean isMezzanine, boolean isUpstair, boolean isMotel,
-                           boolean status, double xCoordinate, double yCoordinate, PostDTO postDTO, Long idDistrict) {
+    public AccomodationDTO(long id, double acreage, String address, double electricPrice, double waterPrice, boolean internet, String toilet,
+                           double price, boolean mezzanine, boolean upstair, boolean motel, boolean status, double xCoordinate,
+                           double yCoordinate, PostDTO postDTO, Long idDistrict) {
         this.id = id;
         this.acreage = acreage;
         this.address = address;
         this.electricPrice = electricPrice;
         this.waterPrice = waterPrice;
-        this.isInternet = isInternet;
-        this.isToilet = isToilet;
+        this.internet = internet;
+        this.toilet = toilet;
         this.price = price;
-        this.isMezzanine = isMezzanine;
-        this.isUpstair = isUpstair;
-        this.isMotel = isMotel;
+        this.mezzanine = mezzanine;
+        this.upstair = upstair;
+        this.motel = motel;
         this.status = status;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
@@ -100,19 +98,19 @@ public class AccomodationDTO {
     }
 
     public boolean isInternet() {
-        return isInternet;
+        return internet;
     }
 
     public void setInternet(boolean internet) {
-        isInternet = internet;
+        this.internet = internet;
     }
 
-    public boolean isToilet() {
-        return isToilet;
+    public String getToilet() {
+        return toilet;
     }
 
-    public void setToilet(boolean toilet) {
-        isToilet = toilet;
+    public void setToilet(String toilet) {
+        this.toilet = toilet;
     }
 
     public double getPrice() {
@@ -124,19 +122,27 @@ public class AccomodationDTO {
     }
 
     public boolean isMezzanine() {
-        return isMezzanine;
+        return mezzanine;
     }
 
     public void setMezzanine(boolean mezzanine) {
-        isMezzanine = mezzanine;
+        this.mezzanine = mezzanine;
     }
 
     public boolean isUpstair() {
-        return isUpstair;
+        return upstair;
     }
 
     public void setUpstair(boolean upstair) {
-        isUpstair = upstair;
+        this.upstair = upstair;
+    }
+
+    public boolean isMotel() {
+        return motel;
+    }
+
+    public void setMotel(boolean motel) {
+        this.motel = motel;
     }
 
     public boolean isStatus() {
@@ -145,14 +151,6 @@ public class AccomodationDTO {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    public boolean isMotel() {
-        return isMotel;
-    }
-
-    public void setMotel(boolean motel) {
-        isMotel = motel;
     }
 
     public double getxCoordinate() {
