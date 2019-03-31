@@ -13,4 +13,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByUser(User user);
 
     Optional<Post> findPostById(Long id);
+
+    List<Post> findAllByApprovedAndNotApproved(boolean approved, boolean notApproved);
+
 }

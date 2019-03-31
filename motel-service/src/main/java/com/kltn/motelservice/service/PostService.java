@@ -7,7 +7,7 @@ import java.util.List;
 public interface PostService {
     List<PostDTO> getAllPost();
 
-    List<PostDTO> getAllPostApproved();
+    List<PostDTO> getPostByApproved(boolean bool);
 
     List<PostDTO> getPostByUsername(String username);
 

@@ -17,8 +17,8 @@ public class AccomodationController {
     @Autowired
     AccomodationServiceImpl accomodationService;
 
-    @GetMapping("/accomodation/search")
-    public List<AccomodationDTO> searchAccomodation() {
-        return accomodationService.searchAccomodation(true);
-    }
+//    @GetMapping("/accomodation/search")
+//    public List<AccomodationDTO> searchAccomodation() {
+//        return accomodationService.searchAccomodation(true);
+//    }
 }

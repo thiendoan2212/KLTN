@@ -55,31 +55,17 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDTO> getAllPostApproved() {
-        try {
-//            EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("PostApproved");
-//            EntityManager em = emfactory.createEntityManager();
-//            CriteriaBuilder cb = em.getCriteriaBuilder();
-//            CriteriaQuery<Post> cq = cb.createQuery(Post.class);
-//            Root<Post> p = cq.from(Post.class);
-//            cq.select(Entity);
-////            q.select(p).where(cb.p.get("isApproved"), ));
-            EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("PostApproved");
-            EntityManager em = emfactory.createEntityManager();
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Post> query = cb.createQuery(Post.class);
-            Root<Post> post = query.from(Post.class);
+    public List<PostDTO> getPostByApproved(boolean bool) {
+        List<Post> posts;
+        List<PostDTO> postDTOS = new ArrayList<>();
+        if (bool == true) {
+            posts = postRepository.findAllByApprovedAndNotApproved(true, false);
 
-            List<PostDTO> postDTOS = new ArrayList<>();
-
-//            List<Post> posts = postRepository.findPostByApproved(true);
-//            addAccomodation(posts, postDTOS);
-
-            return postDTOS;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            posts = postRepository.findAllByApprovedAndNotApproved(false, true);
         }
-        return null;
+        addAccomodation(posts, postDTOS);
+        return postDTOS;
     }
 
     @Override
@@ -221,6 +207,7 @@ public class PostServiceImpl implements PostService {
         return null;
     }
 
+    @Override
     public String deletePostByAdmin(Long id) {
         try {
             Optional<Post> post = postRepository.findById(id);

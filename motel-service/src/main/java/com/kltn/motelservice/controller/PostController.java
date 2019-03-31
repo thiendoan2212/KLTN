@@ -19,11 +19,11 @@ public class PostController {
     public List<PostDTO> getAllPost() {
         return postService.getAllPost();
     }
-//
-//    @GetMapping("/posts/approved")
-//    public List<PostDTO> getAllPostApproved() {
-//        return postService.getAllPostApproved();
-//    }
+
+    @GetMapping("/posts/approved/{approved}")
+    public List<PostDTO> getAllPostApproved(@PathVariable boolean approved) {
+        return postService.getPostByApproved(approved);
+    }
 
     @GetMapping("/post/user/{username}")
     public List<PostDTO> getPostByUsername(@PathVariable String username) {

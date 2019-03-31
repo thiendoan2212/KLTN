@@ -22,7 +22,6 @@ public class Accomodation {
     private boolean internet;
 
     @Enumerated(EnumType.STRING)
-    @Id
     @Column(length = 60)
     private ToiletName toilet;
 

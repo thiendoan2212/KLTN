@@ -5,5 +5,5 @@ import com.kltn.motelservice.model.AccomodationDTO;
 import java.util.List;
 
 public interface AccomodationService {
-    List<AccomodationDTO> searchAccomodation(boolean bool);
+//    List<AccomodationDTO> searchAccomodation(boolean bool);
 }
