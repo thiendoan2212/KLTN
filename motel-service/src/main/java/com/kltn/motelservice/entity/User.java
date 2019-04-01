@@ -1,5 +1,7 @@
 package com.kltn.motelservice.entity;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

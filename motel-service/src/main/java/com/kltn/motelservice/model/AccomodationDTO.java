@@ -1,5 +1,11 @@
 package com.kltn.motelservice.model;
 
+import com.kltn.motelservice.entity.ToiletName;
+
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 public class AccomodationDTO {
     private long id;
 
@@ -13,17 +19,25 @@ public class AccomodationDTO {
 
     private boolean internet;
 
-    private String toilet;
+    private boolean parking;
+
+    private boolean airConditioner;
+
+    private boolean heater;
+
+    private boolean cableTV;
+
+    private boolean tv;
+
+    private ToiletName toilet;
 
     private double price;
 
-    private boolean mezzanine;
-
-    private boolean upstair;
-
-    private boolean motel;
+    private int upstair;
 
     private boolean status;
+
+    private boolean motel;
 
     private double xCoordinate;
 
@@ -36,21 +50,25 @@ public class AccomodationDTO {
     public AccomodationDTO() {
     }
 
-    public AccomodationDTO(long id, double acreage, String address, double electricPrice, double waterPrice, boolean internet, String toilet,
-                           double price, boolean mezzanine, boolean upstair, boolean motel, boolean status, double xCoordinate,
-                           double yCoordinate, PostDTO postDTO, Long idDistrict) {
+    public AccomodationDTO(long id, double acreage, String address, double electricPrice, double waterPrice, boolean internet, boolean parking,
+                           boolean airConditioner, boolean heater, boolean cableTV, boolean tv, ToiletName toilet, double price,
+                           int upstair, boolean status, boolean motel, double xCoordinate, double yCoordinate, PostDTO postDTO, Long idDistrict) {
         this.id = id;
         this.acreage = acreage;
         this.address = address;
         this.electricPrice = electricPrice;
         this.waterPrice = waterPrice;
         this.internet = internet;
+        this.parking = parking;
+        this.airConditioner = airConditioner;
+        this.heater = heater;
+        this.cableTV = cableTV;
+        this.tv = tv;
         this.toilet = toilet;
         this.price = price;
-        this.mezzanine = mezzanine;
         this.upstair = upstair;
-        this.motel = motel;
         this.status = status;
+        this.motel = motel;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.postDTO = postDTO;
@@ -105,11 +123,51 @@ public class AccomodationDTO {
         this.internet = internet;
     }
 
-    public String getToilet() {
+    public boolean isParking() {
+        return parking;
+    }
+
+    public void setParking(boolean parking) {
+        this.parking = parking;
+    }
+
+    public boolean isAirConditioner() {
+        return airConditioner;
+    }
+
+    public void setAirConditioner(boolean airConditioner) {
+        this.airConditioner = airConditioner;
+    }
+
+    public boolean isHeater() {
+        return heater;
+    }
+
+    public void setHeater(boolean heater) {
+        this.heater = heater;
+    }
+
+    public boolean isCableTV() {
+        return cableTV;
+    }
+
+    public void setCableTV(boolean cableTV) {
+        this.cableTV = cableTV;
+    }
+
+    public boolean isTv() {
+        return tv;
+    }
+
+    public void setTv(boolean tv) {
+        this.tv = tv;
+    }
+
+    public ToiletName getToilet() {
         return toilet;
     }
 
-    public void setToilet(String toilet) {
+    public void setToilet(ToiletName toilet) {
         this.toilet = toilet;
     }
 
@@ -121,28 +179,12 @@ public class AccomodationDTO {
         this.price = price;
     }
 
-    public boolean isMezzanine() {
-        return mezzanine;
-    }
-
-    public void setMezzanine(boolean mezzanine) {
-        this.mezzanine = mezzanine;
-    }
-
-    public boolean isUpstair() {
+    public int getUpstair() {
         return upstair;
     }
 
-    public void setUpstair(boolean upstair) {
+    public void setUpstair(int upstair) {
         this.upstair = upstair;
-    }
-
-    public boolean isMotel() {
-        return motel;
-    }
-
-    public void setMotel(boolean motel) {
-        this.motel = motel;
     }
 
     public boolean isStatus() {
@@ -151,6 +193,14 @@ public class AccomodationDTO {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public boolean isMotel() {
+        return motel;
+    }
+
+    public void setMotel(boolean motel) {
+        this.motel = motel;
     }
 
     public double getxCoordinate() {

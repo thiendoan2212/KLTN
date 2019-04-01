@@ -1,8 +1,7 @@
 package com.kltn.motelservice.entity;
 
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 
 @Entity
 @Table(name = "accomodation")
@@ -15,11 +14,23 @@ public class Accomodation {
 
     private String address;
 
+    @Column(nullable = true)
     private double electricPrice;
 
+    @Column(nullable = true)
     private double waterPrice;
 
     private boolean internet;
+
+    private boolean parking;
+
+    private boolean airConditioner;
+
+    private boolean heater;
+
+    private boolean cableTV;
+
+    private boolean tv;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 60)
@@ -27,8 +38,7 @@ public class Accomodation {
 
     private double price;
 
-    private boolean mezzanine;
-
+    @Null
     private int upstair;
 
     private boolean status;
@@ -50,17 +60,19 @@ public class Accomodation {
     public Accomodation() {
     }
 
-    public Accomodation(double acreage, String address, double electricPrice, double waterPrice, boolean internet,
-                        ToiletName toilet, double price, boolean mezzanine, int upstair, boolean status, boolean motel,
-                        double xCoordinate, double yCoordinate, Post post, District district) {
+    public Accomodation(double acreage, String address, double electricPrice, double waterPrice, boolean internet, boolean parking, boolean airConditioner, boolean heater, boolean cableTV, boolean tv, ToiletName toilet, double price, @Null int upstair, boolean status, boolean motel, double xCoordinate, double yCoordinate, Post post, District district) {
         this.acreage = acreage;
         this.address = address;
         this.electricPrice = electricPrice;
         this.waterPrice = waterPrice;
         this.internet = internet;
+        this.parking = parking;
+        this.airConditioner = airConditioner;
+        this.heater = heater;
+        this.cableTV = cableTV;
+        this.tv = tv;
         this.toilet = toilet;
         this.price = price;
-        this.mezzanine = mezzanine;
         this.upstair = upstair;
         this.status = status;
         this.motel = motel;
@@ -118,6 +130,46 @@ public class Accomodation {
         this.internet = internet;
     }
 
+    public boolean isParking() {
+        return parking;
+    }
+
+    public void setParking(boolean parking) {
+        this.parking = parking;
+    }
+
+    public boolean isAirConditioner() {
+        return airConditioner;
+    }
+
+    public void setAirConditioner(boolean airConditioner) {
+        this.airConditioner = airConditioner;
+    }
+
+    public boolean isHeater() {
+        return heater;
+    }
+
+    public void setHeater(boolean heater) {
+        this.heater = heater;
+    }
+
+    public boolean isCableTV() {
+        return cableTV;
+    }
+
+    public void setCableTV(boolean cableTV) {
+        this.cableTV = cableTV;
+    }
+
+    public boolean isTv() {
+        return tv;
+    }
+
+    public void setTv(boolean tv) {
+        this.tv = tv;
+    }
+
     public ToiletName getToilet() {
         return toilet;
     }
@@ -132,14 +184,6 @@ public class Accomodation {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public boolean isMezzanine() {
-        return mezzanine;
-    }
-
-    public void setMezzanine(boolean mezzanine) {
-        this.mezzanine = mezzanine;
     }
 
     public int getUpstair() {
