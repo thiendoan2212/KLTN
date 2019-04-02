@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PostService} from '../service/post.service';
 import {PostDTO} from '../model/postDTO';
-import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-home-page',
@@ -20,7 +19,7 @@ export class HomePageComponent implements OnInit {
   }
 
   getAllPost() {
-    this.postService.getAllPost().subscribe(
+    this.postService.getAllPostApproved().subscribe(
       data => {
         this.postDTOs = data;
         console.log(this.postDTOs);

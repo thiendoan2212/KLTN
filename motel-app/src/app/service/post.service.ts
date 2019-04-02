@@ -15,4 +15,8 @@ export class PostService {
   getAllPost(): Observable<PostDTO[]> {
     return this.http.get<PostDTO[]>(this.apiUrl + '/posts');
   }
+
+  getAllPostApproved(): Observable<PostDTO[]> {
+    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/approved/true');
+  }
 }

@@ -8,6 +8,7 @@ import {AppComponent} from './app.component';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
 import {HomePageComponent} from './home-page/home-page.component';
 import {TruncatePipe} from './pipe/TruncatePipe';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {TruncatePipe} from './pipe/TruncatePipe';
     AppComponent,
     NavBarComponent,
     HomePageComponent,
-    TruncatePipe
+    TruncatePipe,
+    SearchComponent
   ],
   imports: [
     FormsModule,

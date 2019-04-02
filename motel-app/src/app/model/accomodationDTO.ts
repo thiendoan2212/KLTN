@@ -7,9 +7,13 @@ export class AccomodationDTO {
   electricPrice: number;
   waterPrice: number;
   internet: boolean;
-  toilet: boolean;
+  parking: boolean;
+  airConditioner: boolean;
+  heater: boolean;
+  cableTV: boolean;
+  tv: boolean;
+  toilet: string;
   price: number;
-  mezzanine: boolean;
   upstair: boolean;
   motel: boolean;
   status: boolean;

@@ -1,3 +1,14 @@
+.background {
+  padding-top: 40px;
+}
+
+.text-center h1 {
+  font-family: inherit;
+  font-weight: 400;
+  line-height: 1.1;
+  color: inherit;
+}
+
 .space {
   margin-top: 10px;
 }
@@ -80,6 +91,14 @@ div#time {
 p.house {
   font-size: 15px;
   margin-bottom: 4px;
+}
+
+.card {
+  height: 100%;
+}
+
+.margin-bot {
+  margin-bottom: 15px;
 }
 
 p.card-text {

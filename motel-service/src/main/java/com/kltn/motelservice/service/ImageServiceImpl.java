@@ -31,9 +31,9 @@ public class ImageServiceImpl implements ImageService {
         Optional<Post> post = postRepository.findById(idPost);
         if (post.isPresent()) {
             List<Image> images = imageRepository.findImageByPost(post.get());
-            for (Image image : images) {
-                imageRepository.delete(image);
-            }
+//            for (Image image : images) {
+////                imageRepository.delete(image);
+////            }
             Image image = storeImage(idPost, file);
 
             String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
