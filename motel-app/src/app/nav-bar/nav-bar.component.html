@@ -1,55 +1,68 @@
 <!--Navbar-->
 <div class="container-fluid nav-color">
   <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark " [containerInside]="true">
-
     <!-- Navbar brand -->
-    <mdb-navbar-brand><a class="navbar-brand" href="#">XómTrọHCM</a></mdb-navbar-brand>
-
+    <mdb-navbar-brand><a class="navbar-brand" routerLink="/trang-chu">
+      <i class="fas fa-map-marker-alt icon-marker"></i>
+      XómTrọHCM</a>
+    </mdb-navbar-brand>
     <!-- Collapsible content -->
     <links>
-
       <!-- Links -->
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link waves-light" mdbWavesEffect>Trang chủ</a>
+        <li class="nav-item ">
+          <a class="nav-link waves-light" routerLink="/trang-chu" mdbWavesEffect>Trang chủ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link waves-light" mdbWavesEffect>Phòng trọ</a>
+          <a class="nav-link waves-light" routerLink="/phong-tro" mdbWavesEffect>Phòng trọ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link waves-light" mdbWavesEffect>Nhà nguyên căn</a>
+          <a class="nav-link waves-light" routerLink="/nha-nguyen-can" mdbWavesEffect>Nhà nguyên căn</a>
         </li>
       </ul>
       <!-- Links -->
-      <ul class="navbar-nav ml-auto nav-flex-icons">
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <button type="button" color="default" mdbWavesEffect><i class="far fa-edit"></i>Đăng tin mới</button>
         </li>
-        <div *ngIf="isLoggedIn; else loggedIn">
+        <div *ngIf="isLoggedIn; else notLoggedIn">
           <li class="nav-item">
-            <a class="nav-link">
-              <div class="btn-group" mdbDropdown>
-                <mdb-icon fas icon="user" mdbDropdownToggle></mdb-icon>
-                <div class="dropdown-menu dropdown-menu-right dropdown-primary">
-                  <a class="dropdown-item" href="#">Thông tin</a>
-                </div>
-              </div>
-            </a>
+            <p>Xin chào </p>
           </li>
         </div>
-        <ng-template #loggedIn>
+        <ng-template #notLoggedIn>
           <li class="nav-item">
-            <a class="nav-link">
-              <div class="btn-group" mdbDropdown>
-                <mdb-icon fas icon="user" mdbDropdownToggle></mdb-icon>
-                <div class="dropdown-menu dropdown-menu-right dropdown-primary">
-                  <a class="dropdown-item" href="#">Đăng nhập</a>
-                  <a class="dropdown-item" href="#">Đăng ký</a>
-                </div>
-              </div>
-            </a>
+            <a class="nav-link waves-light" mdbWavesEffect>Đăng ký</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-light" mdbWavesEffect>Đăng nhập</a>
           </li>
         </ng-template>
+        <!--<div *ngIf="isLoggedIn; else loggedIn">-->
+        <!--<li class="nav-item">-->
+        <!--<a class="nav-link">-->
+        <!--<div class="btn-group" mdbDropdown>-->
+        <!--<mdb-icon fas icon="user" mdbDropdownToggle></mdb-icon>-->
+        <!--<div class="dropdown-menu dropdown-menu-right dropdown-primary">-->
+        <!--<a class="dropdown-item" href="#">Thông tin</a>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--</div>-->
+        <!--<ng-template #loggedIn>-->
+        <!--<li class="nav-item">-->
+        <!--<a class="nav-link">-->
+        <!--<div class="btn-group" mdbDropdown>-->
+        <!--<mdb-icon fas icon="user" mdbDropdownToggle></mdb-icon>-->
+        <!--<div class="dropdown-menu dropdown-menu-right dropdown-primary">-->
+        <!--<a class="dropdown-item" href="#">Đăng nhập</a>-->
+        <!--<a class="dropdown-item" href="#">Đăng ký</a>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--</ng-template>-->
       </ul>
     </links>
     <!-- Collapsible content -->

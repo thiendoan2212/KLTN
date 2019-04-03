@@ -1,9 +1,212 @@
-<div class="container-fluid background"
-     style="background-image: url('http://phongtot.vn/themes/client/img/slider-bg.png'); background-repeat: no-repeat; -webkit-background-size: cover;background-size: cover;">
-  <div class="text-center">
-    <h1>Chính chủ, Miễn phí, Tiện lợi</h1>
-  </div>
-  <div class="container">
-
+<!--<div class="container-fluid background"-->
+<!--style="background-image: url('http://phongtot.vn/themes/client/img/slider-bg.png'); background-repeat: no-repeat; -webkit-background-size: cover;background-size: cover;">-->
+<!--<div class="text-center">-->
+<!--<h1>Chính chủ, Miễn phí, Tiện lợi</h1>-->
+<!--</div>-->
+<div class="container black">
+  <div class="row">
+    <div class="col-lg-12- col-xl-12">
+      <!--<div class="row">-->
+      <mat-tab-group>
+        <mat-tab label="Tìm kiếm nhanh">
+          <div class="row searchform">
+            <div class="col-lg-3 col-xl-3 col-sm-6 col-12 search-detail-district">
+              <h6>Chọn quận</h6>
+              <select class="browser-default custom-select">
+                <option selected>Quận</option>
+                <option value="1">One</option>
+              </select>
+            </div>
+            <div class="col-lg-3 col-xl-3 col-sm-6 col-12 search-detail-type">
+              <h6>Chọn loại phòng</h6>
+              <!-- Default inline 1-->
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="defaultInline1" name="inlineDefaultRadiosExample"
+                       [value]="1" [(ngModel)]="myRadio" mdbInput>
+                <label class="custom-control-label" for="defaultInline1">Phòng trọ, nhà trọ</label>
+              </div>
+              <!-- Default inline 2-->
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="defaultInline2" name="inlineDefaultRadiosExample"
+                       [value]="0" [(ngModel)]="myRadio" mdbInput>
+                <label class="custom-control-label" for="defaultInline2">Nhà nguyên căn</label>
+              </div>
+            </div>
+            <div class="col-lg-3 col-xl-3 col-sm-6 col-12 search-detail-price">
+              <h6>Chọn khoảng giá</h6>
+              <ng5-slider [(value)]="priceMin" [(highValue)]="priceMax" [options]="priceOptions"></ng5-slider>
+              <div class="row">
+                <div class="col-lg-5">
+                  <div class="row">
+                    <div class="input-group mb-3 my-3">
+                      <!--<input type="number" step="{{priceOptions.step}}" [(ngModel)]="minValue"-->
+                      <input appNumberOnly type="text" class="form-control" aria-describedby="priceMin"
+                             [(ngModel)]="this.priceMin">
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="priceMin">triệu</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-2 my-3" id="priceTo">
+                  <div class="text-center">_</div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="row">
+                    <div class="input-group mb-3 my-3">
+                      <input appNumberOnly type="text" class="form-control" aria-describedby="priceMax"
+                             [(ngModel)]="this.priceMax">
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="priceMax">triệu</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-xl-3 col-sm-6 col-12 search-detail-acreage">
+              <h6>Chọn diện tích</h6>
+              <ng5-slider [(value)]="acreageMin" [(highValue)]="acreageMax" [options]="acreageOptions"></ng5-slider>
+              <div class="row">
+                <div class="col-lg-5">
+                  <div class="row">
+                    <div class="input-group mb-3 my-3">
+                      <!--<input type="number" step="{{priceOptions.step}}" [(ngModel)]="minValue"-->
+                      <input appNumberOnly type="text" class="form-control" aria-describedby="acreageMin"
+                             [(ngModel)]="this.acreageMin">
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="acreageMin">m²</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-2 my-3" id="acreageTo">
+                  <div class="text-center">_</div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="row">
+                    <div class="input-group mb-3 my-3">
+                      <input appNumberOnly type="text" class="form-control" aria-describedby="acreageMax"
+                             [(ngModel)]="this.acreageMax">
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="acreageMax">m²</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 col-sm-12">
+            <div class="text-center">
+              <button type="button" class="btn btnSearch" mdbWavesEffect>Tìm kiếm</button>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Tìm kiếm theo GoogleMaps">
+          <div class="row searchform">
+            <div class="col-lg-3 col-xl-3 col-sm-6 col-12 search-detail-district">
+              <h6>Nhập bán kính</h6>
+              <div class="input-group mb-3 my-3">
+                <!--<input type="number" step="{{priceOptions.step}}" [(ngModel)]="minValue"-->
+                <input appNumberOnly type="text" class="form-control radius" aria-describedby="radius"
+                       [(ngModel)]="this.priceMin">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="radius">m²</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-xl-3 col-sm-6 col-12 search-detail-type">
+              <h6>Chọn loại phòng</h6>
+              <!-- Default inline 1-->
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="defaultInline3" name="inlineDefaultRadiosExample"
+                       [value]="1" [(ngModel)]="myRadio" mdbInput>
+                <label class="custom-control-label" for="defaultInline3">Phòng trọ, nhà trọ</label>
+              </div>
+              <!-- Default inline 2-->
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="defaultInline4" name="inlineDefaultRadiosExample"
+                       [value]="0" [(ngModel)]="myRadio" mdbInput>
+                <label class="custom-control-label" for="defaultInline4">Nhà nguyên căn</label>
+              </div>
+            </div>
+            <div class="col-lg-3 col-xl-3 col-sm-6 col-12 search-detail-price">
+              <h6>Chọn khoảng giá</h6>
+              <ng5-slider [(value)]="priceMin1" [(highValue)]="priceMax1" [options]="priceOptions1"></ng5-slider>
+              <div class="row">
+                <div class="col-lg-5">
+                  <div class="row">
+                    <div class="input-group mb-3 my-3">
+                      <!--<input type="number" step="{{priceOptions.step}}" [(ngModel)]="minValue"-->
+                      <input appNumberOnly type="text" class="form-control" aria-describedby="priceMin2"
+                             [(ngModel)]="this.priceMin1">
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="priceMin2">triệu</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-2 my-3" id="priceTo2">
+                  <div class="text-center">_</div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="row">
+                    <div class="input-group mb-3 my-3">
+                      <input appNumberOnly type="text" class="form-control" aria-describedby="priceMax2"
+                             [(ngModel)]="this.priceMax1">
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="priceMax2">triệu</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-xl-3 col-sm-6 col-12 search-detail-acreage">
+              <h6>Chọn diện tích</h6>
+              <ng5-slider [(value)]="acreageMin1" [(highValue)]="acreageMax1" [options]="acreageOptions1"></ng5-slider>
+              <div class="row">
+                <div class="col-lg-5">
+                  <div class="row">
+                    <div class="input-group mb-3 my-3">
+                      <input appNumberOnly type="text" class="form-control" aria-describedby="acreageMin2"
+                             [(ngModel)]="this.acreageMin1">
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="acreageMin2">m²</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-2 my-3" id="acreageTo2">
+                  <div class="text-center">_</div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="row">
+                    <div class="input-group mb-3 my-3">
+                      <input appNumberOnly type="text" class="form-control" aria-describedby="acreageMax2"
+                             [(ngModel)]="this.acreageMax1">
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="acreageMax2">m²</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+          </agm-map>
+          <div class="col-lg-12 col-sm-12">
+            <div class="text-center">
+              <button type="button" class="btn btnSearch" mdbWavesEffect>Tìm kiếm</button>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <!--</div>-->
   </div>
 </div>
+<!--</div>-->
