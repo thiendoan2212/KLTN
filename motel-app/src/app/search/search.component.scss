@@ -3,9 +3,11 @@
 }
 
 .black {
-  background-color: #f1f1f1 !important;
-  margin-top: 20px;
+  background-color: #E9ECEF !important;
+  margin-top: 10px;
 }
+
+
 
 .text-center h1 {
   font-weight: 400;
@@ -25,8 +27,12 @@
   padding: 10px 0;
 }
 
-.search-detail-district, .search-detail-type, .search-detail-price, .search-detail-acreage {
+.search-detail-district, .search-detail-type, .search-detail-price {
   border-right: #2E3339 1px solid;
+  padding: 5px 30px;
+}
+
+.search-detail-acreage {
   padding: 5px 30px;
 }
 
@@ -48,10 +54,6 @@ input.form-control {
   font-size: 14px;
 }
 
-//.input-group-append {
-//  margin-left: -10px;
-//}
-
 .input-group-text {
   font-size: 14px;
 }
@@ -65,12 +67,17 @@ agm-map {
 }
 
 .btnSearch {
-  background: #56AEE3;
+  background: #009BF9;
   font-weight: 600;
   font-size: 15px;
   border: none !important;
 }
 
+.searchBtn {
+  padding-bottom: 10px;
+}
+
 .ng5-slider {
   margin-top: 10px !important;
+  background-color: black !important;
 }

@@ -10,7 +10,7 @@ p.basic-text {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 20px;
   font-weight: bold;
-  background: #0db9f0;
+  background: #374B5F;
   color: white;
   padding: 10px 10px;
   margin-bottom: 0px;
@@ -36,7 +36,7 @@ p.sdt, p.loaiphong, p.giadien {
 p.huongdan {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 20px;
-  background: #0DB9F0;
+  background: #374B5F;
   color: white;
   padding: 10px 10px;
   margin-bottom: 0px;
@@ -101,4 +101,8 @@ agm-map {
   background: #0db9f0;
   font-size: 15px;
   font-weight: 500;
+}
+
+.col-lg-3 img {
+  height: 114px;
 }

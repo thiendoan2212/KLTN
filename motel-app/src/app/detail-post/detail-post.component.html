@@ -1,0 +1,144 @@
+<app-nav-bar></app-nav-bar>
+<div class="space"></div>
+<div class="container">
+  <div class="col-lg-12 bc">
+    <mdb-breadcrumb>
+      <mdb-breadcrumb-item class="blue-text"><a routerLink="/trang-chu">Trang chủ</a></mdb-breadcrumb-item>
+      <mdb-breadcrumb-item *ngIf="motel == 1" class="blue-text"><a routerLink="/phong-tro">Phòng trọ</a>
+      </mdb-breadcrumb-item>
+      <mdb-breadcrumb-item *ngIf="motel != 1" class="blue-text"><a routerLink="/nha-nguyen-can">Nhà nguyên căn</a>
+      </mdb-breadcrumb-item>
+      <!--<mdb-breadcrumb-item class="active">Tên bài viết</mdb-breadcrumb-item>-->
+    </mdb-breadcrumb>
+  </div>
+</div>
+<div class="container">
+  <h2>Tên bài viết</h2>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="post-summary">
+        <!--Địa chỉ-->
+        <div class="row padding">
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 col-4 background-color">
+            <p id="diachi">Địa chỉ</p>
+          </div>
+          <div class="col-xl-10 col-lg-10 col-md-10 col-sm-9 col-8 content">
+            <p id="chitietdiachi">97 đường số 6 khu phố 4 phường Tam Phú quận Thủ Đức</p>
+          </div>
+        </div>
+        <!--Địa chỉ-->
+        <!--Diện tích, Giá thuê-->
+        <div class="row padding">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="row">
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-4 background-color">
+                <p id="dientich">Diện tích</p>
+              </div>
+              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-8 content">
+                <p id="chitietdientich">50 m2</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="row">
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-4 background-color">
+                <p id="giatien">Giá thuê</p>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-6 col-8 content">
+                <p id="chitietgiatien">5000000 VNĐ</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Diện tích, Giá thuê-->
+        <!--Toilet, Status-->
+        <div class="row padding">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="row">
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-4 background-color">
+                <p id="toilet">Vệ sinh</p>
+              </div>
+              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-8 content">
+                <p id="chitiettoilet">Khép kín</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="row">
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-4 background-color">
+                <p id="status">Tình trạng</p>
+              </div>
+              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-8 content">
+                <p id="chitietstatus">Còn</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Toilet, Status-->
+        <!--Giá điện, giá nước-->
+        <div class="row padding">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="row">
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-4 background-color">
+                <p id="giadien">Giá điện</p>
+              </div>
+              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-8 content">
+                <p id="chitietgiadien">4000 VNĐ/số</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="row">
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-4 background-color">
+                <p id="gianuoc">Giá nước</p>
+              </div>
+              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-8 content">
+                <p id="chitietgianuoc">3000 VNĐ/số</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Giá điện, giá nước-->
+        <!--Cập nhật, Motel-->
+        <div class="row padding">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="row">
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-4 background-color">
+                <p id="capnhat">Cập nhật</p>
+              </div>
+              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-8 content">
+                <p id="chitietcapnhat">22/12/2019</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="row">
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-4 background-color">
+                <p id="motel">Loại phòng</p>
+              </div>
+              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-8 content">
+                <p id="chitietmotel">Phòng trọ, nhà trọ</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Cập nhật, motel-->
+        <!--Tiện ích-->
+        <div class="row padding">
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 col-4 tienich">
+            <p id="tienich">Tiện ích</p>
+          </div>
+          <div class="col-xl-10 col-lg-10 col-md-10 col-sm-9 col-8 tienich-content">
+            <p id="chitiettienich">.........................................</p>
+          </div>
+        </div>
+        <!--Địa chỉ-->
+      </div>
+    </div>
+    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12">
+      aaa
+    </div>
+  </div>
+</div>

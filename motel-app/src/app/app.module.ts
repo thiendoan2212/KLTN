@@ -18,6 +18,7 @@ import {FooterComponent} from './footer/footer.component';
 import {CreatePostComponent} from './create-post/create-post.component';
 import {AngularEditorModule} from '@kolkov/angular-editor';
 import {AgmCoreModule} from '@agm/core';
+import { DetailPostComponent } from './detail-post/detail-post.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {AgmCoreModule} from '@agm/core';
     OnlynumberDirective,
     FooterComponent,
     CreatePostComponent,
+    DetailPostComponent,
   ],
   imports: [
     AgmCoreModule.forRoot({

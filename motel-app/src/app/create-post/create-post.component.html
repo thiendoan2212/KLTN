@@ -1,22 +1,28 @@
 <app-nav-bar></app-nav-bar>
 <div class="space"></div>
 <div class="container">
+  <mdb-breadcrumb>
+    <mdb-breadcrumb-item class="blue-text"><a routerLink="/trang-chu">Trang chủ</a></mdb-breadcrumb-item>
+    <mdb-breadcrumb-item class="active">Đăng tin</mdb-breadcrumb-item>
+  </mdb-breadcrumb>
+</div>
+<div class="container">
   <div class="row">
     <div class="col-lg-12 col-sm-12">
       <h2 id="dangtin">Đăng tin</h2>
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-8 col-sm-12">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-12">
       <p class="basic-text">THÔNG TIN CƠ BẢN</p>
       <div class="thongtincoban">
         <p class="tieude">Tiêu đề</p>
         <input type="text" class="form-control" placeholder="Hãy đặt tiêu đề đầy đủ nghĩa, khách sẽ quan tâm hơn">
         <div class="row">
-          <div class="col-lg-12 col-sm-12">
-            <p class="sdt">Số điện thoại</p>
-            <input appNumberOnly class="form-control">
-          </div>
+          <!--<div class="col-lg-12 col-sm-12">-->
+            <!--<p class="sdt">Số điện thoại</p>-->
+            <!--<input appNumberOnly class="form-control">-->
+          <!--</div>-->
           <!--<div class="col-lg-6 col-sm-12">-->
           <!--<p class="loaiphong">Loại phòng</p>-->
           <!--<select class="browser-default custom-select">-->
@@ -59,15 +65,15 @@
             <p class="diachi">Địa chỉ</p>
             <input appNumberOnly class="form-control" placeholder="Nhập địa chỉ và kéo điểm màu đỏ cho chính xác">
             <div class="map">
-            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-              <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-            </agm-map>
+              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+              </agm-map>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
       <p class="huongdan">HƯỚNG DẪN ĐĂNG TIN</p>
       <div class="huongdandangtin">
         <ul>
@@ -83,7 +89,7 @@
         </ul>
       </div>
     </div>
-    <div class="col-lg-8 col-sm-12">
+    <div class="col-lg-8 col-md-8 col-sm-12">
       <p class="basic-text">THÔNG TIN BỔ SUNG</p>
       <div class="thongtinbosung">
         <div class="row">
@@ -169,8 +175,8 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-3 col-sm-6 mb-2" *ngFor="let url of urls">
-            <img [src]="url" height="114">
+          <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-2" *ngFor="let url of urls">
+            <img [src]="url">
           </div>
         </div>
         <div class="row">
@@ -183,7 +189,7 @@
     </div>
     <div class="col-lg-8 col-sm-12">
       <div class="text-center">
-        <button type="button" mdbBtn class="btnPost" mdbWavesEffect>Đăng bài ngay</button>
+        <button type="button" mdbBtn class="btnPost" mdbWavesEffect>Đăng tin ngay</button>
       </div>
     </div>
   </div>
