@@ -7,7 +7,12 @@
   padding-right: 0px !important;
 }
 
+ol.breadcrumb {
+  margin-right: -14px;
+}
+
 .post-summary {
+  margin-bottom: 10px;
 }
 
 .post-summary p {
@@ -15,22 +20,26 @@
   font-size: 14px;
 }
 
+#tenbaiviet {
+  font-weight: 500;
+}
+
 .padding {
   padding-left: 13px;
 }
 
-#diachi, #dientich, #giatien, #toilet, #status, #giadien, #gianuoc, #capnhat, #motel, #tienich {
+#diachi, #dientich, #giatien, #toilet, #status, #giadien, #gianuoc, #capnhat, #motel, #tienich, #thongtinchung {
   padding: 8px;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .background-color {
   border-bottom: 1px solid white;
-  background: #ecf0f1;
+  background: #E9ECEF;
 }
 
 .content {
-  border: 1px solid #ecf0f1;
+  border: 1px solid #E9ECEF;
   border-bottom: 1px solid white;
   border-left: none;
   //padding: 8px;
@@ -43,12 +52,110 @@
   font-weight: 400;
 }
 
+#chitietdientich {
+  color: #C90927;
+}
+
+#chitietgiatien {
+  color: #C90927;
+}
+
 .tienich {
-  border: 1px solid #ECF0F1;
+  border: 1px solid #E9ECEF;
   background: #ECF0F1;
 }
 
 .tienich-content {
-  border: 1px solid #ECF0F1;
+  border: 1px solid #E9ECEF;
 }
 
+.thongtinchung {
+  border-bottom: 1px solid white;
+  background: #EEEEEE;
+}
+
+.thongtinchungchitiet {
+  background: #EEEEEE;
+  border-bottom: 1px solid white;
+}
+
+.thongtinlienlac {
+  border-top: 1px solid #EEEEEE;
+  border-bottom: 1px solid #EEEEEE;
+  padding-top: 10px;
+  margin-bottom: 10px;
+  margin-right: -14px;
+}
+
+#thongtinlienlac {
+  font-weight: 500;
+}
+
+#hoten {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#hoten:hover {
+  color: red;
+}
+
+#address {
+  margin-bottom: 0px;
+  font-weight: 400;
+}
+
+#sdt {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #33A837;
+}
+
+#hinhanh, #map {
+  font-weight: 500;
+  padding: 0 23px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.hinhanh, .map {
+  border: 1px solid #E9ECEF;
+  margin-right: -14px;
+  margin-left: -1px;
+  background: #E9ECEF;
+  border-bottom: 1px solid white;
+}
+
+.chitiethinhanh, .chitietmap {
+  border: 1px solid #E9ECEF;
+  margin-right: -14px;
+  margin-left: -1px;
+  margin-bottom: 10px;
+}
+
+.thongtinchitiet {
+  border: 1px solid #E9ECEF;
+  margin-right: -14px;
+  margin-left: -1px;
+  background: #E9ECEF;
+}
+
+.thongtinchitiet-content {
+  border: 1px solid #E9ECEF;
+  margin-right: -14px;
+  margin-left: -1px;
+  margin-bottom: 10px;
+  padding: 5px 23px;
+}
+
+#thongtinchitiet {
+  font-weight: 500;
+  padding: 0 23px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+agm-map {
+  height: 328.31px;
+}

@@ -2,23 +2,39 @@
 <div class="space"></div>
 <div class="container">
   <div class="col-lg-12 bc">
-    <mdb-breadcrumb>
-      <mdb-breadcrumb-item class="blue-text"><a routerLink="/trang-chu">Trang chủ</a></mdb-breadcrumb-item>
-      <mdb-breadcrumb-item *ngIf="motel == 1" class="blue-text"><a routerLink="/phong-tro">Phòng trọ</a>
-      </mdb-breadcrumb-item>
-      <mdb-breadcrumb-item *ngIf="motel != 1" class="blue-text"><a routerLink="/nha-nguyen-can">Nhà nguyên căn</a>
-      </mdb-breadcrumb-item>
-      <!--<mdb-breadcrumb-item class="active">Tên bài viết</mdb-breadcrumb-item>-->
-    </mdb-breadcrumb>
+    <!--<mdb-breadcrumb>-->
+    <!--<mdb-breadcrumb-item class="blue-text"><a routerLink="/trang-chu">Trang chủ</a></mdb-breadcrumb-item>-->
+    <!--<mdb-breadcrumb-item *ngIf="motel == 1" class="blue-text"><a routerLink="/phong-tro">Phòng trọ</a>-->
+    <!--</mdb-breadcrumb-item>-->
+    <!--<mdb-breadcrumb-item *ngIf="motel != 1" class="blue-text"><a routerLink="/nha-nguyen-can">Nhà nguyên căn</a>-->
+    <!--</mdb-breadcrumb-item>-->
+    <!--&lt;!&ndash;<mdb-breadcrumb-item class="active">Tên bài viết</mdb-breadcrumb-item>&ndash;&gt;-->
+    <!--</mdb-breadcrumb>-->
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/trang-chu">Trang chủ</a></li>
+        <li class="breadcrumb-item" *ngIf="motel == 1"><a routerLink="/phong-tro">Phòng trọ</a></li>
+        <li class="breadcrumb-item" *ngIf="motel != 1"><a routerLink="/nha-nguyen-can">Nhà nguyên căn</a></li>
+      </ol>
+    </nav>
   </div>
 </div>
 <div class="container">
-  <h2>Tên bài viết</h2>
+  <h3 id="tenbaiviet">Tên bài viết</h3>
 </div>
 <div class="container">
   <div class="row">
     <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
       <div class="post-summary">
+        <!--&lt;!&ndash;Thông tin chung&ndash;&gt;-->
+        <!--<div class="row padding">-->
+        <!--<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 thongtinchung">-->
+        <!--<p id="thongtinchung">THÔNG TIN CHUNG</p>-->
+        <!--</div>-->
+        <!--<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 thongtinchungchitiet">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;Thông tin chung&ndash;&gt;-->
         <!--Địa chỉ-->
         <div class="row padding">
           <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 col-4 background-color">
@@ -46,7 +62,7 @@
               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-4 background-color">
                 <p id="giatien">Giá thuê</p>
               </div>
-              <div class="col-lg-8 col-md-8 col-sm-6 col-8 content">
+              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-8 content">
                 <p id="chitietgiatien">5000000 VNĐ</p>
               </div>
             </div>
@@ -138,7 +154,95 @@
       </div>
     </div>
     <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12">
-      aaa
+      <div class="thongtinlienlac">
+        <h4 id="thongtinlienlac">Thông tin liên lạc</h4>
+        <a><i class="fas fa-user"></i><span id="hoten"> Đoàn Huỳnh Thiện</span></a>
+        <p id="address"><i class="fas fa-map-marker-alt"></i> 97 đường số 6 khu phố 4 phường Tam Phú quận Thủ Đức
+        </p>
+        <p id="sdt"><i class="fas fa-mobile-alt"></i> 0784553008</p>
+      </div>
     </div>
   </div>
 </div>
+<div class="container">
+  <div class="row">
+    <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="hinhanh">
+            <h4 id="hinhanh">Hình ảnh</h4>
+          </div>
+          <div class="chitiethinhanh">
+            <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+              <mdb-carousel-item>
+                <div class="view w-100">
+                  <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg"
+                       alt="First slide">
+                  <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
+                </div>
+              </mdb-carousel-item>
+              <mdb-carousel-item>
+                <div class="view w-100">
+                  <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg"
+                       alt="Second slide">
+                  <div class="mask rgba-black-strong waves-light" mdbWavesEffect></div>
+                </div>
+              </mdb-carousel-item>
+              <mdb-carousel-item>
+                <div class="view w-100">
+                  <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg"
+                       alt="Third slide">
+                  <div class="mask rgba-black-slight waves-light" mdbWavesEffect></div>
+                </div>
+              </mdb-carousel-item>
+            </mdb-carousel>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="thongtinchitiet">
+            <h4 id="thongtinchitiet">Thông tin chi tiết</h4>
+          </div>
+          <div class="thongtinchitiet-content">
+            <p>KTX dành cho các bạn học sinh,sinh viên...
+              Nhà mình nằm trong hẻm, khu dân trí cao, an ninh, yên tĩnh
+              - Sân nhà trống trãi có chỗ để xe rộng rãi ^^
+              Dưới sân nhà có quán cafe và catin phục vụ các bạn mọi lúc các bạn cần
+              Lên lầu bạn có thể đi thang bộ hoặc thang máy
+              ***Mỗi phòng trước cửa đều có kệ để dép ngăn nắp
+              ***Phòng thông thoáng, thoáng mát vì có: Cửa sổ : Quạt : Máy lạnh : Bang công
+              ***Mỗi giường, mỗi bạn đều có: Chìa khóa riêng/ Tủ đồ cá nhân/ móc treo đồ/ ổ cắm điện / rèm che
+              # Lưu ý giúp mình là không nấu ăn trong phòng nha. Vì mình ở tập thể, nếu bạn nấu ăn sẽ làm ảnh hưởng đến
+              các bạn khác. Nhưng yên tâm vì nhà mình có khu vực bếp riêng dành cho các bạn thỏa sức nấu ăn tự do thoải
+              mái nha
+              -Tolet có người cọ rửa mỗi ngày, cùng với các thiết bị hiện đại
+              Nhằm tạo điều kiện cho các bạn ở trong môi trường sách sẻ và tốt . Nhà mình ngày nào cũng có người lau dọn
+              vệ sinh miễn phí cho các bạn
+              #### Các dịch vụ tốt ####
+              Dịch vụ dọn vệ sinh miễn phí
+              Dịch vụ giặc xấy giá học sinh
+              Camera an ninh chống chộm/ Hệ thống PCCC mọi nơi/ Bảo vệ trông coi
+              Liên hệ ngay với mình nha
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="map">
+            <h4 id="map">Bản đồ</h4>
+          </div>
+          <div class="chitietmap">
+            <agm-map [latitude]="lat" [longitude]="lng">
+              <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+            </agm-map>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
