@@ -159,3 +159,54 @@ ol.breadcrumb {
 agm-map {
   height: 328.31px;
 }
+
+.binhluan {
+  border: 1px solid #E9ECEF;
+  margin-right: -14px;
+  margin-left: -1px;
+  background: #E9ECEF;
+}
+
+#binhluan {
+  font-weight: 500;
+  padding: 0 23px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.binhluan-content, .khung-binhluan {
+  border: 1px solid #E9ECEF;
+  margin-right: -14px;
+  margin-left: -1px;
+  margin-bottom: 10px;
+  padding: 5px 23px;
+}
+
+.ten:hover {
+  color: red;
+}
+
+.ten {
+  margin-bottom: 3px;
+  color: #3b5998;
+  font-weight: bold;
+}
+
+.noidung {
+  margin-bottom: 3px;
+}
+
+.gio {
+  font-size: 12px;
+  border-bottom: 1px solid #E9ECEF;
+}
+
+#comment{
+  margin-bottom: 15px;
+}
+
+.btnPost {
+  background: #0db9f0;
+  font-size: 15px;
+  font-weight: 500;
+}

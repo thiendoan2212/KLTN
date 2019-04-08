@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {PostDTO} from '../model/postDTO';
 import {AngularEditorConfig} from '@kolkov/angular-editor';
 
@@ -39,10 +39,18 @@ export class CreatePostComponent implements OnInit {
   lat = 10.776111;
   lng = 106.695833;
 
+  public innerWidth: any;
+
   constructor() {
   }
 
   ngOnInit() {
+    this.innerWidth = window.innerWidth;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
   }
 
   fileEvent(event: any) {

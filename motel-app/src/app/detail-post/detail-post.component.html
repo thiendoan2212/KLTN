@@ -2,14 +2,6 @@
 <div class="space"></div>
 <div class="container">
   <div class="col-lg-12 bc">
-    <!--<mdb-breadcrumb>-->
-    <!--<mdb-breadcrumb-item class="blue-text"><a routerLink="/trang-chu">Trang chủ</a></mdb-breadcrumb-item>-->
-    <!--<mdb-breadcrumb-item *ngIf="motel == 1" class="blue-text"><a routerLink="/phong-tro">Phòng trọ</a>-->
-    <!--</mdb-breadcrumb-item>-->
-    <!--<mdb-breadcrumb-item *ngIf="motel != 1" class="blue-text"><a routerLink="/nha-nguyen-can">Nhà nguyên căn</a>-->
-    <!--</mdb-breadcrumb-item>-->
-    <!--&lt;!&ndash;<mdb-breadcrumb-item class="active">Tên bài viết</mdb-breadcrumb-item>&ndash;&gt;-->
-    <!--</mdb-breadcrumb>-->
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="/trang-chu">Trang chủ</a></li>
@@ -239,6 +231,64 @@
             <agm-map [latitude]="lat" [longitude]="lng">
               <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
             </agm-map>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="binhluan">
+            <h4 id="binhluan">Bình luận</h4>
+          </div>
+          <!--<div class="khung-binhluan">-->
+          <!--</div>-->
+          <div class="binhluan-content">
+            <!--Nếu đăng nhập-->
+            <textarea class="form-control" id="comment" cols="85" rows="5"
+                      placeholder="Vui lòng nhập nội dung bình luận"></textarea>
+            <div class="text-right">
+              <button type="button" mdbBtn class="btnPost" mdbWavesEffect>Gửi</button>
+            </div>
+            <!--Nếu đăng nhập-->
+            <div class="text-content">
+              <a><p class="ten">Đoàn Huỳnh Thiện</p></a>
+              <p class="noidung">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, eius sint.
+                Adipisci dicta magnam nobis?</p>
+              <p class="gio">5 giờ trước</p>
+            </div>
+            <div class="text-content">
+              <a><p class="ten">Đoàn Huỳnh Thiện</p></a>
+              <p class="noidung">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, eius sint.
+                Adipisci dicta magnam nobis?</p>
+            </div>
+            <!--Phân trang-->
+            <nav>
+              <ul class="pagination pg-blue justify-content-center">
+                <li class="page-item">
+                  <a class="page-link" aria-label="Previous" mdbWavesEffect>
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <li class="page-item active"><a class="page-link" mdbWavesEffect>1</a></li>
+                <li class="page-item"><a class="page-link" mdbWavesEffect>2</a></li>
+                <li class="page-item"><a class="page-link" mdbWavesEffect>3</a></li>
+                <li class="page-item"><a class="page-link" mdbWavesEffect>4</a></li>
+                <li class="page-item"><a class="page-link" mdbWavesEffect>5</a></li>
+                <li class="page-item">
+                  <a class="page-link" aria-label="Next" mdbWavesEffect>
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+            <!--Phân trang-->
           </div>
         </div>
       </div>

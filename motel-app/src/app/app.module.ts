@@ -19,6 +19,7 @@ import {CreatePostComponent} from './create-post/create-post.component';
 import {AngularEditorModule} from '@kolkov/angular-editor';
 import {AgmCoreModule} from '@agm/core';
 import { DetailPostComponent } from './detail-post/detail-post.component';
+import { MotelPageComponent } from './motel-page/motel-page.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { DetailPostComponent } from './detail-post/detail-post.component';
     FooterComponent,
     CreatePostComponent,
     DetailPostComponent,
+    MotelPageComponent,
   ],
   imports: [
     AgmCoreModule.forRoot({

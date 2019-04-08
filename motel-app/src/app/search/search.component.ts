@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, HostListener, OnInit, ViewEncapsulation} from '@angular/core';
 import {SearchForm} from '../model/searchForm';
 import {Options} from 'ng5-slider';
 
@@ -54,14 +54,33 @@ export class SearchComponent implements OnInit {
     hideLimitLabels: true,
     hidePointerLabels: true
   };
+  radius: number;
+  address: string;
   zoom = 13;
   lat = 10.776111;
   lng = 106.695833;
+
+  public innerWidth: any;
+
+  display = 'none';
 
   constructor() {
   }
 
   ngOnInit() {
+    this.innerWidth = window.innerWidth;
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
+  }
+
+  openSearchMaps() {
+    this.display = 'block';
+  }
+
+  closeSearchMaps() {
+    this.display = 'none';
+  }
 }
