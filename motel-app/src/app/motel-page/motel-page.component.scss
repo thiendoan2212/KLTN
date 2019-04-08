@@ -6,3 +6,50 @@
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
+
+img {
+  width: 100%;
+}
+
+#news {
+  font-size: 30px;
+  font-weight: bold;
+  color: #2E3339;
+  margin-bottom: -20px;
+}
+
+.bor {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-weight: bold;
+  font-size: 17px;
+  padding-bottom: 20px;
+}
+
+.title:hover {
+  text-decoration: underline !important;
+}
+
+.address, .acreage, .type, .time, .price, .status, .util {
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.address-content, .acreage-content, .type-content, .status-content, .price-content {
+  font-weight: 500;
+}
+
+.price-content {
+  color: red;
+}
+
+.status-content {
+  color: darkred;
+}
+
+i.fas {
+  margin-right: 5px;
+  color: #009BF9;
+}

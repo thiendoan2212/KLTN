@@ -13,10 +13,73 @@
   </div>
 </div>
 <app-search></app-search>
+<div class="space"></div>
 <div class="container">
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      aa
+      <div class="text-center">
+        <p id="news">Phòng trọ, nhà trọ</p>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="space"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="row bor">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+          <div class="row">
+            <img [ngStyle]="{'height': innerWidth<576 ?'200px': '170px'}"
+                 src="https://static.thuephongtro.com/Uploads/Images/Thumb/default.jpg" alt="">
+          </div>
+        </div>
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-12">
+          <div class="title" [ngStyle]="{'margin-bottom': innerWidth<1200 ?'-10px':'0'}">
+            <a>CHO THUÊ PHÒNG CAO CẤP CÓ MÁY LẠNH, CÓ GÁC, NƯỚC NÓNG. ĐẶC BIỆT GIẶT SẤY MIỄN PHÍ</a>
+          </div>
+          <p class="address" [ngStyle]="{'margin-bottom': innerWidth<1200 ?'5px':'10px'}">Địa chỉ: <span
+            class="address-content">Tô Ngọc Vân, Thạnh Xuân, Quận 12, HCM</span></p>
+          <div class="row">
+            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-6">
+              <p class="acreage" [ngStyle]="{'margin-bottom': innerWidth<1200 ?'5px':'10px'}">Diện tích: <span
+                class="acreage-content">50 m²</span></p>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6">
+              <p class="type" [ngStyle]="{'margin-bottom': innerWidth<1200 ?'5px':'10px'}">Loại: <span
+                class="type-content"> Phòng trọ</span></p>
+            </div>
+            <div *ngIf="innerWidth>=768" class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6">
+              <div class="text-right">
+                <p class="time" [ngStyle]="{'margin-bottom': innerWidth<1200 ?'5px':'10px'}">08/04/2019</p>
+              </div>
+            </div>
+            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-6">
+              <p class="price" [ngStyle]="{'margin-bottom': innerWidth<1200 ?'5px':'10px'}">Giá: <span
+                class="price-content">4.000.000/tháng</span></p>
+            </div>
+
+            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-6">
+              <p class="status" [ngStyle]="{'margin-bottom': innerWidth<1200 ?'5px':'10px'}">Tình trạng: <span
+                class="status-content">Hết</span></p>
+            </div>
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <p class="util">Tiện ích:
+                <span><i class="fas fa-toilet" data-toggle="tooltip" data-placement="bottom"
+                         title="Toilet riêng"></i></span>
+                <span><i class="fas fa-parking" data-toggle="tooltip" data-placement="bottom"
+                         title="Chỗ đậu xe"></i></span>
+                <span><i class="fas fa-wifi" data-toggle="tooltip" data-placement="bottom" title="Wifi"> </i> </span>
+                <span><i class="fas fa-snowflake" data-toggle="tooltip" data-placement="bottom" title="Điều hòa"> </i> </span>
+                <span><i class="fas fa-tv" data-toggle="tooltip" data-placement="bottom" title="Tivi"> </i> </span>
+                <span><i class="fas fa-shower" data-toggle="tooltip" data-placement="bottom" title="Máy nước nóng"></i> </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
