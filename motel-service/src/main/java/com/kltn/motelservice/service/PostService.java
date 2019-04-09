@@ -19,6 +19,8 @@ public interface PostService {
 
     PostDTO deletePost(Long id);
 
+    List<PostDTO> getMotelPost(boolean bool);
+
     String deletePostByAdmin(Long id);
 
     PostDTO ApprovePost(Long id, boolean isApprove);

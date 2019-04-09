@@ -38,9 +38,6 @@ public class Accomodation {
 
     private double price;
 
-    @Null
-    private int upstair;
-
     private boolean status;
 
     private boolean motel;
@@ -60,7 +57,9 @@ public class Accomodation {
     public Accomodation() {
     }
 
-    public Accomodation(double acreage, String address, double electricPrice, double waterPrice, boolean internet, boolean parking, boolean airConditioner, boolean heater, boolean cableTV, boolean tv, ToiletName toilet, double price, @Null int upstair, boolean status, boolean motel, double xCoordinate, double yCoordinate, Post post, District district) {
+    public Accomodation(double acreage, String address, double electricPrice, double waterPrice, boolean internet,
+                        boolean parking, boolean airConditioner, boolean heater, boolean cableTV, boolean tv, ToiletName toilet,
+                        double price, boolean status, boolean motel, double xCoordinate, double yCoordinate, Post post, District district) {
         this.acreage = acreage;
         this.address = address;
         this.electricPrice = electricPrice;
@@ -73,7 +72,6 @@ public class Accomodation {
         this.tv = tv;
         this.toilet = toilet;
         this.price = price;
-        this.upstair = upstair;
         this.status = status;
         this.motel = motel;
         this.xCoordinate = xCoordinate;
@@ -184,14 +182,6 @@ public class Accomodation {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public int getUpstair() {
-        return upstair;
-    }
-
-    public void setUpstair(int upstair) {
-        this.upstair = upstair;
     }
 
     public boolean isStatus() {

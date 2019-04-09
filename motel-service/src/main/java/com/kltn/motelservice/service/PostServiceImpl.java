@@ -54,7 +54,6 @@ public class PostServiceImpl implements PostService {
         List<PostDTO> postDTOS = new ArrayList<>();
         if (bool == true) {
             posts = postRepository.findAllByApprovedAndNotApproved(true, false);
-
         } else {
             posts = postRepository.findAllByApprovedAndNotApproved(false, true);
         }
@@ -195,6 +194,26 @@ public class PostServiceImpl implements PostService {
             } else
                 throw new PostException("Không tìm thấy post id " + id);
 //                logger.error("Không tìm thấy post id " + id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<PostDTO> getMotelPost(boolean bool) {
+        try {
+            List<Post> posts;
+            List<PostDTO> postDTOS = new ArrayList<>();
+            //Get Motel
+            if (bool == true) {
+                posts = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false, true);
+            } else { //Get House
+                posts = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false, false);
+            }
+            addAccomodation(posts, postDTOS);
+            return postDTOS;
+
         } catch (Exception e) {
             e.printStackTrace();
         }

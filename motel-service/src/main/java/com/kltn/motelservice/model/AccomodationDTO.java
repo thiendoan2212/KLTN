@@ -33,8 +33,6 @@ public class AccomodationDTO {
 
     private double price;
 
-    private int upstair;
-
     private boolean status;
 
     private boolean motel;
@@ -52,7 +50,7 @@ public class AccomodationDTO {
 
     public AccomodationDTO(long id, double acreage, String address, double electricPrice, double waterPrice, boolean internet, boolean parking,
                            boolean airConditioner, boolean heater, boolean cableTV, boolean tv, ToiletName toilet, double price,
-                           int upstair, boolean status, boolean motel, double xCoordinate, double yCoordinate, PostDTO postDTO, Long idDistrict) {
+                           boolean status, boolean motel, double xCoordinate, double yCoordinate, PostDTO postDTO, Long idDistrict) {
         this.id = id;
         this.acreage = acreage;
         this.address = address;
@@ -66,7 +64,6 @@ public class AccomodationDTO {
         this.tv = tv;
         this.toilet = toilet;
         this.price = price;
-        this.upstair = upstair;
         this.status = status;
         this.motel = motel;
         this.xCoordinate = xCoordinate;
@@ -177,14 +174,6 @@ public class AccomodationDTO {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public int getUpstair() {
-        return upstair;
-    }
-
-    public void setUpstair(int upstair) {
-        this.upstair = upstair;
     }
 
     public boolean isStatus() {

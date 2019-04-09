@@ -16,4 +16,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findAllByApprovedAndNotApproved(boolean approved, boolean notApproved);
 
+    List<Post> findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(boolean approved, boolean notApproved, boolean motel);
 }

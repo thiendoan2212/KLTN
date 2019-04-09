@@ -25,6 +25,11 @@ public class PostController {
         return postService.getPostByApproved(approved);
     }
 
+    @GetMapping("/posts/motel/{bool}")
+    public List<PostDTO> getMotelPost(@PathVariable boolean bool) {
+        return postService.getMotelPost(bool);
+    }
+
     @GetMapping("/post/user/{username}")
     public List<PostDTO> getPostByUsername(@PathVariable String username) {
         return postService.getPostByUsername(username);
