@@ -76,6 +76,12 @@ export class SearchComponent implements OnInit {
     this.innerWidth = window.innerWidth;
   }
 
+  ClickedOut(event) {
+    if (event.target.className === 'modal') {
+      this.display = 'none';
+    }
+  }
+
   openSearchMaps() {
     this.display = 'block';
   }

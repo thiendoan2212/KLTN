@@ -312,7 +312,7 @@
 <!--</div>-->
 <div class="backdrop" [ngStyle]="{'display': display}"></div>
 <!-- The Modal -->
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': display}">
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': display}" (click)="ClickedOut($event)">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
 
@@ -332,7 +332,7 @@
               <input appNumberOnly type="text" class="form-control radius" aria-describedby="radius"
                      [(ngModel)]="this.radius">
               <div class="input-group-append">
-                <span class="input-group-text" id="radius">m²</span>
+                <span class="input-group-text" id="radius">m</span>
               </div>
             </div>
           </div>

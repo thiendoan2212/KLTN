@@ -32,41 +32,80 @@
         </div>
         <ng-template #notLoggedIn>
           <li class="nav-item">
-            <a class="nav-link waves-light" mdbWavesEffect>Đăng ký</a>
+            <a class="nav-link waves-light" mdbWavesEffect (click)="showSignup=true">Đăng ký</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link waves-light" mdbWavesEffect>Đăng nhập</a>
+            <a class="nav-link waves-light" mdbWavesEffect (click)="showModal=true">Đăng nhập</a>
           </li>
         </ng-template>
-        <!--<div *ngIf="isLoggedIn; else loggedIn">-->
-        <!--<li class="nav-item">-->
-        <!--<a class="nav-link">-->
-        <!--<div class="btn-group" mdbDropdown>-->
-        <!--<mdb-icon fas icon="user" mdbDropdownToggle></mdb-icon>-->
-        <!--<div class="dropdown-menu dropdown-menu-right dropdown-primary">-->
-        <!--<a class="dropdown-item" href="#">Thông tin</a>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</a>-->
-        <!--</li>-->
-        <!--</div>-->
-        <!--<ng-template #loggedIn>-->
-        <!--<li class="nav-item">-->
-        <!--<a class="nav-link">-->
-        <!--<div class="btn-group" mdbDropdown>-->
-        <!--<mdb-icon fas icon="user" mdbDropdownToggle></mdb-icon>-->
-        <!--<div class="dropdown-menu dropdown-menu-right dropdown-primary">-->
-        <!--<a class="dropdown-item" href="#">Đăng nhập</a>-->
-        <!--<a class="dropdown-item" href="#">Đăng ký</a>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</a>-->
-        <!--</li>-->
-        <!--</ng-template>-->
       </ul>
     </links>
-    <!-- Collapsible content -->
-
   </mdb-navbar>
   <!--/.Navbar-->
+</div>
+
+<div class="modal fade" (click)="ClickedOut($event)" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     [ngClass]="{'show': showModal}" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Đăng nhập</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="showModal=false">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <p class="username">Tài khoản: </p>
+        <input type="email" id="signIn-username" class="form-control validate">
+        <label data-error="wrong" data-success="right" for="signIn-username"></label>
+
+        <p class="pass">Mật khẩu: </p>
+        <input type="password" id="signIn-pass" class="form-control validate">
+        <label data-error="wrong" data-success="right" for="signIn-pass"></label>
+
+      </div>
+      <div class="d-flex justify-content-center footer-modal">
+        <button class="btn btnLogin" mdbWavesEffect>Login</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" (click)="ClickedOut($event)" id="modalSignupForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     [ngClass]="{'show': showSignup}" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Đăng ký</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="showSignup=false">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <p class="username">Tài khoản: </p>
+        <input type="text" id="signUp-username" class="form-control validate">
+        <label data-error="wrong" data-success="right" for="signUp-username"></label>
+
+        <p class="pass">Mật khẩu: </p>
+        <input type="password" id="signUp-pass" class="form-control validate">
+        <label data-error="wrong" data-success="right" for="signUp-pass"></label>
+
+        <p class="display_name">Tên hiển thị: </p>
+        <input type="text" id="signUp-displayname" class="form-control validate">
+        <label data-error="wrong" data-success="right" for="signUp-displayname"></label>
+
+        <p class="address">Địa chỉ: </p>
+        <input type="text" id="signUp-address" class="form-control validate">
+        <label data-error="wrong" data-success="right" for="signUp-address"></label>
+
+        <p class="phone">Số điện thoại: </p>
+        <input type="text" id="signUp-phone" class="form-control validate">
+        <label data-error="wrong" data-success="right" for="signUp-phone"></label>
+
+      </div>
+      <div class="d-flex justify-content-center footer-modal">
+        <button class="btn btnLogin" mdbWavesEffect>Đăng ký</button>
+      </div>
+    </div>
+  </div>
 </div>

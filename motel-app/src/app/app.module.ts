@@ -20,6 +20,7 @@ import {AngularEditorModule} from '@kolkov/angular-editor';
 import {AgmCoreModule} from '@agm/core';
 import { DetailPostComponent } from './detail-post/detail-post.component';
 import { MotelPageComponent } from './motel-page/motel-page.component';
+import { HousePageComponent } from './house-page/house-page.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MotelPageComponent } from './motel-page/motel-page.component';
     CreatePostComponent,
     DetailPostComponent,
     MotelPageComponent,
+    HousePageComponent,
   ],
   imports: [
     AgmCoreModule.forRoot({

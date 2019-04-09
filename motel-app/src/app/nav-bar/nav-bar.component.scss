@@ -8,11 +8,39 @@
   background: #2E3339 !important;
 }
 
-button{
+button {
   margin-top: 5px;
   background: white;
   border: white 1px solid;
   border-radius: 5px;
   color: #003352;
   font-weight: bold;
+}
+
+.modal.show {
+  background: rgba(0, 0, 0, 0.6);
+  display: block;
+}
+
+.username, .pass, .display_name, .phone, .address {
+  margin-bottom: 3px;
+  font-weight: 500;
+}
+
+.modal-content {
+  overflow: hidden;
+}
+
+.footer-modal {
+  margin-bottom: 16px;
+}
+
+.btnLogin {
+  background: #0db9f0;
+  border: none;
+  color: white;
+}
+
+.modal-content {
+  overflow-y: auto;
 }
