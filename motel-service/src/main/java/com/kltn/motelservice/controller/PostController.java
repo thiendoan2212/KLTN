@@ -1,10 +1,8 @@
 package com.kltn.motelservice.controller;
 
-import com.kltn.motelservice.entity.Post;
 import com.kltn.motelservice.model.PostDTO;
-import com.kltn.motelservice.model.SearchForm;
+import com.kltn.motelservice.model.SearchDTO;
 import com.kltn.motelservice.service.PostServiceImpl;
-import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +14,16 @@ public class PostController {
     @Autowired
     PostServiceImpl postService;
 
+//    @GetMapping("/posts/search")
+//    public List<PostDTO> searchPost(@RequestBody SearchDTO searchForm){
+//        return postService.searchPost(searchForm);
+//    }
+
     @GetMapping("/posts/search")
-    public List<PostDTO> searchPost(@RequestBody SearchForm searchForm){
+    public List<PostDTO> searchPost(SearchDTO searchForm){
         return postService.searchPost(searchForm);
     }
+
 
     @GetMapping("/posts")
     public List<PostDTO> getAllPost() {

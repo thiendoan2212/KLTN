@@ -1,4 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {PostService} from '../service/post.service';
+import {PostDTO} from '../model/postDTO';
+import {ToiletName} from '../model/ToiletName';
 
 @Component({
   selector: 'app-detail-post',
@@ -6,22 +10,55 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./detail-post.component.scss']
 })
 export class DetailPostComponent implements OnInit {
-  motel = 0;
-  elements: any = [
-    {id: 1, first: 'Mark', last: 'Otto', handle: '@mdo'},
-    {id: 2, first: 'Jacob', last: 'Thornton', handle: '@fat'},
-    {id: 3, first: 'Larry', last: 'the Bird', handle: '@twitter'},
-  ];
+  postDTO: PostDTO;
+  errorMessage: '';
+  ToiletName = ToiletName;
+  util = ' ';
+  zoom = 15;
 
-  lat = 51.678418;
-  lng = 7.809007;
-
-  headElements = ['ID', 'First', 'Last', 'Handle'];
-
-  constructor() {
+  constructor(private route: ActivatedRoute,
+              private postService: PostService) {
   }
 
   ngOnInit() {
+    this.getPostById();
   }
 
+  getPostById() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.postService.getPostById(id).subscribe(
+      data => {
+        this.postDTO = data;
+        console.log(this.postDTO);
+        console.log(this.util);
+        if (this.postDTO.accomodationDTO.parking) {
+          this.util += 'Chỗ để xe';
+        }
+        if (this.postDTO.accomodationDTO.internet) {
+          this.util += ', Internet';
+        }
+        if (this.postDTO.accomodationDTO.airConditioner) {
+          this.util += ', Điều hòa';
+        }
+        if (this.postDTO.accomodationDTO.cableTV) {
+          this.util += ', Truyền hình cáp';
+        }
+        if (this.postDTO.accomodationDTO.tv) {
+          this.util += ', Tivi';
+        }
+        if (this.postDTO.accomodationDTO.heater) {
+          this.util += ', Máy nước nóng';
+        }
+
+        if (this.util.startsWith(' , ')) {
+          this.util = this.util.substring(2);
+          console.log(this.util);
+        }
+      },
+      error => {
+        console.log(error);
+        this.errorMessage = error.error.message;
+      }
+    );
+  }
 }

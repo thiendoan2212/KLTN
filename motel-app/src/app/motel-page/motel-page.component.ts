@@ -20,7 +20,6 @@ export class MotelPageComponent implements OnInit {
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.getMotelPost();
-    console.log(this.KHEP_KIN);
   }
 
   @HostListener('window:resize', ['$event'])

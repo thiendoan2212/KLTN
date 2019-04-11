@@ -1,20 +1,18 @@
 package com.kltn.motelservice.repository;
 
 import com.kltn.motelservice.entity.Post;
-import com.kltn.motelservice.model.SearchForm;
+import com.kltn.motelservice.model.SearchDTO;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PostSpecification implements Specification<Post> {
-    private SearchForm searchForm;
+    private SearchDTO searchForm;
 
-    public PostSpecification(SearchForm searchForm) {
+    public PostSpecification(SearchDTO searchForm) {
         this.searchForm = searchForm;
     }
 

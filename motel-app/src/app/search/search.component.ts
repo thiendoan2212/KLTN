@@ -1,6 +1,7 @@
 import {Component, HostListener, OnInit, ViewEncapsulation} from '@angular/core';
 import {SearchForm} from '../model/searchForm';
 import {Options} from 'ng5-slider';
+import {SearchStorageService} from '../service/search-storage.service';
 
 @Component({
   selector: 'app-search',
@@ -10,9 +11,9 @@ import {Options} from 'ng5-slider';
 })
 export class SearchComponent implements OnInit {
   searchForm: SearchForm = new SearchForm();
-  myRadio: number;
-  priceMin = 0;
-  priceMax = 50;
+  searchForm1: SearchForm = new SearchForm();
+  myRadio1: number;
+
   priceOptions: Options = {
     floor: 0,
     ceil: 50,
@@ -22,8 +23,6 @@ export class SearchComponent implements OnInit {
     hidePointerLabels: true
   };
 
-  priceMin1 = 0;
-  priceMax1 = 50;
   priceOptions1: Options = {
     floor: 0,
     ceil: 50,
@@ -33,8 +32,6 @@ export class SearchComponent implements OnInit {
     hidePointerLabels: true
   };
 
-  acreageMin = 0;
-  acreageMax = 1000;
   acreageOptions: Options = {
     floor: 0,
     ceil: 1000,
@@ -44,8 +41,6 @@ export class SearchComponent implements OnInit {
     hidePointerLabels: true
   };
 
-  acreageMin1 = 0;
-  acreageMax1 = 1000;
   acreageOptions1: Options = {
     floor: 0,
     ceil: 1000,
@@ -54,7 +49,6 @@ export class SearchComponent implements OnInit {
     hideLimitLabels: true,
     hidePointerLabels: true
   };
-  radius: number;
   address: string;
   zoom = 13;
   lat = 10.776111;
@@ -64,11 +58,12 @@ export class SearchComponent implements OnInit {
 
   display = 'none';
 
-  constructor() {
+  constructor(private searchStorageService: SearchStorageService) {
   }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
+    this.setValueSearchForm();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -88,5 +83,16 @@ export class SearchComponent implements OnInit {
 
   closeSearchMaps() {
     this.display = 'none';
+  }
+
+  setValueSearchForm() {
+    this.searchForm.priceStart = 0;
+    this.searchForm.priceEnd = 50;
+    this.searchForm.acreageStart = 0;
+    this.searchForm.acreageEnd = 1000;
+  }
+
+  storageSearchForm() {
+    this.searchStorageService.storageSearchForm(this.searchForm);
   }
 }

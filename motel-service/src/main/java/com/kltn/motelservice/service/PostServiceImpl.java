@@ -6,7 +6,7 @@ import com.kltn.motelservice.exception.UserException;
 import com.kltn.motelservice.model.AccomodationDTO;
 import com.kltn.motelservice.model.CommentDTO;
 import com.kltn.motelservice.model.PostDTO;
-import com.kltn.motelservice.model.SearchForm;
+import com.kltn.motelservice.model.SearchDTO;
 import com.kltn.motelservice.repository.DistrictRepository;
 import com.kltn.motelservice.repository.PostRepository;
 import com.kltn.motelservice.repository.PostSpecification;
@@ -263,7 +263,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDTO> searchPost(SearchForm searchForm) {
+    public List<PostDTO> searchPost(SearchDTO searchForm) {
         try {
             Specification<Post> spec = new PostSpecification(searchForm);
             List<Post> posts = postRepository.findAll(spec);
@@ -277,7 +277,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDTO> searchPostByMaps(SearchForm searchForm) {
+    public List<PostDTO> searchPostByMaps(SearchDTO searchForm) {
         try {
             Specification<Post> spec = new PostSpecification(searchForm);
             List<Post> posts = postRepository.findAll(spec);

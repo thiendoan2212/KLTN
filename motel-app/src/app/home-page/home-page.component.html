@@ -1,48 +1,6 @@
 <app-nav-bar></app-nav-bar>
 <div class="space"></div>
 <app-search></app-search>
-<!--<div class="space"></div>-->
-<!--<div class="container">-->
-<!--<div class="row">-->
-<!--<div class="col-lg-6 col-md-6">-->
-<!--<div class="row" id="search">-->
-<!--<div class="col-lg-1 col-md-1 col-sm-1 col-0"></div>-->
-<!--<div class="col-lg-2 col-md-2 col-sm-2 col-2 icon-search text-center">-->
-<!--<i class="fas fa-search"></i>-->
-<!--</div>-->
-<!--<div class="col-lg-9 col-md-9 col-sm-9 col-9">-->
-<!--<div class="row">-->
-<!--<div class="col-lg-12">-->
-<!--<p id="solution">Giải pháp tìm kiếm mới</p>-->
-<!--</div>-->
-<!--<div class="col-lg-12">-->
-<!--<p id="solution-detail">Tiết kiếm thời gian cho bạn với giải pháp và công nghệ mới</p>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="col-lg-6 col-md-6">-->
-<!--<div class="row" id="time">-->
-<!--<div class="col-lg-1 col-md-1 col-sm-1 col-0"></div>-->
-<!--<div class="col-lg-2 col-md-2 col-sm-2 col-2 icon-time text-center">-->
-<!--<i class="fas fa-hourglass-start"></i>-->
-<!--</div>-->
-<!--<div class="col-lg-9 col-md-9 col-sm-9 col-9">-->
-<!--<div class="row">-->
-<!--<div class="col-lg-12">-->
-<!--<p id="safe-fast">An toàn và nhanh chóng</p>-->
-<!--</div>-->
-<!--<div class="col-lg-12">-->
-<!--<p id="safe-fast-detail">Với đội ngũ quản trị viên kiểm duyệt chất lượng đem lại sự tin-->
-<!--tưởng</p>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
 <div class="space"></div>
 <div class="container">
   <div class="text-center">
@@ -58,28 +16,28 @@
       <div class="card">
         <!-- Card image -->
         <div class="view overlay">
-          <img class="card-img-top" src={{postDTO.imageStrings[0]}} onError="src='../default-img.jpg'" width="350px" height="232.9px"
+          <img class="card-img-top" src="{{postDTO.imageStrings[0] || '../../assets/default-img.jpg'}}" width="350px" height="232.9px"
                alt="Card image cap">
           <a>
-            <div class="mask rgba-white-slight"></div>
+            <div class="mask rgba-white-slight" routerLink="/bai-viet/{{postDTO.id}}"></div>
           </a>
         </div>
         <!-- Card content -->
         <div class="card-body">
           <!-- Title -->
-          <a>
+          <a routerLink="/bai-viet/{{postDTO.id}}">
             <h6 class="card-title font-weight-bold">{{postDTO.title}}</h6>
           </a>
           <div class=" d-flex justify-content-between">
-            <a *ngIf="!postDTO.accomodationDTO.motel; else motel" class="light-blue-text">
-              <p class="font-weight-bold house"><i class="fas fa-home"></i> Nhà nguyên căn</p>
+            <a *ngIf="!postDTO.accomodationDTO.motel; else motel" class="light-blue-text" routerLink="/nha-nguyen-can">
+              <p class="font-weight-bold house" ><i></i> Nhà nguyên căn</p>
             </a>
             <ng-template #motel>
-              <a class="pink-text">
-                <p class="font-weight-bold house"><i class="fas fa-home"></i> Phòng trọ</p>
+              <a class="pink-text" routerLink="/phong-tro">
+                <p class="font-weight-bold house"><i></i> Phòng trọ</p>
               </a>
             </ng-template>
-            <p class="font-weight-bold dark-grey-text house">{{postDTO.accomodationDTO.price | currency:"VND"}}</p>
+            <p class="font-weight-bold dark-grey-text house">{{postDTO.accomodationDTO.price | number}} VNĐ/tháng</p>
           </div>
           <!-- Text -->
           <p class="card-text">Diện tích: {{postDTO.accomodationDTO.acreage}} m²</p>
@@ -91,4 +49,4 @@
     </div>
   </div>
 </div>
-<app-footer></app-footer>
+<app-footer *ngIf="postDTOs"></app-footer>

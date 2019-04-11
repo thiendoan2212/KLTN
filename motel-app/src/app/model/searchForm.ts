@@ -5,4 +5,7 @@ export class SearchForm {
   priceEnd: number;
   acreageStart: number;
   acreageEnd: number;
+  radius: number;
+  xCoordinate: number;
+  yCoordinate: number;
 }

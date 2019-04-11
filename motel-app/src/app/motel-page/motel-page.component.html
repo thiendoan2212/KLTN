@@ -31,12 +31,19 @@
       <div class="row bor" *ngFor="let postDTO of postDTOs">
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
           <div class="row">
-            <img [ngStyle]="{'height': innerWidth<576 ?'200px': '170px'}" src={{postDTO.imageStrings[0]}}>
+            <div class="view overlay">
+              <img [ngStyle]="{'height': innerWidth<576 ?'200px': '170px'}" src="{{postDTO.imageStrings[0] || '../../assets/default-img.jpg'}}"
+                   width="350px" height="232.9px" alt="Card image cap">
+              <a>
+                <div class="mask rgba-white-slight" routerLink="/bai-viet/{{postDTO.id}}"></div>
+              </a>
+            </div>
+            <!--<img [ngStyle]="{'height': innerWidth<576 ?'200px': '170px'}" src={{postDTO.imageStrings[0]}}>-->
           </div>
         </div>
         <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-12">
           <div class="title" [ngStyle]="{'margin-bottom': innerWidth<1200 ?'-10px':'0'}">
-            <a>{{postDTO.title}}</a>
+            <a routerLink="/bai-viet/{{postDTO.id}}">{{postDTO.title}}</a>
           </div>
           <p class="address" [ngStyle]="{'margin-bottom': innerWidth<1200 ?'5px':'10px'}">Địa chỉ: <span
             class="address-content">{{postDTO.accomodationDTO.address}}</span></p>
@@ -91,4 +98,4 @@
     </div>
   </div>
 </div>
-<app-footer></app-footer>
+<app-footer *ngIf="postDTOs"></app-footer>

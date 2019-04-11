@@ -1,6 +1,6 @@
 package com.kltn.motelservice.model;
 
-public class SearchForm {
+public class SearchDTO {
     private double acreageStart;
 
     private double acreageEnd;
@@ -19,11 +19,11 @@ public class SearchForm {
 
     private double radius;
 
-    public SearchForm() {
+    public SearchDTO() {
     }
 
-    public SearchForm(double acreageStart, double acreageEnd, double priceStart, double priceEnd, int motel,
-                      long idDistrict, double xCoordinate, double yCoordinate, double radius) {
+    public SearchDTO(double acreageStart, double acreageEnd, double priceStart, double priceEnd, int motel,
+                     long idDistrict, double xCoordinate, double yCoordinate, double radius) {
         this.acreageStart = acreageStart;
         this.acreageEnd = acreageEnd;
         this.priceStart = priceStart;

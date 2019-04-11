@@ -21,6 +21,7 @@ import {AgmCoreModule} from '@agm/core';
 import {DetailPostComponent} from './detail-post/detail-post.component';
 import {MotelPageComponent} from './motel-page/motel-page.component';
 import {HousePageComponent} from './house-page/house-page.component';
+import { SearchPageComponent } from './search-page/search-page.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {HousePageComponent} from './house-page/house-page.component';
     DetailPostComponent,
     MotelPageComponent,
     HousePageComponent,
+    SearchPageComponent,
   ],
   imports: [
     AgmCoreModule.forRoot({
