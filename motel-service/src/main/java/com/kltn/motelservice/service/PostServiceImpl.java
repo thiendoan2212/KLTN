@@ -6,11 +6,14 @@ import com.kltn.motelservice.exception.UserException;
 import com.kltn.motelservice.model.AccomodationDTO;
 import com.kltn.motelservice.model.CommentDTO;
 import com.kltn.motelservice.model.PostDTO;
+import com.kltn.motelservice.model.SearchForm;
 import com.kltn.motelservice.repository.DistrictRepository;
 import com.kltn.motelservice.repository.PostRepository;
+import com.kltn.motelservice.repository.PostSpecification;
 import com.kltn.motelservice.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -259,6 +262,46 @@ public class PostServiceImpl implements PostService {
         return null;
     }
 
+    @Override
+    public List<PostDTO> searchPost(SearchForm searchForm) {
+        try {
+            Specification<Post> spec = new PostSpecification(searchForm);
+            List<Post> posts = postRepository.findAll(spec);
+            List<PostDTO> postDTOS = new ArrayList<>();
+            addAccomodation(posts, postDTOS);
+            return postDTOS;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<PostDTO> searchPostByMaps(SearchForm searchForm) {
+        try {
+            Specification<Post> spec = new PostSpecification(searchForm);
+            List<Post> posts = postRepository.findAll(spec);
+            List<PostDTO> postDTOS = new ArrayList<>();
+            PostDTO postDTO;
+            List<String> images;
+            for (Post post : posts) {
+                if (distance(post.getAccomodation().getxCoordinate(), post.getAccomodation().getyCoordinate(), searchForm.getxCoordinate(), searchForm.getyCoordinate())
+                        < searchForm.getRadius()) {
+                    postDTO = modelMapper.map(post, PostDTO.class);
+                    postDTO.setAccomodationDTO(modelMapper.map(post.getAccomodation(), AccomodationDTO.class));
+                    postDTO.setUsername(post.getUser().getUsername());
+                    images = imageService.getImageByIdPost(post.getId());
+                    postDTO.setImageStrings(images);
+                    postDTOS.add(postDTO);
+                }
+            }
+            return postDTOS;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void addAccomodation(List<Post> posts, List<PostDTO> postDTOS) {
         for (Post post : posts) {
             PostDTO postDTO = modelMapper.map(post, PostDTO.class);
@@ -268,5 +311,19 @@ public class PostServiceImpl implements PostService {
             postDTO.setImageStrings(images);
             postDTOS.add(postDTO);
         }
+    }
+
+    //Haversine formula
+    public double distance(double lat1, double lng1, double lat2, double lng2) {
+        int r = 6371; // average radius of the earth in km
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lng2 - lng1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                        * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double d = r * c;
+        d = Math.pow(d, 2);
+        return d;
     }
 }

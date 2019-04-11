@@ -20,6 +20,7 @@ img {
 
 .bor {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
 }
 
 .title {
@@ -35,6 +36,11 @@ img {
 .address, .acreage, .type, .time, .price, .status, .util {
   font-weight: 400;
   margin-bottom: 10px;
+}
+
+.status-content-con{
+  font-weight: 500;
+  color: #38A343;
 }
 
 .address-content, .acreage-content, .type-content, .status-content, .price-content {

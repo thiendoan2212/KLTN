@@ -1,6 +1,7 @@
 package com.kltn.motelservice.service;
 
 import com.kltn.motelservice.model.PostDTO;
+import com.kltn.motelservice.model.SearchForm;
 
 import java.util.List;
 
@@ -24,4 +25,8 @@ public interface PostService {
     String deletePostByAdmin(Long id);
 
     PostDTO ApprovePost(Long id, boolean isApprove);
+
+    List<PostDTO> searchPost(SearchForm searchForm);
+
+    List<PostDTO> searchPostByMaps(SearchForm searchForm);
 }

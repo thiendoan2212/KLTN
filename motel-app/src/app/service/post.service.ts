@@ -19,4 +19,12 @@ export class PostService {
   getAllPostApproved(): Observable<PostDTO[]> {
     return this.http.get<PostDTO[]>(this.apiUrl + '/posts/approved/true');
   }
+
+  getMotelPost(): Observable<PostDTO[]> {
+    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/motel/true');
+  }
+
+  getHousePost(): Observable<PostDTO[]> {
+    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/motel/false');
+  }
 }

@@ -18,9 +18,9 @@ import {FooterComponent} from './footer/footer.component';
 import {CreatePostComponent} from './create-post/create-post.component';
 import {AngularEditorModule} from '@kolkov/angular-editor';
 import {AgmCoreModule} from '@agm/core';
-import { DetailPostComponent } from './detail-post/detail-post.component';
-import { MotelPageComponent } from './motel-page/motel-page.component';
-import { HousePageComponent } from './house-page/house-page.component';
+import {DetailPostComponent} from './detail-post/detail-post.component';
+import {MotelPageComponent} from './motel-page/motel-page.component';
+import {HousePageComponent} from './house-page/house-page.component';
 
 @NgModule({
   declarations: [

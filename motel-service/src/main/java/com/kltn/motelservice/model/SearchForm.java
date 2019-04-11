@@ -9,20 +9,30 @@ public class SearchForm {
 
     private double priceEnd;
 
-    private boolean isMotel;
+    private int motel;
 
     private long idDistrict;
+
+    private double xCoordinate;
+
+    private double yCoordinate;
+
+    private double radius;
 
     public SearchForm() {
     }
 
-    public SearchForm(double acreageStart, double acreageEnd, double priceStart, double priceEnd, boolean isMotel, long idDistrict) {
+    public SearchForm(double acreageStart, double acreageEnd, double priceStart, double priceEnd, int motel,
+                      long idDistrict, double xCoordinate, double yCoordinate, double radius) {
         this.acreageStart = acreageStart;
         this.acreageEnd = acreageEnd;
         this.priceStart = priceStart;
         this.priceEnd = priceEnd;
-        this.isMotel = isMotel;
+        this.motel = motel;
         this.idDistrict = idDistrict;
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
+        this.radius = radius;
     }
 
     public double getAcreageStart() {
@@ -57,19 +67,43 @@ public class SearchForm {
         this.priceEnd = priceEnd;
     }
 
-    public boolean isMotel() {
-        return isMotel;
+    public int getMotel() {
+        return motel;
     }
 
-    public void setMotel(boolean motel) {
-        isMotel = motel;
+    public void setMotel(int motel) {
+        this.motel = motel;
     }
 
-    public long getIdPost() {
+    public long getIdDistrict() {
         return idDistrict;
     }
 
-    public void setIdPost(long idDistrict) {
+    public void setIdDistrict(long idDistrict) {
         this.idDistrict = idDistrict;
+    }
+
+    public double getxCoordinate() {
+        return xCoordinate;
+    }
+
+    public void setxCoordinate(double xCoordinate) {
+        this.xCoordinate = xCoordinate;
+    }
+
+    public double getyCoordinate() {
+        return yCoordinate;
+    }
+
+    public void setyCoordinate(double yCoordinate) {
+        this.yCoordinate = yCoordinate;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
     }
 }

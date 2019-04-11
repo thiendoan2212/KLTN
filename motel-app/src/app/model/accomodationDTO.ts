@@ -14,7 +14,6 @@ export class AccomodationDTO {
   tv: boolean;
   toilet: string;
   price: number;
-  upstair: boolean;
   motel: boolean;
   status: boolean;
   xCoordinate: number;
