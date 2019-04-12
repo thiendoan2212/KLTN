@@ -31,7 +31,8 @@
         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 search-detail-price"
              [ngClass]="{'offBorder': innerWidth<576}">
           <h6>Chọn khoảng giá</h6>
-          <ng5-slider [(value)]="searchForm.priceStart" [(highValue)]="searchForm.priceEnd" [options]="priceOptions"></ng5-slider>
+          <ng5-slider [(value)]="searchForm.priceStart" [(highValue)]="searchForm.priceEnd"
+                      [options]="priceOptions"></ng5-slider>
           <div class="row">
             <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5">
               <div class="row">
@@ -62,7 +63,8 @@
         </div>
         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 search-detail-acreage">
           <h6>Chọn diện tích</h6>
-          <ng5-slider [(value)]="searchForm.acreageStart" [(highValue)]="searchForm.acreageEnd" [options]="acreageOptions"></ng5-slider>
+          <ng5-slider [(value)]="searchForm.acreageStart" [(highValue)]="searchForm.acreageEnd"
+                      [options]="acreageOptions"></ng5-slider>
           <div class="row">
             <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5">
               <div class="row">
@@ -95,7 +97,7 @@
       </div>
       <div class="col-lg-12 col-sm-12">
         <div class="text-center searchBtn">
-          <button type="button" class="btn btnSearch" (click)="storageSearchForm()" routerLink="/ket-qua" mdbWavesEffect>Tìm kiếm</button>
+          <button type="button" class="btn btnSearch" (click)="navigateToSearchPage()" mdbWavesEffect>Tìm kiếm</button>
           <button type="button" class="btn btnSearch" (click)="openSearchMaps()">Google Maps</button>
         </div>
       </div>
@@ -125,7 +127,7 @@
             <div class="input-group mb-3 my-3">
               <!--<input type="number" step="{{priceOptions.step}}" [(ngModel)]="minValue"-->
               <input appNumberOnly type="text" class="form-control radius" aria-describedby="radius"
-                     [(ngModel)]="this.radius">
+                     [(ngModel)]="searchForm1.radius">
               <div class="input-group-append">
                 <span class="input-group-text" id="radius">m</span>
               </div>
@@ -136,26 +138,28 @@
             <h6>Chọn loại phòng</h6>
             <!-- Default inline 1-->
             <div class="custom-control custom-radio custom-control-inline">
-              <input type="radio" class="custom-control-input" id="defaultInline3" [value]="1" [(ngModel)]="myRadio1" mdbInput>
+              <input type="radio" class="custom-control-input" id="defaultInline3" [value]="1"
+                     [(ngModel)]="searchForm1.motel" mdbInput>
               <label class="custom-control-label" for="defaultInline3">Phòng trọ, nhà trọ</label>
             </div>
             <!-- Default inline 2-->
             <div class="custom-control custom-radio custom-control-inline">
-              <input type="radio" class="custom-control-input" id="defaultInline4" [value]="2" [(ngModel)]="myRadio1" mdbInput>
+              <input type="radio" class="custom-control-input" id="defaultInline4" [value]="2"
+                     [(ngModel)]="searchForm1.motel" mdbInput>
               <label class="custom-control-label" for="defaultInline4">Nhà nguyên căn</label>
             </div>
           </div>
           <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12 search-detail-price"
                [ngClass]="{'offBorder': innerWidth<576}">
             <h6>Chọn khoảng giá</h6>
-            <ng5-slider [(value)]="priceMin1" [(highValue)]="priceMax1" [options]="priceOptions1"></ng5-slider>
+            <ng5-slider [(value)]="searchForm1.priceStart" [(highValue)]="searchForm1.priceEnd"
+                        [options]="priceOptions1"></ng5-slider>
             <div class="row">
               <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5">
                 <div class="row">
                   <div class="input-group mb-3 my-3">
-                    <!--<input type="number" step="{{priceOptions.step}}" [(ngModel)]="minValue"-->
                     <input appNumberOnly type="text" class="form-control" aria-describedby="priceMin2"
-                           [(ngModel)]="this.priceMin1">
+                           [(ngModel)]="searchForm1.priceStart">
                     <div class="input-group-append">
                       <span class="input-group-text" id="priceMin2">triệu</span>
                     </div>
@@ -169,7 +173,7 @@
                 <div class="row">
                   <div class="input-group mb-3 my-3">
                     <input appNumberOnly type="text" class="form-control" aria-describedby="priceMax2"
-                           [(ngModel)]="this.priceMax1">
+                           [(ngModel)]="searchForm1.priceEnd">
                     <div class="input-group-append">
                       <span class="input-group-text" id="priceMax2">triệu</span>
                     </div>
@@ -180,13 +184,14 @@
           </div>
           <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12 search-detail-acreage">
             <h6>Chọn diện tích</h6>
-            <ng5-slider [(value)]="acreageMin1" [(highValue)]="acreageMax1" [options]="acreageOptions1"></ng5-slider>
+            <ng5-slider [(value)]="searchForm1.acreageStart" [(highValue)]="searchForm1.acreageEnd"
+                        [options]="acreageOptions1"></ng5-slider>
             <div class="row">
               <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5">
                 <div class="row">
                   <div class="input-group mb-3 my-3">
                     <input appNumberOnly type="text" class="form-control" aria-describedby="acreageMin2"
-                           [(ngModel)]="this.acreageMin1">
+                           [(ngModel)]="searchForm1.acreageStart">
                     <div class="input-group-append">
                       <span class="input-group-text" id="acreageMin2">m²</span>
                     </div>
@@ -200,7 +205,7 @@
                 <div class="row">
                   <div class="input-group mb-3 my-3">
                     <input appNumberOnly type="text" class="form-control" aria-describedby="acreageMax2"
-                           [(ngModel)]="this.acreageMax1">
+                           [(ngModel)]="searchForm1.acreageEnd">
                     <div class="input-group-append">
                       <span class="input-group-text" id="acreageMax2">m²</span>
                     </div>
@@ -216,16 +221,20 @@
             <h6 id="address">Nhập địa chỉ</h6>
             <div class="input-group mb-3 my-3">
               <input appNumberOnly type="text" class="form-control radius" aria-describedby="radius"
-                     [(ngModel)]="this.address">
+                     [(ngModel)]="this.address" required="true">
+              <!--<label for="address-content" ></label>-->
             </div>
           </div>
         </div>
-        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-          <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)">
+          <agm-marker [markerDraggable]="true" [(latitude)]="searchForm1.xCoordinate || lat"
+                      [(longitude)]="searchForm1.yCoordinate || lng" (dragEnd)="markerDragEnd($event)"></agm-marker>
         </agm-map>
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="text-center">
-            <button type="button" class="btn btnSearch" mdbWavesEffect>Tìm kiếm</button>
+            <button type="button" class="btn btnSearch" (click)="navigateToSearchPage1(); closeSearchMaps();"
+                    mdbWavesEffect>Tìm kiếm
+            </button>
             <button type="button" class="btn btn-danger btnSearch" mdbWavesEffect (click)="closeSearchMaps()">Đóng
             </button>
           </div>

@@ -12,9 +12,6 @@ export class SearchStorageService {
 
   storageSearchForm(searchForm: SearchForm) {
     this.searchForm = searchForm;
-    searchForm.priceStart *= 1000000;
-    searchForm.priceEnd *= 1000000;
-    console.log(this.searchForm);
   }
 
   getSearchForm(): SearchForm {

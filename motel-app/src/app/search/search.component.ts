@@ -2,6 +2,7 @@ import {Component, HostListener, OnInit, ViewEncapsulation} from '@angular/core'
 import {SearchForm} from '../model/searchForm';
 import {Options} from 'ng5-slider';
 import {SearchStorageService} from '../service/search-storage.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -12,7 +13,6 @@ import {SearchStorageService} from '../service/search-storage.service';
 export class SearchComponent implements OnInit {
   searchForm: SearchForm = new SearchForm();
   searchForm1: SearchForm = new SearchForm();
-  myRadio1: number;
 
   priceOptions: Options = {
     floor: 0,
@@ -51,19 +51,21 @@ export class SearchComponent implements OnInit {
   };
   address: string;
   zoom = 13;
-  lat = 10.776111;
-  lng = 106.695833;
+  lat = 10.7756587;
+  lng = 106.7004238;
 
   public innerWidth: any;
 
   display = 'none';
 
-  constructor(private searchStorageService: SearchStorageService) {
+  constructor(private searchStorageService: SearchStorageService,
+              private router: Router) {
   }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.setValueSearchForm();
+
   }
 
   @HostListener('window:resize', ['$event'])
@@ -86,13 +88,34 @@ export class SearchComponent implements OnInit {
   }
 
   setValueSearchForm() {
-    this.searchForm.priceStart = 0;
-    this.searchForm.priceEnd = 50;
-    this.searchForm.acreageStart = 0;
-    this.searchForm.acreageEnd = 1000;
+    this.searchForm.priceStart = this.searchForm1.priceStart = 0;
+    this.searchForm.priceEnd = this.searchForm1.priceEnd = 50;
+    this.searchForm.acreageStart = this.searchForm1.acreageStart = 0;
+    this.searchForm.acreageEnd = this.searchForm1.acreageEnd = 1000;
+    this.searchForm1.radius = 1000;
+    this.searchForm1.xCoordinate = 10.7756587;
+    this.searchForm1.yCoordinate = 106.7004238;
   }
 
-  storageSearchForm() {
-    this.searchStorageService.storageSearchForm(this.searchForm);
+  navigateToSearchPage() {
+    this.router.navigate(['/ket-qua'], {queryParams: this.searchForm, skipLocationChange: false});
+  }
+
+  navigateToSearchPage1() {
+    this.router.navigate(['/ket-qua'], {queryParams: this.searchForm1, skipLocationChange: false});
+  }
+
+  mapClicked($event: any) {
+    this.searchForm1.xCoordinate = $event.coords.lat;
+    this.searchForm1.yCoordinate = $event.coords.lng;
+    console.log('x ' + this.searchForm1.xCoordinate);
+    console.log('y ' + this.searchForm1.yCoordinate);
+  }
+
+  markerDragEnd($event: any) {
+    this.searchForm1.xCoordinate = $event.coords.lat;
+    this.searchForm1.yCoordinate = $event.coords.lng;
+    console.log('drag x ' + this.searchForm1.xCoordinate);
+    console.log('drag y ' + this.searchForm1.yCoordinate);
   }
 }

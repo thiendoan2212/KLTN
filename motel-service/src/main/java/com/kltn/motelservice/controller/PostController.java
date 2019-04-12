@@ -21,9 +21,17 @@ public class PostController {
 
     @GetMapping("/posts/search")
     public List<PostDTO> searchPost(SearchDTO searchForm){
+        searchForm.setPriceStart(searchForm.getPriceStart()*1000000);
+        searchForm.setPriceEnd(searchForm.getPriceEnd()*1000000);
         return postService.searchPost(searchForm);
     }
 
+    @GetMapping("/posts/searchbymaps")
+    public List<PostDTO> searchPostMaps(SearchDTO searchForm){
+        searchForm.setPriceStart(searchForm.getPriceStart()*1000000);
+        searchForm.setPriceEnd(searchForm.getPriceEnd()*1000000);
+        return postService.searchPostByMaps(searchForm);
+    }
 
     @GetMapping("/posts")
     public List<PostDTO> getAllPost() {

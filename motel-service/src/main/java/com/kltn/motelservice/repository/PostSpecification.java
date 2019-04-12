@@ -82,26 +82,6 @@ public class PostSpecification implements Specification<Post> {
                             cb.lessThanOrEqualTo(root.get("accomodation").get("price"), searchForm.getPriceEnd())));
         }
         //Search without motel and district
-
-//        p.getExpressions().add(
-//                cb.and(cb.greaterThanOrEqualTo(root.get("accomodation").get("price"), searchForm.getPriceStart()),
-//                        cb.lessThanOrEqualTo(root.get("accomodation").get("price"), searchForm.getPriceEnd())));
-
-//        if (searchForm.getMotel() != 2 && searchForm.getMotel() == 1) {
-//            p.getExpressions()
-//                    .add(cb.equal(root.get("accomodation").get("motel"), true));
-//        }
-//
-//        if (searchForm.getMotel() != 2 && searchForm.getMotel() == 0) {
-//            p.getExpressions()
-//                    .add(cb.equal(root.get("accomodation").get("motel"), false));
-//        }
-//
-//        if (searchForm.getIdDistrict() != 0) {
-//            p.getExpressions()
-//                    .add(cb.equal(root.get("accomodation").get("district").get("id"), searchForm.getIdDistrict()));
-//        }
-
         return p;
     }
 }
