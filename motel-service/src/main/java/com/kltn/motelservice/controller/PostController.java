@@ -30,6 +30,7 @@ public class PostController {
     public List<PostDTO> searchPostMaps(SearchDTO searchForm){
         searchForm.setPriceStart(searchForm.getPriceStart()*1000000);
         searchForm.setPriceEnd(searchForm.getPriceEnd()*1000000);
+//        searchForm.setRadius(searchForm.getRadius()/1000);
         return postService.searchPostByMaps(searchForm);
     }
 

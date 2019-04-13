@@ -59,7 +59,6 @@ export class SearchPageComponent implements OnInit {
       this.postService.searchPost(this.searchForm).subscribe(
         data => {
           this.postDTOs = data;
-          console.log(this.postDTOs);
         },
         error => {
           this.errorMessage = error.error.message;

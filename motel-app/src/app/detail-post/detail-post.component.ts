@@ -29,8 +29,6 @@ export class DetailPostComponent implements OnInit {
     this.postService.getPostById(id).subscribe(
       data => {
         this.postDTO = data;
-        console.log(this.postDTO);
-        console.log(this.util);
         if (this.postDTO.accomodationDTO.parking) {
           this.util += 'Chỗ để xe';
         }
@@ -52,12 +50,11 @@ export class DetailPostComponent implements OnInit {
 
         if (this.util.startsWith(' , ')) {
           this.util = this.util.substring(2);
-          console.log(this.util);
         }
       },
       error => {
-        console.log(error);
         this.errorMessage = error.error.message;
+        console.log(this.errorMessage);
       }
     );
   }

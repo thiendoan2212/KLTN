@@ -24,7 +24,6 @@ export class PostService {
       this.searchUrl += '&motel=' + searchForm.motel;
     }
 
-    console.log(this.searchUrl);
     return this.http.get<PostDTO[]>(this.apiUrl + '/posts/search?' + this.searchUrl);
   }
 

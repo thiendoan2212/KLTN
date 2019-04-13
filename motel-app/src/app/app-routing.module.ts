@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'nha-nguyen-can', component: HousePageComponent},
   {path: 'phong-tro', component: MotelPageComponent},
   {path: 'bai-viet/:id', component: DetailPostComponent},
-  {path: 'dang-bai', component: CreatePostComponent},
+  {path: 'dang-tin', component: CreatePostComponent},
   {path: '', redirectTo: '/trang-chu', pathMatch: 'full'},
   {path: 'trang-chu', component: HomePageComponent},
 ];

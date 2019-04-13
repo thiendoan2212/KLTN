@@ -27,10 +27,18 @@ p.tieude {
   margin-bottom: 5px;
 }
 
-p.sdt, p.loaiphong, p.giadien {
+.offBorder {
+  border-right: none !important;
+}
+
+p.sdt, p.loaiphong, p.dientich, p.giadien {
   margin-top: 20px;
   font-weight: 500;
   margin-bottom: 5px;
+}
+
+offMarginTop {
+  margin-top: 0px;
 }
 
 p.huongdan {
@@ -106,4 +114,37 @@ agm-map {
 
 .col-lg-3 img {
   height: 114px;
+}
+
+.error {
+  color: #a94442;
+  font-weight: 500;
+}
+
+.error p {
+  margin-top: 2px;
+  margin-bottom: 0px;
+  font-size: 15px;
+}
+
+.price p {
+  margin-top: 2px;
+  margin-bottom: 0px;
+  font-size: 15px;
+  color: #ccc;
+}
+
+button:disabled,
+button[disabled] {
+  border: 1px solid #0db9f0;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  pointer-events: all !important;
+  opacity: 0.65;
+}
+
+button:disabled:hover {
+  background: #0db9f0;
+  color: white;
 }

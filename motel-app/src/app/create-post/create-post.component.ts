@@ -1,6 +1,9 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {PostDTO} from '../model/postDTO';
 import {AngularEditorConfig} from '@kolkov/angular-editor';
+import {CommentDTO} from '../model/commentDTO';
+import {AccomodationDTO} from '../model/accomodationDTO';
+import {GeocodingApiServiceService} from '../service/geocoding-api-service.service';
 
 @Component({
   selector: 'app-create-post',
@@ -9,6 +12,8 @@ import {AngularEditorConfig} from '@kolkov/angular-editor';
 })
 export class CreatePostComponent implements OnInit {
   postDTO: PostDTO = new PostDTO();
+  accomodationDTO: AccomodationDTO = new AccomodationDTO();
+  districtDefault: number;
   urls = new Array<string>();
   htmlContent = '';
   config: AngularEditorConfig = {
@@ -41,11 +46,14 @@ export class CreatePostComponent implements OnInit {
 
   public innerWidth: any;
 
-  constructor() {
+  submitted = false;
+
+  constructor(private geocodingApiService: GeocodingApiServiceService) {
   }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
+    this.setValue();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -65,5 +73,42 @@ export class CreatePostComponent implements OnInit {
         reader.readAsDataURL(file);
       }
     }
+  }
+
+  onSubmit() {
+    this.submitted = true;
+  }
+
+  setValue() {
+    this.postDTO.accomodationDTO = this.accomodationDTO;
+    this.postDTO.accomodationDTO.waterPrice = this.postDTO.accomodationDTO.electricPrice = 0;
+  }
+
+  mapClicked($event: any) {
+    this.postDTO.accomodationDTO.xCoordinate = $event.coords.lat;
+    this.postDTO.accomodationDTO.yCoordinate = $event.coords.lng;
+  }
+
+  markerDragEnd($event: any) {
+    this.postDTO.accomodationDTO.xCoordinate = $event.coords.lat;
+    this.postDTO.accomodationDTO.yCoordinate = $event.coords.lng;
+  }
+
+  updateLatLngFromAddress() {
+      this.geocodingApiService
+        .findFromAddress(this.postDTO.accomodationDTO.address).subscribe(response => {
+        if (response.status === 'OK') {
+          // this.lat = response.results[0].geometry.location.lat;
+          // this.lng = response.results[0].geometry.location.lng;
+          this.postDTO.accomodationDTO.xCoordinate = response.results[0].geometry.location.lat;
+          this.postDTO.accomodationDTO.yCoordinate = response.results[0].geometry.location.lng;
+          console.log('GEO ' + this.postDTO.accomodationDTO.xCoordinate);
+          console.log('GEO ' + this.postDTO.accomodationDTO.yCoordinate);
+        } else if (response.status === 'ZERO_RESULTS') {
+          console.log('geocodingAPIService', 'ZERO_RESULTS', response.status);
+        } else {
+          console.log('geocodingAPIService', 'Other error', response.status);
+        }
+      });
   }
 }

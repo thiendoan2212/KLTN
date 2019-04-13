@@ -22,7 +22,6 @@ export class HomePageComponent implements OnInit {
     this.postService.getAllPostApproved().subscribe(
       data => {
         this.postDTOs = data;
-        console.log(this.postDTOs);
       },
       error => {
         console.log(error);

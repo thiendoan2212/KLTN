@@ -31,7 +31,6 @@ export class HousePageComponent implements OnInit {
     this.postService.getHousePost().subscribe(
       data => {
         this.postDTOs = data;
-        console.log(this.postDTOs);
       },
       error => {
         this.errorMessage = error.error.message;

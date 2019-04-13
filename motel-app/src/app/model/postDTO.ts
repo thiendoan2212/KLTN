@@ -15,4 +15,5 @@ export class PostDTO {
   accomodationDTO: AccomodationDTO;
   commentDTOS: CommentDTO[];
   imageStrings: ImageResponse[];
+
 }

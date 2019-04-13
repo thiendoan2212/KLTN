@@ -3,6 +3,7 @@ import {SearchForm} from '../model/searchForm';
 import {Options} from 'ng5-slider';
 import {SearchStorageService} from '../service/search-storage.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {GeocodingApiServiceService} from '../service/geocoding-api-service.service';
 
 @Component({
   selector: 'app-search',
@@ -59,13 +60,13 @@ export class SearchComponent implements OnInit {
   display = 'none';
 
   constructor(private searchStorageService: SearchStorageService,
-              private router: Router) {
+              private router: Router,
+              private geocodingAPIService: GeocodingApiServiceService) {
   }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.setValueSearchForm();
-
   }
 
   @HostListener('window:resize', ['$event'])
@@ -92,7 +93,7 @@ export class SearchComponent implements OnInit {
     this.searchForm.priceEnd = this.searchForm1.priceEnd = 50;
     this.searchForm.acreageStart = this.searchForm1.acreageStart = 0;
     this.searchForm.acreageEnd = this.searchForm1.acreageEnd = 1000;
-    this.searchForm1.radius = 1000;
+    this.searchForm1.radius = 2;
     this.searchForm1.xCoordinate = 10.7756587;
     this.searchForm1.yCoordinate = 106.7004238;
   }
@@ -108,14 +109,28 @@ export class SearchComponent implements OnInit {
   mapClicked($event: any) {
     this.searchForm1.xCoordinate = $event.coords.lat;
     this.searchForm1.yCoordinate = $event.coords.lng;
-    console.log('x ' + this.searchForm1.xCoordinate);
-    console.log('y ' + this.searchForm1.yCoordinate);
   }
 
   markerDragEnd($event: any) {
     this.searchForm1.xCoordinate = $event.coords.lat;
     this.searchForm1.yCoordinate = $event.coords.lng;
-    console.log('drag x ' + this.searchForm1.xCoordinate);
-    console.log('drag y ' + this.searchForm1.yCoordinate);
+  }
+
+  updateLatLngFromAddress() {
+    this.geocodingAPIService
+      .findFromAddress(this.address).subscribe(response => {
+        if (response.status === 'OK') {
+          this.lat = response.results[0].geometry.location.lat;
+          this.lng = response.results[0].geometry.location.lng;
+          this.searchForm1.xCoordinate = response.results[0].geometry.location.lat;
+          this.searchForm1.yCoordinate = response.results[0].geometry.location.lng;
+          console.log('GEO ' + this.lat);
+          console.log('GEO ' + this.lng);
+        } else if (response.status === 'ZERO_RESULTS') {
+          console.log('geocodingAPIService', 'ZERO_RESULTS', response.status);
+        } else {
+          console.log('geocodingAPIService', 'Other error', response.status);
+        }
+      });
   }
 }

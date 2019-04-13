@@ -39,10 +39,11 @@
           [longitude]="postDTO.accomodationDTO.yCoordinate"
           [label]="(postDTO.accomodationDTO.price/1000000).toString()"
           draggable="false">
+          <agm-info-window>{{postDTO.accomodationDTO.address}}</agm-info-window>
         </agm-marker>
         <agm-circle [latitude]="lat"
                     [longitude]="lng"
-                    [radius]="radius"
+                    [radius]="radius*1000"
                     [fillColor]="'red'"
                     [fillOpacity]=0.2>
         </agm-circle>

@@ -31,7 +31,6 @@ export class MotelPageComponent implements OnInit {
     this.postService.getMotelPost().subscribe(
       data => {
         this.postDTOs = data;
-        console.log(this.postDTOs);
       },
       error => {
         this.errorMessage = error.error.message;

@@ -129,7 +129,7 @@
               <input appNumberOnly type="text" class="form-control radius" aria-describedby="radius"
                      [(ngModel)]="searchForm1.radius">
               <div class="input-group-append">
-                <span class="input-group-text" id="radius">m</span>
+                <span class="input-group-text" id="radius">km</span>
               </div>
             </div>
           </div>
@@ -220,8 +220,8 @@
           <div class="row">
             <h6 id="address">Nhập địa chỉ</h6>
             <div class="input-group mb-3 my-3">
-              <input appNumberOnly type="text" class="form-control radius" aria-describedby="radius"
-                     [(ngModel)]="this.address" required="true">
+              <input type="text" class="form-control radius" aria-describedby="radius"
+                     [(ngModel)]="address" required="true" placeholder="Nhập địa chỉ hoặc chọn 1 điểm trên bản đồ" (keyup)="updateLatLngFromAddress()">
               <!--<label for="address-content" ></label>-->
             </div>
           </div>
