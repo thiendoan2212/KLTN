@@ -1,5 +1,4 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {SearchStorageService} from '../service/search-storage.service';
 import {SearchForm} from '../model/searchForm';
 import {PostService} from '../service/post.service';
 import {PostDTO} from '../model/postDTO';
@@ -21,8 +20,7 @@ export class SearchPageComponent implements OnInit {
   lng: number;
   radius: number;
 
-  constructor(private searchStorageService: SearchStorageService,
-              private postService: PostService,
+  constructor(private postService: PostService,
               private activatedRoute: ActivatedRoute) {
     this.activatedRoute.queryParams.subscribe(_ => {
       this.getParamSearchForm();

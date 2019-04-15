@@ -1,9 +1,12 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {PostDTO} from '../model/postDTO';
 import {AngularEditorConfig} from '@kolkov/angular-editor';
-import {CommentDTO} from '../model/commentDTO';
 import {AccomodationDTO} from '../model/accomodationDTO';
 import {GeocodingApiServiceService} from '../service/geocoding-api-service.service';
+import {PostService} from '../service/post.service';
+import {FileUploader} from 'ng2-file-upload';
+import {ImageService} from '../service/image.service';
+import {ImageDTO} from '../model/ImageDTO';
 
 @Component({
   selector: 'app-create-post',
@@ -12,9 +15,9 @@ import {GeocodingApiServiceService} from '../service/geocoding-api-service.servi
 })
 export class CreatePostComponent implements OnInit {
   postDTO: PostDTO = new PostDTO();
+  imageDTO: ImageDTO[] = new Array();
+  errorMessage: '';
   accomodationDTO: AccomodationDTO = new AccomodationDTO();
-  districtDefault: number;
-  urls = new Array<string>();
   htmlContent = '';
   config: AngularEditorConfig = {
     editable: true,
@@ -46,9 +49,16 @@ export class CreatePostComponent implements OnInit {
 
   public innerWidth: any;
 
-  submitted = false;
+  public uploader: FileUploader = new FileUploader({
+    isHTML5: true
+  });
 
-  constructor(private geocodingApiService: GeocodingApiServiceService) {
+  showError = false;
+  showRequired = false;
+
+  constructor(private geocodingApiService: GeocodingApiServiceService,
+              private postService: PostService,
+              private imageService: ImageService) {
   }
 
   ngOnInit() {
@@ -61,22 +71,10 @@ export class CreatePostComponent implements OnInit {
     this.innerWidth = window.innerWidth;
   }
 
-  fileEvent(event: any) {
-    this.urls = [];
-    const files = event.target.files;
-    if (files) {
-      for (const file of files) {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          this.urls.push(e.target.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-  }
-
   onSubmit() {
-    this.submitted = true;
+    if (this.uploader.queue.length !== 0) {
+      console.log('Accepted');
+    }
   }
 
   setValue() {
@@ -95,20 +93,63 @@ export class CreatePostComponent implements OnInit {
   }
 
   updateLatLngFromAddress() {
-      this.geocodingApiService
-        .findFromAddress(this.postDTO.accomodationDTO.address).subscribe(response => {
-        if (response.status === 'OK') {
-          // this.lat = response.results[0].geometry.location.lat;
-          // this.lng = response.results[0].geometry.location.lng;
-          this.postDTO.accomodationDTO.xCoordinate = response.results[0].geometry.location.lat;
-          this.postDTO.accomodationDTO.yCoordinate = response.results[0].geometry.location.lng;
-          console.log('GEO ' + this.postDTO.accomodationDTO.xCoordinate);
-          console.log('GEO ' + this.postDTO.accomodationDTO.yCoordinate);
-        } else if (response.status === 'ZERO_RESULTS') {
-          console.log('geocodingAPIService', 'ZERO_RESULTS', response.status);
-        } else {
-          console.log('geocodingAPIService', 'Other error', response.status);
-        }
-      });
+    this.geocodingApiService
+      .findFromAddress(this.postDTO.accomodationDTO.address).subscribe(response => {
+      if (response.status === 'OK') {
+        // this.lat = response.results[0].geometry.location.lat;
+        // this.lng = response.results[0].geometry.location.lng;
+        this.postDTO.accomodationDTO.xCoordinate = response.results[0].geometry.location.lat;
+        this.postDTO.accomodationDTO.yCoordinate = response.results[0].geometry.location.lng;
+        console.log('GEO ' + this.postDTO.accomodationDTO.xCoordinate);
+        console.log('GEO ' + this.postDTO.accomodationDTO.yCoordinate);
+      } else if (response.status === 'ZERO_RESULTS') {
+        console.log('geocodingAPIService', 'ZERO_RESULTS', response.status);
+      } else {
+        console.log('geocodingAPIService', 'Other error', response.status);
+      }
+    });
+  }
+
+  createPost() {
+    this.postService.createPost(this.postDTO).subscribe(
+      data => {
+        this.postDTO = data;
+        console.log(this.postDTO);
+      },
+      error => {
+        this.errorMessage = error.error.message;
+        console.log(this.errorMessage);
+      }
+    );
+    this.addImageForPost(this.postDTO);
+  }
+
+  addImageForPost(postDTO: PostDTO) {
+    if (postDTO.id) {
+      for (const uploader of this.uploader.queue) {
+        const formData = new FormData();
+        const fileItem = uploader._file;
+        formData.append('file', fileItem);
+        this.imageService.addImageForPost(postDTO.id, formData).subscribe(
+          data => {
+            this.imageDTO = data;
+            console.log(this.imageDTO);
+          },
+          error => {
+            this.errorMessage = error.error.message;
+            console.log(this.errorMessage);
+          }
+        );
+      }
+    } else {
+      this.showError = true;
+    }
+  }
+
+  ClickedOut(event) {
+    if (event.target.className === 'modal fade show') {
+      this.showError = false;
+      this.showRequired = false;
+    }
   }
 }

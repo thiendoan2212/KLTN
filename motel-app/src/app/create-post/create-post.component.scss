@@ -148,3 +148,48 @@ button:disabled:hover {
   background: #0db9f0;
   color: white;
 }
+
+.is-invalid {
+  background-image: none;
+}
+
+.previewImage {
+  position: relative;
+}
+
+.previewImage button {
+  position: absolute;
+  right: 2%;
+  top: 12%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.previewImage button:hover {
+  background: white;
+  color: orangered;
+}
+
+.modal-content {
+  overflow: hidden;
+}
+
+.footer-modal {
+  margin-bottom: 16px;
+}
+
+.footer-modal {
+  margin-bottom: 16px;
+}
+
+.modal.show {
+  background: rgba(0, 0, 0, 0.6);
+  display: block;
+}

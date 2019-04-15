@@ -4,5 +4,4 @@ export class CommentDTO {
   lastUpdate: string;
   idPost: number;
   username: string;
-  
 }

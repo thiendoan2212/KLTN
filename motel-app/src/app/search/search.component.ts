@@ -1,7 +1,6 @@
 import {Component, HostListener, OnInit, ViewEncapsulation} from '@angular/core';
 import {SearchForm} from '../model/searchForm';
 import {Options} from 'ng5-slider';
-import {SearchStorageService} from '../service/search-storage.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GeocodingApiServiceService} from '../service/geocoding-api-service.service';
 
@@ -59,8 +58,7 @@ export class SearchComponent implements OnInit {
 
   display = 'none';
 
-  constructor(private searchStorageService: SearchStorageService,
-              private router: Router,
+  constructor(private router: Router,
               private geocodingAPIService: GeocodingApiServiceService) {
   }
 

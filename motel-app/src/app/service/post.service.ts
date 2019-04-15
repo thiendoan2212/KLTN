@@ -62,4 +62,8 @@ export class PostService {
   getHousePost(): Observable<PostDTO[]> {
     return this.http.get<PostDTO[]>(this.apiUrl + '/posts/motel/false');
   }
+
+  createPost(postDTO: PostDTO): Observable<PostDTO> {
+    return this.http.post<PostDTO>(this.apiUrl + '/post', postDTO);
+  }
 }
