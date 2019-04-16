@@ -19,13 +19,13 @@
           <img class="card-img-top" src="{{postDTO.imageStrings[0] || '../../assets/default-img.jpg'}}" width="350px" height="232.9px"
                alt="Card image cap">
           <a>
-            <div class="mask rgba-white-slight" routerLink="/bai-viet/{{postDTO.id}}"></div>
+            <div class="mask rgba-white-slight" (click)="navigateToDetail(postDTO)"></div>
           </a>
         </div>
         <!-- Card content -->
         <div class="card-body">
           <!-- Title -->
-          <a routerLink="/bai-viet/{{postDTO.id}}">
+          <a (click)="navigateToDetail(postDTO)">
             <h6 class="card-title font-weight-bold">{{postDTO.title}}</h6>
           </a>
           <div class=" d-flex justify-content-between">

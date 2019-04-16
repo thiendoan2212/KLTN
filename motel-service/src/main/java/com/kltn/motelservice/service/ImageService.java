@@ -15,4 +15,8 @@ public interface ImageService {
     Image getImage(String imageId);
 
     List<String> getImageByIdPost(Long idPost);
+
+    void deleteAllImage(Long idPost);
+
+    List<ImageDTO> getImageDTOByIdPost(Long idPost);
 }

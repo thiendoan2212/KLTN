@@ -2,6 +2,8 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {PostService} from '../service/post.service';
 import {PostDTO} from '../model/postDTO';
 import {ToiletName} from '../model/ToiletName';
+import {StoragepostService} from '../service/storagepost.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-motel-page',
@@ -14,7 +16,9 @@ export class MotelPageComponent implements OnInit {
   errorMessage: '';
   KHEP_KIN = ToiletName.KHEP_KIN;
 
-  constructor(private postService: PostService) {
+  constructor(private postService: PostService,
+              private storagepostService: StoragepostService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -37,5 +41,10 @@ export class MotelPageComponent implements OnInit {
         console.log(this.errorMessage);
       }
     );
+  }
+
+  navigateToDetail(postDTO: PostDTO) {
+    this.storagepostService.storagePostDTO(postDTO);
+    this.router.navigate(['/bai-viet'], {queryParams: {title: postDTO.title}, skipLocationChange: false});
   }
 }

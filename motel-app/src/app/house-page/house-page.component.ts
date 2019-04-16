@@ -2,6 +2,8 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {PostDTO} from '../model/postDTO';
 import {PostService} from '../service/post.service';
 import {ToiletName} from '../model/ToiletName';
+import {Router} from '@angular/router';
+import {StoragepostService} from '../service/storagepost.service';
 
 @Component({
   selector: 'app-house-page',
@@ -14,7 +16,9 @@ export class HousePageComponent implements OnInit {
   errorMessage: '';
   KHEP_KIN = ToiletName.KHEP_KIN;
 
-  constructor(private postService: PostService) {
+  constructor(private postService: PostService,
+              private storagepostService: StoragepostService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -37,5 +41,15 @@ export class HousePageComponent implements OnInit {
         console.log(this.errorMessage);
       }
     );
+  }
+
+  navigateToDetail(postDTO: PostDTO) {
+    this.storagepostService.storagePostDTO(postDTO);
+    this.router.navigate(['/bai-viet'], {queryParams: {title: postDTO.title}, skipLocationChange: false});
+  }
+
+  navigateToUpdate(postDTO: PostDTO) {
+    this.storagepostService.storagePostDTO(postDTO);
+    this.router.navigate(['/cap-nhat'], {queryParams: {title: postDTO.title}, skipLocationChange: false});
   }
 }

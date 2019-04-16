@@ -1,23 +1,26 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {PostDTO} from '../model/postDTO';
-import {AngularEditorConfig} from '@kolkov/angular-editor';
 import {AccomodationDTO} from '../model/accomodationDTO';
+import {AngularEditorConfig} from '@kolkov/angular-editor';
+import {FileUploader} from 'ng2-file-upload';
 import {GeocodingApiServiceService} from '../service/geocoding-api-service.service';
 import {PostService} from '../service/post.service';
-import {FileUploader} from 'ng2-file-upload';
 import {ImageService} from '../service/image.service';
-import {ImageDTO} from '../model/ImageDTO';
 import {Router} from '@angular/router';
+import {StoragepostService} from '../service/storagepost.service';
+import {Image} from '../model/image';
+import {ImageHandlerService} from '../service/image-handler.service';
+import {ImageDTO} from '../model/ImageDTO';
 
 @Component({
-  selector: 'app-create-post',
-  templateUrl: './create-post.component.html',
-  styleUrls: ['./create-post.component.scss']
+  selector: 'app-update-post',
+  templateUrl: './update-post.component.html',
+  styleUrls: ['./update-post.component.scss']
 })
-export class CreatePostComponent implements OnInit {
+export class UpdatePostComponent implements OnInit {
   postDTO: PostDTO = new PostDTO();
-  postTest: PostDTO = new PostDTO();
   imageDTO: ImageDTO[] = new Array();
+  images: Image[] = new Array();
   errorMessage: '';
   accomodationDTO: AccomodationDTO = new AccomodationDTO();
   config: AngularEditorConfig = {
@@ -44,12 +47,13 @@ export class CreatePostComponent implements OnInit {
     ]
   };
 
-  zoom = 13;
+  zoom = 15;
   lat = 10.776111;
   lng = 106.695833;
 
   public innerWidth: any;
 
+  // uploader: FileUploader = new FileUploader({url: ''});
   public uploader: FileUploader = new FileUploader({
     isHTML5: true
   });
@@ -60,9 +64,19 @@ export class CreatePostComponent implements OnInit {
   disableSubmit = false;
   showLoadding = false;
 
+  motel: number;
+  parking: number;
+  internet: number;
+  airConditioner: number;
+  cableTV: number;
+  tv: number;
+  heater: number;
+
   constructor(private geocodingApiService: GeocodingApiServiceService,
               private postService: PostService,
               private imageService: ImageService,
+              private storagePostService: StoragepostService,
+              private imageHandler: ImageHandlerService,
               private router: Router) {
   }
 
@@ -78,14 +92,49 @@ export class CreatePostComponent implements OnInit {
 
   onSubmit() {
     if (this.uploader.queue.length !== 0) {
-      this.postDTO.username = 'thiendoan';
-      this.createPost();
+      this.postDTO.username = 'admin';
+      this.updatePost();
     }
   }
 
   setValue() {
-    this.postDTO.accomodationDTO = this.accomodationDTO;
-    this.postDTO.accomodationDTO.waterPrice = this.postDTO.accomodationDTO.electricPrice = 0;
+    this.postDTO = this.storagePostService.getStoragePostDTO();
+    this.getImageByteByIdPost(this.postDTO.id);
+    if (this.postDTO.accomodationDTO.motel) {
+      this.motel = 1;
+    } else {
+      this.motel = 2;
+    }
+    if (this.postDTO.accomodationDTO.parking) {
+      this.parking = 1;
+    } else {
+      this.parking = 0;
+    }
+    if (this.postDTO.accomodationDTO.internet) {
+      this.internet = 1;
+    } else {
+      this.internet = 0;
+    }
+    if (this.postDTO.accomodationDTO.airConditioner) {
+      this.airConditioner = 1;
+    } else {
+      this.airConditioner = 0;
+    }
+    if (this.postDTO.accomodationDTO.cableTV) {
+      this.cableTV = 1;
+    } else {
+      this.cableTV = 0;
+    }
+    if (this.postDTO.accomodationDTO.tv) {
+      this.tv = 1;
+    } else {
+      this.tv = 0;
+    }
+    if (this.postDTO.accomodationDTO.heater) {
+      this.heater = 1;
+    } else {
+      this.heater = 0;
+    }
   }
 
   mapClicked($event: any) {
@@ -116,48 +165,68 @@ export class CreatePostComponent implements OnInit {
     });
   }
 
-  createPost() {
+  getImageByteByIdPost(id: number) {
+    this.imageService.getImageByteByIdPost(id).subscribe(
+      res => {
+        this.images = res;
+        const files: Array<File> = [];
+        for (const image of this.images) {
+          image.uri = 'data:image/png;base64,' + image.uri;
+          const dataBlob = this.imageHandler.getBlob(image.uri, image.fileType);
+          const file = new File([dataBlob], image.fileName, {type: image.fileType});
+          console.log(file);
+          files.push(file);
+        }
+        this.uploader.addToQueue(files);
+      },
+      error => {
+        this.errorMessage = error.error.message;
+        console.log(this.errorMessage);
+      }
+    );
+  }
+
+  updatePost() {
     this.disableSubmit = true;
     this.showLoadding = true;
-    if (this.postDTO.accomodationDTO.motel) {
+    if (this.motel) {
       this.postDTO.accomodationDTO.motel = true;
     } else {
       this.postDTO.accomodationDTO.motel = false;
     }
-    if (this.postDTO.accomodationDTO.parking) {
+    if (this.parking) {
       this.postDTO.accomodationDTO.parking = true;
     } else {
       this.postDTO.accomodationDTO.parking = false;
     }
-    if (this.postDTO.accomodationDTO.internet) {
+    if (this.internet) {
       this.postDTO.accomodationDTO.internet = true;
     } else {
       this.postDTO.accomodationDTO.internet = false;
     }
-    if (this.postDTO.accomodationDTO.airConditioner) {
+    if (this.airConditioner) {
       this.postDTO.accomodationDTO.airConditioner = true;
     } else {
       this.postDTO.accomodationDTO.airConditioner = false;
     }
-    if (this.postDTO.accomodationDTO.cableTV) {
+    if (this.cableTV) {
       this.postDTO.accomodationDTO.cableTV = true;
     } else {
       this.postDTO.accomodationDTO.cableTV = false;
     }
-    if (this.postDTO.accomodationDTO.tv) {
+    if (this.tv) {
       this.postDTO.accomodationDTO.tv = true;
     } else {
       this.postDTO.accomodationDTO.tv = false;
     }
-    if (this.postDTO.accomodationDTO.heater) {
+    if (this.heater) {
       this.postDTO.accomodationDTO.heater = true;
     } else {
       this.postDTO.accomodationDTO.heater = false;
     }
-    this.postService.createPost(this.postDTO).subscribe(
+    this.postService.updatePost(this.postDTO.id, this.postDTO).subscribe(
       data => {
-        this.postTest = data;
-        this.addImageForPost(this.postTest.id);
+        this.addImageForPost(this.postDTO.id);
       },
       error => {
         this.errorMessage = error.error.message;
@@ -168,6 +237,7 @@ export class CreatePostComponent implements OnInit {
 
   addImageForPost(id: number) {
     if (id != null) {
+      this.imageService.deleteAllImage(id);
       for (const uploader of this.uploader.queue) {
         const formData = new FormData();
         const fileItem = uploader._file;
@@ -200,5 +270,4 @@ export class CreatePostComponent implements OnInit {
       this.showRequired = false;
     }
   }
-
 }

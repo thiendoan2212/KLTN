@@ -66,4 +66,8 @@ export class PostService {
   createPost(postDTO: PostDTO): Observable<PostDTO> {
     return this.http.post<PostDTO>(this.apiUrl + '/post', postDTO);
   }
+
+  updatePost(id: number, postDTO: PostDTO): Observable<PostDTO> {
+    return this.http.put<PostDTO>(this.apiUrl + '/post/' + id, postDTO);
+  }
 }

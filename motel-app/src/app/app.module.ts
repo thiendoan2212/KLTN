@@ -24,6 +24,8 @@ import {HousePageComponent} from './house-page/house-page.component';
 import {SearchPageComponent} from './search-page/search-page.component';
 import {FileSelectDirective} from 'ng2-file-upload';
 import {MediaPreviewDirective} from './directive/MediaPreview.directive';
+import { UpdatePostComponent } from './update-post/update-post.component';
+import {CounterDirective} from './directive/Counter.directive';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import {MediaPreviewDirective} from './directive/MediaPreview.directive';
     SearchComponent,
     OnlynumberDirective,
     MediaPreviewDirective,
+    CounterDirective,
     FileSelectDirective,
     FooterComponent,
     CreatePostComponent,
@@ -41,6 +44,7 @@ import {MediaPreviewDirective} from './directive/MediaPreview.directive';
     MotelPageComponent,
     HousePageComponent,
     SearchPageComponent,
+    UpdatePostComponent,
   ],
   imports: [
     AgmCoreModule.forRoot({

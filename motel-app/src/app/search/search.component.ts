@@ -1,7 +1,7 @@
 import {Component, HostListener, OnInit, ViewEncapsulation} from '@angular/core';
 import {SearchForm} from '../model/searchForm';
 import {Options} from 'ng5-slider';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {GeocodingApiServiceService} from '../service/geocoding-api-service.service';
 
 @Component({

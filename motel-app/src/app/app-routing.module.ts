@@ -6,12 +6,14 @@ import {DetailPostComponent} from './detail-post/detail-post.component';
 import {MotelPageComponent} from './motel-page/motel-page.component';
 import {HousePageComponent} from './house-page/house-page.component';
 import {SearchPageComponent} from './search-page/search-page.component';
+import {UpdatePostComponent} from './update-post/update-post.component';
 
 const routes: Routes = [
+  {path: 'cap-nhat', component: UpdatePostComponent},
   {path: 'ket-qua', component: SearchPageComponent},
   {path: 'nha-nguyen-can', component: HousePageComponent},
   {path: 'phong-tro', component: MotelPageComponent},
-  {path: 'bai-viet/:id', component: DetailPostComponent},
+  {path: 'bai-viet', component: DetailPostComponent},
   {path: 'dang-tin', component: CreatePostComponent},
   {path: '', redirectTo: '/trang-chu', pathMatch: 'full'},
   {path: 'trang-chu', component: HomePageComponent},

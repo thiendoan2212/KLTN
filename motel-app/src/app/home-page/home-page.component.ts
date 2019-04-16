@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {PostService} from '../service/post.service';
 import {PostDTO} from '../model/postDTO';
+import {StoragepostService} from '../service/storagepost.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -11,7 +13,9 @@ export class HomePageComponent implements OnInit {
   postDTOs: PostDTO[];
   errorMessage: '';
 
-  constructor(private postService: PostService) {
+  constructor(private postService: PostService,
+              private storagepostService: StoragepostService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -28,5 +32,10 @@ export class HomePageComponent implements OnInit {
         this.errorMessage = error.error.message;
       }
     );
+  }
+
+  navigateToDetail(postDTO: PostDTO) {
+    this.storagepostService.storagePostDTO(postDTO);
+    this.router.navigate(['/bai-viet'], {queryParams: {title: postDTO.title}, skipLocationChange: false});
   }
 }

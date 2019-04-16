@@ -23,7 +23,7 @@
       <!-- Links -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <button type="button" color="default" mdbWavesEffect><i class="far fa-edit"></i>Đăng tin mới</button>
+          <button type="button" color="default" mdbWavesEffect (click)="navigateToCreatePost()"><i class="far fa-edit"></i>Đăng tin mới</button>
         </li>
         <div *ngIf="isLoggedIn; else notLoggedIn">
           <li class="nav-item">

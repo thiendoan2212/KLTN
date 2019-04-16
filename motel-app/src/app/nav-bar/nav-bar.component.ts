@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,7 +11,7 @@ export class NavBarComponent implements OnInit {
   showModal = false;
   showSignup = false;
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
@@ -21,5 +22,11 @@ export class NavBarComponent implements OnInit {
       this.showModal = false;
       this.showSignup = false;
     }
+  }
+
+  navigateToCreatePost() {
+    // Nếu đã đăng nhập
+    this.router.navigate(['/dang-tin']);
+    // Nếu chưa đăng nhập => showModal = true;
   }
 }

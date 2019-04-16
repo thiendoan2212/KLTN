@@ -5,8 +5,11 @@ import com.kltn.motelservice.entity.Post;
 import com.kltn.motelservice.exception.ImageException;
 import com.kltn.motelservice.exception.PostException;
 import com.kltn.motelservice.model.ImageDTO;
+import com.kltn.motelservice.model.PostDTO;
 import com.kltn.motelservice.repository.ImageRepository;
 import com.kltn.motelservice.repository.PostRepository;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -15,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +29,8 @@ public class ImageServiceImpl implements ImageService {
 
     @Autowired
     PostRepository postRepository;
+
+    ModelMapper modelMapper = new ModelMapper();
 
     @Override
     public ImageDTO uploadFile(Long idPost, MultipartFile file) {
@@ -44,7 +50,6 @@ public class ImageServiceImpl implements ImageService {
         } else {
             throw new PostException("Không tìm tháy post id " + idPost);
         }
-//        return null;
     }
 
     @Override
@@ -81,5 +86,35 @@ public class ImageServiceImpl implements ImageService {
                     .path(image.getId())
                     .toUriString());
         return Uri;
+    }
+
+    @Override
+    public void deleteAllImage(Long idPost) {
+        Optional<Post> post = postRepository.findById(idPost);
+        if (post.isPresent()) {
+            List<Image> images = imageRepository.findImageByPost(post.get());
+            for (Image image : images) {
+                imageRepository.delete(image);
+            }
+        } else {
+            throw new PostException("Không tìm tháy post id " + idPost);
+        }
+    }
+
+    @Override
+    public List<ImageDTO> getImageDTOByIdPost(Long idPost) {
+        Optional<Post> post = postRepository.findById(idPost);
+        if (post.isPresent()) {
+            List<Image> images = imageRepository.findImageByPost(post.get());
+            List<ImageDTO> imageDTOS = new ArrayList<>();
+            for (Image image : images) {
+                ImageDTO imageDTO = modelMapper.map(image, ImageDTO.class);
+                imageDTO.setUri(Base64.getEncoder().encodeToString(image.getData()));
+                imageDTOS.add(imageDTO);
+            }
+            return imageDTOS;
+        } else {
+            throw new PostException("Không tìm tháy post id " + idPost);
+        }
     }
 }

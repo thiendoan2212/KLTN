@@ -27,7 +27,7 @@
 <div class="space"></div>
 <div class="container">
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12" *ngIf="searchForm.xCoordinate && searchForm.yCoordinate && searchForm.radius">
       <agm-map [latitude]="lat"
                [longitude]="lng"
                [zoom]=zoom
@@ -48,9 +48,6 @@
                     [fillOpacity]=0.2>
         </agm-circle>
       </agm-map>
-      <!--<agm-map [latitude]="centerLat" [longitude]="centerLng" [zoom]="zoom">-->
-      <!--<agm-marker [(latitude)]="centerLat" [(longitude)]="centerLng"></agm-marker>-->
-      <!--</agm-map>-->
     </div>
   </div>
 </div>
