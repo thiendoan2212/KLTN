@@ -64,6 +64,7 @@ export class UpdatePostComponent implements OnInit {
   disableSubmit = false;
   showLoadding = false;
 
+  status: number;
   motel: number;
   parking: number;
   internet: number;
@@ -100,6 +101,11 @@ export class UpdatePostComponent implements OnInit {
   setValue() {
     this.postDTO = this.storagePostService.getStoragePostDTO();
     this.getImageByteByIdPost(this.postDTO.id);
+    if (this.postDTO.accomodationDTO.status) {
+      this.status = 1;
+    } else {
+      this.status = 0;
+    }
     if (this.postDTO.accomodationDTO.motel) {
       this.motel = 1;
     } else {
@@ -189,37 +195,42 @@ export class UpdatePostComponent implements OnInit {
   updatePost() {
     this.disableSubmit = true;
     this.showLoadding = true;
-    if (this.motel) {
+    if (this.status === 1) {
+      this.postDTO.accomodationDTO.status = true;
+    } else {
+      this.postDTO.accomodationDTO.status = false;
+    }
+    if (this.motel === 1) {
       this.postDTO.accomodationDTO.motel = true;
     } else {
       this.postDTO.accomodationDTO.motel = false;
     }
-    if (this.parking) {
+    if (this.parking === 1) {
       this.postDTO.accomodationDTO.parking = true;
     } else {
       this.postDTO.accomodationDTO.parking = false;
     }
-    if (this.internet) {
+    if (this.internet === 1) {
       this.postDTO.accomodationDTO.internet = true;
     } else {
       this.postDTO.accomodationDTO.internet = false;
     }
-    if (this.airConditioner) {
+    if (this.airConditioner === 1) {
       this.postDTO.accomodationDTO.airConditioner = true;
     } else {
       this.postDTO.accomodationDTO.airConditioner = false;
     }
-    if (this.cableTV) {
+    if (this.cableTV === 1) {
       this.postDTO.accomodationDTO.cableTV = true;
     } else {
       this.postDTO.accomodationDTO.cableTV = false;
     }
-    if (this.tv) {
+    if (this.tv === 1) {
       this.postDTO.accomodationDTO.tv = true;
     } else {
       this.postDTO.accomodationDTO.tv = false;
     }
-    if (this.heater) {
+    if (this.heater === 1) {
       this.postDTO.accomodationDTO.heater = true;
     } else {
       this.postDTO.accomodationDTO.heater = false;

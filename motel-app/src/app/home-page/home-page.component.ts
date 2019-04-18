@@ -25,7 +25,7 @@ export class HomePageComponent implements OnInit {
   getAllPost() {
     this.postService.getAllPostApproved().subscribe(
       data => {
-        this.postDTOs = data;
+        this.postDTOs = data.slice(0, 15);
       },
       error => {
         console.log(error);

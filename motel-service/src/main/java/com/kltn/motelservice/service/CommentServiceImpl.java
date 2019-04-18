@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -67,8 +69,9 @@ public class CommentServiceImpl implements CommentService {
                 return commentDTO;
             }
         } catch (Exception e) {
-            throw new CommentException("Xảy ra lỗi khi sửa bình luận ", e);
+            e.printStackTrace();
         }
+        return null;
     }
 
     @Override
@@ -82,7 +85,28 @@ public class CommentServiceImpl implements CommentService {
                 return "Đã xóa comment id " + id;
             }
         } catch (Exception e) {
-            throw new CommentException("Xảy ra lỗi khi xóa bình luận ", e);
+            e.printStackTrace();
         }
+        return null;
+    }
+
+    @Override
+    public List<CommentDTO> getCommentByIdPost(Long idPost) {
+        try {
+            Optional<Post> post = postRepository.findById(idPost);
+            if (post.isPresent()) {
+                List<Comment> comments = commentRepository.findAllByPost(post.get());
+                List<CommentDTO> commentDTOS = new ArrayList<>();
+                for (Comment comment : comments) {
+                    CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
+                    commentDTO.setUsername(comment.getUser().getUsername());
+                    commentDTOS.add(commentDTO);
+                }
+                return commentDTOS;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
