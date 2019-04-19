@@ -3,6 +3,7 @@ import {SearchForm} from '../model/searchForm';
 import {PostService} from '../service/post.service';
 import {PostDTO} from '../model/postDTO';
 import {ActivatedRoute, Router} from '@angular/router';
+import {PaginationDTO} from '../model/paginationDTO';
 
 
 @Component({
@@ -19,6 +20,9 @@ export class SearchPageComponent implements OnInit {
   lat: number;
   lng: number;
   radius: number;
+  paginationDTO = new PaginationDTO();
+  totalElements: number;
+  page = 1;
 
   constructor(private postService: PostService,
               private activatedRoute: ActivatedRoute) {
@@ -54,16 +58,23 @@ export class SearchPageComponent implements OnInit {
     }
 
     if (!this.searchForm.xCoordinate) {
-      this.postService.searchPost(this.searchForm).subscribe(
+      this.postService.searchPost(this.searchForm, this.page - 1).subscribe(
         data => {
-          this.postDTOs = data;
+          this.paginationDTO.content = data;
+          this.postDTOs = this.paginationDTO.content.content;
+          this.totalElements = this.paginationDTO.content.totalElements;
         },
         error => {
           this.errorMessage = error.error.message;
-          console.log(this.errorMessage);
+          console.log(error);
         }
       );
     }
+  }
+
+  getPage(page: number) {
+    this.page = page;
+    this.searchPost();
   }
 
   getParamSearchForm() {

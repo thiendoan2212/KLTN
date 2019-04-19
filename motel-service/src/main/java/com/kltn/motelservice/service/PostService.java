@@ -9,9 +9,9 @@ import java.util.List;
 public interface PostService {
     List<PostDTO> getAllPost();
 
-    List<PostDTO> getPostByApproved(boolean bool);
+//    List<PostDTO> getPostByApproved(boolean bool);
 
-//    Page<PostDTO> getPostByApproved(boolean bool, int page);
+    Page<PostDTO> getPostByApproved(boolean bool, int page);
 
     List<PostDTO> getPostByUsername(String username);
 
@@ -23,9 +23,9 @@ public interface PostService {
 
     PostDTO deletePost(Long id);
 
-    List<PostDTO> getMotelPost(boolean bool);
+//    List<PostDTO> getMotelPost(boolean bool);
 
-//    Page<PostDTO> getMotelPost(boolean bool, int page);
+    Page<PostDTO> getMotelPost(boolean bool, int page);
 
     String deletePostByAdmin(Long id);
 
@@ -33,7 +33,9 @@ public interface PostService {
 
     List<PostDTO> searchPost(SearchDTO searchForm);
 
-//    Page<PostDTO> searchPost(SearchDTO searchForm, int page);
+    Page<PostDTO> searchPost(SearchDTO searchForm, int page);
 
     List<PostDTO> searchPostByMaps(SearchDTO searchForm);
+
+    Page<PostDTO> getPostWaitingApprove( int page);
 }

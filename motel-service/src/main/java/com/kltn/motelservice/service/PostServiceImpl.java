@@ -40,6 +40,7 @@ public class PostServiceImpl implements PostService {
 
     ModelMapper modelMapper = new ModelMapper();
 
+    // HasAuthorize = "KDV, Admin"
     @Override
     public List<PostDTO> getAllPost() {
         try {
@@ -54,36 +55,36 @@ public class PostServiceImpl implements PostService {
         return null;
     }
 
-    @Override
-    public List<PostDTO> getPostByApproved(boolean bool) {
-        List<Post> posts;
-        List<PostDTO> postDTOS = new ArrayList<>();
-        if (bool == true) {
-            posts = postRepository.findAllByApprovedAndNotApproved(true, false);
-        } else {
-            posts = postRepository.findAllByApprovedAndNotApproved(false, true);
-        }
-        addAccomodation(posts, postDTOS);
-        return postDTOS;
-    }
-
 //    @Override
-//    public Page<PostDTO> getPostByApproved(boolean bool, int page) {
-//        Page<Post> postPage;
+//    public List<PostDTO> getPostByApproved(boolean bool) {
+//        List<Post> posts;
+//        List<PostDTO> postDTOS = new ArrayList<>();
 //        if (bool == true) {
-//            postPage = postRepository.findAllByApprovedAndNotApproved(true, false,
-//                    PageRequest.of(page, 12, Sort.by("createAt").descending()));
+//            posts = postRepository.findAllByApprovedAndNotApproved(true, false);
 //        } else {
-//            postPage = postRepository.findAllByApprovedAndNotApproved(false, true,
-//                    PageRequest.of(page, 12, Sort.by("createAt").descending()));
+//            posts = postRepository.findAllByApprovedAndNotApproved(false, true);
 //        }
-//        Page<PostDTO> postDTOPage = postPage.map(post -> {
-//            PostDTO postDTO = postToPostDTO(post);
-//            return postDTO;
-//        });
-//
-//        return postDTOPage;
+//        addAccomodation(posts, postDTOS);
+//        return postDTOS;
 //    }
+
+    @Override
+    public Page<PostDTO> getPostByApproved(boolean bool, int page) {
+        Page<Post> postPage;
+        if (bool == true) {
+            postPage = postRepository.findAllByApprovedAndNotApproved(true, false,
+                    PageRequest.of(page, 12, Sort.by("createAt").descending()));
+        } else {
+            postPage = postRepository.findAllByApprovedAndNotApproved(false, true,
+                    PageRequest.of(page, 12, Sort.by("createAt").descending()));
+        }
+        Page<PostDTO> postDTOPage = postPage.map(post -> {
+            PostDTO postDTO = postToPostDTO(post);
+            return postDTO;
+        });
+
+        return postDTOPage;
+    }
 
     @Override
     public List<PostDTO> getPostByUsername(String username) {
@@ -145,9 +146,9 @@ public class PostServiceImpl implements PostService {
                 post.setCreateAt(LocalDateTime.now());
                 post.setLastUpdate(LocalDateTime.now());
                 post.setUser(user.get());
-//                post.setDelete(false);
-//                post.setApproved(false);
-//                post.setNotApproved(false);
+                post.setDel(false);
+                post.setApproved(false);
+                post.setNotApproved(false);
                 //Gán value cho accomodation
                 Accomodation accomodation = modelMapper.map(postDTO.getAccomodationDTO(), Accomodation.class);
                 accomodation.setPost(post);
@@ -224,48 +225,49 @@ public class PostServiceImpl implements PostService {
         return null;
     }
 
+    @Override
+    public Page<PostDTO> getMotelPost(boolean bool, int page) {
+        try {
+            Page<Post> postPage;
+            //Get Motel
+            if (bool == true) {
+                postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false,
+                        true, PageRequest.of(page, 10));
+            } else { //Get House
+                postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false,
+                        false, PageRequest.of(page, 10));
+            }
+            Page<PostDTO> postDTOPage = postPage.map(post -> {
+                PostDTO postDTO = postToPostDTO(post);
+                return postDTO;
+            });
+            return postDTOPage;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+//
 //    @Override
-//    public Page<PostDTO> getMotelPost(boolean bool, int page) {
+//    public List<PostDTO> getMotelPost(boolean bool) {
 //        try {
-//            Page<Post> postPage;
+//            List<Post> posts;
+//            List<PostDTO> postDTOS = new ArrayList<>();
 //            //Get Motel
 //            if (bool == true) {
-//                postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false,
-//                        true, PageRequest.of(page, 10));
+//                posts = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false, true);
 //            } else { //Get House
-//                postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false,
-//                        false, PageRequest.of(page, 10));
+//                posts = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false, false);
 //            }
-//            Page<PostDTO> postDTOPage = postPage.map(post -> {
-//                PostDTO postDTO = postToPostDTO(post);
-//                return postDTO;
-//            });
-//            return postDTOPage;
+//            addAccomodation(posts, postDTOS);
+//            return postDTOS;
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 //        return null;
 //    }
 
-    @Override
-    public List<PostDTO> getMotelPost(boolean bool) {
-        try {
-            List<Post> posts;
-            List<PostDTO> postDTOS = new ArrayList<>();
-            //Get Motel
-            if (bool == true) {
-                posts = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false, true);
-            } else { //Get House
-                posts = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false, false);
-            }
-            addAccomodation(posts, postDTOS);
-            return postDTOS;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
+    // HasAuthorize = "KDV, Admin"
     @Override
     public String deletePostByAdmin(Long id) {
         try {
@@ -282,6 +284,7 @@ public class PostServiceImpl implements PostService {
         return null;
     }
 
+    // HasAuthorize = "KDV, Admin"
     @Override
     public PostDTO ApprovePost(Long id, boolean isApprove) {
         try {
@@ -305,36 +308,36 @@ public class PostServiceImpl implements PostService {
         return null;
     }
 
-    @Override
-    public List<PostDTO> searchPost(SearchDTO searchForm) {
-        try {
-            Specification<Post> spec = new PostSpecification(searchForm);
-            List<Post> posts = postRepository.findAll(spec);
-            List<PostDTO> postDTOS = new ArrayList<>();
-            addAccomodation(posts, postDTOS);
-            return postDTOS;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 //    @Override
-//    public Page<PostDTO> searchPost(SearchDTO searchForm, int page) {
+//    public List<PostDTO> searchPost(SearchDTO searchForm) {
 //        try {
 //            Specification<Post> spec = new PostSpecification(searchForm);
-//            Page<Post> posts = postRepository.findAll(spec, PageRequest.of(page, 10, Sort.by("accomodation.price").ascending()));
-//            Page<PostDTO> postDTOPage = posts.map(post -> {
-//                PostDTO postDTO = postToPostDTO(post);
-//                return postDTO;
-//            });
-//
-//            return postDTOPage;
+//            List<Post> posts = postRepository.findAll(spec);
+//            List<PostDTO> postDTOS = new ArrayList<>();
+//            addAccomodation(posts, postDTOS);
+//            return postDTOS;
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 //        return null;
 //    }
+
+    @Override
+    public Page<PostDTO> searchPost(SearchDTO searchForm, int page) {
+        try {
+            Specification<Post> spec = new PostSpecification(searchForm);
+            Page<Post> postPage = postRepository.findAll(spec, PageRequest.of(page, 10));
+            Page<PostDTO> postDTOPage = postPage.map(post -> {
+                PostDTO postDTO = postToPostDTO(post);
+                return postDTO;
+            });
+
+            return postDTOPage;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     @Override
     public List<PostDTO> searchPostByMaps(SearchDTO searchForm) {
@@ -360,6 +363,18 @@ public class PostServiceImpl implements PostService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    // HasAuthorize = "KDV, Admin"
+    @Override
+    public Page<PostDTO> getPostWaitingApprove(int page) {
+        Page<Post> postPage = postRepository.findAllByApprovedAndNotApproved(false, false,
+                PageRequest.of(page, 10, Sort.by("createAt").ascending()));
+        Page<PostDTO> postDTOPage = postPage.map(post -> {
+            PostDTO postDTO = postToPostDTO(post);
+            return postDTO;
+        });
+        return postDTOPage;
     }
 
     public void addAccomodation(List<Post> posts, List<PostDTO> postDTOS) {

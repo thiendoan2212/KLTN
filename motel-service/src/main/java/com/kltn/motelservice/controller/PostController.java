@@ -15,19 +15,19 @@ public class PostController {
     @Autowired
     PostServiceImpl postService;
 
-//    @GetMapping("/posts/search")
-//    public Page<PostDTO> searchPost(SearchDTO searchForm, @RequestParam int page){
-//        searchForm.setPriceStart(searchForm.getPriceStart()*1000000);
-//        searchForm.setPriceEnd(searchForm.getPriceEnd()*1000000);
-//        return postService.searchPost(searchForm, page);
-//    }
-
     @GetMapping("/posts/search")
-    public List<PostDTO> searchPost(SearchDTO searchForm){
+    public Page<PostDTO> searchPost(SearchDTO searchForm, @RequestParam int page){
         searchForm.setPriceStart(searchForm.getPriceStart()*1000000);
         searchForm.setPriceEnd(searchForm.getPriceEnd()*1000000);
-        return postService.searchPost(searchForm);
+        return postService.searchPost(searchForm, page);
     }
+
+//    @GetMapping("/posts/search")
+//    public List<PostDTO> searchPost(SearchDTO searchForm){
+//        searchForm.setPriceStart(searchForm.getPriceStart()*1000000);
+//        searchForm.setPriceEnd(searchForm.getPriceEnd()*1000000);
+//        return postService.searchPost(searchForm);
+//    }
 
     @GetMapping("/posts/searchbymaps")
     public List<PostDTO> searchPostMaps(SearchDTO searchForm){
@@ -37,30 +37,32 @@ public class PostController {
         return postService.searchPostByMaps(searchForm);
     }
 
+    // HasAuthorize = "KDV, Admin"
     @GetMapping("/posts")
     public List<PostDTO> getAllPost() {
         return postService.getAllPost();
     }
 
-    @GetMapping("/posts/approved/{approved}")
-    public List<PostDTO> getAllPostApproved(@PathVariable boolean approved) {
-        return postService.getPostByApproved(approved);
-    }
-
 //    @GetMapping("/posts/approved/{approved}")
-//    public Page<PostDTO> getAllPostApproved(@PathVariable boolean approved, @RequestParam int page) {
-//        return postService.getPostByApproved(approved, page);
+//    public List<PostDTO> getAllPostApproved(@PathVariable boolean approved) {
+//        return postService.getPostByApproved(approved);
 //    }
+
+    @GetMapping("/posts/approved/{approved}")
+    public Page<PostDTO> getAllPostApproved(@PathVariable boolean approved, @RequestParam int page) {
+        return postService.getPostByApproved(approved, page);
+    }
 
     @GetMapping("/posts/motel/{bool}")
-    public List<PostDTO> getMotelPost(@PathVariable boolean bool) {
-        return postService.getMotelPost(bool);
+    public Page<PostDTO> getMotelPost(@PathVariable boolean bool, @RequestParam int page) {
+        return postService.getMotelPost(bool, page);
     }
 
-//    @GetMapping("/posts/motel/{bool}")
-//    public Page<PostDTO> getMotelPost(@PathVariable boolean bool, @RequestParam int page) {
-//        return postService.getMotelPost(bool, page);
-//    }
+    // HasAuthorize = "KDV, Admin"
+    @GetMapping("/posts/waiting")
+    public Page<PostDTO> getPostWaitingApprove(@RequestParam int page) {
+        return postService.getPostWaitingApprove(page);
+    }
 
     @GetMapping("/post/user/{username}")
     public List<PostDTO> getPostByUsername(@PathVariable String username) {
@@ -77,6 +79,7 @@ public class PostController {
         return postService.createPost(postDTO);
     }
 
+    // HasAuthorize = "KDV, Admin"
     @PutMapping("/post/{id}/approve/{bool}")
     public PostDTO ApprovePost(@PathVariable Long id, @PathVariable boolean bool) {
         return postService.ApprovePost(id, bool);
@@ -92,6 +95,7 @@ public class PostController {
         return postService.deletePost(id);
     }
 
+    // HasAuthorize = "KDV, Admin"
     @DeleteMapping("/post/{id}")
     public String deletePostByAdmin(@PathVariable Long id) {
         return postService.deletePostByAdmin(id);

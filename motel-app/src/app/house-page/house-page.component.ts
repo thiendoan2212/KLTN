@@ -4,6 +4,7 @@ import {PostService} from '../service/post.service';
 import {ToiletName} from '../model/ToiletName';
 import {Router} from '@angular/router';
 import {StoragepostService} from '../service/storagepost.service';
+import {PaginationDTO} from '../model/paginationDTO';
 
 @Component({
   selector: 'app-house-page',
@@ -15,6 +16,9 @@ export class HousePageComponent implements OnInit {
   postDTOs: PostDTO[];
   errorMessage: '';
   KHEP_KIN = ToiletName.KHEP_KIN;
+  paginationDTO = new PaginationDTO();
+  totalElements: number;
+  page = 1;
 
   constructor(private postService: PostService,
               private storagepostService: StoragepostService,
@@ -32,9 +36,11 @@ export class HousePageComponent implements OnInit {
   }
 
   getHousePost() {
-    this.postService.getHousePost().subscribe(
+    this.postService.getHousePost(this.page - 1).subscribe(
       data => {
-        this.postDTOs = data;
+        this.paginationDTO.content = data;
+        this.postDTOs = this.paginationDTO.content.content;
+        this.totalElements = this.paginationDTO.content.totalElements;
       },
       error => {
         this.errorMessage = error.error.message;
@@ -43,13 +49,18 @@ export class HousePageComponent implements OnInit {
     );
   }
 
+  getPage(page: number) {
+    this.page = page;
+    this.getHousePost();
+  }
+
   navigateToDetail(postDTO: PostDTO) {
     this.storagepostService.storagePostDTO(postDTO);
-    this.router.navigate(['/bai-viet'], {queryParams: {title: postDTO.title}, skipLocationChange: false});
+    this.router.navigate(['/bai-viet'], {queryParams: { id: postDTO.id, title: postDTO.title}, skipLocationChange: false});
   }
 
   navigateToUpdate(postDTO: PostDTO) {
     this.storagepostService.storagePostDTO(postDTO);
-    this.router.navigate(['/cap-nhat'], {queryParams: {title: postDTO.title}, skipLocationChange: false});
+    this.router.navigate(['/cap-nhat'], {queryParams: {id: postDTO.id, title: postDTO.title}, skipLocationChange: false});
   }
 }

@@ -152,7 +152,7 @@
           <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12 search-detail-price"
                [ngClass]="{'offBorder': innerWidth<576}">
             <h6>Chọn khoảng giá</h6>
-            <ng5-slider [(value)]="searchForm1.priceStart" [(highValue)]="searchForm1.priceEnd"
+            <ng5-slider id="myDiv" [(value)]="searchForm1.priceStart" [(highValue)]="searchForm1.priceEnd"
                         [options]="priceOptions1"></ng5-slider>
             <div class="row">
               <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5">
@@ -221,7 +221,7 @@
             <h6 id="address">Nhập địa chỉ</h6>
             <div class="input-group mb-3 my-3">
               <input type="text" class="form-control radius" aria-describedby="radius"
-                     [(ngModel)]="address" required="true" placeholder="Nhập địa chỉ hoặc chọn 1 điểm trên bản đồ" (keyup)="updateLatLngFromAddress()">
+                     [(ngModel)]="address" required="true" placeholder="Nhập địa chỉ hoặc chọn 1 điểm trên bản đồ" go>
               <!--<label for="address-content" ></label>-->
             </div>
           </div>

@@ -14,7 +14,7 @@ export class PostService {
   constructor(private http: HttpClient) {
   }
 
-  searchPost(searchForm: SearchForm): Observable<PostDTO[]> {
+  searchPost(searchForm: SearchForm, page: number): Observable<PostDTO[]> {
     this.searchUrl = 'acreageStart=' + searchForm.acreageStart + '&acreageEnd=' + searchForm.acreageEnd
       + '&priceStart=' + searchForm.priceStart + '&priceEnd=' + searchForm.priceEnd;
     if (searchForm.idDistrict) {
@@ -23,8 +23,7 @@ export class PostService {
     if (searchForm.motel) {
       this.searchUrl += '&motel=' + searchForm.motel;
     }
-
-    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/search?' + this.searchUrl);
+    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/search?' + this.searchUrl + '&page=' + page);
   }
 
   searchPostByMaps(searchForm: SearchForm): Observable<PostDTO[]> {
@@ -51,16 +50,16 @@ export class PostService {
     return this.http.get<PostDTO[]>(this.apiUrl + '/posts');
   }
 
-  getAllPostApproved(): Observable<PostDTO[]> {
-    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/approved/true');
+  getAllPostApproved(page: number): Observable<PostDTO[]> {
+    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/approved/true' + '?page=' + page);
   }
 
-  getMotelPost(): Observable<PostDTO[]> {
-    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/motel/true');
+  getMotelPost(page: number): Observable<PostDTO[]> {
+    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/motel/true' + '?page=' + page);
   }
 
-  getHousePost(): Observable<PostDTO[]> {
-    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/motel/false');
+  getHousePost(page: number): Observable<PostDTO[]> {
+    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/motel/false' + '?page=' + page);
   }
 
   createPost(postDTO: PostDTO): Observable<PostDTO> {

@@ -55,7 +55,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="postDTOs">
-      <div class="row bor" *ngFor="let postDTO of postDTOs">
+      <div class="row bor" *ngFor="let postDTO of postDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
           <div class="row">
             <div class="view overlay">
@@ -128,6 +128,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="text-center" *ngIf="!searchForm.xCoordinate">
+        <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
       </div>
     </div>
   </div>

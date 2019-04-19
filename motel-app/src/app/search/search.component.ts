@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {SearchForm} from '../model/searchForm';
 import {Options} from 'ng5-slider';
 import {Router} from '@angular/router';
@@ -65,6 +65,12 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.setValueSearchForm();
+    this.triggerFalseClick();
+  }
+
+  triggerFalseClick() {
+    const el: HTMLElement = document.getElementById('myDiv') as HTMLElement;
+    el.click();
   }
 
   @HostListener('window:resize', ['$event'])
