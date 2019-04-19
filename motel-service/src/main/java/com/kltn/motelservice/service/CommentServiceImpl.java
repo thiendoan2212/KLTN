@@ -11,12 +11,16 @@ import com.kltn.motelservice.repository.PostRepository;
 import com.kltn.motelservice.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 
 @Service
@@ -103,6 +107,25 @@ public class CommentServiceImpl implements CommentService {
                     commentDTOS.add(commentDTO);
                 }
                 return commentDTOS;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Page<CommentDTO> getCommentByIdPost(Long idPost, int page) {
+        try {
+            Optional<Post> post = postRepository.findById(idPost);
+            if (post.isPresent()) {
+                Page<Comment> commentPage = commentRepository.findAllByPost(post.get(), PageRequest.of(page, 5, Sort.by("lastUpdate")));
+                Page<CommentDTO> commentDTOPage = commentPage.map(comment -> {
+                    CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
+                    commentDTO.setUsername(comment.getUser().getUsername());
+                    return commentDTO;
+                });
+
+                return commentDTOPage;
             }
         } catch (Exception e) {
             e.printStackTrace();

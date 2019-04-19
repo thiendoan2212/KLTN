@@ -4,6 +4,7 @@ import com.kltn.motelservice.model.PostDTO;
 import com.kltn.motelservice.model.SearchDTO;
 import com.kltn.motelservice.service.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +16,10 @@ public class PostController {
     PostServiceImpl postService;
 
 //    @GetMapping("/posts/search")
-//    public List<PostDTO> searchPost(@RequestBody SearchDTO searchForm){
-//        return postService.searchPost(searchForm);
+//    public Page<PostDTO> searchPost(SearchDTO searchForm, @RequestParam int page){
+//        searchForm.setPriceStart(searchForm.getPriceStart()*1000000);
+//        searchForm.setPriceEnd(searchForm.getPriceEnd()*1000000);
+//        return postService.searchPost(searchForm, page);
 //    }
 
     @GetMapping("/posts/search")
@@ -44,10 +47,20 @@ public class PostController {
         return postService.getPostByApproved(approved);
     }
 
+//    @GetMapping("/posts/approved/{approved}")
+//    public Page<PostDTO> getAllPostApproved(@PathVariable boolean approved, @RequestParam int page) {
+//        return postService.getPostByApproved(approved, page);
+//    }
+
     @GetMapping("/posts/motel/{bool}")
     public List<PostDTO> getMotelPost(@PathVariable boolean bool) {
         return postService.getMotelPost(bool);
     }
+
+//    @GetMapping("/posts/motel/{bool}")
+//    public Page<PostDTO> getMotelPost(@PathVariable boolean bool, @RequestParam int page) {
+//        return postService.getMotelPost(bool, page);
+//    }
 
     @GetMapping("/post/user/{username}")
     public List<PostDTO> getPostByUsername(@PathVariable String username) {
@@ -64,9 +77,9 @@ public class PostController {
         return postService.createPost(postDTO);
     }
 
-    @PutMapping("/post/{id}/approve/{boo}")
-    public PostDTO ApprovePost(@PathVariable Long id, @PathVariable boolean boo) {
-        return postService.ApprovePost(id, boo);
+    @PutMapping("/post/{id}/approve/{bool}")
+    public PostDTO ApprovePost(@PathVariable Long id, @PathVariable boolean bool) {
+        return postService.ApprovePost(id, bool);
     }
 
     @PutMapping("/post/{id}")

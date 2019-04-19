@@ -13,6 +13,9 @@ import com.kltn.motelservice.repository.PostSpecification;
 import com.kltn.motelservice.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -63,6 +66,24 @@ public class PostServiceImpl implements PostService {
         addAccomodation(posts, postDTOS);
         return postDTOS;
     }
+
+//    @Override
+//    public Page<PostDTO> getPostByApproved(boolean bool, int page) {
+//        Page<Post> postPage;
+//        if (bool == true) {
+//            postPage = postRepository.findAllByApprovedAndNotApproved(true, false,
+//                    PageRequest.of(page, 12, Sort.by("createAt").descending()));
+//        } else {
+//            postPage = postRepository.findAllByApprovedAndNotApproved(false, true,
+//                    PageRequest.of(page, 12, Sort.by("createAt").descending()));
+//        }
+//        Page<PostDTO> postDTOPage = postPage.map(post -> {
+//            PostDTO postDTO = postToPostDTO(post);
+//            return postDTO;
+//        });
+//
+//        return postDTOPage;
+//    }
 
     @Override
     public List<PostDTO> getPostByUsername(String username) {
@@ -203,6 +224,29 @@ public class PostServiceImpl implements PostService {
         return null;
     }
 
+//    @Override
+//    public Page<PostDTO> getMotelPost(boolean bool, int page) {
+//        try {
+//            Page<Post> postPage;
+//            //Get Motel
+//            if (bool == true) {
+//                postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false,
+//                        true, PageRequest.of(page, 10));
+//            } else { //Get House
+//                postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false,
+//                        false, PageRequest.of(page, 10));
+//            }
+//            Page<PostDTO> postDTOPage = postPage.map(post -> {
+//                PostDTO postDTO = postToPostDTO(post);
+//                return postDTO;
+//            });
+//            return postDTOPage;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
     @Override
     public List<PostDTO> getMotelPost(boolean bool) {
         try {
@@ -216,7 +260,6 @@ public class PostServiceImpl implements PostService {
             }
             addAccomodation(posts, postDTOS);
             return postDTOS;
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -276,6 +319,23 @@ public class PostServiceImpl implements PostService {
         return null;
     }
 
+//    @Override
+//    public Page<PostDTO> searchPost(SearchDTO searchForm, int page) {
+//        try {
+//            Specification<Post> spec = new PostSpecification(searchForm);
+//            Page<Post> posts = postRepository.findAll(spec, PageRequest.of(page, 10, Sort.by("accomodation.price").ascending()));
+//            Page<PostDTO> postDTOPage = posts.map(post -> {
+//                PostDTO postDTO = postToPostDTO(post);
+//                return postDTO;
+//            });
+//
+//            return postDTOPage;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
     @Override
     public List<PostDTO> searchPostByMaps(SearchDTO searchForm) {
         try {
@@ -304,13 +364,22 @@ public class PostServiceImpl implements PostService {
 
     public void addAccomodation(List<Post> posts, List<PostDTO> postDTOS) {
         for (Post post : posts) {
-            PostDTO postDTO = modelMapper.map(post, PostDTO.class);
-            postDTO.setAccomodationDTO(modelMapper.map(post.getAccomodation(), AccomodationDTO.class));
-            postDTO.setUsername(post.getUser().getUsername());
-            List<String> images = imageService.getImageByIdPost(post.getId());
-            postDTO.setImageStrings(images);
-            postDTOS.add(postDTO);
+//            PostDTO postDTO = modelMapper.map(post, PostDTO.class);
+//            postDTO.setAccomodationDTO(modelMapper.map(post.getAccomodation(), AccomodationDTO.class));
+//            postDTO.setUsername(post.getUser().getUsername());
+//            List<String> images = imageService.getImageByIdPost(post.getId());
+//            postDTO.setImageStrings(images);
+            postDTOS.add(postToPostDTO(post));
         }
+    }
+
+    public PostDTO postToPostDTO(Post post) {
+        PostDTO postDTO = modelMapper.map(post, PostDTO.class);
+        postDTO.setAccomodationDTO(modelMapper.map(post.getAccomodation(), AccomodationDTO.class));
+        postDTO.setUsername(post.getUser().getUsername());
+        List<String> images = imageService.getImageByIdPost(post.getId());
+        postDTO.setImageStrings(images);
+        return postDTO;
     }
 
     //Haversine formula
