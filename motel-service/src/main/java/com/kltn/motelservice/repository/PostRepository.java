@@ -21,11 +21,11 @@ public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificat
 
     Optional<Post> findPostById(Long id);
 
-    List<Post> findAllByApprovedAndNotApproved(boolean approved, boolean notApproved);
+//    List<Post> findAllByApprovedAndNotApproved(boolean approved, boolean notApproved);
 
     Page<Post> findAllByApprovedAndNotApproved(boolean approved, boolean notApproved, Pageable pageable);
 
-    List<Post> findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(boolean approved, boolean notApproved, boolean motel);
+//    List<Post> findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(boolean approved, boolean notApproved, boolean motel);
 
     Page<Post> findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(boolean approved, boolean notApproved, boolean motel, Pageable pageable);
 
@@ -37,4 +37,5 @@ public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificat
 //    @Query(nativeQuery = true,
 //    value = "SELECT t FROM (SELECT a.title, a.content, a.approved, a.notApproved, a.createAt FROM Post a)")
 //    Post findPost();
+
 }

@@ -22,13 +22,6 @@ public class PostController {
         return postService.searchPost(searchForm, page);
     }
 
-//    @GetMapping("/posts/search")
-//    public List<PostDTO> searchPost(SearchDTO searchForm){
-//        searchForm.setPriceStart(searchForm.getPriceStart()*1000000);
-//        searchForm.setPriceEnd(searchForm.getPriceEnd()*1000000);
-//        return postService.searchPost(searchForm);
-//    }
-
     @GetMapping("/posts/searchbymaps")
     public List<PostDTO> searchPostMaps(SearchDTO searchForm){
         searchForm.setPriceStart(searchForm.getPriceStart()*1000000);
@@ -42,11 +35,6 @@ public class PostController {
     public List<PostDTO> getAllPost() {
         return postService.getAllPost();
     }
-
-//    @GetMapping("/posts/approved/{approved}")
-//    public List<PostDTO> getAllPostApproved(@PathVariable boolean approved) {
-//        return postService.getPostByApproved(approved);
-//    }
 
     @GetMapping("/posts/approved/{approved}")
     public Page<PostDTO> getAllPostApproved(@PathVariable boolean approved, @RequestParam int page) {

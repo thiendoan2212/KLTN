@@ -7,10 +7,7 @@ import com.kltn.motelservice.model.AccomodationDTO;
 import com.kltn.motelservice.model.CommentDTO;
 import com.kltn.motelservice.model.PostDTO;
 import com.kltn.motelservice.model.SearchDTO;
-import com.kltn.motelservice.repository.DistrictRepository;
-import com.kltn.motelservice.repository.PostRepository;
-import com.kltn.motelservice.repository.PostSpecification;
-import com.kltn.motelservice.repository.UserRepository;
+import com.kltn.motelservice.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,6 +34,9 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     ImageServiceImpl imageService;
+
+    @Autowired
+    ActionServiceImpl actionService;
 
     ModelMapper modelMapper = new ModelMapper();
 
@@ -155,8 +155,9 @@ public class PostServiceImpl implements PostService {
                 Optional<District> district = districtRepository.findById(postDTO.getAccomodationDTO().getIdDistrict());
                 accomodation.setDistrict(district.get());
                 post.setAccomodation(accomodation);
-
+                post.getAccomodation().setStatus(true);
                 postRepository.save(post);
+                actionService.createAction(post, user.get(), ActionName.CREATE);
                 postDTO = modelMapper.map(post, PostDTO.class);
                 postDTO.setAccomodationDTO(modelMapper.map(accomodation, AccomodationDTO.class));
                 postDTO.setUsername(post.getUser().getUsername());
@@ -232,10 +233,10 @@ public class PostServiceImpl implements PostService {
             //Get Motel
             if (bool == true) {
                 postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false,
-                        true, PageRequest.of(page, 10));
+                        true, PageRequest.of(page, 10, Sort.by("accomodation.price").ascending()));
             } else { //Get House
                 postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false,
-                        false, PageRequest.of(page, 10));
+                        false, PageRequest.of(page, 10, Sort.by("accomodation.price").ascending()));
             }
             Page<PostDTO> postDTOPage = postPage.map(post -> {
                 PostDTO postDTO = postToPostDTO(post);
@@ -292,11 +293,15 @@ public class PostServiceImpl implements PostService {
             if (!post.isPresent())
                 throw new PostException("Không tìm thấy post id " + id);
             if (isApprove) {
+                Optional<User> user = userRepository.findByUsername(post.get().getUser().getUsername());
                 post.get().setApproved(true);
                 post.get().setNotApproved(false);
+                actionService.createAction(post.get(), user.get(), ActionName.APPROVE);
             } else {
+                Optional<User> user = userRepository.findByUsername(post.get().getUser().getUsername());
                 post.get().setNotApproved(true);
                 post.get().setApproved(false);
+                actionService.createAction(post.get(), user.get(), ActionName.BLOCK);
             }
             postRepository.save(post.get());
             PostDTO postDTO = modelMapper.map(post.get(), PostDTO.class);
@@ -370,10 +375,7 @@ public class PostServiceImpl implements PostService {
     public Page<PostDTO> getPostWaitingApprove(int page) {
         Page<Post> postPage = postRepository.findAllByApprovedAndNotApproved(false, false,
                 PageRequest.of(page, 10, Sort.by("createAt").ascending()));
-        Page<PostDTO> postDTOPage = postPage.map(post -> {
-            PostDTO postDTO = postToPostDTO(post);
-            return postDTO;
-        });
+        Page<PostDTO> postDTOPage = postPage.map(this::postToPostDTO);
         return postDTOPage;
     }
 

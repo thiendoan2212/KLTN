@@ -49,11 +49,17 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
+//    @OneToMany(cascade = CascadeType.ALL,
+//            mappedBy = "post",
+//            orphanRemoval = true)
+//    private List<Action> actions = new ArrayList<>();
+
     public Post() {
     }
 
     public Post(@NotBlank String title, String content, boolean approved, LocalDateTime lastUpdate, boolean notApproved, boolean del,
-                LocalDateTime createAt, List<Image> images, List<Comment> comments, Accomodation accomodation, User user) {
+                LocalDateTime createAt, List<Image> images, List<Comment> comments,
+                Accomodation accomodation, User user) {
         this.title = title;
         this.content = content;
         this.approved = approved;
@@ -162,4 +168,5 @@ public class Post {
     public void setUser(User user) {
         this.user = user;
     }
+
 }

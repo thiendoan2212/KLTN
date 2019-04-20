@@ -31,7 +31,7 @@ public interface PostService {
 
     PostDTO ApprovePost(Long id, boolean isApprove);
 
-    List<PostDTO> searchPost(SearchDTO searchForm);
+//    List<PostDTO> searchPost(SearchDTO searchForm);
 
     Page<PostDTO> searchPost(SearchDTO searchForm, int page);
 
