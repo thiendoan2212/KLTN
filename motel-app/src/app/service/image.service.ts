@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {ImageDTO} from '../model/ImageDTO';
 import {Observable} from 'rxjs';
 import {Image} from '../model/image';
-import {parseHttpResponse} from 'selenium-webdriver/http';
 
 @Injectable({
   providedIn: 'root'

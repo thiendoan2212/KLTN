@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface CommentService {
-    List<CommentDTO> getCommentByIdPost(Long idPost);
+//    List<CommentDTO> getCommentByIdPost(Long idPost);
 
     Page<CommentDTO> getCommentByIdPost(Long idPost, int page);
 

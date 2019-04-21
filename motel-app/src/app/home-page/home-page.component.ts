@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PostService} from '../service/post.service';
 import {PostDTO} from '../model/postDTO';
-import {StoragepostService} from '../service/storagepost.service';
 import {Router} from '@angular/router';
 import {PaginationDTO} from '../model/paginationDTO';
 
@@ -18,7 +17,6 @@ export class HomePageComponent implements OnInit {
   page = 1;
 
   constructor(private postService: PostService,
-              private storagepostService: StoragepostService,
               private router: Router) {
   }
 
@@ -41,7 +39,6 @@ export class HomePageComponent implements OnInit {
   }
 
   navigateToDetail(postDTO: PostDTO) {
-    this.storagepostService.storagePostDTO(postDTO);
     this.router.navigate(['/bai-viet'], {queryParams: {id: postDTO.id, title: postDTO.title}, skipLocationChange: false});
   }
 }

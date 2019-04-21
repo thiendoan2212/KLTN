@@ -15,11 +15,12 @@ public class CommentController {
     @Autowired
     CommentServiceImpl commentService;
 
+//    @GetMapping("/comments/post/{id}")
+//    public List<CommentDTO> getCommentByIdPost(@PathVariable Long id) {
+//        return commentService.getCommentByIdPost(id);
+//    }
+
     @GetMapping("/comments/post/{id}")
-    public List<CommentDTO> getCommentByIdPost(@PathVariable Long id) {
-        return commentService.getCommentByIdPost(id);
-    }
-    @GetMapping("/comments/posts/{id}")
     public Page<CommentDTO> getComment(@PathVariable Long id, @RequestParam("page") int page) {
         return commentService.getCommentByIdPost(id, page);
     }

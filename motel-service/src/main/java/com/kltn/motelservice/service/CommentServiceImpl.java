@@ -93,32 +93,32 @@ public class CommentServiceImpl implements CommentService {
         }
         return null;
     }
-
-    @Override
-    public List<CommentDTO> getCommentByIdPost(Long idPost) {
-        try {
-            Optional<Post> post = postRepository.findById(idPost);
-            if (post.isPresent()) {
-                List<Comment> comments = commentRepository.findAllByPost(post.get());
-                List<CommentDTO> commentDTOS = new ArrayList<>();
-                for (Comment comment : comments) {
-                    CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
-                    commentDTO.setUsername(comment.getUser().getUsername());
-                    commentDTOS.add(commentDTO);
-                }
-                return commentDTOS;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//
+//    @Override
+//    public List<CommentDTO> getCommentByIdPost(Long idPost) {
+//        try {
+//            Optional<Post> post = postRepository.findById(idPost);
+//            if (post.isPresent()) {
+//                List<Comment> comments = commentRepository.findAllByPost(post.get());
+//                List<CommentDTO> commentDTOS = new ArrayList<>();
+//                for (Comment comment : comments) {
+//                    CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
+//                    commentDTO.setUsername(comment.getUser().getUsername());
+//                    commentDTOS.add(commentDTO);
+//                }
+//                return commentDTOS;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     public Page<CommentDTO> getCommentByIdPost(Long idPost, int page) {
         try {
             Optional<Post> post = postRepository.findById(idPost);
             if (post.isPresent()) {
-                Page<Comment> commentPage = commentRepository.findAllByPost(post.get(), PageRequest.of(page, 5, Sort.by("lastUpdate")));
+                Page<Comment> commentPage = commentRepository.findAllByPost(post.get(), PageRequest.of(page, 10, Sort.by("lastUpdate")));
                 Page<CommentDTO> commentDTOPage = commentPage.map(comment -> {
                     CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
                     commentDTO.setUsername(comment.getUser().getUsername());
