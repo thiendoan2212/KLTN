@@ -27,6 +27,8 @@ import {MediaPreviewDirective} from './directive/MediaPreview.directive';
 import {UpdatePostComponent} from './update-post/update-post.component';
 import {CounterDirective} from './directive/Counter.directive';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { UserPageComponent } from './user-page/user-page.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     HousePageComponent,
     SearchPageComponent,
     UpdatePostComponent,
+    UserPageComponent,
+    LoginPageComponent,
   ],
   imports: [
     AgmCoreModule.forRoot({

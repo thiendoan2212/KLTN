@@ -1,0 +1,64 @@
+<app-nav-bar></app-nav-bar>
+<div class="space"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/trang-chu">Trang chủ</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Trang cá nhân username</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+<div class="space"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+      <p class="thongtin">Thông tin</p>
+      <div class="thongtin-content">
+        <div class="text-center">
+          <img src="../../assets/avatar.svg" width="120px" height="120px">
+          <h5 id="username">thiendoan</h5>
+        </div>
+        <div class="thongtin-chitiet">
+          <p class="attribute">Họ tên: Đoàn Huỳnh Thiện</p>
+          <p class="attribute">Số điện thoại: 0784553008</p>
+          <p class="attribute">Địa chỉ: 97 đường số 6 khu phố 4 phường Tam Phú quận Thủ Đức</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12" [ngStyle]="{'margin-top': innerWidth<992?'10px': '0px'}">
+      <p class="thongtin">Tin đăng</p>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="border-thongtin">
+            <div class="row">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">
+                <div class="view overlay">
+                  <img [ngClass]="{'img-1': innerWidth>=1200, 'img-2': innerWidth<1200, 'img-3': innerWidth<992, 'img-4': innerWidth<576}" src='../../assets/default-img.jpg' width="150px" height="150px">
+                  <a>
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+              </div>
+              <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8 col-8">
+                <div class="row">
+                  <div>
+                    <a class="title">title</a>
+                    <p class="giatien">500000 VNĐ</p>
+                    <p class="ngay">09/08/2019</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="space"></div>
+
+<app-footer></app-footer>

@@ -7,7 +7,6 @@ import {GeocodingApiServiceService} from '../service/geocoding-api-service.servi
 import {PostService} from '../service/post.service';
 import {ImageService} from '../service/image.service';
 import {Router} from '@angular/router';
-import {StoragepostService} from '../service/storagepost.service';
 import {Image} from '../model/image';
 import {ImageHandlerService} from '../service/image-handler.service';
 import {ImageDTO} from '../model/ImageDTO';
@@ -76,7 +75,6 @@ export class UpdatePostComponent implements OnInit {
   constructor(private geocodingApiService: GeocodingApiServiceService,
               private postService: PostService,
               private imageService: ImageService,
-              private storagePostService: StoragepostService,
               private imageHandler: ImageHandlerService,
               private router: Router) {
   }
@@ -99,48 +97,48 @@ export class UpdatePostComponent implements OnInit {
   }
 
   setValue() {
-    this.postDTO = this.storagePostService.getStoragePostDTO();
-    this.getImageByteByIdPost(this.postDTO.id);
-    if (this.postDTO.accomodationDTO.status) {
-      this.status = 1;
-    } else {
-      this.status = 0;
-    }
-    if (this.postDTO.accomodationDTO.motel) {
-      this.motel = 1;
-    } else {
-      this.motel = 2;
-    }
-    if (this.postDTO.accomodationDTO.parking) {
-      this.parking = 1;
-    } else {
-      this.parking = 0;
-    }
-    if (this.postDTO.accomodationDTO.internet) {
-      this.internet = 1;
-    } else {
-      this.internet = 0;
-    }
-    if (this.postDTO.accomodationDTO.airConditioner) {
-      this.airConditioner = 1;
-    } else {
-      this.airConditioner = 0;
-    }
-    if (this.postDTO.accomodationDTO.cableTV) {
-      this.cableTV = 1;
-    } else {
-      this.cableTV = 0;
-    }
-    if (this.postDTO.accomodationDTO.tv) {
-      this.tv = 1;
-    } else {
-      this.tv = 0;
-    }
-    if (this.postDTO.accomodationDTO.heater) {
-      this.heater = 1;
-    } else {
-      this.heater = 0;
-    }
+    // // this.postDTO = this.storagePostService.getStoragePostDTO();
+    // this.getImageByteByIdPost(this.postDTO.id);
+    // if (this.postDTO.accomodationDTO.status) {
+    //   this.status = 1;
+    // } else {
+    //   this.status = 0;
+    // }
+    // if (this.postDTO.accomodationDTO.motel) {
+    //   this.motel = 1;
+    // } else {
+    //   this.motel = 2;
+    // }
+    // if (this.postDTO.accomodationDTO.parking) {
+    //   this.parking = 1;
+    // } else {
+    //   this.parking = 0;
+    // }
+    // if (this.postDTO.accomodationDTO.internet) {
+    //   this.internet = 1;
+    // } else {
+    //   this.internet = 0;
+    // }
+    // if (this.postDTO.accomodationDTO.airConditioner) {
+    //   this.airConditioner = 1;
+    // } else {
+    //   this.airConditioner = 0;
+    // }
+    // if (this.postDTO.accomodationDTO.cableTV) {
+    //   this.cableTV = 1;
+    // } else {
+    //   this.cableTV = 0;
+    // }
+    // if (this.postDTO.accomodationDTO.tv) {
+    //   this.tv = 1;
+    // } else {
+    //   this.tv = 0;
+    // }
+    // if (this.postDTO.accomodationDTO.heater) {
+    //   this.heater = 1;
+    // } else {
+    //   this.heater = 0;
+    // }
   }
 
   mapClicked($event: any) {
