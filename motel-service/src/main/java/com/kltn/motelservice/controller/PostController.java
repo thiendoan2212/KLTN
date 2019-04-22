@@ -5,12 +5,14 @@ import com.kltn.motelservice.model.SearchDTO;
 import com.kltn.motelservice.service.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@PreAuthorize("#oauth2.hasAnyScope('read')")
 public class PostController {
     @Autowired
     PostServiceImpl postService;

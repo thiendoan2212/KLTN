@@ -7,27 +7,21 @@ public class UserDTO {
 
     private String username;
 
-    private String password;
-
     private String address;
 
     private String phone;
 
     private boolean isBlock;
 
-    private List<PostDTO> postDTOS;
-
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String username, String password, String address, String phone, boolean isBlock, List<PostDTO> postDTOS) {
+    public UserDTO(Long id, String username, String address, String phone, boolean isBlock) {
         this.id = id;
         this.username = username;
-        this.password = password;
         this.address = address;
         this.phone = phone;
         this.isBlock = isBlock;
-        this.postDTOS = postDTOS;
     }
 
     public Long getId() {
@@ -44,14 +38,6 @@ public class UserDTO {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getAddress() {
@@ -76,13 +62,5 @@ public class UserDTO {
 
     public void setBlock(boolean block) {
         isBlock = block;
-    }
-
-    public List<PostDTO> getPostDTOS() {
-        return postDTOS;
-    }
-
-    public void setPostDTOS(List<PostDTO> postDTOS) {
-        this.postDTOS = postDTOS;
     }
 }
