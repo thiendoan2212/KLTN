@@ -10,14 +10,14 @@ import {UpdatePostComponent} from './update-post/update-post.component';
 import {UserPageComponent} from './user-page/user-page.component';
 
 const routes: Routes = [
-  {path: 'user', component: UserPageComponent},
+  {path: 'thong-tin', component: UserPageComponent},
   {path: 'cap-nhat', component: UpdatePostComponent},
   {path: 'ket-qua', component: SearchPageComponent},
   {path: 'nha-nguyen-can', component: HousePageComponent},
   {path: 'phong-tro', component: MotelPageComponent},
   {path: 'bai-viet', component: DetailPostComponent},
   {path: 'dang-tin', component: CreatePostComponent},
-  {path: '', redirectTo: '/user', pathMatch: 'full'},
+  {path: '', redirectTo: '/trang-chu', pathMatch: 'full'},
   {path: 'trang-chu', component: HomePageComponent},
 ];
 

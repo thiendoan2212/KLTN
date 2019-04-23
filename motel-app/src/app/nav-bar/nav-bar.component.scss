@@ -25,6 +25,16 @@ button {
 .username, .pass, .display_name, .phone, .address {
   margin-bottom: 3px;
   font-weight: 500;
+  margin-top: 5px;
+}
+
+.batbuoc {
+  font-weight: 500;
+}
+
+.form-control {
+  height: 35px;
+  margin-bottom: 10px;
 }
 
 .modal-content {
@@ -43,4 +53,9 @@ button {
 
 .modal-content {
   overflow-y: auto;
+}
+
+.error {
+  color: #a94442;
+  font-weight: 500;
 }
