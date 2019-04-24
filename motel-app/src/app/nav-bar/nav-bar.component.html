@@ -27,19 +27,19 @@
             class="far fa-edit"></i>Đăng tin mới
           </button>
         </li>
-        <div *ngIf="isLoggedIn; else notLoggedIn">
-          <li class="nav-item">
-            <p>Xin chào </p>
+        <!--<div *ngIf="isLoggedIn; else notLoggedIn">-->
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link waves-light" mdbWavesEffect>Xin chào! <span id="user">thiendoan</span></a>
+        </li>
+        <!--</div>-->
+        <!--<ng-template #notLoggedIn>-->
+          <li *ngIf="!isLoggedIn" class="nav-item">
+            <a class="nav-link waves-light" mdbWavesEffect (click)="showSignup=true; signUp.resetForm()">Đăng ký</a>
           </li>
-        </div>
-        <ng-template #notLoggedIn>
-          <li class="nav-item">
-            <a class="nav-link waves-light" mdbWavesEffect (click)="showSignup=true">Đăng ký</a>
+          <li *ngIf="!isLoggedIn"  class="nav-item">
+            <a class="nav-link waves-light" mdbWavesEffect (click)="showModal=true; signIn.resetForm()">Đăng nhập</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link waves-light" mdbWavesEffect (click)="showModal=true">Đăng nhập</a>
-          </li>
-        </ng-template>
+        <!--</ng-template>-->
       </ul>
     </links>
   </mdb-navbar>
