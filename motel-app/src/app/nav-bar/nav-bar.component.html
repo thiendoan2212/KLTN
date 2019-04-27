@@ -23,57 +23,88 @@
       <!-- Links -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <button type="button" color="default" mdbWavesEffect (click)="navigateToCreatePost()"><i class="far fa-edit"></i>Đăng tin mới</button>
+          <button type="button" color="default" mdbWavesEffect (click)="navigateToCreatePost()"><i
+            class="far fa-edit"></i>Đăng tin mới
+          </button>
         </li>
-        <div *ngIf="isLoggedIn; else notLoggedIn">
-          <li class="nav-item">
-            <p>Xin chào </p>
-          </li>
-        </div>
-        <ng-template #notLoggedIn>
-          <li class="nav-item">
-            <a class="nav-link waves-light" mdbWavesEffect (click)="showSignup=true">Đăng ký</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link waves-light" mdbWavesEffect (click)="showModal=true">Đăng nhập</a>
-          </li>
-        </ng-template>
+        <!--<div *ngIf="isLoggedIn; else notLoggedIn">-->
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link waves-light" mdbWavesEffect>Xin chào! <span id="user">thiendoan</span></a>
+        </li>
+        <!--</div>-->
+        <!--<ng-template #notLoggedIn>-->
+        <li *ngIf="!isLoggedIn" class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect (click)="showSignup=true; signUp.resetForm()">Đăng ký</a>
+        </li>
+        <li *ngIf="!isLoggedIn" class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect (click)="showModal=true; signIn.resetForm()">Đăng nhập</a>
+        </li>
+        <!--</ng-template>-->
       </ul>
     </links>
   </mdb-navbar>
   <!--/.Navbar-->
 </div>
 
-<div class="modal fade" (click)="ClickedOut($event)" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" (click)="ClickedOut($event)" id="modalLoginForm" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel"
      [ngClass]="{'show': showModal}" aria-hidden="true">
-  <div class="modal-dialog modal-sm" role="document">
+  <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">Đăng nhập</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="showModal=false">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="showModal=false; errorEmail = false;">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body mx-3">
-        <p class="username">Tài khoản: </p>
-        <input type="email" id="signIn-username" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="signIn-username"></label>
+        <form (ngSubmit)="signIn.form.valid && onSubmitLogin()" #signIn="ngForm">
+          <div class="row" style="padding-left: 8px; padding-right: 8px;">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <p class="username">Email <span *ngIf="errorEmail || (signIn.submitted && userNameSignIn.invalid)"
+                                                     class="error"> - Thông tin này là bắt buộc</span>
+              </p>
+              <input input="email" class="form-control" id="userNameSignIn" required
+                     [(ngModel)]="signInForm.username" name="userNameSignIn" #userNameSignIn="ngModel"
+                     [ngClass]="{ 'is-invalid': errorEmail || (signIn.submitted && userNameSignIn.invalid)}">
+            </div>
 
-        <p class="pass">Mật khẩu: </p>
-        <input type="password" id="signIn-pass" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="signIn-pass"></label>
-
-      </div>
-      <div class="d-flex justify-content-center footer-modal">
-        <button class="btn btnLogin" mdbWavesEffect>Đăng nhập</button>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <p class="pass">Mật khẩu <span *ngIf="signIn.submitted && passwordSignIn.invalid" class="error"> - Thông tin này là bắt buộc</span>
+              </p>
+              <input type="password" class="form-control" id="passwordSignIn" required id="form-password"
+                     [(ngModel)]="signInForm.password" name="passwordSignIn" #passwordSignIn="ngModel"
+                     [ngClass]="{ 'is-invalid': signIn.submitted && passwordSignIn.invalid}">
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <button type="button" class="forgot" name="forgot" (click)="forgot()">Quên mật khẩu?</button>
+            </div>
+            <!--<div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8">-->
+            <!--<input type="password" class="form-control" id="passwordSignIn" required-->
+            <!--[(ngModel)]="signInForm.username" name="passwordSignIn" #passwordSignIn="ngModel"-->
+            <!--[ngClass]="{ 'is-invalid': (passwordSignIn.invalid && (passwordSignIn.dirty || passwordSignIn.touched)) || (signIn.submitted && passwordSignIn.invalid)}">-->
+            <!--</div>-->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+              <button type="submit" name="login" class="btnLogin" (click)="onSubmitLogin()" mdbWavesEffect>Đăng nhập
+              </button>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <p class="register">Tạo tài khoản? <span><button name="register" id="register"
+                                                               (click)="showModal = false; showSignup=true; errorEmail=false; signUp.resetForm()">Đăng ký</button></span>
+              </p>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" (click)="ClickedOut($event)" id="modalSignupForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" (click)="ClickedOut($event)" id="modalSignupForm" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel"
      [ngClass]="{'show': showSignup}" aria-hidden="true">
-  <div class="modal-dialog modal-sm" role="document">
+  <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">Đăng ký</h4>
@@ -82,29 +113,60 @@
         </button>
       </div>
       <div class="modal-body mx-3">
-        <p class="username">Tài khoản: </p>
-        <input type="text" id="signUp-username" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="signUp-username"></label>
+        <form (ngSubmit)="signUp.form.valid && onSubmitRegister()" #signUp="ngForm">
+          <div class="row" style="padding-left: 8px; padding-right: 8px;">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <p class="email">Email <span *ngIf="signUp.submitted && email.invalid" class="error"> - Thông tin này là bắt buộc</span>
+              </p>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <input type="text" class="form-control" id="email" required
+                     [(ngModel)]="signUpForm.email" name="email" #email="ngModel"
+                     [ngClass]="{ 'is-invalid': signUp.submitted && email.invalid}">
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <p class="username">Tên hiển thị <span *ngIf="signUp.submitted && username.invalid" class="error"> - Thông tin này là bắt buộc</span>
+              </p>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <input type="text" class="form-control" id="username" required
+                     [(ngModel)]="signUpForm.username" name="username" #username="ngModel"
+                     [ngClass]="{ 'is-invalid': signUp.submitted && username.invalid}">
 
-        <p class="pass">Mật khẩu: </p>
-        <input type="password" id="signUp-pass" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="signUp-pass"></label>
-
-        <p class="display_name">Tên hiển thị: </p>
-        <input type="text" id="signUp-displayname" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="signUp-displayname"></label>
-
-        <p class="address">Địa chỉ: </p>
-        <input type="text" id="signUp-address" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="signUp-address"></label>
-
-        <p class="phone">Số điện thoại: </p>
-        <input type="text" id="signUp-phone" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="signUp-phone"></label>
-
-      </div>
-      <div class="d-flex justify-content-center footer-modal">
-        <button class="btn btnLogin" mdbWavesEffect>Đăng ký</button>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <p class="pass">Mật khẩu <span *ngIf="signUp.submitted && password.invalid" class="error"> - Thông tin này là bắt buộc</span>
+              </p>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <input type="password" class="form-control" id="password" required
+                     [(ngModel)]="signUpForm.password" name="password" #password="ngModel"
+                     [ngClass]="{ 'is-invalid': signUp.submitted && password.invalid}">
+            </div>
+            <!--<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">-->
+            <!--<p class="address">Địa chỉ: </p>-->
+            <!--</div>-->
+            <!--<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">-->
+            <!--<input type="text" class="form-control validate">-->
+            <!--</div>-->
+            <!--<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">-->
+            <!--<p class="phone">Điện thoại: </p>-->
+            <!--</div>-->
+            <!--<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">-->
+            <!--<input type="text" class="form-control validate">-->
+            <!--</div>-->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+              <button type="submit" name="register" class="btnRegister" (click)="onSubmitRegister()" mdbWavesEffect>Đăng
+                ký
+              </button>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <button type="button" name="alreadyhaveaccount" class="already" (click)="showSignup=false; showModal=true; signIn.resetForm()">Đã có tài
+                khoản?
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
