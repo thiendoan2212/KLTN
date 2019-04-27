@@ -29,13 +29,13 @@ public class UserDetailsService implements org.springframework.security.core.use
             throws UsernameNotFoundException {
         logger.info("load user with username={}", userName);
 
-        User account = service.selectUserByUserName(userName);
+        User account = service.selectUserByEmail(userName);
         if (account == null)
             throw new UsernameNotFoundException(String.format("Not found user with username=%s", userName));
 
         logger.info(account.toString());
         return new org.springframework.security.core.userdetails.User(
-                account.getUsername(), account.getPassword(), true,
+                account.getEmail(), account.getPassword(), true,
                 true, true, true,
                 AuthorityUtils.createAuthorityList(
                         account.getRoles().stream().map(Role::getName)

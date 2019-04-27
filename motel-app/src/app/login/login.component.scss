@@ -1,35 +1,12 @@
-.navbar-brand {
-  font-weight: bold;
-  color: white;
-}
-
-
-.nav-color {
-  background: #2E3339 !important;
-}
-
-button {
-  margin-top: 5px;
-  background: white;
-  border: white 1px solid;
-  border-radius: 5px;
-  color: #003352;
-  font-weight: bold;
-}
-
-.modal.show {
-  background: rgba(0, 0, 0, 0.6);
-  display: block;
-}
-
-#user {
-  font-weight: 500;
-}
-
 .username, .pass, .display_name, .phone, .address, .email {
   margin-bottom: 3px;
   font-weight: 500;
   margin-top: 5px;
+}
+
+.welcome {
+  font-size: 25px;
+  font-weight: 400;
 }
 
 .form-control {
@@ -41,15 +18,7 @@ button {
   margin-bottom: 0px !important;
 }
 
-.modal-content {
-  overflow: hidden;
-}
-
-.footer-modal {
-  margin-bottom: 16px;
-}
-
-.btnLogin, .btnRegister {
+.btnLogin {
   background: #0db9f0;
   border: none;
   color: white;
@@ -58,21 +27,12 @@ button {
   padding: 10px 0;
 }
 
-.modal-content {
-  overflow-y: auto;
-}
-
-//.error {
-//  color: #a94442;
-//  font-weight: 500;
-//}
-
 .error {
   color: #dc3545;
   font-weight: 400;
 }
 
-.forgot, .already {
+.forgot {
   color: #0db9f0 !important;
   font-weight: 400;
   padding: 0 !important;
@@ -111,6 +71,23 @@ button {
   margin-bottom: 0;
 }
 
-.already{
+p .register {
+  margin-bottom: 0px !important;
+}
+
+.already {
   margin-top: 3px
+}
+
+button {
+  margin-top: 5px;
+  background: transparent;
+  border: white 1px solid;
+  border-radius: 5px;
+  color: #003352;
+  font-weight: bold;
+}
+
+#register {
+  margin-bottom: 0px;
 }

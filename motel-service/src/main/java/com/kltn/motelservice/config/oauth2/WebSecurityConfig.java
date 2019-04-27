@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] STATIC_RESOURCES = {"/swagger-resources/**", "/swagger-ui.html", "/v2/api-docs", "/webjars/**", "/data/**"};
 
-    private static final String[] PUBLIC_APIS = {"/api/image/**"};
+    private static final String[] PUBLIC_APIS = {"/api/**"};
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

@@ -22,6 +22,8 @@ public class PostDTO {
 
     private String username;
 
+    private String email;
+
     private AccomodationDTO accomodationDTO;
 
     private List<CommentDTO> commentDTOS;
@@ -31,8 +33,9 @@ public class PostDTO {
     public PostDTO() {
     }
 
-    public PostDTO(long id, String title, String content, boolean approved, boolean notApproved, LocalDateTime createAt, LocalDateTime lastUpdate,
-                   boolean del, String username, AccomodationDTO accomodationDTO, List<CommentDTO> commentDTOS, List<String> imageStrings) {
+    public PostDTO(long id, String title, String content, boolean approved, boolean notApproved, LocalDateTime createAt,
+                   LocalDateTime lastUpdate, boolean del, String username, String email, AccomodationDTO accomodationDTO,
+                   List<CommentDTO> commentDTOS, List<String> imageStrings) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -42,6 +45,7 @@ public class PostDTO {
         this.lastUpdate = lastUpdate;
         this.del = del;
         this.username = username;
+        this.email = email;
         this.accomodationDTO = accomodationDTO;
         this.commentDTOS = commentDTOS;
         this.imageStrings = imageStrings;
@@ -53,6 +57,14 @@ public class PostDTO {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getTitle() {

@@ -55,19 +55,6 @@ public class PostServiceImpl implements PostService {
         return null;
     }
 
-//    @Override
-//    public List<PostDTO> getPostByApproved(boolean bool) {
-//        List<Post> posts;
-//        List<PostDTO> postDTOS = new ArrayList<>();
-//        if (bool == true) {
-//            posts = postRepository.findAllByApprovedAndNotApproved(true, false);
-//        } else {
-//            posts = postRepository.findAllByApprovedAndNotApproved(false, true);
-//        }
-//        addAccomodation(posts, postDTOS);
-//        return postDTOS;
-//    }
-
     @Override
     public Page<PostDTO> getPostByApproved(boolean bool, int page) {
         Page<Post> postPage;
@@ -87,9 +74,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDTO> getPostByUsername(String username) {
+    public List<PostDTO> getPostByUsername(String email) {
         try {
-            Optional<User> user = userRepository.findByUsername(username);
+            Optional<User> user = userRepository.findByEmail(email);
             if (user.isPresent()) {
                 List<PostDTO> postDTOS = new ArrayList<>();
                 List<Post> posts = postRepository.findByUser(user.get());
@@ -97,7 +84,7 @@ public class PostServiceImpl implements PostService {
 
                 return postDTOS;
             } else
-                throw new UserException("Không tìm thấy user " + username);
+                throw new UserException("Không tìm thấy email " + email);
 //                logger.error("Không tìm thấy user " + username);
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,6 +100,8 @@ public class PostServiceImpl implements PostService {
                 PostDTO postDTO = modelMapper.map(post.get(), PostDTO.class);
                 postDTO.setAccomodationDTO(modelMapper.map(post.get().getAccomodation(), AccomodationDTO.class));
                 postDTO.setUsername(post.get().getUser().getUsername());
+                postDTO.setEmail(post.get().getUser().getEmail());
+                postDTO.setEmail(post.get().getUser().getEmail());
                 List<CommentDTO> commentDTOS = new ArrayList<>();
                 CommentDTO commentDTO;
                 for (Comment comment : post.get().getComments()) {
@@ -138,7 +127,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDTO createPost(PostDTO postDTO) {
         try {
-            Optional<User> user = userRepository.findByUsername(postDTO.getUsername());
+            Optional<User> user = userRepository.findByEmail(postDTO.getEmail());
             if (user.isPresent()) {
                 //Gán value cho post
                 Post post = new Post();
@@ -161,9 +150,10 @@ public class PostServiceImpl implements PostService {
                 postDTO = modelMapper.map(post, PostDTO.class);
                 postDTO.setAccomodationDTO(modelMapper.map(accomodation, AccomodationDTO.class));
                 postDTO.setUsername(post.getUser().getUsername());
+                postDTO.setEmail(post.getUser().getEmail());
                 return postDTO;
             } else
-                throw new UserException("Không tìm thấy user " + postDTO.getUsername());
+                throw new UserException("Không tìm thấy email " + postDTO.getEmail());
 //                logger.error("Không tìm thấy user " + postDTO.getUsername());
         } catch (Exception e) {
             e.printStackTrace();
@@ -181,7 +171,7 @@ public class PostServiceImpl implements PostService {
                 postDTO.setCreateAt(post.get().getCreateAt());
                 //Tạo post mới từ postDTO
                 post = Optional.of(modelMapper.map(postDTO, Post.class));
-                Optional<User> user = userRepository.findByUsername(postDTO.getUsername());
+                Optional<User> user = userRepository.findByEmail(postDTO.getEmail());
                 post.get().setUser(user.get());
                 //Tạo accomodation từ postDTO
                 Accomodation accomodation = modelMapper.map(postDTO.getAccomodationDTO(), Accomodation.class);
@@ -248,25 +238,6 @@ public class PostServiceImpl implements PostService {
         }
         return null;
     }
-//
-//    @Override
-//    public List<PostDTO> getMotelPost(boolean bool) {
-//        try {
-//            List<Post> posts;
-//            List<PostDTO> postDTOS = new ArrayList<>();
-//            //Get Motel
-//            if (bool == true) {
-//                posts = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false, true);
-//            } else { //Get House
-//                posts = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false, false);
-//            }
-//            addAccomodation(posts, postDTOS);
-//            return postDTOS;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
 
     // HasAuthorize = "KDV, Admin"
     @Override
@@ -293,12 +264,12 @@ public class PostServiceImpl implements PostService {
             if (!post.isPresent())
                 throw new PostException("Không tìm thấy post id " + id);
             if (isApprove) {
-                Optional<User> user = userRepository.findByUsername(post.get().getUser().getUsername());
+                Optional<User> user = userRepository.findByEmail(post.get().getUser().getEmail());
                 post.get().setApproved(true);
                 post.get().setNotApproved(false);
                 actionService.createAction(post.get(), user.get(), ActionName.APPROVE);
             } else {
-                Optional<User> user = userRepository.findByUsername(post.get().getUser().getUsername());
+                Optional<User> user = userRepository.findByEmail(post.get().getUser().getEmail());
                 post.get().setNotApproved(true);
                 post.get().setApproved(false);
                 actionService.createAction(post.get(), user.get(), ActionName.BLOCK);
@@ -394,6 +365,7 @@ public class PostServiceImpl implements PostService {
         PostDTO postDTO = modelMapper.map(post, PostDTO.class);
         postDTO.setAccomodationDTO(modelMapper.map(post.getAccomodation(), AccomodationDTO.class));
         postDTO.setUsername(post.getUser().getUsername());
+        postDTO.setEmail(post.getUser().getEmail());
         List<String> images = imageService.getImageByIdPost(post.getId());
         postDTO.setImageStrings(images);
         return postDTO;

@@ -7,6 +7,8 @@ public class UserDTO {
 
     private String username;
 
+    private String email;
+
     private String address;
 
     private String phone;
@@ -16,9 +18,10 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String username, String address, String phone, boolean isBlock) {
+    public UserDTO(Long id, String username, String email, String address, String phone, boolean isBlock) {
         this.id = id;
         this.username = username;
+        this.email = email;
         this.address = address;
         this.phone = phone;
         this.isBlock = isBlock;
@@ -62,5 +65,13 @@ public class UserDTO {
 
     public void setBlock(boolean block) {
         isBlock = block;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

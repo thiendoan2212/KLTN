@@ -15,7 +15,7 @@ import com.kltn.motelservice.entity.User;
  */
 public interface UserService {
 
-    User selectUserByUserName(String userName);
+    User selectUserByEmail(String userName);
 
     Role selectRoleByName(RoleName name);
 }

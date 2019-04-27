@@ -20,12 +20,13 @@ public class CustomTokenEnhancer implements TokenEnhancer {
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication auth) {
         final Map<String, Object> additionalInfo = new HashMap<>();
-        User user =  userRepository.findByUsername(auth.getName()).get();
+        User user =  userRepository.findByEmail(auth.getName()).get();
 
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
         userDTO.setUsername(user.getUsername());
         userDTO.setAddress(user.getAddress());
+        userDTO.setEmail(user.getEmail());
         userDTO.setPhone(user.getPhone());
         userDTO.setBlock(user.isBlock());
         additionalInfo.put("account", userDTO);
