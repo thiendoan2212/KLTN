@@ -14,6 +14,7 @@ export class NavBarComponent implements OnInit {
   showSignup = false;
   signUpForm: Signup = new Signup();
   signInForm: Signin = new Signin();
+  errorEmail = false;
 
   constructor(private router: Router) {
   }
@@ -25,6 +26,7 @@ export class NavBarComponent implements OnInit {
     if (event.target.className === 'modal fade show') {
       this.showModal = false;
       this.showSignup = false;
+      this.errorEmail = false;
     }
   }
 
@@ -34,6 +36,17 @@ export class NavBarComponent implements OnInit {
     // Nếu chưa đăng nhập => showModal = true;
   }
 
-  onSubmit() {
+  onSubmitLogin() {
+  }
+
+  onSubmitRegister() {
+
+  }
+
+  forgot() {
+    if (this.signInForm.username === '' || !this.signInForm.username) {
+      this.errorEmail = true;
+      console.log(this.errorEmail);
+    }
   }
 }
