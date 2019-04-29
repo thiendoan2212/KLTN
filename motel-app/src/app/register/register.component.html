@@ -1,0 +1,63 @@
+<form (ngSubmit)="signUp.form.valid && submitRegister()" #signUp="ngForm">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <button type="button" class="close" (click)="close()">&times;</button>
+    <div class="text-center">
+      <p class="welcome">Tạo tài khoản</p>
+    </div>
+  </div>
+  <div class="row" style="padding-left: 8px; padding-right: 8px;">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <p class="email">Email <span *ngIf="errorEmail || (signUp.submitted && email.invalid)"
+                                   class="error"> - Thông tin này là bắt buộc</span>
+        <ng-container>
+          <span class="error" *ngIf="email.errors?.pattern"> - Nhập chính xác email</span>
+        </ng-container>
+      </p>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <input type="text" class="form-control" id="email" required pattern=".+@.+\..+"
+             [(ngModel)]="user.email" name="email" #email="ngModel"
+             [ngClass]="{ 'is-invalid': signUp.submitted && email.invalid}">
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <p class="username">Tên hiển thị <span *ngIf="signUp.submitted && username.invalid" class="error"> - Thông tin này là bắt buộc</span>
+      </p>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <input type="text" class="form-control" id="username" required
+             [(ngModel)]="user.username" name="username" #username="ngModel"
+             [ngClass]="{ 'is-invalid': signUp.submitted && username.invalid}">
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <p class="pass">Mật khẩu <span *ngIf="signUp.submitted && password.invalid" class="error"> - Thông tin này là bắt buộc</span>
+      </p>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <input type="password" class="form-control" id="password" required
+             [(ngModel)]="user.password" name="password" #password="ngModel"
+             [ngClass]="{ 'is-invalid': signUp.submitted && password.invalid}">
+    </div>
+    <!--<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">-->
+    <!--<p class="address">Địa chỉ: </p>-->
+    <!--</div>-->
+    <!--<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">-->
+    <!--<input type="text" class="form-control validate">-->
+    <!--</div>-->
+    <!--<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">-->
+    <!--<p class="phone">Điện thoại: </p>-->
+    <!--</div>-->
+    <!--<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">-->
+    <!--<input type="text" class="form-control validate">-->
+    <!--</div>-->
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+      <button type="submit" name="register" class="btnRegister" (click)="submitRegister()" mdbWavesEffect>Đăng
+        ký
+      </button>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <button type="button" class="already"
+              (click)="login()">Đã có tài khoản?
+      </button>
+    </div>
+  </div>
+</form>
