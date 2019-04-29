@@ -44,6 +44,9 @@ import {
 } from '@nebular/auth';
 import {NB_WINDOW} from '@nebular/theme';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
+import { RegisterComponent } from './register/register.component';
+import { MapsSearchComponent } from './maps-search/maps-search.component';
 
 const authConfig: NbOAuth2AuthStrategyOptions = {
   name: 'userpass',
@@ -80,6 +83,9 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     UpdatePostComponent,
     UserPageComponent,
     LoginComponent,
+    LogoutComponent,
+    RegisterComponent,
+    MapsSearchComponent,
   ],
   imports: [
     NbAuthModule.forRoot({
@@ -141,7 +147,7 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent]
+  entryComponents: [LoginComponent, RegisterComponent, MapsSearchComponent]
 })
 export class AppModule {
 }

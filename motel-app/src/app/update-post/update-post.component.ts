@@ -258,7 +258,7 @@ export class UpdatePostComponent implements OnInit {
               this.showNoti = true;
               this.showLoadding = false;
               setTimeout(() => {
-                this.router.navigate(['/trang-chu']);
+                this.router.navigate(['/home']);
               }, 5000);
             }
           },
