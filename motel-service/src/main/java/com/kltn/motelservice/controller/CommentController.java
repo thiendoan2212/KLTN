@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@PreAuthorize("#oauth2.hasAnyScope('read')")
+//@PreAuthorize("#oauth2.hasAnyScope('read')")
 public class CommentController {
     @Autowired
     CommentServiceImpl commentService;

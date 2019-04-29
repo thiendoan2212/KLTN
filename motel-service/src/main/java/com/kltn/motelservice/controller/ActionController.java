@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-@PreAuthorize("#oauth2.hasAnyScope('read')")
+//@PreAuthorize("#oauth2.hasAnyScope('read')")
 public class ActionController {
     @Autowired
     ActionServiceImpl actionService;

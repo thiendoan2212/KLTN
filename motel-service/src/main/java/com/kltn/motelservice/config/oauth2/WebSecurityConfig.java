@@ -22,8 +22,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] STATIC_RESOURCES = {"/swagger-resources/**", "/swagger-ui.html", "/v2/api-docs", "/webjars/**", "/data/**"};
 
-    private static final String[] PUBLIC_APIS = {"/api/**"};
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -52,7 +50,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(STATIC_RESOURCES);
-                //accept all API and using Pre Post annotation config later
-//                .antMatchers(PUBLIC_APIS);
     }
 }

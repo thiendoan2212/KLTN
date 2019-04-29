@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-//@PreAuthorize("#oauth2.hasAnyScope('read')")
 public class PostController {
     @Autowired
     PostServiceImpl postService;
