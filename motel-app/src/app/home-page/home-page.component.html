@@ -29,11 +29,11 @@
             <h6 class="card-title font-weight-bold">{{postDTO.title}}</h6>
           </a>
           <div class=" d-flex justify-content-between">
-            <a *ngIf="!postDTO.accomodationDTO.motel; else motel" class="light-blue-text" routerLink="/nha-nguyen-can">
+            <a *ngIf="!postDTO.accomodationDTO.motel; else motel" class="light-blue-text" routerLink="/house">
               <p class="font-weight-bold house" ><i></i> Nhà nguyên căn</p>
             </a>
             <ng-template #motel>
-              <a class="pink-text" routerLink="/phong-tro">
+              <a class="pink-text" routerLink="/motel">
                 <p class="font-weight-bold house"><i></i> Phòng trọ</p>
               </a>
             </ng-template>

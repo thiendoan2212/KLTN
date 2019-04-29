@@ -8,17 +8,19 @@ import {HousePageComponent} from './house-page/house-page.component';
 import {SearchPageComponent} from './search-page/search-page.component';
 import {UpdatePostComponent} from './update-post/update-post.component';
 import {UserPageComponent} from './user-page/user-page.component';
+import {LogoutComponent} from './logout/logout.component';
 
 const routes: Routes = [
-  {path: 'thong-tin', component: UserPageComponent},
-  {path: 'cap-nhat', component: UpdatePostComponent},
-  {path: 'ket-qua', component: SearchPageComponent},
-  {path: 'nha-nguyen-can', component: HousePageComponent},
-  {path: 'phong-tro', component: MotelPageComponent},
-  {path: 'bai-viet', component: DetailPostComponent},
-  {path: 'dang-tin', component: CreatePostComponent},
-  {path: '', redirectTo: '/trang-chu', pathMatch: 'full'},
-  {path: 'trang-chu', component: HomePageComponent},
+  {path: 'user', component: UserPageComponent},
+  {path: 'update', component: UpdatePostComponent},
+  {path: 'result', component: SearchPageComponent},
+  {path: 'house', component: HousePageComponent},
+  {path: 'motel', component: MotelPageComponent},
+  {path: 'post', component: DetailPostComponent},
+  {path: 'create-post', component: CreatePostComponent},
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: 'home', component: HomePageComponent},
+  {path: 'logout', component: LogoutComponent}
 ];
 
 @NgModule({

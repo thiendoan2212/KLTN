@@ -5,13 +5,6 @@ export class User {
   address: string;
   phone: string;
   block: boolean;
+  password: string;
 
-  constructor(id: number, username: string, email: string, address: string, phone: string, block: boolean) {
-    this.id = id;
-    this.username = username;
-    this.email = email;
-    this.address = address;
-    this.phone = phone;
-    this.block = block;
-  }
 }

@@ -1,13 +1,14 @@
 <form (ngSubmit)="submitLogin(signIn)" #signIn="ngForm">
   <div class="row" style="padding-left: 8px; padding-right: 8px;">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <button type="button" class="close" (click)="close()">&times;</button>
       <div class="text-center">
         <p class="welcome">Chào mừng trở lại</p>
       </div>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <p class="username">Email <span class="error"
-                                      *ngIf="signIn.submitted && !user.email"> - Thông tin này là bắt buộc</span>
+                                      *ngIf="errorEmail || (signIn.submitted && !user.email)"> - Thông tin này là bắt buộc</span>
         <ng-container>
           <span class="error" *ngIf="email.errors?.pattern"> - Nhập chính xác email</span>
         </ng-container>
@@ -25,14 +26,13 @@
              [ngClass]="{ 'is-invalid': signIn.submitted && passwordSignIn.invalid}">
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <button type="button" class="forgot" name="forgot" (click)="forgot()">Quên mật khẩu?</button>
+      <button type="button" class="forgot" name="forgot" mdbWavesEffect (click)="signIn.resetForm(); forgot()">Quên mật khẩu?</button>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-      <button name="login" class="btnLogin" mdbWavesEffect>Đăng nhập
-      </button>
+      <button name="login" class="btnLogin" mdbWavesEffect (click)="submitLogin(signIn)">Đăng nhập</button>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <p class="register">Tạo tài khoản? <span><button name="register" id="register">Đăng ký</button></span>
+      <p class="register">Tạo tài khoản? <span><button type="button" id="register" name="register" mdbWavesEffect (click)="submitRegister()">Đăng ký</button></span>
       </p>
     </div>
   </div>

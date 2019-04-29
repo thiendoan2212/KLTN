@@ -19,4 +19,6 @@ export class UserPageComponent implements OnInit {
   onResize(event) {
     this.innerWidth = window.innerWidth;
   }
+
+  // Get userbyid
 }

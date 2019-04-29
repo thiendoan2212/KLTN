@@ -4,9 +4,9 @@
   <div class="col-lg-12 bc" *ngIf="postDTO">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/trang-chu">Trang chủ</a></li>
-        <li class="breadcrumb-item" *ngIf="postDTO.accomodationDTO.motel"><a routerLink="/phong-tro">Phòng trọ</a></li>
-        <li class="breadcrumb-item" *ngIf="!postDTO.accomodationDTO.motel"><a routerLink="/nha-nguyen-can">Nhà nguyên
+        <li class="breadcrumb-item"><a routerLink="/home">Trang chủ</a></li>
+        <li class="breadcrumb-item" *ngIf="postDTO.accomodationDTO.motel"><a routerLink="/motel">Phòng trọ</a></li>
+        <li class="breadcrumb-item" *ngIf="!postDTO.accomodationDTO.motel"><a routerLink="/house">Nhà nguyên
           căn</a></li>
       </ol>
     </nav>
