@@ -8,6 +8,9 @@ package com.kltn.motelservice.service;
 import com.kltn.motelservice.entity.Role;
 import com.kltn.motelservice.entity.RoleName;
 import com.kltn.motelservice.entity.User;
+import com.kltn.motelservice.model.UserDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  *
@@ -18,4 +21,14 @@ public interface UserService {
     User selectUserByEmail(String userName);
 
     Role selectRoleByName(RoleName name);
+
+    User changePassword(Long id, String oldPassword, String newPassword) throws Exception;
+
+    Page<User> selectPageOfUsers(Pageable page);
+
+    User blockUserById(Long id, boolean block);
+
+    User selectUserById(Long id);
+
+    User changeProfile(UserDTO userDTO);
 }

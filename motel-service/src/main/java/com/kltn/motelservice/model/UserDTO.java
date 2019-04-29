@@ -5,7 +5,7 @@ import java.util.List;
 public class UserDTO {
     private Long id;
 
-    private String username;
+    private String fullName;
 
     private String email;
 
@@ -18,9 +18,9 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String username, String email, String address, String phone, boolean isBlock) {
+    public UserDTO(Long id, String fullName, String email, String address, String phone, boolean isBlock) {
         this.id = id;
-        this.username = username;
+        this.fullName = fullName;
         this.email = email;
         this.address = address;
         this.phone = phone;
@@ -35,12 +35,12 @@ public class UserDTO {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getAddress() {

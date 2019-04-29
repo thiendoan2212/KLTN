@@ -99,14 +99,14 @@ public class PostServiceImpl implements PostService {
             if (post.isPresent()) {
                 PostDTO postDTO = modelMapper.map(post.get(), PostDTO.class);
                 postDTO.setAccomodationDTO(modelMapper.map(post.get().getAccomodation(), AccomodationDTO.class));
-                postDTO.setUsername(post.get().getUser().getUsername());
+                postDTO.setUsername(post.get().getUser().getFullName());
                 postDTO.setEmail(post.get().getUser().getEmail());
                 postDTO.setEmail(post.get().getUser().getEmail());
                 List<CommentDTO> commentDTOS = new ArrayList<>();
                 CommentDTO commentDTO;
                 for (Comment comment : post.get().getComments()) {
                     commentDTO = modelMapper.map(comment, CommentDTO.class);
-                    commentDTO.setUsername(comment.getUser().getUsername());
+                    commentDTO.setUsername(comment.getUser().getFullName());
                     commentDTOS.add(commentDTO);
                 }
                 List<String> images;
@@ -149,7 +149,7 @@ public class PostServiceImpl implements PostService {
                 actionService.createAction(post, user.get(), ActionName.CREATE);
                 postDTO = modelMapper.map(post, PostDTO.class);
                 postDTO.setAccomodationDTO(modelMapper.map(accomodation, AccomodationDTO.class));
-                postDTO.setUsername(post.getUser().getUsername());
+                postDTO.setUsername(post.getUser().getFullName());
                 postDTO.setEmail(post.getUser().getEmail());
                 return postDTO;
             } else
@@ -185,7 +185,7 @@ public class PostServiceImpl implements PostService {
                 postRepository.save(post.get());
                 postDTO = modelMapper.map(post.get(), PostDTO.class);
                 postDTO.setAccomodationDTO(modelMapper.map(post.get().getAccomodation(), AccomodationDTO.class));
-                postDTO.setUsername(post.get().getUser().getUsername());
+                postDTO.setUsername(post.get().getUser().getFullName());
 
                 return postDTO;
             } else
@@ -328,7 +328,7 @@ public class PostServiceImpl implements PostService {
                         < searchForm.getRadius()) {
                     postDTO = modelMapper.map(post, PostDTO.class);
                     postDTO.setAccomodationDTO(modelMapper.map(post.getAccomodation(), AccomodationDTO.class));
-                    postDTO.setUsername(post.getUser().getUsername());
+                    postDTO.setUsername(post.getUser().getFullName());
                     images = imageService.getImageByIdPost(post.getId());
                     postDTO.setImageStrings(images);
                     postDTOS.add(postDTO);
@@ -364,7 +364,7 @@ public class PostServiceImpl implements PostService {
     public PostDTO postToPostDTO(Post post) {
         PostDTO postDTO = modelMapper.map(post, PostDTO.class);
         postDTO.setAccomodationDTO(modelMapper.map(post.getAccomodation(), AccomodationDTO.class));
-        postDTO.setUsername(post.getUser().getUsername());
+        postDTO.setUsername(post.getUser().getFullName());
         postDTO.setEmail(post.getUser().getEmail());
         List<String> images = imageService.getImageByIdPost(post.getId());
         postDTO.setImageStrings(images);

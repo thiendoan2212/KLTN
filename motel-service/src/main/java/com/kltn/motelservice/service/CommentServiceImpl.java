@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
                 comment.setUser(user.get());
                 commentRepository.save(comment);
                 commentDTO = modelMapper.map(comment, CommentDTO.class);
-                commentDTO.setUsername(comment.getUser().getUsername());
+                commentDTO.setUsername(comment.getUser().getFullName());
                 return commentDTO;
             } else
                 throw new PostException("Không tồn tại post id " + commentDTO.getIdPost());
@@ -101,7 +101,7 @@ public class CommentServiceImpl implements CommentService {
                 Page<Comment> commentPage = commentRepository.findAllByPost(post.get(), PageRequest.of(page, 10, Sort.by("lastUpdate")));
                 Page<CommentDTO> commentDTOPage = commentPage.map(comment -> {
                     CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
-                    commentDTO.setUsername(comment.getUser().getUsername());
+                    commentDTO.setUsername(comment.getUser().getFullName());
                     return commentDTO;
                 });
 

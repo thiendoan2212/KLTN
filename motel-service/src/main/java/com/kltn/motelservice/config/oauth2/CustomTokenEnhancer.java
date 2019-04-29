@@ -24,7 +24,7 @@ public class CustomTokenEnhancer implements TokenEnhancer {
 
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
-        userDTO.setUsername(user.getUsername());
+        userDTO.setFullName(user.getFullName());
         userDTO.setAddress(user.getAddress());
         userDTO.setEmail(user.getEmail());
         userDTO.setPhone(user.getPhone());

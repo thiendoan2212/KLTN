@@ -51,8 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(STATIC_RESOURCES)
+        web.ignoring().antMatchers(STATIC_RESOURCES);
                 //accept all API and using Pre Post annotation config later
-                .antMatchers(PUBLIC_APIS);
+//                .antMatchers(PUBLIC_APIS);
     }
 }
