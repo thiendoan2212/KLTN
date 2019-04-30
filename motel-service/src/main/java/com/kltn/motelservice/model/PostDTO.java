@@ -20,9 +20,9 @@ public class PostDTO {
 
     private boolean del;
 
-    private String username;
+    private String fullName;
 
-    private String email;
+    private long idUser;
 
     private AccomodationDTO accomodationDTO;
 
@@ -34,7 +34,7 @@ public class PostDTO {
     }
 
     public PostDTO(long id, String title, String content, boolean approved, boolean notApproved, LocalDateTime createAt,
-                   LocalDateTime lastUpdate, boolean del, String username, String email, AccomodationDTO accomodationDTO,
+                   LocalDateTime lastUpdate, boolean del, String fullName, long idUser, AccomodationDTO accomodationDTO,
                    List<CommentDTO> commentDTOS, List<String> imageStrings) {
         this.id = id;
         this.title = title;
@@ -44,8 +44,8 @@ public class PostDTO {
         this.createAt = createAt;
         this.lastUpdate = lastUpdate;
         this.del = del;
-        this.username = username;
-        this.email = email;
+        this.fullName = fullName;
+        this.idUser = idUser;
         this.accomodationDTO = accomodationDTO;
         this.commentDTOS = commentDTOS;
         this.imageStrings = imageStrings;
@@ -57,14 +57,6 @@ public class PostDTO {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getTitle() {
@@ -123,12 +115,20 @@ public class PostDTO {
         this.del = del;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
     }
 
     public AccomodationDTO getAccomodationDTO() {

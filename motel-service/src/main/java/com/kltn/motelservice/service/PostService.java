@@ -13,7 +13,7 @@ public interface PostService {
 
     Page<PostDTO> getPostByApproved(boolean bool, int page);
 
-    List<PostDTO> getPostByUsername(String username);
+    List<PostDTO> getPostByIdUser(long idUser);
 
     PostDTO getPostById(Long id);
 
@@ -29,7 +29,7 @@ public interface PostService {
 
     String deletePostByAdmin(Long id);
 
-    PostDTO ApprovePost(Long id, boolean isApprove);
+    PostDTO ApprovePost(Long idPost, Long idUserApprove, boolean isApprove);
 
 //    List<PostDTO> searchPost(SearchDTO searchForm);
 
