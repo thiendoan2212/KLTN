@@ -78,7 +78,6 @@ export class CreatePostComponent implements OnInit {
 
   onSubmit() {
     if (this.uploader.queue.length !== 0) {
-      this.postDTO.username = 'thiendoan';
       this.createPost();
     }
   }
@@ -119,6 +118,7 @@ export class CreatePostComponent implements OnInit {
   createPost() {
     this.disableSubmit = true;
     this.showLoadding = true;
+    // this.postDTO = 'thiendoan';
     if (this.postDTO.accomodationDTO.motel) {
       this.postDTO.accomodationDTO.motel = true;
     } else {

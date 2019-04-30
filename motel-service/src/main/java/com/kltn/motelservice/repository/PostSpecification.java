@@ -29,6 +29,7 @@ public class PostSpecification implements Specification<Post> {
                             cb.lessThanOrEqualTo(root.get("accomodation").get("price"), searchForm.getPriceEnd()),
                             cb.equal(root.get("accomodation").get("motel"), true),
                             cb.equal(root.get("accomodation").get("district").get("id"), searchForm.getIdDistrict()),
+                            cb.equal(root.get("del"), false),
                             cb.equal(root.get("approved"), true),cb.equal(root.get("notApproved"), false)));
         }
 
@@ -40,6 +41,7 @@ public class PostSpecification implements Specification<Post> {
                             cb.lessThanOrEqualTo(root.get("accomodation").get("price"), searchForm.getPriceEnd()),
                             cb.equal(root.get("accomodation").get("motel"), false),
                             cb.equal(root.get("accomodation").get("district").get("id"), searchForm.getIdDistrict()),
+                            cb.equal(root.get("del"), false),
                             cb.equal(root.get("approved"), true),cb.equal(root.get("notApproved"), false)));
         }
         //Search by motel and district
@@ -52,6 +54,7 @@ public class PostSpecification implements Specification<Post> {
                             cb.greaterThanOrEqualTo(root.get("accomodation").get("price"), searchForm.getPriceStart()),
                             cb.lessThanOrEqualTo(root.get("accomodation").get("price"), searchForm.getPriceEnd()),
                             cb.equal(root.get("accomodation").get("motel"), true),
+                            cb.equal(root.get("del"), false),
                             cb.equal(root.get("approved"), true),cb.equal(root.get("notApproved"), false)));
         }
 
@@ -62,6 +65,7 @@ public class PostSpecification implements Specification<Post> {
                             cb.greaterThanOrEqualTo(root.get("accomodation").get("price"), searchForm.getPriceStart()),
                             cb.lessThanOrEqualTo(root.get("accomodation").get("price"), searchForm.getPriceEnd()),
                             cb.equal(root.get("accomodation").get("motel"), false),
+                            cb.equal(root.get("del"), false),
                             cb.equal(root.get("approved"), true),cb.equal(root.get("notApproved"), false)));
         }
         //Search by motel
@@ -74,6 +78,7 @@ public class PostSpecification implements Specification<Post> {
                             cb.greaterThanOrEqualTo(root.get("accomodation").get("price"), searchForm.getPriceStart()),
                             cb.lessThanOrEqualTo(root.get("accomodation").get("price"), searchForm.getPriceEnd()),
                             cb.equal(root.get("accomodation").get("district").get("id"), searchForm.getIdDistrict()),
+                            cb.equal(root.get("del"), false),
                             cb.equal(root.get("approved"), true),cb.equal(root.get("notApproved"), false)));
         }
         //Search by district
@@ -85,6 +90,7 @@ public class PostSpecification implements Specification<Post> {
                             cb.lessThanOrEqualTo(root.get("accomodation").get("acreage"), searchForm.getAcreageEnd()),
                             cb.greaterThanOrEqualTo(root.get("accomodation").get("price"), searchForm.getPriceStart()),
                             cb.lessThanOrEqualTo(root.get("accomodation").get("price"), searchForm.getPriceEnd()),
+                            cb.equal(root.get("del"), false),
                             cb.equal(root.get("approved"), true),cb.equal(root.get("notApproved"), false)));
         }
         //Search without motel and district
