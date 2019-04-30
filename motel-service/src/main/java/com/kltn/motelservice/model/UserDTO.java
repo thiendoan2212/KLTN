@@ -1,5 +1,9 @@
 package com.kltn.motelservice.model;
 
+import com.kltn.motelservice.entity.RoleName;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.List;
 
 public class UserDTO {
@@ -14,6 +18,9 @@ public class UserDTO {
     private String phone;
 
     private boolean block;
+
+    @Enumerated(EnumType.STRING)
+    private List<RoleName> role;
 
     public UserDTO() {
     }
@@ -73,5 +80,13 @@ public class UserDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<RoleName> getRole() {
+        return role;
+    }
+
+    public void setRole(List<RoleName> role) {
+        this.role = role;
     }
 }
