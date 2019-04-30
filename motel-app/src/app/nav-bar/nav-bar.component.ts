@@ -22,9 +22,7 @@ export class NavBarComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
               private authService: NbAuthService,
-              private router: Router
-  ) {
-    // super(authService, options, router);
+              private router: Router) {
   }
 
   ngOnInit() {
