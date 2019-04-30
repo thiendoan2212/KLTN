@@ -207,6 +207,16 @@ agm-map {
 
 .btnPost {
   background: #0db9f0;
-  font-size: 15px;
-  font-weight: 500;
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 5px 10px 3px 10px;
+}
+
+button {
+  background: transparent;
+  border: white 1px solid;
+  border-radius: 5px;
+  color: #003352;
+  font-weight: bold;
 }

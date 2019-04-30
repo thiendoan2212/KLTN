@@ -3,5 +3,6 @@ export class CommentDTO {
   content: string;
   lastUpdate: string;
   idPost: number;
-  username: string;
+  idUser: string;
+  fullName: string;
 }

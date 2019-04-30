@@ -29,7 +29,7 @@
         </li>
         <li class="nav-item dropdown" *ngIf="user; else notLoggedIn" dropdown>
           <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-            <mdb-icon fas icon="user"></mdb-icon> {{user.username}}<span class="caret"></span></a>
+            <mdb-icon fas icon="user"></mdb-icon> {{user.fullName}}<span class="caret"></span></a>
           <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
             <a class="dropdown-item waves-light" mdbWavesEffect (click)="navigateToUser(user.id)">Tài khoản</a>
             <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/logout">Đăng xuất</a>
