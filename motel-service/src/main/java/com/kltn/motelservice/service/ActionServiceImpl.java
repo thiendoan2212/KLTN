@@ -27,9 +27,9 @@ public class ActionServiceImpl implements ActionService {
 
     @Override
     public Page<ActionDTO> getAction(int page) {
-        Page<Action> actionPage = actionRepository.findAll(PageRequest.of(page, 20, Sort.by("time").ascending()));
+        Page<Action> actionPage = actionRepository.findAll(PageRequest.of(page, 20, Sort.by("time").descending()));
         Page<ActionDTO> actionDTOPage = actionPage.map(action ->
-                new ActionDTO(action.getId(), action.getUser().getFullName(), action.getAction(), action.getPost().getTitle(), action.getId())
+                new ActionDTO(action.getId(), action.getUser().getFullName(), action.getAction(), action.getPost().getTitle(), action.getId(), action.getTime())
         );
         return actionDTOPage;
     }

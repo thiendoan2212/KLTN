@@ -6,6 +6,7 @@ import com.kltn.motelservice.service.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -78,6 +79,12 @@ public class PostController {
     @PutMapping("/post/{id}/approve/{bool}/by/{idUserApprove}")
     public PostDTO ApprovePost(@PathVariable Long id, @PathVariable Long idUserApprove, @PathVariable boolean bool) {
         return postService.ApprovePost(id, idUserApprove, bool);
+    }
+
+    @PutMapping("/post/{id}/approve/{bool}")
+    @PreAuthorize("#oauth2.hasAnyScope('read')")
+    public PostDTO ApprovePostAndLogging(@PathVariable Long id, @PathVariable boolean bool, OAuth2Authentication auth) {
+        return postService.ApprovePost(id, auth.getName(), bool);
     }
 
     @PutMapping("/post/{id}")

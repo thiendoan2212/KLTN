@@ -31,6 +31,8 @@ public interface PostService {
 
     PostDTO ApprovePost(Long idPost, Long idUserApprove, boolean isApprove);
 
+    PostDTO ApprovePost(Long idPost, String usernameApprover, boolean isApprove);
+
 //    List<PostDTO> searchPost(SearchDTO searchForm);
 
     Page<PostDTO> searchPost(SearchDTO searchForm, int page);

@@ -1,6 +1,9 @@
 package com.kltn.motelservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kltn.motelservice.entity.ActionName;
+
+import java.time.LocalDateTime;
 
 public class ActionDTO {
     private Long id;
@@ -13,12 +16,16 @@ public class ActionDTO {
 
     private Long postId;
 
-    public ActionDTO(Long id, String username, ActionName action, String postTitle, Long postId) {
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER)
+    private LocalDateTime time;
+
+    public ActionDTO(Long id, String username, ActionName action, String postTitle, Long postId, LocalDateTime time) {
         this.id = id;
         this.username = username;
         this.action = action;
         this.postTitle = postTitle;
         this.postId = postId;
+        this.time = time;
     }
 
     public Long getId() {
