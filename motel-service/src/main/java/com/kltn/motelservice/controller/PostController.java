@@ -37,9 +37,15 @@ public class PostController {
         return postService.getAllPost();
     }
 
-    @GetMapping("/posts/approved/{approved}")
-    public Page<PostDTO> getAllPostApproved(@PathVariable boolean approved, @RequestParam int page) {
-        return postService.getPostByApproved(approved, page);
+    @GetMapping("/posts/approved/true")
+    public Page<PostDTO> getAllPostApproved(@RequestParam int page) {
+        return postService.getPostByApproved(true, page);
+    }
+
+    // Pre = "Admin"
+    @GetMapping("/posts/approved/false")
+    public Page<PostDTO> getAllPostNotApproved(@RequestParam int page) {
+        return postService.getPostByApproved(false, page);
     }
 
     @GetMapping("/posts/motel/{bool}")
@@ -53,9 +59,9 @@ public class PostController {
         return postService.getPostWaitingApprove(page);
     }
 
-    @GetMapping("/post/user/{username}")
-    public List<PostDTO> getPostByUsername(@PathVariable String username) {
-        return postService.getPostByUsername(username);
+    @GetMapping("/post/user/{idUser}")
+    public List<PostDTO> getPostByIdUser(@PathVariable long idUser) {
+        return postService.getPostByIdUser(idUser);
     }
 
     @GetMapping("/post/{id}")
@@ -69,9 +75,9 @@ public class PostController {
     }
 
     // HasAuthorize = "KDV, Admin"
-    @PutMapping("/post/{id}/approve/{bool}")
-    public PostDTO ApprovePost(@PathVariable Long id, @PathVariable boolean bool) {
-        return postService.ApprovePost(id, bool);
+    @PutMapping("/post/{id}/approve/{bool}/by/{idUserApprove}")
+    public PostDTO ApprovePost(@PathVariable Long id, @PathVariable Long idUserApprove, @PathVariable boolean bool) {
+        return postService.ApprovePost(id, idUserApprove, bool);
     }
 
     @PutMapping("/post/{id}")

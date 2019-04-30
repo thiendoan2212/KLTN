@@ -17,7 +17,7 @@ public class UserDTO {
 
     private String phone;
 
-    private boolean isBlock;
+    private boolean block;
 
     @Enumerated(EnumType.STRING)
     private List<RoleName> role;
@@ -25,13 +25,13 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String fullName, String email, String address, String phone, boolean isBlock) {
+    public UserDTO(Long id, String fullName, String email, String address, String phone, boolean block) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.address = address;
         this.phone = phone;
-        this.isBlock = isBlock;
+        this.block = block;
     }
 
     public Long getId() {
@@ -67,11 +67,11 @@ public class UserDTO {
     }
 
     public boolean isBlock() {
-        return isBlock;
+        return block;
     }
 
     public void setBlock(boolean block) {
-        isBlock = block;
+        this.block = block;
     }
 
     public String getEmail() {

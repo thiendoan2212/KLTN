@@ -25,6 +25,7 @@ export class DetailPostComponent implements OnInit {
   idPost: number;
   page = 1;
   totalElements: number;
+  commentDTO: CommentDTO = new CommentDTO();
 
   constructor(private activatedRoute: ActivatedRoute,
               private postService: PostService,
@@ -43,7 +44,6 @@ export class DetailPostComponent implements OnInit {
     this.postService.getPostById(this.idPost).subscribe(
       data => {
         this.postDTO = data;
-        console.log(this.postDTO);
       },
       error => {
         this.errorMessage = error.error.message;
@@ -79,7 +79,7 @@ export class DetailPostComponent implements OnInit {
         this.paginationDTO.content = data;
         this.commentDTOs = this.paginationDTO.content.content;
         this.totalElements = this.paginationDTO.content.totalElements;
-        console.log(this.commentDTOs);
+        console.log(data);
       },
       error => {
         this.errorMessage = error.error.message;
@@ -90,5 +90,11 @@ export class DetailPostComponent implements OnInit {
   getPage(page: number) {
     this.page = page;
     this.getComment();
+  }
+
+  createComment() {
+    this.commentDTO.idPost = this.idPost;
+    // this.commentDTO.idUser = this.user.id;
+    this.commentService.createComment(this.commentDTO);
   }
 }
