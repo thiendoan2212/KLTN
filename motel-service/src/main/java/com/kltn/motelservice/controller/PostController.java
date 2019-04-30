@@ -75,12 +75,6 @@ public class PostController {
         return postService.createPost(postDTO);
     }
 
-    // HasAuthorize = "KDV, Admin"
-    @PutMapping("/post/{id}/approve/{bool}/by/{idUserApprove}")
-    public PostDTO ApprovePost(@PathVariable Long id, @PathVariable Long idUserApprove, @PathVariable boolean bool) {
-        return postService.ApprovePost(id, idUserApprove, bool);
-    }
-
     @PutMapping("/post/{id}/approve/{bool}")
     @PreAuthorize("#oauth2.hasAnyScope('read')")
     public PostDTO ApprovePostAndLogging(@PathVariable Long id, @PathVariable boolean bool, OAuth2Authentication auth) {

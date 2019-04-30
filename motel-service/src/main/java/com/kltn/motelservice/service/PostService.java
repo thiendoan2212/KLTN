@@ -23,13 +23,11 @@ public interface PostService {
 
     PostDTO deletePost(Long id);
 
-//    List<PostDTO> getMotelPost(boolean bool);
-
     Page<PostDTO> getMotelPost(boolean bool, int page);
 
     String deletePostByAdmin(Long id);
 
-    PostDTO ApprovePost(Long idPost, Long idUserApprove, boolean isApprove);
+//    PostDTO ApprovePost(Long idPost, Long idUserApprove, boolean isApprove);
 
     PostDTO ApprovePost(Long idPost, String usernameApprover, boolean isApprove);
 

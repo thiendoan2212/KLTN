@@ -244,34 +244,6 @@ public class PostServiceImpl implements PostService {
         return null;
     }
 
-    // HasAuthorize = "KDV, Admin"
-    @Override
-    public PostDTO ApprovePost(Long idPost, Long idUserApprove, boolean isApprove) {
-        try {
-            Optional<Post> post = postRepository.findById(idPost);
-            if (!post.isPresent())
-                throw new PostException("Không tìm thấy post id " + idPost);
-            if (isApprove) {
-                Optional<User> user = userRepository.findById(idUserApprove);
-                post.get().setApproved(true);
-                post.get().setNotApproved(false);
-                actionService.createAction(post.get(), user.get(), ActionName.APPROVE);
-            } else {
-                Optional<User> user = userRepository.findById(idUserApprove);
-                post.get().setNotApproved(true);
-                post.get().setApproved(false);
-                actionService.createAction(post.get(), user.get(), ActionName.BLOCK);
-            }
-            postRepository.save(post.get());
-            PostDTO postDTO = modelMapper.map(post.get(), PostDTO.class);
-
-            return postDTO;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     @Override
     public PostDTO ApprovePost(Long idPost, String usernamApprover, boolean isApprove) {
         try {
