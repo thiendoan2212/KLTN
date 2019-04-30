@@ -29,7 +29,7 @@ public class ActionServiceImpl implements ActionService {
     public Page<ActionDTO> getAction(int page) {
         Page<Action> actionPage = actionRepository.findAll(PageRequest.of(page, 20, Sort.by("time").ascending()));
         Page<ActionDTO> actionDTOPage = actionPage.map(action ->
-                new ActionDTO(action.getId(), action.getUser().getUsername(), action.getAction(), action.getPost().getTitle(), action.getId())
+                new ActionDTO(action.getId(), action.getUser().getFullName(), action.getAction(), action.getPost().getTitle(), action.getId())
         );
         return actionDTOPage;
     }

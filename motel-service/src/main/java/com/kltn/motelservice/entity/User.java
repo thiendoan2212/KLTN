@@ -1,7 +1,5 @@
 package com.kltn.motelservice.entity;
 
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -16,8 +14,11 @@ public class User {
     private Long id;
 
     @NotBlank
-    @Size(min = 3, max = 50)
-    private String username;
+    private String email;
+
+    @NotBlank
+//    @Size(min = 3, max = 50)
+    private String fullName;
 
     @NotBlank
     @Size(min = 6, max = 100)
@@ -29,7 +30,7 @@ public class User {
 
     private boolean block;
 
-    @ManyToMany(fetch = FetchType.LAZY,
+    @ManyToMany(fetch = FetchType.EAGER,
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
@@ -52,8 +53,10 @@ public class User {
     public User() {
     }
 
-    public User(@NotBlank @Size(min = 3, max = 50) String username, @NotBlank @Size(min = 6, max = 100) String password, String address, String phone, boolean block, List<Role> roles, List<Post> posts, List<Post> comments) {
-        this.username = username;
+    public User(@NotBlank String email, @NotBlank String fullName, @NotBlank @Size(min = 6, max = 100) String password,
+                String address, String phone, boolean block, List<Role> roles, List<Post> posts, List<Post> comments) {
+        this.email = email;
+        this.fullName = fullName;
         this.password = password;
         this.address = address;
         this.phone = phone;
@@ -71,12 +74,20 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPassword() {

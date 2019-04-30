@@ -55,19 +55,6 @@ public class PostServiceImpl implements PostService {
         return null;
     }
 
-//    @Override
-//    public List<PostDTO> getPostByApproved(boolean bool) {
-//        List<Post> posts;
-//        List<PostDTO> postDTOS = new ArrayList<>();
-//        if (bool == true) {
-//            posts = postRepository.findAllByApprovedAndNotApproved(true, false);
-//        } else {
-//            posts = postRepository.findAllByApprovedAndNotApproved(false, true);
-//        }
-//        addAccomodation(posts, postDTOS);
-//        return postDTOS;
-//    }
-
     @Override
     public Page<PostDTO> getPostByApproved(boolean bool, int page) {
         Page<Post> postPage;
@@ -87,9 +74,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDTO> getPostByUsername(String username) {
+    public List<PostDTO> getPostByIdUser(long idUser) {
         try {
-            Optional<User> user = userRepository.findByUsername(username);
+            Optional<User> user = userRepository.findById(idUser);
             if (user.isPresent()) {
                 List<PostDTO> postDTOS = new ArrayList<>();
                 List<Post> posts = postRepository.findByUser(user.get());
@@ -97,7 +84,7 @@ public class PostServiceImpl implements PostService {
 
                 return postDTOS;
             } else
-                throw new UserException("Không tìm thấy user " + username);
+                throw new UserException("Không tìm thấy user id " + idUser);
 //                logger.error("Không tìm thấy user " + username);
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,21 +97,12 @@ public class PostServiceImpl implements PostService {
         try {
             Optional<Post> post = postRepository.findPostById(id);
             if (post.isPresent()) {
-                PostDTO postDTO = modelMapper.map(post.get(), PostDTO.class);
-                postDTO.setAccomodationDTO(modelMapper.map(post.get().getAccomodation(), AccomodationDTO.class));
-                postDTO.setUsername(post.get().getUser().getUsername());
+                PostDTO postDTO = postToPostDTO(post.get());
                 List<CommentDTO> commentDTOS = new ArrayList<>();
-                CommentDTO commentDTO;
-                for (Comment comment : post.get().getComments()) {
-                    commentDTO = modelMapper.map(comment, CommentDTO.class);
-                    commentDTO.setUsername(comment.getUser().getUsername());
-                    commentDTOS.add(commentDTO);
-                }
                 List<String> images;
                 images = imageService.getImageByIdPost(id);
                 postDTO.setImageStrings(images);
                 postDTO.setCommentDTOS(commentDTOS);
-
                 return postDTO;
             } else
                 throw new PostException("Post id " + id + " không tồn tại");
@@ -138,7 +116,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDTO createPost(PostDTO postDTO) {
         try {
-            Optional<User> user = userRepository.findByUsername(postDTO.getUsername());
+            Optional<User> user = userRepository.findById(postDTO.getIdUser());
             if (user.isPresent()) {
                 //Gán value cho post
                 Post post = new Post();
@@ -160,10 +138,11 @@ public class PostServiceImpl implements PostService {
                 actionService.createAction(post, user.get(), ActionName.CREATE);
                 postDTO = modelMapper.map(post, PostDTO.class);
                 postDTO.setAccomodationDTO(modelMapper.map(accomodation, AccomodationDTO.class));
-                postDTO.setUsername(post.getUser().getUsername());
+                postDTO.setFullName(post.getUser().getFullName());
+                postDTO.setIdUser(post.getUser().getId());
                 return postDTO;
             } else
-                throw new UserException("Không tìm thấy user " + postDTO.getUsername());
+                throw new UserException("Không tìm thấy user id " + postDTO.getIdUser());
 //                logger.error("Không tìm thấy user " + postDTO.getUsername());
         } catch (Exception e) {
             e.printStackTrace();
@@ -181,7 +160,7 @@ public class PostServiceImpl implements PostService {
                 postDTO.setCreateAt(post.get().getCreateAt());
                 //Tạo post mới từ postDTO
                 post = Optional.of(modelMapper.map(postDTO, Post.class));
-                Optional<User> user = userRepository.findByUsername(postDTO.getUsername());
+                Optional<User> user = userRepository.findById(postDTO.getIdUser());
                 post.get().setUser(user.get());
                 //Tạo accomodation từ postDTO
                 Accomodation accomodation = modelMapper.map(postDTO.getAccomodationDTO(), Accomodation.class);
@@ -195,7 +174,7 @@ public class PostServiceImpl implements PostService {
                 postRepository.save(post.get());
                 postDTO = modelMapper.map(post.get(), PostDTO.class);
                 postDTO.setAccomodationDTO(modelMapper.map(post.get().getAccomodation(), AccomodationDTO.class));
-                postDTO.setUsername(post.get().getUser().getUsername());
+                postDTO.setFullName(post.get().getUser().getFullName());
 
                 return postDTO;
             } else
@@ -248,25 +227,6 @@ public class PostServiceImpl implements PostService {
         }
         return null;
     }
-//
-//    @Override
-//    public List<PostDTO> getMotelPost(boolean bool) {
-//        try {
-//            List<Post> posts;
-//            List<PostDTO> postDTOS = new ArrayList<>();
-//            //Get Motel
-//            if (bool == true) {
-//                posts = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false, true);
-//            } else { //Get House
-//                posts = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false, false);
-//            }
-//            addAccomodation(posts, postDTOS);
-//            return postDTOS;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
 
     // HasAuthorize = "KDV, Admin"
     @Override
@@ -287,18 +247,18 @@ public class PostServiceImpl implements PostService {
 
     // HasAuthorize = "KDV, Admin"
     @Override
-    public PostDTO ApprovePost(Long id, boolean isApprove) {
+    public PostDTO ApprovePost(Long idPost, Long idUserApprove, boolean isApprove) {
         try {
-            Optional<Post> post = postRepository.findById(id);
+            Optional<Post> post = postRepository.findById(idPost);
             if (!post.isPresent())
-                throw new PostException("Không tìm thấy post id " + id);
+                throw new PostException("Không tìm thấy post id " + idPost);
             if (isApprove) {
-                Optional<User> user = userRepository.findByUsername(post.get().getUser().getUsername());
+                Optional<User> user = userRepository.findById(idUserApprove);
                 post.get().setApproved(true);
                 post.get().setNotApproved(false);
                 actionService.createAction(post.get(), user.get(), ActionName.APPROVE);
             } else {
-                Optional<User> user = userRepository.findByUsername(post.get().getUser().getUsername());
+                Optional<User> user = userRepository.findById(idUserApprove);
                 post.get().setNotApproved(true);
                 post.get().setApproved(false);
                 actionService.createAction(post.get(), user.get(), ActionName.BLOCK);
@@ -357,7 +317,7 @@ public class PostServiceImpl implements PostService {
                         < searchForm.getRadius()) {
                     postDTO = modelMapper.map(post, PostDTO.class);
                     postDTO.setAccomodationDTO(modelMapper.map(post.getAccomodation(), AccomodationDTO.class));
-                    postDTO.setUsername(post.getUser().getUsername());
+                    postDTO.setFullName(post.getUser().getFullName());
                     images = imageService.getImageByIdPost(post.getId());
                     postDTO.setImageStrings(images);
                     postDTOS.add(postDTO);
@@ -381,11 +341,6 @@ public class PostServiceImpl implements PostService {
 
     public void addAccomodation(List<Post> posts, List<PostDTO> postDTOS) {
         for (Post post : posts) {
-//            PostDTO postDTO = modelMapper.map(post, PostDTO.class);
-//            postDTO.setAccomodationDTO(modelMapper.map(post.getAccomodation(), AccomodationDTO.class));
-//            postDTO.setUsername(post.getUser().getUsername());
-//            List<String> images = imageService.getImageByIdPost(post.getId());
-//            postDTO.setImageStrings(images);
             postDTOS.add(postToPostDTO(post));
         }
     }
@@ -393,7 +348,8 @@ public class PostServiceImpl implements PostService {
     public PostDTO postToPostDTO(Post post) {
         PostDTO postDTO = modelMapper.map(post, PostDTO.class);
         postDTO.setAccomodationDTO(modelMapper.map(post.getAccomodation(), AccomodationDTO.class));
-        postDTO.setUsername(post.getUser().getUsername());
+        postDTO.setFullName(post.getUser().getFullName());
+        postDTO.setIdUser(post.getUser().getId());
         List<String> images = imageService.getImageByIdPost(post.getId());
         postDTO.setImageStrings(images);
         return postDTO;

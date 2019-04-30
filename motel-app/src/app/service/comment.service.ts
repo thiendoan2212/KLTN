@@ -16,4 +16,7 @@ export class CommentService {
     return this.http.get<CommentDTO[]>(this.apiUrl + '/comments/post/' + idPost + '?page=' + page);
   }
 
+  createComment(commentDTO: CommentDTO): Observable<CommentDTO> {
+    return this.http.post<CommentDTO>(this.apiUrl + '/comment/post', commentDTO);
+  }
 }

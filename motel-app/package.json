@@ -25,6 +25,8 @@
     "@angular/router": "~7.2.0",
     "@fortawesome/fontawesome-free": "^5.8.1",
     "@kolkov/angular-editor": "^0.13.1",
+    "@nebular/auth": "^3.5.0",
+    "@nebular/theme": "^3.5.0",
     "@types/chart.js": "^2.7.50",
     "angular-bootstrap-md": "^7.4.3",
     "chart.js": "^2.5.0",

@@ -1,0 +1,1 @@
+ALTER TABLE `user` CHANGE `username` `full_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL;

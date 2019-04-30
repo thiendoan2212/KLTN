@@ -5,29 +5,26 @@ import java.util.List;
 public class UserDTO {
     private Long id;
 
-    private String username;
+    private String fullName;
 
-    private String password;
+    private String email;
 
     private String address;
 
     private String phone;
 
-    private boolean isBlock;
-
-    private List<PostDTO> postDTOS;
+    private boolean block;
 
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String username, String password, String address, String phone, boolean isBlock, List<PostDTO> postDTOS) {
+    public UserDTO(Long id, String fullName, String email, String address, String phone, boolean block) {
         this.id = id;
-        this.username = username;
-        this.password = password;
+        this.fullName = fullName;
+        this.email = email;
         this.address = address;
         this.phone = phone;
-        this.isBlock = isBlock;
-        this.postDTOS = postDTOS;
+        this.block = block;
     }
 
     public Long getId() {
@@ -38,20 +35,12 @@ public class UserDTO {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getAddress() {
@@ -71,18 +60,18 @@ public class UserDTO {
     }
 
     public boolean isBlock() {
-        return isBlock;
+        return block;
     }
 
     public void setBlock(boolean block) {
-        isBlock = block;
+        this.block = block;
     }
 
-    public List<PostDTO> getPostDTOS() {
-        return postDTOS;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPostDTOS(List<PostDTO> postDTOS) {
-        this.postDTOS = postDTOS;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

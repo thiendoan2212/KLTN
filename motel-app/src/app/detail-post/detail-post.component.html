@@ -4,9 +4,9 @@
   <div class="col-lg-12 bc" *ngIf="postDTO">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/trang-chu">Trang chủ</a></li>
-        <li class="breadcrumb-item" *ngIf="postDTO.accomodationDTO.motel"><a routerLink="/phong-tro">Phòng trọ</a></li>
-        <li class="breadcrumb-item" *ngIf="!postDTO.accomodationDTO.motel"><a routerLink="/nha-nguyen-can">Nhà nguyên
+        <li class="breadcrumb-item"><a routerLink="/home">Trang chủ</a></li>
+        <li class="breadcrumb-item" *ngIf="postDTO.accomodationDTO.motel"><a routerLink="/motel">Phòng trọ</a></li>
+        <li class="breadcrumb-item" *ngIf="!postDTO.accomodationDTO.motel"><a routerLink="/house">Nhà nguyên
           căn</a></li>
       </ol>
     </nav>
@@ -227,16 +227,16 @@
           <div class="binhluan-content">
             <!--Nếu đăng nhập-->
             <textarea class="form-control" id="comment" cols="85" rows="5"
-                      placeholder="Vui lòng nhập nội dung bình luận"></textarea>
+                      placeholder="Vui lòng nhập nội dung bình luận" [(ngModel)]="commentDTO.content"></textarea>
             <div class="text-right">
-              <button type="button" mdbBtn class="btnPost" mdbWavesEffect>Gửi</button>
+              <button type="button" class="btnPost" mdbWavesEffect>Gửi</button>
             </div>
             <!--Nếu đăng nhập-->
             <div class="text-content"
                  *ngFor="let commentDTO of commentDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
-              <a><p class="ten">{{commentDTO.username}}</p></a>
+              <a><p class="ten">{{commentDTO.fullName}}</p></a>
               <p class="noidung">{{commentDTO.content}}</p>
-              <p class="gio">{{commentDTO.lastUpdate}}</p>
+              <p class="gio">{{commentDTO.lastUpdate | date:'d/M/yyyy, h:mm a'}}</p>
             </div>
             <!--Phân trang-->
             <div class="text-center">

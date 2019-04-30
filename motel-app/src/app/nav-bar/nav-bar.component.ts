@@ -1,7 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Signup} from '../model/signup';
 import {Signin} from '../model/signin';
+import {NB_AUTH_OPTIONS, NbAuthOAuth2JWTToken, NbAuthService, NbLoginComponent, NbLogoutComponent} from '@nebular/auth';
+import {MatDialog, MatDialogRef} from '@angular/material';
+import {LoginComponent} from '../login/login.component';
+import {User} from '../model/user';
+import {LogoComponent} from 'angular-bootstrap-md';
+import {RegisterComponent} from '../register/register.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,44 +15,59 @@ import {Signin} from '../model/signin';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
-  isLoggedIn = false;
-  showModal = false;
-  showSignup = false;
-  signUpForm: Signup = new Signup();
-  signInForm: Signin = new Signin();
-  errorEmail = false;
+  errorLogin = false;
+  dialogLogin: MatDialogRef<LoginComponent>;
+  dialogRegister: MatDialogRef<RegisterComponent>;
+  user: User;
 
-  constructor(private router: Router) {
+  constructor(public dialog: MatDialog,
+              private authService: NbAuthService,
+              private router: Router
+  ) {
+    // super(authService, options, router);
   }
 
   ngOnInit() {
-  }
-
-  ClickedOut(event) {
-    if (event.target.className === 'modal fade show') {
-      this.showModal = false;
-      this.showSignup = false;
-      this.errorEmail = false;
-    }
+    this.authService.onTokenChange().subscribe((token: NbAuthOAuth2JWTToken) => {
+      if (token.isValid()) {
+        this.user = token.getPayload().account;
+        this.dialog.closeAll();
+        // this.dialogRef.close();
+      } else {
+        this.errorLogin = true;
+      }
+    });
   }
 
   navigateToCreatePost() {
-    // Nếu đã đăng nhập
-    this.router.navigate(['/dang-tin']);
-    // Nếu chưa đăng nhập => showModal = true;
-  }
-
-  onSubmitLogin() {
-  }
-
-  onSubmitRegister() {
-
-  }
-
-  forgot() {
-    if (this.signInForm.username === '' || !this.signInForm.username) {
-      this.errorEmail = true;
-      console.log(this.errorEmail);
+    if (this.user) {
+      this.router.navigate(['/create-post']);
+    } else {
+      this.dialogLogin = this.dialog.open(LoginComponent, {
+        hasBackdrop: true,
+        height: '370px',
+        width: '500px',
+      });
     }
+  }
+
+  navigateToUser(idUser: number) {
+    this.router.navigate(['/user'], {queryParams: {id: idUser}, skipLocationChange: false});
+  }
+
+  login() {
+    this.dialogLogin = this.dialog.open(LoginComponent, {
+      hasBackdrop: true,
+      height: '370px',
+      width: '500px',
+    });
+  }
+
+  register() {
+    this.dialogRegister = this.dialog.open(RegisterComponent, {
+      hasBackdrop: true,
+      height: '430px',
+      width: '500px',
+    });
   }
 }

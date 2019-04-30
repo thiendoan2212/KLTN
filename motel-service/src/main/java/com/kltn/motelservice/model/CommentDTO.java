@@ -11,17 +11,20 @@ public class CommentDTO {
 
     private Long idPost;
 
-    private String username;
+    private Long idUser;
+
+    private String fullName;
 
     public CommentDTO() {
     }
 
-    public CommentDTO(long id, String content, LocalDateTime lastUpdate, Long idPost, String username) {
+    public CommentDTO(long id, String content, LocalDateTime lastUpdate, Long idPost, Long idUser, String fullName) {
         this.id = id;
         this.content = content;
         this.lastUpdate = lastUpdate;
         this.idPost = idPost;
-        this.username = username;
+        this.idUser = idUser;
+        this.fullName = fullName;
     }
 
     public long getId() {
@@ -56,11 +59,19 @@ public class CommentDTO {
         this.idPost = idPost;
     }
 
-    public String getUsername() {
-        return username;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

@@ -15,13 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
-
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -44,12 +39,13 @@ public class CommentServiceImpl implements CommentService {
                 Comment comment = new Comment();
                 comment.setContent(commentDTO.getContent());
                 comment.setLastUpdate(LocalDateTime.now());
-                Optional<User> user = userRepository.findByUsername(commentDTO.getUsername());
+                Optional<User> user = userRepository.findById(commentDTO.getIdUser());
                 comment.setPost(post.get());
                 comment.setUser(user.get());
                 commentRepository.save(comment);
                 commentDTO = modelMapper.map(comment, CommentDTO.class);
-                commentDTO.setUsername(comment.getUser().getUsername());
+                commentDTO.setIdUser(comment.getUser().getId());
+                commentDTO.setFullName(comment.getUser().getFullName());
                 return commentDTO;
             } else
                 throw new PostException("Không tồn tại post id " + commentDTO.getIdPost());
@@ -93,26 +89,6 @@ public class CommentServiceImpl implements CommentService {
         }
         return null;
     }
-//
-//    @Override
-//    public List<CommentDTO> getCommentByIdPost(Long idPost) {
-//        try {
-//            Optional<Post> post = postRepository.findById(idPost);
-//            if (post.isPresent()) {
-//                List<Comment> comments = commentRepository.findAllByPost(post.get());
-//                List<CommentDTO> commentDTOS = new ArrayList<>();
-//                for (Comment comment : comments) {
-//                    CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
-//                    commentDTO.setUsername(comment.getUser().getUsername());
-//                    commentDTOS.add(commentDTO);
-//                }
-//                return commentDTOS;
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
 
     public Page<CommentDTO> getCommentByIdPost(Long idPost, int page) {
         try {
@@ -121,7 +97,8 @@ public class CommentServiceImpl implements CommentService {
                 Page<Comment> commentPage = commentRepository.findAllByPost(post.get(), PageRequest.of(page, 10, Sort.by("lastUpdate")));
                 Page<CommentDTO> commentDTOPage = commentPage.map(comment -> {
                     CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
-                    commentDTO.setUsername(comment.getUser().getUsername());
+                    commentDTO.setIdUser(comment.getUser().getId());
+                    commentDTO.setFullName(comment.getUser().getFullName());
                     return commentDTO;
                 });
 
