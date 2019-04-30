@@ -4,6 +4,7 @@ import com.kltn.motelservice.entity.Role;
 import com.kltn.motelservice.entity.RoleName;
 import com.kltn.motelservice.entity.User;
 import com.kltn.motelservice.mapper.UserMapper;
+import com.kltn.motelservice.model.AccountDto;
 import com.kltn.motelservice.model.UserDTO;
 import com.kltn.motelservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
-@PreAuthorize("#oauth2.hasAnyScope('read')") // for authenticated request (logged)
 public class UserController {
 
     private UserService userService;
@@ -36,6 +36,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("#oauth2.hasAnyScope('read')") // for authenticated request (logged)
     public UserDTO getUser(@PathVariable("id") Long id, OAuth2Authentication auth) {
         if (!validRequest(auth, id)) throw new AccessDeniedException("Access dined");
 
@@ -45,6 +46,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("#oauth2.hasAnyScope('read')") // for authenticated request (logged)
     public UserDTO updateProfile(@PathVariable("id") Long id,
                                  @RequestBody UserDTO userDTO) {
         userDTO.setId(id);
@@ -70,6 +72,7 @@ public class UserController {
     }
 
     @PostMapping("/{id}/password")
+    @PreAuthorize("#oauth2.hasAnyScope('read')") // for authenticated request (logged)
     public UserDTO changePasswordAUser(@PathVariable("id") Long id,
                                        @RequestParam("password") String newPassword,
                                        @RequestParam("oldPassword") String oldPassword,
@@ -80,6 +83,59 @@ public class UserController {
 
         return mapper.entityToDTO(user);
     }
+
+    // registration flow
+
+    @GetMapping("/check")
+    public boolean checkExistUser(@RequestParam("email") String email){
+        return (userService.selectUserByEmail(email) != null);
+    }
+
+    @PostMapping
+    public UserDTO registerUserAccount(@RequestBody AccountDto accountDto) {
+        User user = userService.registration(accountDto);
+        return mapper.entityToDTO(user);
+    }
+
+//    @RequestMapping(value = "/u/registrationConfirm", method = RequestMethod.GET)
+//    public String confirmRegistration(Locale locale, Model model,
+//                                      @RequestParam(name = "token", defaultValue = "") String token) {
+//
+//        // tìm token trong db
+//        Optional<VerificationToken> verificationToken
+//                = Optional.of(token).map(userService::getVerificationToken);
+//
+//        // token không tồn tại
+//        if (!verificationToken.isPresent()) {
+//            String message = messages.getMessage("auth.message.invalidToken", null, locale);
+//            model.addAttribute("message", message);
+//            return "signup/badConfirmPage";
+//        }
+//
+//        // kiểm tra liệu tài khoản này đã xác nhận chưa
+//        Optional<User> user = verificationToken.map(VerificationToken::getUser);
+//        if (user.get().isEnabled()) {
+//            String message = messages.getMessage("message.activitedEmail", null, locale);
+//            model.addAttribute("message", message);
+//            return "signup/badConfirmPage";
+//        }
+//
+//        Calendar cal = Calendar.getInstance();
+//        // kiểm tra thời hạn token
+//        if (verificationToken.map(VerificationToken::getExpiryDate).get()
+//                .before(cal.getTime())) {
+//            String message = messages.getMessage("auth.message.expired", null, locale);
+//            model.addAttribute("message", message);
+//            model.addAttribute("mailAddress", user.map(User::getEmail).get());
+//            return "signup/badConfirmPage";
+//        }
+//
+//        User u = user.orElse(new User());
+//        u.setEnabled(true);
+//        userService.saveRegisteredUser(u);
+//        model.addAttribute("user", u);
+//        return "signin/loginPage";
+//    }
 
     //user request change profile or admin
     boolean validRequest(OAuth2Authentication auth, Long userId) {

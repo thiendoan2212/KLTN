@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 
 @Service
 public class ActionServiceImpl implements ActionService {
+
     @Autowired
     ActionRepository actionRepository;
 
@@ -29,7 +30,16 @@ public class ActionServiceImpl implements ActionService {
     public Page<ActionDTO> getAction(int page) {
         Page<Action> actionPage = actionRepository.findAll(PageRequest.of(page, 20, Sort.by("time").descending()));
         Page<ActionDTO> actionDTOPage = actionPage.map(action ->
-                new ActionDTO(action.getId(), action.getUser().getFullName(), action.getAction(), action.getPost().getTitle(), action.getId(), action.getTime())
+                new ActionDTO(action.getId(), action.getUser().getFullName(), action.getAction(), action.getPost().getTitle(), action.getPost().getId(), action.getTime())
+        );
+        return actionDTOPage;
+    }
+
+    @Override
+    public Page<ActionDTO> getActionByApprover(Long id, int page) {
+        Page<Action> actionPage = actionRepository.findAllByUser_Id(id, PageRequest.of(page, 20, Sort.by("time").descending()));
+        Page<ActionDTO> actionDTOPage = actionPage.map(action ->
+                new ActionDTO(action.getId(), action.getUser().getFullName(), action.getAction(), action.getPost().getTitle(), action.getPost().getId(), action.getTime())
         );
         return actionDTOPage;
     }
