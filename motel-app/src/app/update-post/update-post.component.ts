@@ -81,7 +81,7 @@ export class UpdatePostComponent implements OnInit {
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
-    this.setValue();
+    // this.setValue();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -91,12 +91,12 @@ export class UpdatePostComponent implements OnInit {
 
   onSubmit() {
     if (this.uploader.queue.length !== 0) {
-      this.postDTO.username = 'admin';
+      // this.postDTO.username = 'admin';
       this.updatePost();
     }
   }
 
-  setValue() {
+  // setValue() {
     // // this.postDTO = this.storagePostService.getStoragePostDTO();
     // this.getImageByteByIdPost(this.postDTO.id);
     // if (this.postDTO.accomodationDTO.status) {
@@ -139,7 +139,7 @@ export class UpdatePostComponent implements OnInit {
     // } else {
     //   this.heater = 0;
     // }
-  }
+  // }
 
   mapClicked($event: any) {
     this.postDTO.accomodationDTO.xCoordinate = $event.coords.lat;

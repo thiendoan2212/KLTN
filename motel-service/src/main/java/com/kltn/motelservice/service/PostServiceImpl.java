@@ -69,7 +69,6 @@ public class PostServiceImpl implements PostService {
             PostDTO postDTO = postToPostDTO(post);
             return postDTO;
         });
-
         return postDTOPage;
     }
 
@@ -211,11 +210,11 @@ public class PostServiceImpl implements PostService {
             Page<Post> postPage;
             //Get Motel
             if (bool == true) {
-                postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false,
-                        true, PageRequest.of(page, 10, Sort.by("accomodation.price").ascending()));
+                postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
+                        true, PageRequest.of(page, 10, Sort.by("accomodation.price").ascending()), false);
             } else { //Get House
-                postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_Motel(true, false,
-                        false, PageRequest.of(page, 10, Sort.by("accomodation.price").ascending()));
+                postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
+                        false, PageRequest.of(page, 10, Sort.by("accomodation.price").ascending()), false);
             }
             Page<PostDTO> postDTOPage = postPage.map(post -> {
                 PostDTO postDTO = postToPostDTO(post);

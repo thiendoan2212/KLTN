@@ -10,8 +10,9 @@ export class PostDTO {
   notApproved: boolean;
   createAt: string;
   lastUpdate: string;
-  delete: boolean;
-  username: string;
+  del: boolean;
+  fullName: string;
+  idUser: number;
   accomodationDTO: AccomodationDTO;
   commentDTOS: CommentDTO[];
   imageStrings: ImageResponse[];
