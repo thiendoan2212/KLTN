@@ -107,7 +107,7 @@
     <h6 id="address">Nhập địa chỉ</h6>
     <div class="input-group mb-3 my-3">
       <input type="text" class="form-control radius" aria-describedby="radius"
-             [(ngModel)]="address" required="true" placeholder="Nhập địa chỉ hoặc chọn 1 điểm trên bản đồ" go>
+             [(ngModel)]="address" (ngModelChange)="updateLatLngFromAddress()" required="true" placeholder="Nhập địa chỉ hoặc chọn 1 điểm trên bản đồ" go>
       <!--<label for="address-content" ></label>-->
     </div>
   </div>

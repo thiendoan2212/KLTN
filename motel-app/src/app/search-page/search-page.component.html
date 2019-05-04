@@ -63,14 +63,14 @@
                    src="{{postDTO.imageStrings[0] || '../../assets/default-img.jpg'}}"
                    width="350px" height="232.9px" alt="Card image cap">
               <a>
-                <div class="mask rgba-white-slight" routerLink="/post/{{postDTO.id}}"></div>
+                <div class="mask rgba-white-slight" (click)="navigateToDetail(postDTO)"></div>
               </a>
             </div>
           </div>
         </div>
         <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-12">
           <div class="title" [ngStyle]="{'margin-bottom': innerWidth<1200 ?'-10px':'0'}">
-            <a routerLink="/post/{{postDTO.id}}">{{postDTO.title}}</a>
+            <a (click)="navigateToDetail(postDTO)">{{postDTO.title}}</a>
           </div>
           <p class="address" [ngStyle]="{'margin-bottom': innerWidth<1200 ?'5px':'10px'}">Địa chỉ: <span
             class="address-content">{{postDTO.accomodationDTO.address}}</span></p>

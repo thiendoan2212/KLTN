@@ -104,11 +104,11 @@
           <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <p class="diachi">Địa chỉ</p>
-              <input type="text" class="form-control" id="address" required
+              <input type="text" class="form-control" id="updateLatLngFromAddress" required
                      [(ngModel)]="postDTO.accomodationDTO.address" name="address" #address="ngModel"
                      placeholder="Nhập địa chỉ và kéo điểm màu đỏ tới vị trí chính xác"
                      [ngClass]="{ 'is-invalid': (address.invalid && (address.dirty || address.touched)) || (postForm.submitted && address.invalid)}"
-                     (keyup)="updateLatLngFromAddress()">
+                     (ngModelChange)="updateLatLngFromAddress()">
               <div
                 *ngIf="(address.invalid && (address.dirty || address.touched)) || (postForm.submitted && address.invalid)"
                 class="error">

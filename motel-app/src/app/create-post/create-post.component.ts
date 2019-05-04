@@ -8,6 +8,8 @@ import {FileUploader} from 'ng2-file-upload';
 import {ImageService} from '../service/image.service';
 import {ImageDTO} from '../model/ImageDTO';
 import {Router} from '@angular/router';
+import {NbAuthOAuth2JWTToken, NbAuthService} from '@nebular/auth';
+import {User} from '../model/user';
 
 @Component({
   selector: 'app-create-post',
@@ -53,16 +55,20 @@ export class CreatePostComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({
     isHTML5: true
   });
-
+  res: any;
   showError = false;
   showRequired = false;
   showNoti = false;
   disableSubmit = false;
   showLoadding = false;
+  user: User;
+
+  // token: string;
 
   constructor(private geocodingApiService: GeocodingApiServiceService,
               private postService: PostService,
               private imageService: ImageService,
+              private authService: NbAuthService,
               private router: Router) {
   }
 
@@ -85,6 +91,7 @@ export class CreatePostComponent implements OnInit {
   setValue() {
     this.postDTO.accomodationDTO = this.accomodationDTO;
     this.postDTO.accomodationDTO.waterPrice = this.postDTO.accomodationDTO.electricPrice = 0;
+    // this.postDTO.idUser = this.user.id;
   }
 
   mapClicked($event: any) {
@@ -98,21 +105,33 @@ export class CreatePostComponent implements OnInit {
   }
 
   updateLatLngFromAddress() {
-    this.geocodingApiService
-      .findFromAddress(this.postDTO.accomodationDTO.address).subscribe(response => {
-      if (response.status === 'OK') {
-        // this.lat = response.results[0].geometry.location.lat;
-        // this.lng = response.results[0].geometry.location.lng;
-        this.postDTO.accomodationDTO.xCoordinate = response.results[0].geometry.location.lat;
-        this.postDTO.accomodationDTO.yCoordinate = response.results[0].geometry.location.lng;
-        console.log('GEO ' + this.postDTO.accomodationDTO.xCoordinate);
-        console.log('GEO ' + this.postDTO.accomodationDTO.yCoordinate);
-      } else if (response.status === 'ZERO_RESULTS') {
-        console.log('geocodingAPIService', 'ZERO_RESULTS', response.status);
-      } else {
-        console.log('geocodingAPIService', 'Other error', response.status);
-      }
-    });
+    let response: any;
+    // this.geocodingApiService
+    //   .findFromAddress(this.postDTO.accomodationDTO.address).subscribe(response => {
+    //   if (response.status === 'OK') {
+    //     // this.lat = response.results[0].geometry.location.lat;
+    //     // this.lng = response.results[0].geometry.location.lng;
+    //     this.postDTO.accomodationDTO.xCoordinate = response.results[0].geometry.location.lat;
+    //     this.postDTO.accomodationDTO.yCoordinate = response.results[0].geometry.location.lng;
+    //     console.log('GEO ' + this.postDTO.accomodationDTO.xCoordinate);
+    //     console.log('GEO ' + this.postDTO.accomodationDTO.yCoordinate);
+    //   } else if (response.status === 'ZERO_RESULTS') {
+    //     console.log('geocodingAPIService', 'ZERO_RESULTS', response.status);
+    //   } else {
+    //     console.log('geocodingAPIService', 'Other error', response.status);
+    //   }
+    // });
+    response = this.geocodingApiService.findFromAddress(this.postDTO.accomodationDTO.address);
+    if (response.status === 'OK') {
+      this.postDTO.accomodationDTO.xCoordinate = response.results[0].geometry.location.lat;
+      this.postDTO.accomodationDTO.yCoordinate = response.results[0].geometry.location.lng;
+      // console.log('GEO ' + this.postDTO.accomodationDTO.xCoordinate);
+      // console.log('GEO ' + this.postDTO.accomodationDTO.yCoordinate);
+    } else if (response.status === 'ZERO_RESULTS') {
+      console.log('geocodingAPIService', 'ZERO_RESULTS', response.status);
+    } else {
+      console.log('geocodingAPIService', 'Other error', response.status);
+    }
   }
 
   createPost() {
@@ -200,5 +219,4 @@ export class CreatePostComponent implements OnInit {
       this.showRequired = false;
     }
   }
-
 }
