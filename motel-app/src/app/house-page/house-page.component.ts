@@ -56,7 +56,7 @@ export class HousePageComponent implements OnInit {
     this.router.navigate(['/post'], {queryParams: { id: postDTO.id, title: postDTO.title}, skipLocationChange: false});
   }
 
-  navigateToUpdate(postDTO: PostDTO) {
-    this.router.navigate(['/update'], {queryParams: {id: postDTO.id, title: postDTO.title}, skipLocationChange: false});
-  }
+  // navigateToUpdate(postDTO: PostDTO) {
+  //   this.router.navigate(['/update'], {queryParams: {id: postDTO.id, title: postDTO.title}, skipLocationChange: false});
+  // }
 }

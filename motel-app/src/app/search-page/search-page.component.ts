@@ -25,7 +25,8 @@ export class SearchPageComponent implements OnInit {
   page = 1;
 
   constructor(private postService: PostService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
     this.activatedRoute.queryParams.subscribe(_ => {
       this.getParamSearchForm();
       this.searchPost();
@@ -85,6 +86,10 @@ export class SearchPageComponent implements OnInit {
       this.lng = parseFloat(String(this.searchForm.yCoordinate));
       this.radius = parseFloat(String(this.searchForm.radius));
     });
+  }
+
+  navigateToDetail(postDTO) {
+    this.router.navigate(['/post'], {queryParams: { id: postDTO.id, title: postDTO.title}, skipLocationChange: false});
   }
 }
 
