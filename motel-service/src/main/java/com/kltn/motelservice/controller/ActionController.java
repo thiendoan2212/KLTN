@@ -11,14 +11,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/actions")
 @PreAuthorize("#oauth2.hasAnyScope('read')")
 public class ActionController {
     @Autowired
     ActionServiceImpl actionService;
 
-    @GetMapping("/actions")
-    public Page<ActionDTO> getAction(@RequestParam int page) {
-        return actionService.getAction(page);
+    @GetMapping
+    public Page<ActionDTO> getAction(@RequestParam int page, @RequestParam(required = false, defaultValue = "-1") Long id) {
+       if(id.equals(-1l))
+           return actionService.getAction(page);
+       else
+           return actionService.getActionByApprover(id, page);
     }
 }

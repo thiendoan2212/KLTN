@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ActionRepository extends JpaRepository<Action, Long> {
     Page<Action> findAll(Pageable pageable);
+
+    Page<Action> findAllByUser_Id(Long id, Pageable pageable);
+
 }
