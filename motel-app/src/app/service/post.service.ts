@@ -50,6 +50,10 @@ export class PostService {
     return this.http.get<PostDTO[]>(this.apiUrl + '/posts');
   }
 
+  getPostByIdUser(idUser: number, page: number) {
+    return this.http.get<PostDTO[]>(this.apiUrl + '/post/user/' + idUser + '?page=' + page);
+  }
+
   getAllPostApproved(page: number): Observable<PostDTO[]> {
     return this.http.get<PostDTO[]>(this.apiUrl + '/posts/approved/true' + '?page=' + page);
   }
@@ -63,12 +67,6 @@ export class PostService {
   }
 
   createPost(postDTO: PostDTO): Observable<PostDTO> {
-    // const headersObject = new HttpHeaders();
-    // headersObject.append('Authorization', 'Bearer ' + token);
-    // const httpOptions = {
-    //   headers: headersObject
-    // };
-
     return this.http.post<PostDTO>(this.apiUrl + '/post', postDTO);
   }
 
