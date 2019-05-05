@@ -35,7 +35,7 @@ p.thongtin {
 }
 
 .overlay {
-  padding-left: 5px;
+  padding-bottom: 10px;
 }
 
 .attribute-content {
@@ -87,4 +87,11 @@ a.title:hover {
 .img-4 {
   width: 100px;
   height: 100px;
+}
+
+.bor {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  margin-right: 0px;
+  margin-left: 0px;
 }
