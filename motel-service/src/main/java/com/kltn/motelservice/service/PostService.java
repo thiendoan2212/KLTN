@@ -14,7 +14,7 @@ public interface PostService {
 
     Page<PostDTO> getPostByApproved(boolean bool, int page);
 
-    List<PostDTO> getPostByIdUser(long idUser);
+    Page<PostDTO> getPostByIdUser(long idUser, int page);
 
     PostDTO getPostById(Long id);
 

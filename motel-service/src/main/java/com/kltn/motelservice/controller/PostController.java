@@ -62,8 +62,8 @@ public class PostController {
     }
 
     @GetMapping("/post/user/{idUser}")
-    public List<PostDTO> getPostByIdUser(@PathVariable long idUser) {
-        return postService.getPostByIdUser(idUser);
+    public Page<PostDTO> getPostByIdUser(@PathVariable long idUser, @RequestParam int page) {
+        return postService.getPostByIdUser(idUser, page);
     }
 
     @GetMapping("/post/{id}")

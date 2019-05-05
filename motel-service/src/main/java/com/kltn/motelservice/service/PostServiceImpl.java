@@ -73,15 +73,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDTO> getPostByIdUser(long idUser) {
+    public Page<PostDTO> getPostByIdUser(long idUser, int page) {
         try {
             Optional<User> user = userRepository.findById(idUser);
             if (user.isPresent()) {
-                List<PostDTO> postDTOS = new ArrayList<>();
-                List<Post> posts = postRepository.findByUser(user.get());
-                addAccomodation(posts, postDTOS);
-
-                return postDTOS;
+                Page<Post> postPage;
+                postPage = postRepository.findByUser(user.get(), PageRequest.of(page, 10, Sort.by("createAt").descending()));
+                Page<PostDTO> postDTOPage = postPage.map(this::postToPostDTO);
+                return postDTOPage;
             } else
                 throw new UserException("Không tìm thấy user id " + idUser);
 //                logger.error("Không tìm thấy user " + username);
