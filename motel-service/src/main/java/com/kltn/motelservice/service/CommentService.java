@@ -6,11 +6,10 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface CommentService {
-//    List<CommentDTO> getCommentByIdPost(Long idPost);
 
     Page<CommentDTO> getCommentByIdPost(Long idPost, int page);
 
-    CommentDTO createComment(CommentDTO commentDTO);
+    CommentDTO createComment(CommentDTO commentDTO, String email);
 
     CommentDTO updateComment(Long id, CommentDTO commentDTO);
 

@@ -32,14 +32,14 @@ public class CommentServiceImpl implements CommentService {
     ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public CommentDTO createComment(CommentDTO commentDTO) {
+    public CommentDTO createComment(CommentDTO commentDTO, String email) {
         try {
             Optional<Post> post = postRepository.findById(commentDTO.getIdPost());
             if (post.isPresent()) {
                 Comment comment = new Comment();
                 comment.setContent(commentDTO.getContent());
                 comment.setLastUpdate(LocalDateTime.now());
-                Optional<User> user = userRepository.findById(commentDTO.getIdUser());
+                Optional<User> user = userRepository.findByEmail(email);
                 comment.setPost(post.get());
                 comment.setUser(user.get());
                 commentRepository.save(comment);

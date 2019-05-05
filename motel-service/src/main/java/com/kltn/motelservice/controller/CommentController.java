@@ -6,6 +6,7 @@ import com.kltn.motelservice.service.CommentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,8 +29,8 @@ public class CommentController {
     }
 
     @PostMapping("/comment/post")
-    public CommentDTO createComment(@RequestBody CommentDTO commentDTO) {
-        return commentService.createComment(commentDTO);
+    public CommentDTO createComment(@RequestBody CommentDTO commentDTO, OAuth2Authentication auth) {
+        return commentService.createComment(commentDTO, auth.getName());
     }
 
     @PutMapping("/comment/{id}")
