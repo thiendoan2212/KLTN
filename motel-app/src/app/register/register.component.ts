@@ -4,7 +4,7 @@ import {MatDialog} from '@angular/material';
 import {LoginComponent} from '../login/login.component';
 import {Account} from '../model/account';
 import {HttpClient} from '@angular/common/http';
-import {AccountService} from '../account.service';
+import {AccountService} from '../service/account.service';
 
 @Component({
   selector: 'app-register',
