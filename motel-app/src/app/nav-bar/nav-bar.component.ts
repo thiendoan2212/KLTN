@@ -1,12 +1,9 @@
-import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Signup} from '../model/signup';
-import {Signin} from '../model/signin';
-import {NB_AUTH_OPTIONS, NbAuthOAuth2JWTToken, NbAuthService, NbLoginComponent, NbLogoutComponent} from '@nebular/auth';
+import {NbAuthOAuth2JWTToken, NbAuthService} from '@nebular/auth';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {LoginComponent} from '../login/login.component';
 import {User} from '../model/user';
-import {LogoComponent} from 'angular-bootstrap-md';
 import {RegisterComponent} from '../register/register.component';
 
 @Component({
@@ -64,7 +61,7 @@ export class NavBarComponent implements OnInit {
   register() {
     this.dialogRegister = this.dialog.open(RegisterComponent, {
       hasBackdrop: true,
-      height: '430px',
+      maxHeight: '430px',
       width: '500px',
     });
   }

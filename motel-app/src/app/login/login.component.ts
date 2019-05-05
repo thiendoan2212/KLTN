@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, Inject, Input, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material';
-import {NB_AUTH_OPTIONS, NbAuthService, NbLoginComponent} from '@nebular/auth';
+import {NB_AUTH_OPTIONS, NbAuthResult, NbAuthService, NbLoginComponent} from '@nebular/auth';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {RegisterComponent} from '../register/register.component';
@@ -12,6 +12,7 @@ import {RegisterComponent} from '../register/register.component';
 })
 export class LoginComponent extends NbLoginComponent {
   errorEmail = false;
+  hasError = false;
   dialogRegister: MatDialogRef<RegisterComponent>;
 
   constructor(private dialog: MatDialog, authService: NbAuthService,
@@ -33,11 +34,37 @@ export class LoginComponent extends NbLoginComponent {
     }
   }
 
+  login(): void {
+    this.errors = [];
+    this.messages = [];
+    this.submitted = true;
+    this.hasError = false;
+
+    this.service.authenticate(this.strategy, this.user).subscribe((result: NbAuthResult) => {
+      this.submitted = false;
+
+      if (result.isSuccess()) {
+        this.messages = result.getMessages();
+      } else {
+        this.errors = result.getErrors();
+        this.hasError = true;
+      }
+
+      const redirect = result.getRedirect();
+      if (redirect) {
+        setTimeout(() => {
+          return this.router.navigateByUrl(redirect);
+        }, this.redirectDelay);
+      }
+      this.cd.detectChanges();
+    });
+  }
+
   submitRegister() {
     this.dialog.closeAll();
     this.dialogRegister = this.dialog.open(RegisterComponent, {
       hasBackdrop: true,
-      height: '430px',
+      maxHeight: '430px',
       width: '500px',
     });
   }

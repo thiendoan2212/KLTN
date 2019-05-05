@@ -5,6 +5,4 @@ export class User {
   address: string;
   phone: string;
   block: boolean;
-  password: string;
-
 }
