@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {PostDTO} from '../model/postDTO';
 import {SearchForm} from '../model/searchForm';
@@ -63,6 +63,12 @@ export class PostService {
   }
 
   createPost(postDTO: PostDTO): Observable<PostDTO> {
+    // const headersObject = new HttpHeaders();
+    // headersObject.append('Authorization', 'Bearer ' + token);
+    // const httpOptions = {
+    //   headers: headersObject
+    // };
+
     return this.http.post<PostDTO>(this.apiUrl + '/post', postDTO);
   }
 

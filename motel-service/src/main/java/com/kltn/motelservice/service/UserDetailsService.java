@@ -36,7 +36,7 @@ public class UserDetailsService implements org.springframework.security.core.use
         logger.info(account.toString());
         return new org.springframework.security.core.userdetails.User(
                 account.getEmail(), account.getPassword(), true,
-                true, true, true,
+                true, true, !account.isBlock(),
                 AuthorityUtils.createAuthorityList(
                         account.getRoles().stream().map(Role::getName)
                                 .map(RoleName::toString)

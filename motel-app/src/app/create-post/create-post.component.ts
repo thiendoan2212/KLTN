@@ -55,7 +55,6 @@ export class CreatePostComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({
     isHTML5: true
   });
-  res: any;
   showError = false;
   showRequired = false;
   showNoti = false;
@@ -63,7 +62,7 @@ export class CreatePostComponent implements OnInit {
   showLoadding = false;
   user: User;
 
-  // token: string;
+  token: string;
 
   constructor(private geocodingApiService: GeocodingApiServiceService,
               private postService: PostService,
@@ -75,6 +74,14 @@ export class CreatePostComponent implements OnInit {
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.setValue();
+    this.authService.onTokenChange().subscribe((token: NbAuthOAuth2JWTToken) => {
+      if (token.isValid()) {
+        this.user = token.getPayload().account;
+        this.token = token.getPayload().access_token;
+      } else {
+        this.router.navigate(['/home']);
+      }
+    });
   }
 
   @HostListener('window:resize', ['$event'])
@@ -122,22 +129,23 @@ export class CreatePostComponent implements OnInit {
     //   }
     // });
     response = this.geocodingApiService.findFromAddress(this.postDTO.accomodationDTO.address);
-    if (response.status === 'OK') {
-      this.postDTO.accomodationDTO.xCoordinate = response.results[0].geometry.location.lat;
-      this.postDTO.accomodationDTO.yCoordinate = response.results[0].geometry.location.lng;
-      // console.log('GEO ' + this.postDTO.accomodationDTO.xCoordinate);
-      // console.log('GEO ' + this.postDTO.accomodationDTO.yCoordinate);
-    } else if (response.status === 'ZERO_RESULTS') {
-      console.log('geocodingAPIService', 'ZERO_RESULTS', response.status);
-    } else {
-      console.log('geocodingAPIService', 'Other error', response.status);
+    if (response) {
+      if (response.status === 'OK') {
+        this.postDTO.accomodationDTO.xCoordinate = response.results[0].geometry.location.lat;
+        this.postDTO.accomodationDTO.yCoordinate = response.results[0].geometry.location.lng;
+        // console.log('GEO ' + this.postDTO.accomodationDTO.xCoordinate);
+        // console.log('GEO ' + this.postDTO.accomodationDTO.yCoordinate);
+      } else if (response.status === 'ZERO_RESULTS') {
+        console.log('geocodingAPIService', 'ZERO_RESULTS', response.status);
+      } else {
+        console.log('geocodingAPIService', 'Other error', response.status);
+      }
     }
   }
 
   createPost() {
     this.disableSubmit = true;
     this.showLoadding = true;
-    // this.postDTO = 'thiendoan';
     if (this.postDTO.accomodationDTO.motel) {
       this.postDTO.accomodationDTO.motel = true;
     } else {
@@ -176,10 +184,11 @@ export class CreatePostComponent implements OnInit {
     this.postService.createPost(this.postDTO).subscribe(
       data => {
         this.postTest = data;
+        console.log(data);
         this.addImageForPost(this.postTest.id);
       },
       error => {
-        this.errorMessage = error.error.message;
+        this.errorMessage = error;
         console.log(this.errorMessage);
       }
     );

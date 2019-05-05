@@ -43,10 +43,10 @@ import {
   NbOAuth2ClientAuthMethod, NbOAuth2GrantType
 } from '@nebular/auth';
 import {NB_WINDOW} from '@nebular/theme';
-import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './logout/logout.component';
-import { RegisterComponent } from './register/register.component';
-import { MapsSearchComponent } from './maps-search/maps-search.component';
+import {LoginComponent} from './login/login.component';
+import {LogoutComponent} from './logout/logout.component';
+import {RegisterComponent} from './register/register.component';
+import {MapsSearchComponent} from './maps-search/maps-search.component';
 
 const authConfig: NbOAuth2AuthStrategyOptions = {
   name: 'userpass',
@@ -141,8 +141,10 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     {provide: NB_WINDOW, useValue: window},
     {provide: HTTP_INTERCEPTORS, useClass: NbAuthJWTInterceptor, multi: true},
     {
-      provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER, useValue: (req: HttpRequest<any>) =>
-        (req.body != null && req.body.indexOf('grant_type=refresh_token') >= 0)
+      provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER, useValue: (req: HttpRequest<any>) => {
+        return (req.url.indexOf('oauth/token') >= 0 && req.body != null
+          && JSON.stringify(req.body).indexOf('grant_type=') >= 0);
+      }
     },
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],

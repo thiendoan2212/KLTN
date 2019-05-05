@@ -32,8 +32,8 @@ public class PostController {
         return postService.searchPostByMaps(searchForm);
     }
 
-    // HasAuthorize = "KDV, Admin"
     @GetMapping("/posts")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public List<PostDTO> getAllPost() {
         return postService.getAllPost();
     }
@@ -43,8 +43,8 @@ public class PostController {
         return postService.getPostByApproved(true, page);
     }
 
-    // Pre = "Admin"
     @GetMapping("/posts/approved/false")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public Page<PostDTO> getAllPostNotApproved(@RequestParam int page) {
         return postService.getPostByApproved(false, page);
     }
@@ -54,8 +54,8 @@ public class PostController {
         return postService.getMotelPost(bool, page);
     }
 
-    // HasAuthorize = "KDV, Admin"
     @GetMapping("/posts/waiting")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public Page<PostDTO> getPostWaitingApprove(@RequestParam int page) {
         return postService.getPostWaitingApprove(page);
     }
@@ -71,17 +71,20 @@ public class PostController {
     }
 
     @PostMapping("/post")
-    public PostDTO createPost(@RequestBody PostDTO postDTO) {
-        return postService.createPost(postDTO);
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    public PostDTO createPost(@RequestBody PostDTO postDTO, OAuth2Authentication auth) {
+        return postService.createPost(postDTO, auth.getName());
     }
 
     @PutMapping("/post/{id}/approve/{bool}")
-    @PreAuthorize("#oauth2.hasAnyScope('read')")
+//    @PreAuthorize("#oauth2.hasAnyScope('read')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public PostDTO ApprovePostAndLogging(@PathVariable Long id, @PathVariable boolean bool, OAuth2Authentication auth) {
         return postService.ApprovePost(id, auth.getName(), bool);
     }
 
     @PutMapping("/post/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     public PostDTO updatePost(@PathVariable Long id, @RequestBody PostDTO postDTO) {
         return postService.updatePost(id, postDTO);
     }
@@ -91,8 +94,8 @@ public class PostController {
         return postService.deletePost(id);
     }
 
-    // HasAuthorize = "KDV, Admin"
     @DeleteMapping("/post/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String deletePostByAdmin(@PathVariable Long id) {
         return postService.deletePostByAdmin(id);
     }

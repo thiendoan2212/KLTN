@@ -113,12 +113,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostDTO createPost(PostDTO postDTO) {
+    public PostDTO createPost(PostDTO postDTO, String name) {
         try {
-            Optional<User> user = userRepository.findById(postDTO.getIdUser());
+            Optional<User> user = userRepository.findByEmail(name);
             if (user.isPresent()) {
                 //Gán value cho post
-                Post post = new Post();
+                Post post;
                 post = modelMapper.map(postDTO, Post.class);
                 post.setCreateAt(LocalDateTime.now());
                 post.setLastUpdate(LocalDateTime.now());

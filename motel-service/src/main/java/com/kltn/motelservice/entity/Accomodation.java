@@ -14,10 +14,8 @@ public class Accomodation {
 
     private String address;
 
-    @Column(nullable = true)
     private double electricPrice;
 
-    @Column(nullable = true)
     private double waterPrice;
 
     private boolean internet;
