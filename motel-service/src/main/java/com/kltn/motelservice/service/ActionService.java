@@ -10,4 +10,6 @@ public interface ActionService {
     void createAction(Post post, User user, ActionName actionName);
 
     Page<ActionDTO> getAction(int age);
+
+    Page<ActionDTO> getActionByApprover(Long id, int page);
 }

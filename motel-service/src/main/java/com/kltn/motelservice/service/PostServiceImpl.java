@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -42,13 +43,12 @@ public class PostServiceImpl implements PostService {
 
     // HasAuthorize = "KDV, Admin"
     @Override
-    public List<PostDTO> getAllPost() {
+    public Page<PostDTO> getAllPost(Pageable page) {
         try {
-            List<PostDTO> postDTOS = new ArrayList<>();
-            List<Post> posts = postRepository.findAll();
-            addAccomodation(posts, postDTOS);
+            Page<PostDTO> posts = postRepository.findAll(page)
+                    .map(this::postToPostDTO);
 
-            return postDTOS;
+            return posts;
         } catch (Exception e) {
             e.printStackTrace();
         }

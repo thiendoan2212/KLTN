@@ -8,6 +8,8 @@ package com.kltn.motelservice.service;
 import com.kltn.motelservice.entity.Role;
 import com.kltn.motelservice.entity.RoleName;
 import com.kltn.motelservice.entity.User;
+import com.kltn.motelservice.exception.UserException;
+import com.kltn.motelservice.model.AccountDto;
 import com.kltn.motelservice.model.UserDTO;
 import com.kltn.motelservice.repository.RoleRepository;
 import com.kltn.motelservice.repository.UserRepository;
@@ -16,6 +18,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -77,6 +81,18 @@ public class UserServiceImpl implements UserService {
         user.setFullName(userDTO.getFullName());
         user.setAddress(userDTO.getAddress());
 
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User registration(AccountDto accountDto) {
+        userRepository.findByEmail(accountDto.getEmail()).ifPresent((user) -> new UserException("Email đã tồn tại"));
+
+        User user = new User();
+        user.setFullName(accountDto.getFullName());
+        user.setEmail(accountDto.getEmail());
+        user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
+        user.setRoles(Arrays.asList(selectRoleByName(RoleName.ROLE_USER)));
         return userRepository.save(user);
     }
 
