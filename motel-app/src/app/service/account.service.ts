@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {User} from './model/user';
-import {Account} from './model/account';
+import {User} from '../model/user';
+import {Account} from '../model/account';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -19,5 +19,9 @@ export class AccountService {
 
   registerUserAccount(account: Account): Observable<User> {
     return this.http.post<User>(this.API_URL + '/users/', account);
+  }
+
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(this.API_URL + '/users/' + id);
   }
 }
