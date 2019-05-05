@@ -26,7 +26,7 @@
         <div class="card-body">
           <!-- Title -->
           <a (click)="navigateToDetail(postDTO)">
-            <h6 class="card-title font-weight-bold">{{postDTO.title}}</h6>
+            <h6 class="card-title font-weight-bold" class="title">{{postDTO.title}}</h6>
           </a>
           <div class=" d-flex justify-content-between">
             <a *ngIf="!postDTO.accomodationDTO.motel; else motel" class="light-blue-text" routerLink="/house">

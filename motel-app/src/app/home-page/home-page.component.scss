@@ -116,3 +116,12 @@ p.card-text {
 .card-body {
   padding: 0.5rem 1.25rem;
 }
+
+.title {
+  font-weight: 700!important;
+}
+
+.title:hover {
+  color: red;
+  transition: all 0.2s ease-in-out;
+}

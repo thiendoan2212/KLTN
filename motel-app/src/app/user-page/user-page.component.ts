@@ -1,6 +1,6 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {AccountService} from '../service/account.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../model/user';
 import {PostDTO} from '../model/postDTO';
 import {PostService} from '../service/post.service';
@@ -23,6 +23,7 @@ export class UserPageComponent implements OnInit {
 
   constructor(private accountService: AccountService,
               private activatedRoute: ActivatedRoute,
+              private router: Router,
               private postService: PostService) {
   }
 
@@ -67,4 +68,7 @@ export class UserPageComponent implements OnInit {
     );
   }
 
+  navigateToDetail(postDTO: PostDTO) {
+    this.router.navigate(['/post'], {queryParams: {id: postDTO.id, title: postDTO.title}, skipLocationChange: false});
+  }
 }

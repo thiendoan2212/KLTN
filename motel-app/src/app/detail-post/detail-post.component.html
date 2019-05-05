@@ -149,10 +149,10 @@
     <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12">
       <div class="thongtinlienlac">
         <h4 id="thongtinlienlac">Thông tin liên lạc</h4>
-        <a><i class="fas fa-user"></i><span id="hoten"> Đoàn Huỳnh Thiện</span></a>
-        <p id="address"><i class="fas fa-map-marker-alt"></i> 97 đường số 6 khu phố 4 phường Tam Phú quận Thủ Đức
+        <a><i class="fas fa-user"></i><span id="hoten" (click)="navigateToUser(postDTO.userDTO.id)"> {{postDTO.userDTO.fullName}}</span></a>
+        <p id="address"><i class="fas fa-map-marker-alt"></i> {{postDTO.userDTO.address}}
         </p>
-        <p id="sdt"><i class="fas fa-mobile-alt"></i> 0784553008</p>
+        <p id="sdt"><i class="fas fa-mobile-alt"></i> {{postDTO.userDTO.phone}}</p>
       </div>
     </div>
   </div>
@@ -201,12 +201,6 @@
                      [zoomControl]="false">
               <agm-marker [latitude]="postDTO.accomodationDTO.xCoordinate"
                           [longitude]="postDTO.accomodationDTO.yCoordinate"></agm-marker>
-              <!--<agm-circle [latitude]="postDTO.accomodationDTO.xCoordinate"-->
-              <!--[longitude]="postDTO.accomodationDTO.yCoordinate"-->
-              <!--[radius]="300"-->
-              <!--[fillColor]="'red'"-->
-              <!--[fillOpacity]=0.2>-->
-              <!--</agm-circle>-->
             </agm-map>
           </div>
         </div>
@@ -229,12 +223,12 @@
             <textarea class="form-control" id="comment" cols="85" rows="5"
                       placeholder="Vui lòng nhập nội dung bình luận" [(ngModel)]="commentDTO.content"></textarea>
             <div class="text-right">
-              <button type="button" class="btnPost" mdbWavesEffect>Gửi</button>
+              <button type="button" class="btnPost" mdbWavesEffect (click)="createComment()">Gửi</button>
             </div>
             <!--Nếu đăng nhập-->
             <div class="text-content"
                  *ngFor="let commentDTO of commentDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
-              <a><p class="ten">{{commentDTO.fullName}}</p></a>
+              <a><p class="ten" (click)="navigateToUser(commentDTO.idUser)">{{commentDTO.fullName}}</p></a>
               <p class="noidung">{{commentDTO.content}}</p>
               <p class="gio">{{commentDTO.lastUpdate | date:'d/M/yyyy, h:mm a'}}</p>
             </div>

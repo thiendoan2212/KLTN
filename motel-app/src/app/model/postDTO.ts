@@ -1,6 +1,7 @@
 import {AccomodationDTO} from './accomodationDTO';
 import {CommentDTO} from './commentDTO';
 import {ImageResponse} from './imageResponse'
+import {User} from './user';
 
 export class PostDTO {
   id: number;
@@ -16,5 +17,5 @@ export class PostDTO {
   accomodationDTO: AccomodationDTO;
   commentDTOS: CommentDTO[];
   imageStrings: ImageResponse[];
-
+  userDTO: User;
 }

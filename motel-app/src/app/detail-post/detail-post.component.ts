@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PostService} from '../service/post.service';
 import {PostDTO} from '../model/postDTO';
 import {ToiletName} from '../model/ToiletName';
@@ -7,6 +7,8 @@ import {AccomodationDTO} from '../model/accomodationDTO';
 import {CommentDTO} from '../model/commentDTO';
 import {CommentService} from '../service/comment.service';
 import {PaginationDTO} from '../model/paginationDTO';
+import {User} from '../model/user';
+import {NbAuthService} from '@nebular/auth';
 
 @Component({
   selector: 'app-detail-post',
@@ -15,6 +17,7 @@ import {PaginationDTO} from '../model/paginationDTO';
 })
 export class DetailPostComponent implements OnInit {
   postDTO: PostDTO = new PostDTO();
+  userDTO: User = new User();
   accomodationDTO: AccomodationDTO = new AccomodationDTO();
   paginationDTO = new PaginationDTO();
   commentDTOs: CommentDTO[];
@@ -29,6 +32,7 @@ export class DetailPostComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private postService: PostService,
+              private router: Router,
               private commentService: CommentService) {
   }
 
@@ -37,6 +41,7 @@ export class DetailPostComponent implements OnInit {
   }
 
   getPostById() {
+    this.postDTO.userDTO = this.userDTO;
     this.activatedRoute.queryParams.subscribe(params => {
       this.idPost = params.id;
     });
@@ -44,6 +49,7 @@ export class DetailPostComponent implements OnInit {
     this.postService.getPostById(this.idPost).subscribe(
       data => {
         this.postDTO = data;
+        console.log(this.postDTO);
       },
       error => {
         this.errorMessage = error.error.message;
@@ -79,7 +85,6 @@ export class DetailPostComponent implements OnInit {
         this.paginationDTO.content = data;
         this.commentDTOs = this.paginationDTO.content.content;
         this.totalElements = this.paginationDTO.content.totalElements;
-        console.log(data);
       },
       error => {
         this.errorMessage = error.error.message;
@@ -95,6 +100,19 @@ export class DetailPostComponent implements OnInit {
   createComment() {
     this.commentDTO.idPost = this.idPost;
     // this.commentDTO.idUser = this.user.id;
-    this.commentService.createComment(this.commentDTO);
+    this.commentService.createComment(this.commentDTO).subscribe(
+      data => {
+        this.commentDTO = data;
+        this.commentDTO.content = '';
+        this.getComment();
+      }, error => {
+        console.log(error.message);
+    }
+  )
+    ;
+  }
+
+  navigateToUser(idUser: number) {
+    this.router.navigate(['/user'], {queryParams: {id: idUser}, skipLocationChange: false});
   }
 }

@@ -20,7 +20,6 @@
       <div class="thongtin-content">
         <div class="text-center">
           <img src="../../assets/avatar.svg" width="120px" height="120px">
-          <h5 id="username">thiendoan</h5>
         </div>
         <div class="thongtin-chitiet">
           <p class="attribute">Họ tên: {{user.fullName}}</p>
@@ -39,14 +38,14 @@
                 <div class="view overlay">
                   <img [ngClass]="{'img-1': innerWidth>=1200, 'img-2': innerWidth<1200, 'img-3': innerWidth<992, 'img-4': innerWidth<576}" src={{postDTO.imageStrings[0]}} width="150px" height="150px">
                   <a>
-                    <div class="mask rgba-white-slight"></div>
+                    <div class="mask rgba-white-slight" (click)="navigateToDetail(postDTO)"></div>
                   </a>
                 </div>
               </div>
               <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8 col-8">
                 <div class="row">
                   <div>
-                    <a class="title">{{postDTO.title}}</a>
+                    <a class="title" (click)="navigateToDetail(postDTO)">{{postDTO.title}}</a>
                     <p class="giatien">{{postDTO.accomodationDTO.price | number}} VNĐ</p>
                     <p class="ngay">{{postDTO.createAt | date:'dd/MM/yyyy'}}</p>
                   </div>
