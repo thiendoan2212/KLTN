@@ -3,10 +3,7 @@ package com.kltn.motelservice.service;
 import com.kltn.motelservice.entity.*;
 import com.kltn.motelservice.exception.PostException;
 import com.kltn.motelservice.exception.UserException;
-import com.kltn.motelservice.model.AccomodationDTO;
-import com.kltn.motelservice.model.CommentDTO;
-import com.kltn.motelservice.model.PostDTO;
-import com.kltn.motelservice.model.SearchDTO;
+import com.kltn.motelservice.model.*;
 import com.kltn.motelservice.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,6 +98,7 @@ public class PostServiceImpl implements PostService {
                 images = imageService.getImageByIdPost(id);
                 postDTO.setImageStrings(images);
                 postDTO.setCommentDTOS(commentDTOS);
+                postDTO.setUserDTO(modelMapper.map(post.get().getUser(), UserDTO.class));
                 return postDTO;
             } else
                 throw new PostException("Post id " + id + " không tồn tại");
@@ -136,11 +134,9 @@ public class PostServiceImpl implements PostService {
                 actionService.createAction(post, user.get(), ActionName.CREATE);
                 postDTO = modelMapper.map(post, PostDTO.class);
                 postDTO.setAccomodationDTO(modelMapper.map(accomodation, AccomodationDTO.class));
-                postDTO.setFullName(post.getUser().getFullName());
-                postDTO.setIdUser(post.getUser().getId());
                 return postDTO;
             } else
-                throw new UserException("Không tìm thấy user id " + postDTO.getIdUser());
+                throw new UserException("Không tìm thấy user id " + postDTO.getUserDTO().getId());
 //                logger.error("Không tìm thấy user " + postDTO.getUsername());
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,7 +154,7 @@ public class PostServiceImpl implements PostService {
                 postDTO.setCreateAt(post.get().getCreateAt());
                 //Tạo post mới từ postDTO
                 post = Optional.of(modelMapper.map(postDTO, Post.class));
-                Optional<User> user = userRepository.findById(postDTO.getIdUser());
+                Optional<User> user = userRepository.findById(postDTO.getUserDTO().getId());
                 post.get().setUser(user.get());
                 //Tạo accomodation từ postDTO
                 Accomodation accomodation = modelMapper.map(postDTO.getAccomodationDTO(), Accomodation.class);
@@ -172,7 +168,7 @@ public class PostServiceImpl implements PostService {
                 postRepository.save(post.get());
                 postDTO = modelMapper.map(post.get(), PostDTO.class);
                 postDTO.setAccomodationDTO(modelMapper.map(post.get().getAccomodation(), AccomodationDTO.class));
-                postDTO.setFullName(post.get().getUser().getFullName());
+                postDTO.setUserDTO(modelMapper.map(post.get().getUser(), UserDTO.class));
 
                 return postDTO;
             } else
@@ -185,7 +181,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostDTO deletePost(Long id) {
+    public PostDTO hidePost(Long id) {
         try {
             Optional<Post> post = postRepository.findById(id);
             if (post.isPresent()) {
@@ -314,7 +310,6 @@ public class PostServiceImpl implements PostService {
                         < searchForm.getRadius()) {
                     postDTO = modelMapper.map(post, PostDTO.class);
                     postDTO.setAccomodationDTO(modelMapper.map(post.getAccomodation(), AccomodationDTO.class));
-                    postDTO.setFullName(post.getUser().getFullName());
                     images = imageService.getImageByIdPost(post.getId());
                     postDTO.setImageStrings(images);
                     postDTOS.add(postDTO);
@@ -345,8 +340,7 @@ public class PostServiceImpl implements PostService {
     public PostDTO postToPostDTO(Post post) {
         PostDTO postDTO = modelMapper.map(post, PostDTO.class);
         postDTO.setAccomodationDTO(modelMapper.map(post.getAccomodation(), AccomodationDTO.class));
-        postDTO.setFullName(post.getUser().getFullName());
-        postDTO.setIdUser(post.getUser().getId());
+        postDTO.setUserDTO(modelMapper.map(post.getUser(), UserDTO.class));
         List<String> images = imageService.getImageByIdPost(post.getId());
         postDTO.setImageStrings(images);
         return postDTO;

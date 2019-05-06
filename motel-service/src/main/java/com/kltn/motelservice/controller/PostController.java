@@ -1,5 +1,8 @@
 package com.kltn.motelservice.controller;
 
+import com.kltn.motelservice.entity.Role;
+import com.kltn.motelservice.entity.RoleName;
+import com.kltn.motelservice.entity.User;
 import com.kltn.motelservice.model.PostDTO;
 import com.kltn.motelservice.model.SearchDTO;
 import com.kltn.motelservice.service.PostServiceImpl;
@@ -7,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -89,9 +93,10 @@ public class PostController {
         return postService.updatePost(id, postDTO);
     }
 
-    @PutMapping("/post/delete/{id}")
-    public PostDTO deletePost(@PathVariable Long id) {
-        return postService.deletePost(id);
+    @PutMapping("/post/hide/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    public PostDTO hidePost(@PathVariable Long id) {
+        return postService.hidePost(id);
     }
 
     @DeleteMapping("/post/{id}")
@@ -99,4 +104,5 @@ public class PostController {
     public String deletePostByAdmin(@PathVariable Long id) {
         return postService.deletePostByAdmin(id);
     }
+
 }

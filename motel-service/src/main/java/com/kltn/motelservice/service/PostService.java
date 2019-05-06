@@ -22,7 +22,7 @@ public interface PostService {
 
     PostDTO updatePost(Long id, PostDTO postDTO);
 
-    PostDTO deletePost(Long id);
+    PostDTO hidePost(Long id);
 
     Page<PostDTO> getMotelPost(boolean bool, int page);
 
