@@ -20,9 +20,7 @@ public class PostDTO {
 
     private boolean del;
 
-    private String fullName;
-
-    private long idUser;
+    private UserDTO userDTO;
 
     private AccomodationDTO accomodationDTO;
 
@@ -34,7 +32,7 @@ public class PostDTO {
     }
 
     public PostDTO(long id, String title, String content, boolean approved, boolean notApproved, LocalDateTime createAt,
-                   LocalDateTime lastUpdate, boolean del, String fullName, long idUser, AccomodationDTO accomodationDTO,
+                   LocalDateTime lastUpdate, boolean del, UserDTO userDTO, AccomodationDTO accomodationDTO,
                    List<CommentDTO> commentDTOS, List<String> imageStrings) {
         this.id = id;
         this.title = title;
@@ -44,8 +42,7 @@ public class PostDTO {
         this.createAt = createAt;
         this.lastUpdate = lastUpdate;
         this.del = del;
-        this.fullName = fullName;
-        this.idUser = idUser;
+        this.userDTO = userDTO;
         this.accomodationDTO = accomodationDTO;
         this.commentDTOS = commentDTOS;
         this.imageStrings = imageStrings;
@@ -115,22 +112,6 @@ public class PostDTO {
         this.del = del;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public long getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(long idUser) {
-        this.idUser = idUser;
-    }
-
     public AccomodationDTO getAccomodationDTO() {
         return accomodationDTO;
     }
@@ -153,5 +134,13 @@ public class PostDTO {
 
     public void setImageStrings(List<String> imageStrings) {
         this.imageStrings = imageStrings;
+    }
+
+    public UserDTO getUserDTO() {
+        return userDTO;
+    }
+
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 }
