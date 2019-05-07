@@ -266,20 +266,6 @@ public class PostServiceImpl implements PostService {
         return null;
     }
 
-//    @Override
-//    public List<PostDTO> searchPost(SearchDTO searchForm) {
-//        try {
-//            Specification<Post> spec = new PostSpecification(searchForm);
-//            List<Post> posts = postRepository.findAll(spec);
-//            List<PostDTO> postDTOS = new ArrayList<>();
-//            addAccomodation(posts, postDTOS);
-//            return postDTOS;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-
     @Override
     public Page<PostDTO> searchPost(SearchDTO searchForm, int page) {
         try {
@@ -322,19 +308,12 @@ public class PostServiceImpl implements PostService {
         return null;
     }
 
-    // HasAuthorize = "KDV, Admin"
     @Override
     public Page<PostDTO> getPostWaitingApprove(int page) {
         Page<Post> postPage = postRepository.findAllByApprovedAndNotApproved(false, false,
                 PageRequest.of(page, 10, Sort.by("createAt").ascending()));
         Page<PostDTO> postDTOPage = postPage.map(this::postToPostDTO);
         return postDTOPage;
-    }
-
-    public void addAccomodation(List<Post> posts, List<PostDTO> postDTOS) {
-        for (Post post : posts) {
-            postDTOS.add(postToPostDTO(post));
-        }
     }
 
     public PostDTO postToPostDTO(Post post) {
