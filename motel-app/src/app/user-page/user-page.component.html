@@ -25,7 +25,18 @@
           <p class="attribute">Họ tên: {{user.fullName}}</p>
           <p class="attribute">Số điện thoại: {{user.phone}}</p>
           <p class="attribute">Địa chỉ: {{user.address}}</p>
+          <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+              <button *ngIf="auth.id === user.id" id="btnUpdate" (click)="openModalUpdateUser()">Cập nhật</button>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+              <div class="text-right">
+                <button *ngIf="auth.id === user.id" id="btnChangePass">Đổi mật khẩu</button>
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
     <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12" [ngStyle]="{'margin-top': innerWidth<992?'10px': '0px'}">
@@ -33,10 +44,13 @@
       <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="border-thongtin">
-            <div class="row bor" *ngFor="let postDTO of postDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
+            <div class="row bor"
+                 *ngFor="let postDTO of postDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
               <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">
                 <div class="view overlay">
-                  <img [ngClass]="{'img-1': innerWidth>=1200, 'img-2': innerWidth<1200, 'img-3': innerWidth<992, 'img-4': innerWidth<576}" src={{postDTO.imageStrings[0]}} width="150px" height="150px">
+                  <img
+                    [ngClass]="{'img-1': innerWidth>=1200, 'img-2': innerWidth<1200, 'img-3': innerWidth<992, 'img-4': innerWidth<576}"
+                    src={{postDTO.imageStrings[0]}} width="150px" height="150px">
                   <a>
                     <div class="mask rgba-white-slight" (click)="navigateToDetail(postDTO)"></div>
                   </a>
@@ -46,8 +60,9 @@
                 <div class="row">
                   <div>
                     <a class="title" (click)="navigateToDetail(postDTO)">{{postDTO.title}}</a>
-                    <p class="giatien">{{postDTO.accomodationDTO.price | number}} VNĐ</p>
-                    <p class="ngay">{{postDTO.createAt | date:'dd/MM/yyyy'}}</p>
+                    <p class="giatien">Giá thuê: {{postDTO.accomodationDTO.price | number}} VNĐ</p>
+                    <p class="diachi">Địa chỉ: {{postDTO.accomodationDTO.address}}</p>
+                    <p class="ngay">Ngày đăng: {{postDTO.createAt | date:'dd/MM/yyyy'}}</p>
                   </div>
                 </div>
               </div>
@@ -63,4 +78,4 @@
 </div>
 <div class="space"></div>
 
-<app-footer *ngIf="user"></app-footer>
+<app-footer *ngIf="postDTOs"></app-footer>
