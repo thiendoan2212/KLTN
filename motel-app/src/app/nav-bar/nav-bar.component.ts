@@ -28,8 +28,6 @@ export class NavBarComponent implements OnInit {
         this.user = token.getPayload().account;
         this.dialog.closeAll();
         // this.dialogRef.close();
-      } else {
-        this.errorLogin = true;
       }
     });
   }
