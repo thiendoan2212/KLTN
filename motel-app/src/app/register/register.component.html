@@ -23,7 +23,7 @@
              [ngClass]="{ 'is-invalid': signUp.submitted && email.invalid}">
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <p class="username">Tên hiển thị <span *ngIf="signUp.submitted && username.invalid" class="error"> - Thông tin này là bắt buộc</span>
+      <p class="username">Họ tên <span *ngIf="signUp.submitted && username.invalid" class="error"> - Thông tin này là bắt buộc</span>
       </p>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -55,30 +55,3 @@
     <h4>Đăng ký thành công</h4>
   </ng-template>
 </form>
-
-
-<!--<div class="modal fade" (click)="ClickedOut($event)" id="modalRequired" tabindex="-1" role="dialog"-->
-     <!--aria-labelledby="myModalLabel"-->
-     <!--[ngClass]="{'show': success}" aria-hidden="true">-->
-  <!--<div class="modal-dialog modal-lg" role="document">-->
-    <!--<div class="modal-content">-->
-      <!--<div class="modal-header text-center">-->
-        <!--<h4 class="modal-title w-100 font-weight-bold"><i class="far fa-check-circle" style="color: #4cae4c;"></i> Thành-->
-          <!--công-->
-        <!--</h4>-->
-        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close" routerLink="/home"-->
-                <!--(click)="">-->
-          <!--<span aria-hidden="true">&times;</span>-->
-        <!--</button>-->
-      <!--</div>-->
-      <!--<div class="modal-body mx-3 text-center">-->
-        <!--<p style="font-size: 20px; font-weight: 500;">Đăng bài viết thành công. Bài viết đang chờ được kiểm duyệt!</p>-->
-        <!--&lt;!&ndash;<ng-container appCounter [counter]="5" [interval]="1000" (value)="count = $event">&ndash;&gt;-->
-        <!--&lt;!&ndash;<p id="autoturnback" >Tự động quay về trang chủ sau <span> {{count}} </span>s</p>&ndash;&gt;-->
-        <!--&lt;!&ndash;</ng-container>&ndash;&gt;-->
-        <!--<p id="autoturnback">Tự động quay về trang chủ sau 5s</p>-->
-        <!--<a id="turnback" routerLink="/home">Nếu không, bấm vào đây để quay về trang chủ</a>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
