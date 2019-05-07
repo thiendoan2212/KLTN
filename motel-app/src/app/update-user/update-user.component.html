@@ -1,0 +1,36 @@
+<form (ngSubmit)="signUp.form.valid && submit()" #signUp="ngForm">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <button type="button" class="close" (click)="close()">&times;</button>
+    <div class="text-center">
+      <p class="welcome">Cập nhật thông tin</p>
+    </div>
+  </div>
+  <div class="row" style="padding-left: 8px; padding-right: 8px;">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <p class="username">Tên hiển thị <span *ngIf="signUp.submitted && username.invalid" class="error"> - Thông tin này là bắt buộc</span>
+      </p>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <input type="text" class="form-control" id="username" required
+             [(ngModel)]="user.fullName" name="username" #username="ngModel"
+             [ngClass]="{ 'is-invalid': signUp.submitted && username.invalid}">
+    </div>
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <p class="username">Số điện thoại</p>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <input type="text" name="phone" class="form-control" [(ngModel)]="user.phone">
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <p class="username">Địa chỉ</p>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <input type="text" name="address" class="form-control" [(ngModel)]="user.address">
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+      <button type="submit" name="register" class="btnRegister" (click)="submit()" mdbWavesEffect>Cập nhật
+      </button>
+    </div>
+  </div>
+</form>
