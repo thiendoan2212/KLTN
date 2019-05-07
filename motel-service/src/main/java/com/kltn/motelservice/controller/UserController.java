@@ -36,9 +36,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("#oauth2.hasAnyScope('read')") // for authenticated request (logged)
-    public UserDTO getUser(@PathVariable("id") Long id, OAuth2Authentication auth) {
-        if (!validRequest(auth, id)) throw new AccessDeniedException("Access dined");
+    public UserDTO getUser(@PathVariable("id") Long id) {
+//        if (!validRequest(auth, id)) throw new AccessDeniedException("Access dined");
 
         User user = userService.selectUserById(id);
 
