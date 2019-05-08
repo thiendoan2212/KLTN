@@ -45,11 +45,11 @@ export class SearchPageComponent implements OnInit {
   }
 
   searchPost() {
+    this.postDTOs = null;
     if (this.searchForm.xCoordinate) {
       this.postService.searchPostByMaps(this.searchForm).subscribe(
         data => {
           this.postDTOs = data;
-          console.log(this.postDTOs);
         },
         error => {
           this.errorMessage = error.error.message;

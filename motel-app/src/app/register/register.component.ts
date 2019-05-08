@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from '../model/user';
 import {MatDialog} from '@angular/material';
 import {LoginComponent} from '../login/login.component';
 import {Account} from '../model/account';
-import {HttpClient} from '@angular/common/http';
 import {AccountService} from '../service/account.service';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -13,11 +12,12 @@ import {AccountService} from '../service/account.service';
 })
 export class RegisterComponent implements OnInit {
   account: Account = new Account();
-  errorEmail = false;
   disableSubmit = false;
   showLoadding = false;
   alreadyEmail = false;
   success = false;
+  type = 'password';
+  show = false;
 
   constructor(private dialog: MatDialog,
               private accountService: AccountService) {
@@ -26,10 +26,17 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  submitRegister() {
-    if (this.account.email === '' || !this.account.email) {
-      this.errorEmail = true;
+  showHidePass() {
+    this.show = !this.show;
+    if (this.show) {
+      this.type = 'text';
     } else {
+      this.type = 'password';
+    }
+  }
+
+  submitRegister(signUp: NgForm) {
+    if (signUp.valid) {
       this.disableSubmit = true;
       this.showLoadding = true;
       this.accountService.checkExistUser(this.account.email).subscribe(res => {

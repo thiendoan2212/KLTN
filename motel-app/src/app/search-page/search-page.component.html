@@ -55,13 +55,14 @@
 <div class="container">
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="postDTOs">
-      <div class="row bor" *ngFor="let postDTO of postDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
+      <div class="row bor"
+           *ngFor="let postDTO of postDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
           <div class="row">
             <div class="view overlay">
-              <img [ngStyle]="{'height': innerWidth<576 ?'200px': '170px'}"
-                   src="{{postDTO.imageStrings[0] || '../../assets/default-img.jpg'}}"
-                   width="350px" height="232.9px" alt="Card image cap">
+              <img src="{{postDTO.imageStrings[0] || '../../assets/default-img.jpg'}}"
+                width="350px" height="200px" alt="Card image cap">
+              <!--[ngStyle]="{'height': innerWidth<576 ?'200px': '170px'}"-->
               <a>
                 <div class="mask rgba-white-slight" (click)="navigateToDetail(postDTO)"></div>
               </a>
@@ -69,7 +70,7 @@
           </div>
         </div>
         <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-12">
-          <div class="title" [ngStyle]="{'margin-bottom': innerWidth<1200 ?'-10px':'0'}">
+          <div class="title" [ngStyle]="{'margin-bottom': innerWidth<1200 ?'-5px':'0'}">
             <a (click)="navigateToDetail(postDTO)">{{postDTO.title}}</a>
           </div>
           <p class="address" [ngStyle]="{'margin-bottom': innerWidth<1200 ?'5px':'10px'}">Địa chỉ: <span

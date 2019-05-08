@@ -7,15 +7,13 @@
       </div>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <p class="username">Email <span class="error"
-                                      *ngIf="errorEmail || (signIn.submitted && !user.email)"> - Thông tin này là bắt buộc</span>
-        <ng-container>
-          <span class="error" *ngIf="email.errors?.pattern"> - Nhập chính xác email</span>
-        </ng-container>
+      <p class="username">Email <span *ngIf="(signIn.submitted && !user.email)"
+                                      class="error"> - Thông tin này là bắt buộc</span>
+          <span class="error" *ngIf="signIn.submitted && email.errors?.pattern"> - Vui lòng nhập chính xác định dạng email</span>
       </p>
       <input type="email" class="form-control" id="email" required pattern=".+@.+\..+"
              [(ngModel)]="user.email" name="email" #email="ngModel"
-             [ngClass]="{ 'is-invalid': (signIn.submitted && email.invalid) || email.errors?.pattern}">
+             [ngClass]="{ 'is-invalid': (signIn.submitted && email.invalid) || (signIn.submitted && email.errors?.pattern)}">
     </div>
 
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

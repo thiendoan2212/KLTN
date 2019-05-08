@@ -27,7 +27,6 @@ img {
 .title {
   font-weight: bold;
   font-size: 17px;
-  padding-bottom: 20px;
 }
 
 .title:hover {
@@ -63,4 +62,9 @@ i.fas {
 
 agm-map {
   height: 400px;
+}
+
+.title:hover {
+  color: red!important;
+  text-decoration: none!important;
 }

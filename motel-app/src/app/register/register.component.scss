@@ -100,3 +100,35 @@ button {
 .already {
   margin-top: 3px
 }
+
+.address input[type=text] {
+  padding-right: 25px;
+}
+
+.inputRemove {
+  display: inline-block;
+  margin-left: -25px;
+  margin-right: -25px;
+  cursor: pointer;
+}
+
+.inputRemove:hover {
+  color: #0db9f0;
+}
+
+#password {
+  display: inline !important;
+}
+
+.is-invalid {
+  background-image: none;
+}
+
+.login {
+  font-size: 20px;
+  color: #0db9f0;
+}
+
+.login:hover {
+  text-decoration: underline !important;
+}

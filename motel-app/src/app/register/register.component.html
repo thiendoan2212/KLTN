@@ -1,4 +1,4 @@
-<form (ngSubmit)="signUp.form.valid && submitRegister()" #signUp="ngForm">
+<form (ngSubmit)="signUp.form.valid && submitRegister(signUp)" #signUp="ngForm">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <button type="button" class="close" (click)="close()">&times;</button>
     <div class="text-center">
@@ -6,21 +6,18 @@
     </div>
   </div>
   <div class="row" style="padding-left: 8px; padding-right: 8px;" *ngIf="!success; else successRegister">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" >
-      <p class="email">Email <span *ngIf="errorEmail || (signUp.submitted && email.invalid)"
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <p class="email">Email <span *ngIf="(signUp.submitted && !account.email)"
                                    class="error"> - Thông tin này là bắt buộc</span>
-        <ng-container>
-          <span  class="error" *ngIf="alreadyEmail"> - Email đã tồn tại</span>
-        </ng-container>
-        <ng-container>
-          <span class="error" *ngIf="email.errors?.pattern"> - Nhập chính xác email</span>
-        </ng-container>
+        <span class="error" *ngIf="alreadyEmail"> - Email đã tồn tại</span>
+        <span class="error"
+              *ngIf="signUp.submitted && email.errors?.pattern"> - Vui lòng nhập chính xác định dạng email</span>
       </p>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <input type="text" class="form-control" id="email" required pattern=".+@.+\..+"
              [(ngModel)]="account.email" name="email" #email="ngModel"
-             [ngClass]="{ 'is-invalid': signUp.submitted && email.invalid}">
+             [ngClass]="{ 'is-invalid': (signUp.submitted && email.invalid) || (signUp.submitted && email.errors?.pattern)}">
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <p class="username">Họ tên <span *ngIf="signUp.submitted && username.invalid" class="error"> - Thông tin này là bắt buộc</span>
@@ -36,9 +33,19 @@
       </p>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <input type="password" class="form-control" id="password" required
+      <!--<input type="password" class="form-control" id="password" required-->
+      <!--[(ngModel)]="account.password" name="password" #password="ngModel"-->
+      <!--[ngClass]="{ 'is-invalid': signUp.submitted && password.invalid}">-->
+      <input type={{type}} class="form-control" id="password" required
              [(ngModel)]="account.password" name="password" #password="ngModel"
              [ngClass]="{ 'is-invalid': signUp.submitted && password.invalid}">
+      <div class="inputRemove">
+        <i *ngIf="!show; else hidePass" class="fas fa-eye" (click)="showHidePass()"></i>
+        <ng-template #hidePass>
+          <i class="fas fa-eye-slash" (click)="showHidePass()"></i>
+        </ng-template>
+      </div>
+
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
       <button type="submit" name="register" class="btnRegister" (click)="submitRegister()" mdbWavesEffect>Đăng
@@ -52,6 +59,14 @@
     </div>
   </div>
   <ng-template #successRegister>
-    <h4>Đăng ký thành công</h4>
+    <div class="text-center">
+      <h4>Đăng ký thành công </h4>
+      <button type="button" class="login"
+              (click)="login()">Đăng nhập
+      </button>
+    </div>
   </ng-template>
 </form>
+
+<!--<input type="text" class="form-control" id="passwordShow"/>-->
+<!--<div class="inputRemove"><i class="fas fa-eye"></i></div>-->

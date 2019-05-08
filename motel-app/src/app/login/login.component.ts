@@ -11,7 +11,7 @@ import {RegisterComponent} from '../register/register.component';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent extends NbLoginComponent {
-  errorEmail = false;
+  // errorEmail = false;
   hasError = false;
   dialogRegister: MatDialogRef<RegisterComponent>;
 
@@ -21,12 +21,12 @@ export class LoginComponent extends NbLoginComponent {
     super(authService, options, cd, router);
   }
 
-  forgot() {
-    if (this.user.email === '' || !this.user.email) {
-      this.errorEmail = true;
-      console.log(this.errorEmail);
-    }
-  }
+  // forgot() {
+  //   if (this.user.email === '' || !this.user.email) {
+  //     this.errorEmail = true;
+  //     console.log(this.errorEmail);
+  //   }
+  // }
 
   submitLogin(signIn: NgForm) {
     if (signIn.valid) {
