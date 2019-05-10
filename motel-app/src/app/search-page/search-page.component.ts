@@ -4,6 +4,7 @@ import {PostService} from '../service/post.service';
 import {PostDTO} from '../model/postDTO';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationDTO} from '../model/paginationDTO';
+import {ToiletName} from '../model/ToiletName';
 
 
 @Component({
@@ -14,6 +15,7 @@ import {PaginationDTO} from '../model/paginationDTO';
 export class SearchPageComponent implements OnInit {
   searchForm: SearchForm = new SearchForm();
   postDTOs: PostDTO[];
+  KHEP_KIN = ToiletName.KHEP_KIN;
   errorMessage = '';
   public innerWidth: any;
   zoom = 14;
