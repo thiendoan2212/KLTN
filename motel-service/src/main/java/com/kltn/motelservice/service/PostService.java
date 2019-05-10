@@ -24,7 +24,7 @@ public interface PostService {
 
     PostDTO hidePost(Long id);
 
-    Page<PostDTO> getMotelPost(boolean bool, int page);
+    Page<PostDTO> getMotelPost(boolean bool, int page, int sort);
 
     String deletePostByAdmin(Long id);
 

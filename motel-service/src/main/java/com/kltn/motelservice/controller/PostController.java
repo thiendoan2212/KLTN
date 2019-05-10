@@ -55,8 +55,8 @@ public class PostController {
     }
 
     @GetMapping("/posts/motel/{bool}")
-    public Page<PostDTO> getMotelPost(@PathVariable boolean bool, @RequestParam int page) {
-        return postService.getMotelPost(bool, page);
+    public Page<PostDTO> getMotelPost(@PathVariable boolean bool, @RequestParam int page, @RequestParam int sort) {
+        return postService.getMotelPost(bool, page, sort);
     }
 
     @GetMapping("/posts/waiting")

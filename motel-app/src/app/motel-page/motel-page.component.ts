@@ -19,6 +19,7 @@ export class MotelPageComponent implements OnInit {
   paginationDTO = new PaginationDTO();
   totalElements: number;
   page = 1;
+  sort = 1;
 
   constructor(private postService: PostService,
               private router: Router) {
@@ -35,11 +36,11 @@ export class MotelPageComponent implements OnInit {
   }
 
   getMotelPost() {
-    // this.paginationDTO.content = this.postDTOs;
-    this.postService.getMotelPost(this.page - 1).subscribe(
+    this.postService.getMotelPost(this.page - 1, this.sort).subscribe(
       data => {
         this.paginationDTO.content = data;
         this.postDTOs = this.paginationDTO.content.content;
+        console.log(this.postDTOs);
         this.totalElements = this.paginationDTO.content.totalElements;
       },
       error => {

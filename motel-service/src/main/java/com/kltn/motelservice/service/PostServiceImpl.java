@@ -200,16 +200,36 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<PostDTO> getMotelPost(boolean bool, int page) {
+    public Page<PostDTO> getMotelPost(boolean bool, int page, int sort) {
         try {
-            Page<Post> postPage;
+            Page<Post> postPage = null;
             //Get Motel
             if (bool == true) {
-                postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
-                        true, PageRequest.of(page, 10, Sort.by("accomodation.price").ascending()), false);
+                if (sort == 1)
+                    postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
+                            true, PageRequest.of(page, 10, Sort.by("accomodation.price").ascending()), false);
+                if (sort == 2)
+                    postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
+                            true, PageRequest.of(page, 10, Sort.by("accomodation.price").descending()), false);
+                if (sort == 3)
+                    postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
+                            true, PageRequest.of(page, 10, Sort.by("accomodation.acreage").ascending()), false);
+                if (sort == 4)
+                    postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
+                            true, PageRequest.of(page, 10, Sort.by("accomodation.acreage").descending()), false);
             } else { //Get House
-                postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
-                        false, PageRequest.of(page, 10, Sort.by("accomodation.price").ascending()), false);
+                if (sort == 1)
+                    postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
+                            false, PageRequest.of(page, 10, Sort.by("accomodation.price").ascending()), false);
+                if (sort == 2)
+                    postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
+                            false, PageRequest.of(page, 10, Sort.by("accomodation.price").descending()), false);
+                if (sort == 3)
+                    postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
+                            false, PageRequest.of(page, 10, Sort.by("accomodation.acreage").ascending()), false);
+                if (sort == 4)
+                    postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
+                            false, PageRequest.of(page, 10, Sort.by("accomodation.acreage").descending()), false);
             }
             Page<PostDTO> postDTOPage = postPage.map(post -> {
                 PostDTO postDTO = postToPostDTO(post);

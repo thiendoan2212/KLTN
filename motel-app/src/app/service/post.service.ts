@@ -58,12 +58,12 @@ export class PostService {
     return this.http.get<PostDTO[]>(this.apiUrl + '/posts/approved/true' + '?page=' + page);
   }
 
-  getMotelPost(page: number): Observable<PostDTO[]> {
-    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/motel/true' + '?page=' + page);
+  getMotelPost(page: number, sort: number): Observable<PostDTO[]> {
+    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/motel/true' + '?page=' + page + '&sort=' + sort);
   }
 
-  getHousePost(page: number): Observable<PostDTO[]> {
-    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/motel/false' + '?page=' + page);
+  getHousePost(page: number, sort: number): Observable<PostDTO[]> {
+    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/motel/false' + '?page=' + page + '&sort=' + sort);
   }
 
   createPost(postDTO: PostDTO): Observable<PostDTO> {
