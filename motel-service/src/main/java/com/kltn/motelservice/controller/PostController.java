@@ -24,10 +24,10 @@ public class PostController {
     PostServiceImpl postService;
 
     @GetMapping("/posts/search")
-    public Page<PostDTO> searchPost(SearchDTO searchForm, @RequestParam int page){
+    public Page<PostDTO> searchPost(SearchDTO searchForm, @RequestParam int page, @RequestParam int sort){
         searchForm.setPriceStart(searchForm.getPriceStart()*1000000);
         searchForm.setPriceEnd(searchForm.getPriceEnd()*1000000);
-        return postService.searchPost(searchForm, page);
+        return postService.searchPost(searchForm, page, sort);
     }
 
     @GetMapping("/posts/searchbymaps")

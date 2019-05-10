@@ -23,6 +23,7 @@ export class SearchPageComponent implements OnInit {
   paginationDTO = new PaginationDTO();
   totalElements: number;
   page = 1;
+  sort = 1;
 
   constructor(private postService: PostService,
               private activatedRoute: ActivatedRoute,
@@ -59,7 +60,7 @@ export class SearchPageComponent implements OnInit {
     }
 
     if (!this.searchForm.xCoordinate) {
-      this.postService.searchPost(this.searchForm, this.page - 1).subscribe(
+      this.postService.searchPost(this.searchForm, this.page - 1, this.sort).subscribe(
         data => {
           this.paginationDTO.content = data;
           this.postDTOs = this.paginationDTO.content.content;
@@ -85,6 +86,7 @@ export class SearchPageComponent implements OnInit {
       this.lat = parseFloat(String(this.searchForm.xCoordinate));
       this.lng = parseFloat(String(this.searchForm.yCoordinate));
       this.radius = parseFloat(String(this.searchForm.radius));
+
     });
   }
 

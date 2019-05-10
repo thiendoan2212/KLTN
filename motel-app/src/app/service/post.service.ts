@@ -14,7 +14,7 @@ export class PostService {
   constructor(private http: HttpClient) {
   }
 
-  searchPost(searchForm: SearchForm, page: number): Observable<PostDTO[]> {
+  searchPost(searchForm: SearchForm, page: number, sort :number): Observable<PostDTO[]> {
     this.searchUrl = 'acreageStart=' + searchForm.acreageStart + '&acreageEnd=' + searchForm.acreageEnd
       + '&priceStart=' + searchForm.priceStart + '&priceEnd=' + searchForm.priceEnd;
     if (searchForm.idDistrict) {
@@ -23,7 +23,7 @@ export class PostService {
     if (searchForm.motel) {
       this.searchUrl += '&motel=' + searchForm.motel;
     }
-    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/search?' + this.searchUrl + '&page=' + page);
+    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/search?' + this.searchUrl + '&page=' + page + '&sort=' + sort);
   }
 
   searchPostByMaps(searchForm: SearchForm): Observable<PostDTO[]> {

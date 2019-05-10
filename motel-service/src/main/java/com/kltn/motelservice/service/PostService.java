@@ -34,7 +34,7 @@ public interface PostService {
 
 //    List<PostDTO> searchPost(SearchDTO searchForm);
 
-    Page<PostDTO> searchPost(SearchDTO searchForm, int page);
+    Page<PostDTO> searchPost(SearchDTO searchForm, int page, int sort);
 
     List<PostDTO> searchPostByMaps(SearchDTO searchForm);
 

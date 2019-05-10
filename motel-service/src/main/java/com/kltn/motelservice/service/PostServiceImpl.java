@@ -287,10 +287,18 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<PostDTO> searchPost(SearchDTO searchForm, int page) {
+    public Page<PostDTO> searchPost(SearchDTO searchForm, int page, int sort) {
         try {
             Specification<Post> spec = new PostSpecification(searchForm);
-            Page<Post> postPage = postRepository.findAll(spec, PageRequest.of(page, 10));
+            Page<Post> postPage = null;
+            if (sort == 1)
+                postPage = postRepository.findAll(spec, PageRequest.of(page, 10, Sort.by("accomodation.price").ascending()));
+            if (sort == 2)
+                postPage = postRepository.findAll(spec, PageRequest.of(page, 10, Sort.by("accomodation.price").descending()));
+            if (sort == 3)
+                postPage = postRepository.findAll(spec, PageRequest.of(page, 10, Sort.by("accomodation.acreage").ascending()));
+            if (sort == 4)
+                postPage = postRepository.findAll(spec, PageRequest.of(page, 10, Sort.by("accomodation.acreage").descending()));
             Page<PostDTO> postDTOPage = postPage.map(post -> {
                 PostDTO postDTO = postToPostDTO(post);
                 return postDTO;

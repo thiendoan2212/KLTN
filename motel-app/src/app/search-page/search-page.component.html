@@ -17,10 +17,19 @@
 <div class="container">
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <div class="text-center">
+      <div class="text-center head">
         <p id="news">Kết quả tìm kiếm</p>
-        <hr>
       </div>
+      <div class="text-right">
+        <select class="browser-default custom-select sort" style="width: 180px; margin-top: -32px;" [(ngModel)]="sort"
+                (change)="searchPost()">
+          <option value="1" selected>Giá thấp - cao</option>
+          <option value="2">Giá cao - thấp</option>
+          <option value="3">Diện tích thấp - cao</option>
+          <option value="4">Diện tích cao - thấp</option>
+        </select>
+      </div>
+      <hr>
     </div>
   </div>
 </div>
@@ -58,16 +67,15 @@
       <div class="row bor"
            *ngFor="let postDTO of postDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
-          <div class="row">
-            <div class="view overlay">
-              <img src="{{postDTO.imageStrings[0] || '../../assets/default-img.jpg'}}"
-                width="350px" height="200px" alt="Card image cap">
-              <!--[ngStyle]="{'height': innerWidth<576 ?'200px': '170px'}"-->
-              <a>
-                <div class="mask rgba-white-slight" (click)="navigateToDetail(postDTO)"></div>
-              </a>
-            </div>
+          <!--<div class="row">-->
+          <div class="view overlay">
+            <img src="{{postDTO.imageStrings[0] || '../../assets/default-img.jpg'}}" height="200px">
+            <a>
+              <div class="mask rgba-white-slight" (click)="navigateToDetail(postDTO)"></div>
+            </a>
           </div>
+          <!--[ngStyle]="{'height': innerWidth<576 ?'200px': '170px'}"-->
+          <!--</div>-->
         </div>
         <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-12">
           <div class="title" [ngStyle]="{'margin-bottom': innerWidth<1200 ?'-5px':'0'}">
