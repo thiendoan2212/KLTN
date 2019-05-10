@@ -37,17 +37,17 @@
 <div class="container">
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="postDTOs">
-      <div class="row bor" *ngFor="let postDTO of postDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
+      <div class="row bor"
+           *ngFor="let postDTO of postDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
-          <div class="row">
-            <div class="view overlay">
-              <img src="{{postDTO.imageStrings[0] || '../../assets/default-img.jpg'}}"
-                   width="350px" height="200px" alt="Card image cap">
-              <!--[ngStyle]="{'height': innerWidth<576 ?'200px': '170px'}"-->
-              <a>
-                <div class="mask rgba-white-slight" (click)="navigateToDetail(postDTO)"></div>
-              </a>
-            </div>
+          <!--<div class="row">-->
+          <div class="view overlay">
+            <img src="{{postDTO.imageStrings[0] || '../../assets/default-img.jpg'}}" height="200px" alt="Card image cap">
+            <a>
+              <div class="mask rgba-white-slight" (click)="navigateToDetail(postDTO)"></div>
+            </a>
+            <!--[ngStyle]="{'height': innerWidth<576 ?'200px': '170px'}"-->
+            <!--</div>-->
           </div>
         </div>
         <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-12">
