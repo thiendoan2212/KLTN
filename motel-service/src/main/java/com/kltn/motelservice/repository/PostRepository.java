@@ -19,6 +19,8 @@ public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificat
 
 //    Page<Post> findAllByApprovedAndNotApprovedAndDel(boolean approved, boolean notApproved, Pageable pageable, boolean del);
 
+    Page<Post> findAllByApprovedAndNotApprovedAndDel(boolean approved, boolean notApproved, boolean del, Pageable pageable);
+
     Page<Post> findAllByApprovedAndNotApproved(boolean approved, boolean notApproved, Pageable pageable);
 
     Page<Post> findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(boolean approved, boolean notApproved, boolean motel, Pageable pageable, boolean del);

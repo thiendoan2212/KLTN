@@ -61,7 +61,7 @@ public class PostServiceImpl implements PostService {
     public Page<PostDTO> getPostByApproved(boolean bool, int page) {
         Page<Post> postPage;
         if (bool == true) {
-            postPage = postRepository.findAllByApprovedAndNotApproved(true, false,
+            postPage = postRepository.findAllByApprovedAndNotApprovedAndDel(true, false, false,
                     PageRequest.of(page, 12, Sort.by("createAt").descending()));
         } else {
             postPage = postRepository.findAllByApprovedAndNotApproved(false, true,
