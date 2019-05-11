@@ -49,7 +49,6 @@ export class DetailPostComponent implements OnInit {
     this.postService.getPostById(this.idPost).subscribe(
       data => {
         this.postDTO = data;
-        console.log(this.postDTO.accomodationDTO);
         if (this.postDTO.accomodationDTO.parking) {
           this.util += 'Chỗ để xe';
         }

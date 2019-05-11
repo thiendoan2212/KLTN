@@ -74,7 +74,7 @@
                 <p id="status">Tình trạng</p>
               </div>
               <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-8 content">
-                <p *ngIf="postDTO.accomodationDTO.status" id="chitietstatus">Còn</p>
+                <p *ngIf="postDTO.accomodationDTO.status" id="chitietstatus">Còn phòng</p>
                 <p *ngIf="!postDTO.accomodationDTO.status" id="chitietstatus2">Hết</p>
               </div>
             </div>
@@ -233,7 +233,7 @@
               <p class="gio">{{commentDTO.lastUpdate | date:'d/M/yyyy, h:mm a'}}</p>
             </div>
             <!--Phân trang-->
-            <div class="text-center">
+            <div class="text-center" *ngIf="totalElements>0">
               <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
             </div>
             <!--Phân trang-->
