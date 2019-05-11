@@ -4,6 +4,8 @@ import {NB_AUTH_OPTIONS, NbAuthResult, NbAuthService, NbLoginComponent} from '@n
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {RegisterComponent} from '../register/register.component';
+import {Location} from '@angular/common';
+
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,8 @@ export class LoginComponent extends NbLoginComponent {
 
   constructor(private dialog: MatDialog, authService: NbAuthService,
               @Inject(NB_AUTH_OPTIONS) options: {},
-              cd: ChangeDetectorRef, router: Router) {
+              cd: ChangeDetectorRef, router: Router,
+              private location: Location) {
     super(authService, options, cd, router);
   }
 
@@ -50,7 +53,8 @@ export class LoginComponent extends NbLoginComponent {
         this.hasError = true;
       }
 
-      const redirect = result.getRedirect();
+      const redirect = this.location.path();
+      console.log(redirect);
       if (redirect) {
         setTimeout(() => {
           return this.router.navigateByUrl(redirect);
