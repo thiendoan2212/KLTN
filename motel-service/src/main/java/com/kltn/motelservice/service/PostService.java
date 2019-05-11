@@ -4,6 +4,7 @@ import com.kltn.motelservice.model.PostDTO;
 import com.kltn.motelservice.model.SearchDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 
 import java.util.List;
 
@@ -14,7 +15,9 @@ public interface PostService {
 
     Page<PostDTO> getPostByApproved(boolean bool, int page);
 
-    Page<PostDTO> getPostByIdUser(long idUser, int page);
+    Page<PostDTO> getPostByIdUser(long idUser, int page, OAuth2Authentication auth);
+
+    Page<PostDTO> getPostByUserEmail(String email, Pageable page);
 
     PostDTO getPostById(Long id);
 

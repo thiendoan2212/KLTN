@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class PostController {
+
     @Autowired
     PostServiceImpl postService;
 
@@ -66,8 +66,8 @@ public class PostController {
     }
 
     @GetMapping("/post/user/{idUser}")
-    public Page<PostDTO> getPostByIdUser(@PathVariable long idUser, @RequestParam int page) {
-        return postService.getPostByIdUser(idUser, page);
+    public Page<PostDTO> getPostByIdUser(@PathVariable long idUser, @RequestParam int page, OAuth2Authentication auth) {
+        return postService.getPostByIdUser(idUser, page, auth);
     }
 
     @GetMapping("/post/{id}")

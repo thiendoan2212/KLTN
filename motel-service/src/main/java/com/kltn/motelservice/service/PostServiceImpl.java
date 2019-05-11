@@ -4,7 +4,10 @@ import com.kltn.motelservice.entity.*;
 import com.kltn.motelservice.exception.PostException;
 import com.kltn.motelservice.exception.UserException;
 import com.kltn.motelservice.model.*;
-import com.kltn.motelservice.repository.*;
+import com.kltn.motelservice.repository.DistrictRepository;
+import com.kltn.motelservice.repository.PostRepository;
+import com.kltn.motelservice.repository.PostSpecification;
+import com.kltn.motelservice.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,6 +25,7 @@ import java.util.Optional;
 
 @Service
 public class PostServiceImpl implements PostService {
+
     @Autowired
     PostRepository postRepository;
 
@@ -70,14 +75,18 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<PostDTO> getPostByIdUser(long idUser, int page) {
+    public Page<PostDTO> getPostByIdUser(long idUser, int page, OAuth2Authentication auth) {
         try {
             Optional<User> user = userRepository.findById(idUser);
             if (user.isPresent()) {
-                Page<Post> postPage;
-                postPage = postRepository.findByUser(user.get(), PageRequest.of(page, 10, Sort.by("createAt").descending()));
-                Page<PostDTO> postDTOPage = postPage.map(this::postToPostDTO);
-                return postDTOPage;
+                if (auth == null || !user.get().getEmail().equals(auth.getName())) {
+                    return postRepository.findAllByUser_EmailAndDelAndApproved(user.get().getEmail(),
+                            false, true, PageRequest.of(page, 10, Sort.by("createAt").descending()))
+                            .map(this::postToPostDTO);
+                } else {
+                    return postRepository.findByUser(user.get(), PageRequest.of(page, 10, Sort.by("createAt").descending()))
+                            .map(this::postToPostDTO);
+                }
             } else
                 throw new UserException("Không tìm thấy user id " + idUser);
 //                logger.error("Không tìm thấy user " + username);
@@ -85,6 +94,16 @@ public class PostServiceImpl implements PostService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public Page<PostDTO> getPostByUserEmail(String email, Pageable page) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isPresent()) {
+            return postRepository.findAllByUser_EmailAndDelAndApproved(email, false, true, page)
+                    .map(this::postToPostDTO);
+        } else
+            throw new UserException("Không tìm thấy user email" + email);
     }
 
     @Override

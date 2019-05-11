@@ -137,7 +137,7 @@ public class UserController {
 //    }
 
     //user request change profile or admin
-    boolean validRequest(OAuth2Authentication auth, Long userId) {
+    public boolean validRequest(OAuth2Authentication auth, Long userId) {
         User authUser = userService.selectUserByEmail(auth.getName());
 
         // has ROLE_ADMIN or has userid equal userid request
