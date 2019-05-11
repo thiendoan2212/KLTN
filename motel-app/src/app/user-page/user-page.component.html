@@ -25,7 +25,7 @@
           <p class="attribute">Họ tên: {{user.fullName}}</p>
           <p class="attribute">Số điện thoại: {{user.phone}}</p>
           <p class="attribute">Địa chỉ: {{user.address}}</p>
-          <div class="row">
+          <div class="row" *ngIf="auth">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
               <button *ngIf="auth.id === user.id" id="btnUpdate" (click)="openModalUpdateUser()">Cập nhật</button>
             </div>
@@ -64,6 +64,12 @@
                     <p class="diachi">Địa chỉ: {{postDTO.accomodationDTO.address}}</p>
                     <p class="ngay">Ngày đăng: {{postDTO.createAt | date:'dd/MM/yyyy'}}</p>
                   </div>
+                  <!--<div *ngIf="(user.email === postDTO.userDTO.email)">-->
+                    <!--<a class="title" (click)="navigateToDetail(postDTO)">{{postDTO.title}}</a>-->
+                    <!--<p class="giatien">Giá thuê: {{postDTO.accomodationDTO.price | number}} VNĐ</p>-->
+                    <!--<p class="diachi">Địa chỉ: {{postDTO.accomodationDTO.address}}</p>-->
+                    <!--<p class="ngay">Ngày đăng: {{postDTO.createAt | date:'dd/MM/yyyy'}}</p>-->
+                  <!--</div>-->
                 </div>
               </div>
             </div>
