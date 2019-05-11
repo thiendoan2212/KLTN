@@ -10,6 +10,8 @@ import {ImageDTO} from '../model/ImageDTO';
 import {Router} from '@angular/router';
 import {NbAuthOAuth2JWTToken, NbAuthService} from '@nebular/auth';
 import {User} from '../model/user';
+import {DistrictService} from '../service/district.service';
+import {DistrictDTO} from '../model/districtDTO';
 
 @Component({
   selector: 'app-create-post',
@@ -61,12 +63,13 @@ export class CreatePostComponent implements OnInit {
   disableSubmit = false;
   showLoadding = false;
   user: User;
-
+  districtDTOs: DistrictDTO[];
   token: string;
 
   constructor(private geocodingApiService: GeocodingApiServiceService,
               private postService: PostService,
               private imageService: ImageService,
+              private districtService: DistrictService,
               private authService: NbAuthService,
               private router: Router) {
   }
@@ -74,6 +77,7 @@ export class CreatePostComponent implements OnInit {
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.setValue();
+    this.getDistrict();
     this.authService.onTokenChange().subscribe((token: NbAuthOAuth2JWTToken) => {
       if (token.isValid()) {
         this.user = token.getPayload().account;
@@ -93,6 +97,17 @@ export class CreatePostComponent implements OnInit {
     if (this.uploader.queue.length !== 0) {
       this.createPost();
     }
+  }
+
+  getDistrict() {
+    this.districtService.getDistrict().subscribe(
+      data => {
+        this.districtDTOs = data;
+      },
+      error => {
+        console.log(error.message);
+      }
+    );
   }
 
   setValue() {

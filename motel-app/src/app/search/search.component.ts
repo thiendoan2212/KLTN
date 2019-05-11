@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {GeocodingApiServiceService} from '../service/geocoding-api-service.service';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {MapsSearchComponent} from '../maps-search/maps-search.component';
+import {DistrictService} from '../service/district.service';
+import {DistrictDTO} from '../model/districtDTO';
 
 @Component({
   selector: 'app-search',
@@ -15,7 +17,7 @@ import {MapsSearchComponent} from '../maps-search/maps-search.component';
 export class SearchComponent implements OnInit {
   searchForm: SearchForm = new SearchForm();
   searchForm1: SearchForm = new SearchForm();
-
+  districtDTOs: DistrictDTO[];
   priceOptions: Options = {
     floor: 0,
     ceil: 50,
@@ -60,12 +62,14 @@ export class SearchComponent implements OnInit {
   dialogMapsSearch: MatDialogRef<MapsSearchComponent>;
 
   constructor(private router: Router,
+              private districtService: DistrictService,
               private geocodingAPIService: GeocodingApiServiceService,
               private dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
+    this.getDistrict();
     this.setValueSearchForm();
   }
 
@@ -107,9 +111,21 @@ export class SearchComponent implements OnInit {
     this.router.navigate(['/result'], {queryParams: this.searchForm, skipLocationChange: false});
   }
 
+  getDistrict() {
+    this.districtService.getDistrict().subscribe(
+      data => {
+        this.districtDTOs = data;
+      },
+      error => {
+        console.log(error.message);
+      }
+    );
+  }
+
   navigateToSearchPage1() {
     this.router.navigate(['/result'], {queryParams: this.searchForm1, skipLocationChange: false});
   }
+
   //
   // mapClicked($event: any) {
   //   this.searchForm1.xCoordinate = $event.coords.lat;
@@ -138,4 +154,7 @@ export class SearchComponent implements OnInit {
   //       }
   //     });
   // }
+  show() {
+    console.log(this.searchForm.idDistrict);
+  }
 }

@@ -1,7 +1,5 @@
 package com.kltn.motelservice.model;
 
-import java.util.List;
-
 public class DistrictDTO {
     private long id;
 
@@ -11,17 +9,14 @@ public class DistrictDTO {
 
     private double yCoordinate;
 
-    private List<AccomodationDTO> accomodationDTOS;
-
     public DistrictDTO() {
     }
 
-    public DistrictDTO(long id, String name, double xCoordinate, double yCoordinate, List<AccomodationDTO> accomodationDTOS) {
+    public DistrictDTO(long id, String name, double xCoordinate, double yCoordinate) {
         this.id = id;
         this.name = name;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
-        this.accomodationDTOS = accomodationDTOS;
     }
 
     public long getId() {
@@ -54,13 +49,5 @@ public class DistrictDTO {
 
     public void setyCoordinate(double yCoordinate) {
         this.yCoordinate = yCoordinate;
-    }
-
-    public List<AccomodationDTO> getAccomodationDTOS() {
-        return accomodationDTOS;
-    }
-
-    public void setAccomodationDTOS(List<AccomodationDTO> accomodationDTOS) {
-        this.accomodationDTOS = accomodationDTOS;
     }
 }

@@ -76,8 +76,8 @@
                       #district="ngModel"
                       [ngClass]="{ 'is-invalid': (district.invalid && (district.dirty || district.touched)) || (postForm.submitted && district.invalid)}">
                 <option [ngValue]="undefined" selected>Chọn quận</option>
-                <option value="1">Quận 1</option>
-                <option value="2">Quận 2</option>
+                <option *ngFor="let districtDTO of districtDTOs" [value]=districtDTO.id
+                        ngDefaultControl>{{districtDTO.name}}</option>
               </select>
               <div
                 *ngIf="(district.invalid && (district.dirty || district.touched)) || (postForm.submitted && district.invalid)"
