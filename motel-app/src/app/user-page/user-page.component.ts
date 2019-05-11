@@ -7,7 +7,6 @@ import {PostService} from '../service/post.service';
 import {PaginationDTO} from '../model/paginationDTO';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {UpdateUserComponent} from '../update-user/update-user.component';
-import {RegisterComponent} from '../register/register.component';
 import {NbAuthOAuth2JWTToken, NbAuthService} from '@nebular/auth';
 
 @Component({
