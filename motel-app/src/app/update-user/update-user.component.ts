@@ -12,11 +12,12 @@ import {MatDialog} from '@angular/material';
 export class UpdateUserComponent implements OnInit {
   user: User = new User();
   idUser: number;
+  loading = false;
+  disableSubmit = false;
 
   constructor(private accountService: AccountService,
               private activatedRoute: ActivatedRoute,
-              private dialog: MatDialog,
-              private router: Router) {
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -36,11 +37,14 @@ export class UpdateUserComponent implements OnInit {
   }
 
   submit() {
+    this.loading = true;
+    this.disableSubmit = true;
     this.accountService.updateProfile(this.user.id, this.user).subscribe(data => {
-      this.dialog.closeAll();
-      // window.location.reload();
-      // this.getUserById();
-    });
+        this.dialog.closeAll();
+      },
+      error => {
+        console.log(error.error.message);
+      });
   }
 
   close() {

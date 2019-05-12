@@ -8,6 +8,7 @@ import {PaginationDTO} from '../model/paginationDTO';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {UpdateUserComponent} from '../update-user/update-user.component';
 import {NbAuthOAuth2JWTToken, NbAuthService} from '@nebular/auth';
+import {ChangePassComponent} from '../change-pass/change-pass.component';
 
 @Component({
   selector: 'app-user-page',
@@ -25,6 +26,7 @@ export class UserPageComponent implements OnInit {
   page = 1;
   errorMessage = '';
   updateDialog: MatDialogRef<UpdateUserComponent>;
+  changePassDialog: MatDialogRef<ChangePassComponent>;
 
   constructor(private accountService: AccountService,
               private activatedRoute: ActivatedRoute,
@@ -86,11 +88,19 @@ export class UserPageComponent implements OnInit {
   openModalUpdateUser() {
     this.updateDialog = this.dialog.open(UpdateUserComponent, {
       hasBackdrop: true,
-      maxHeight: '430px',
+      maxHeight: '400px',
       width: '500px',
     });
     this.updateDialog.afterClosed().subscribe(a => {
       this.getUserById();
+    });
+  }
+
+  openModalChangePass() {
+    this.changePassDialog = this.dialog.open(ChangePassComponent, {
+      hasBackdrop: true,
+      maxHeight: '450px',
+      width: '500px'
     });
   }
 }

@@ -29,8 +29,8 @@
       <input type="text" name="address" class="form-control" [(ngModel)]="user.address">
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-      <button type="submit" name="register" class="btnRegister" (click)="submit()" mdbWavesEffect>Cập nhật
-      </button>
+      <button type="submit" name="register" class="btnRegister" [disabled]="disableSubmit" (click)="submit()" mdbWavesEffect>
+        <span *ngIf="loading" class="spinner-border spinner-border-sm"></span> Cập nhật</button>
     </div>
   </div>
 </form>

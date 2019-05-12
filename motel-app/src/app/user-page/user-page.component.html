@@ -31,7 +31,7 @@
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
               <div class="text-right">
-                <button *ngIf="auth.id === user.id" id="btnChangePass">Đổi mật khẩu</button>
+                <button *ngIf="auth.id === user.id" id="btnChangePass" (click)="openModalChangePass()">Đổi mật khẩu</button>
               </div>
             </div>
           </div>
@@ -64,12 +64,6 @@
                     <p class="diachi">Địa chỉ: {{postDTO.accomodationDTO.address}}</p>
                     <p class="ngay">Ngày đăng: {{postDTO.createAt | date:'dd/MM/yyyy'}}</p>
                   </div>
-                  <!--<div *ngIf="(user.email === postDTO.userDTO.email)">-->
-                    <!--<a class="title" (click)="navigateToDetail(postDTO)">{{postDTO.title}}</a>-->
-                    <!--<p class="giatien">Giá thuê: {{postDTO.accomodationDTO.price | number}} VNĐ</p>-->
-                    <!--<p class="diachi">Địa chỉ: {{postDTO.accomodationDTO.address}}</p>-->
-                    <!--<p class="ngay">Ngày đăng: {{postDTO.createAt | date:'dd/MM/yyyy'}}</p>-->
-                  <!--</div>-->
                 </div>
               </div>
             </div>

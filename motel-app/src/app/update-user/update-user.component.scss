@@ -43,6 +43,22 @@ button {
   font-weight: bold;
 }
 
+
+button:disabled,
+button[disabled] {
+  border: 1px solid #0db9f0;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  pointer-events: all !important;
+  opacity: 0.65;
+}
+
+button:disabled:hover {
+  background: #0db9f0;
+  color: white;
+}
+
 .btnRegister {
   background: #0db9f0;
   border: none;
@@ -74,4 +90,3 @@ button {
 #register:focus {
   outline: none;
 }
-

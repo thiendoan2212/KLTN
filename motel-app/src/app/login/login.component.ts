@@ -54,7 +54,6 @@ export class LoginComponent extends NbLoginComponent {
       }
 
       const redirect = this.location.path();
-      console.log(redirect);
       if (redirect) {
         setTimeout(() => {
           return this.router.navigateByUrl(redirect);
