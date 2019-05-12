@@ -28,4 +28,8 @@ export class AccountService {
   updateProfile(id: number, user: User): Observable<User> {
     return this.http.put<User>(this.API_URL + '/users/' + id, user);
   }
+
+  changePassword(id: number, newPass: string, oldPass: string): Observable<any> {
+    return this.http.post<any>(this.API_URL + '/users/' + id + '/password?password=' + newPass + '&oldPassword=' + oldPass, '');
+  }
 }

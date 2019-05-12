@@ -48,6 +48,7 @@ import {LogoutComponent} from './logout/logout.component';
 import {RegisterComponent} from './register/register.component';
 import {MapsSearchComponent} from './maps-search/maps-search.component';
 import {UpdateUserComponent} from './update-user/update-user.component';
+import { ChangePassComponent } from './change-pass/change-pass.component';
 
 const authConfig: NbOAuth2AuthStrategyOptions = {
   name: 'userpass',
@@ -88,6 +89,7 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     RegisterComponent,
     MapsSearchComponent,
     UpdateUserComponent,
+    ChangePassComponent,
   ],
   imports: [
     NbAuthModule.forRoot({
@@ -151,7 +153,7 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent, RegisterComponent, MapsSearchComponent, UpdateUserComponent]
+  entryComponents: [LoginComponent, RegisterComponent, MapsSearchComponent, UpdateUserComponent, ChangePassComponent]
 })
 export class AppModule {
 }
