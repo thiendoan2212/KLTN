@@ -62,7 +62,8 @@
 <div class="space"></div>
 <div class="container">
   <div class="row">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="postDTOs.length != 0">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="totalElements > 0 || !totalElements">
+      <!--*ngIf="postDTOs.length != 0"-->
       <div class="row bor"
            *ngFor="let postDTO of postDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
@@ -137,15 +138,17 @@
           </div>
         </div>
       </div>
-      <div class="text-center" *ngIf="!searchForm.xCoordinate && postDTOs.length != 0">
+      <div class="text-center" *ngIf="(!searchForm.xCoordinate && totalElements > 0)">
+        <!--&& postDTOs.length > 0-->
         <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
       </div>
     </div>
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="postDTOs.length ==0">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="totalElements == 0">
+      <!--*ngIf="postDTOs.length == 0"-->
       <div class="text-center">
         <h4>Xin lỗi, chúng tôi không tìm được kết quả hợp với tìm kiếm của bạn</h4>
       </div>
     </div>
   </div>
 </div>
-<app-footer *ngIf="postDTOs.length != 0"></app-footer>
+<app-footer *ngIf="postDTOs"></app-footer>

@@ -76,13 +76,14 @@ export class UserPageComponent implements OnInit {
         this.totalElements = this.paginationDTO.content.totalElements;
       },
       error => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.error.message;
+        console.log(this.errorMessage);
       }
     );
   }
 
   navigateToDetail(postDTO: PostDTO) {
-    this.router.navigate(['/post'], {queryParams: {id: postDTO.id, title: postDTO.title}, skipLocationChange: false});
+    this.router.navigate(['/post'], {queryParams: {id: postDTO.id}, skipLocationChange: false});
   }
 
   openModalUpdateUser() {

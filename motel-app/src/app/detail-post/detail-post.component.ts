@@ -40,6 +40,11 @@ export class DetailPostComponent implements OnInit {
     this.getPostById();
   }
 
+  navigateToUpdate(idPost: number) {
+    this.router.navigate(['/update'], {queryParams: {id: idPost}, skipLocationChange: false});
+
+  }
+
   getPostById() {
     this.postDTO.userDTO = this.userDTO;
     this.postDTO.accomodationDTO = this.accomodationDTO;
@@ -105,9 +110,9 @@ export class DetailPostComponent implements OnInit {
         this.commentDTO.content = '';
         this.getComment();
       }, error => {
-        console.log(error.message);
-    }
-  )
+        console.log(error.error.message);
+      }
+    )
     ;
   }
 

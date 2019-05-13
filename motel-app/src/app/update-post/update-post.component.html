@@ -1,10 +1,10 @@
 <app-nav-bar></app-nav-bar>
 <div class="space"></div>
 <!--<div class="container">-->
-  <!--<mdb-breadcrumb>-->
-    <!--<mdb-breadcrumb-item class="blue-text"><a routerLink="/trang-chu">Trang chủ</a></mdb-breadcrumb-item>-->
-    <!--<mdb-breadcrumb-item class="active">Đăng tin</mdb-breadcrumb-item>-->
-  <!--</mdb-breadcrumb>-->
+<!--<mdb-breadcrumb>-->
+<!--<mdb-breadcrumb-item class="blue-text"><a routerLink="/trang-chu">Trang chủ</a></mdb-breadcrumb-item>-->
+<!--<mdb-breadcrumb-item class="active">Đăng tin</mdb-breadcrumb-item>-->
+<!--</mdb-breadcrumb>-->
 <!--</div>-->
 <div class="container">
   <div class="row">
@@ -42,6 +42,41 @@
                class="error">
             <p>Vui lòng nhập tiêu đề.</p>
           </div>
+
+          <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+              <p class="sdt">Tình trạng</p>
+              <select class="browser-default custom-select" id="tinhTrang" required
+                      [(ngModel)]="status" name="tinhTrang"
+                      #tinhTrang="ngModel"
+                      [ngClass]="{ 'is-invalid': (tinhTrang.invalid && (tinhTrang.dirty || tinhTrang.touched)) || (postForm.submitted && tinhTrang.invalid)}">
+                <!--<option [ngValue]="undefined" selected>Chọn quận</option>-->
+                <option value='1'>Còn phòng</option>
+                <option value='2'>Hết phòng</option>
+              </select>
+              <!--<div-->
+                <!--*ngIf="(tinhTrang.invalid && (tinhTrang.dirty || tinhTrang.touched)) || (postForm.submitted && tinhTrang.invalid)"-->
+                <!--class="error">-->
+                <!--<p>Vui lòng chọn quận.</p>-->
+              <!--</div>-->
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+              <p class="loaiphong">Trạng thái</p>
+              <select class="browser-default custom-select" id="trangThai" required
+                      [(ngModel)]="del" name="trangThai"
+                      #trangThai="ngModel"
+                      [ngClass]="{ 'is-invalid': (trangThai.invalid && (trangThai.dirty || trangThai.touched)) || (postForm.submitted && trangThai.invalid)}">
+                <!--<option [ngValue]="undefined" selected>Chọn loại phòng</option>-->
+                <option value='1'>Ẩn tin đăng</option>
+                <option value='2'>Hiện tin đăng</option>
+              </select>
+              <!--<div *ngIf="(trangThai.invalid && (trangThai.dirty || trangThai.touched)) || (postForm.submitted && trangThai.invalid)"-->
+                   <!--class="error">-->
+                <!--<p>Vui lòng chọn loại phòng.</p>-->
+              <!--</div>-->
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
               <!--[ngStyle]="{'margin-top': (price.invalid)?'10px':'0px'}"-->
@@ -76,8 +111,8 @@
                       #district="ngModel"
                       [ngClass]="{ 'is-invalid': (district.invalid && (district.dirty || district.touched)) || (postForm.submitted && district.invalid)}">
                 <option [ngValue]="undefined" selected>Chọn quận</option>
-                <option value="1">Quận 1</option>
-                <option value="2">Quận 2</option>
+                <option *ngFor="let districtDTO of districtDTOs" [value]=districtDTO.id
+                        ngDefaultControl>{{districtDTO.name}}</option>
               </select>
               <div
                 *ngIf="(district.invalid && (district.dirty || district.touched)) || (postForm.submitted && district.invalid)"
@@ -192,42 +227,42 @@
                     <div class="col-lg-6 col-sm-6">
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" name="parking"
-                               [(ngModel)]="parking" id="parking">
+                               [(ngModel)]="postDTO.accomodationDTO.parking" id="parking">
                         <label class="custom-control-label" for="parking">Chỗ để xe</label>
                       </div>
                     </div>
                     <div class="col-lg-6 col-sm-6">
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" name="internet"
-                               [(ngModel)]="internet" id="internet">
+                               [(ngModel)]="postDTO.accomodationDTO.internet" id="internet">
                         <label class="custom-control-label" for="internet">Internet</label>
                       </div>
                     </div>
                     <div class="col-lg-6 col-sm-6">
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" name="airconditioner"
-                               [(ngModel)]="airConditioner" id="airconditioner">
+                               [(ngModel)]="postDTO.accomodationDTO.airConditioner" id="airconditioner">
                         <label class="custom-control-label" for="airconditioner">Điều hòa</label>
                       </div>
                     </div>
                     <div class="col-lg-6 col-sm-6">
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" name="cableTV"
-                               [(ngModel)]="cableTV" id="cableTV">
+                               [(ngModel)]="postDTO.accomodationDTO.cableTV" id="cableTV">
                         <label class="custom-control-label" for="cableTV">TH Cáp</label>
                       </div>
                     </div>
                     <div class="col-lg-6 col-sm-6">
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" name="tv"
-                               [(ngModel)]="tv" id="TV">
+                               [(ngModel)]="postDTO.accomodationDTO.tv" id="TV">
                         <label class="custom-control-label" for="TV">Tivi</label>
                       </div>
                     </div>
                     <div class="col-lg-6 col-sm-6">
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" name="heater"
-                               [(ngModel)]="heater" id="heater">
+                               [(ngModel)]="postDTO.accomodationDTO.heater" id="heater">
                         <label class="custom-control-label" for="heater">Bình nóng lạnh</label>
                       </div>
                     </div>

@@ -12,7 +12,7 @@
       </p>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <input type=password class="form-control" id="oldPassword" required
+      <input type="password" class="form-control" id="oldPassword" required
              [(ngModel)]="oldPasswordText" name="oldPassword" #oldPassword="ngModel"
              [ngClass]="{ 'is-invalid': changePass.submitted && oldPassword.invalid}">
     </div>
@@ -22,7 +22,7 @@
       </p>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <input type=password class="form-control" id="newPassword" required
+      <input type="password" class="form-control" id="newPassword" required
              [(ngModel)]="newPasswordText" name="newPassword" #newPassword="ngModel"
              [ngClass]="{ 'is-invalid': changePass.submitted && newPassword.invalid}">
     </div>
@@ -32,7 +32,7 @@
       </p>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <input type=password class="form-control" id="confirmNewPassword" required
+      <input type="password" class="form-control" id="confirmNewPassword" required
              [(ngModel)]="confirmNewPasswordText" name="confirmNewPassword" #confirmNewPassword="ngModel"
              [ngClass]="{ 'is-invalid': changePass.submitted && confirmNewPassword.invalid}">
     </div>
@@ -40,7 +40,7 @@
       <p class="error"  style="margin-bottom: 0px!important;">Vui lòng xác nhận lại mật khẩu</p>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-      <button type="submit" name="register" class="btnRegister" [disabled]="disableSubmit" (click)="submit()" mdbWavesEffect>
+      <button name="register" class="btnRegister" [disabled]="disableSubmit" mdbWavesEffect>
         <span *ngIf="loading" class="spinner-border spinner-border-sm"></span> Chấp nhận</button>
     </div>
   </div>

@@ -202,7 +202,7 @@ agm-map {
   border-bottom: 1px solid #E9ECEF;
 }
 
-#comment{
+#comment {
   margin-bottom: 15px;
 }
 
@@ -221,3 +221,16 @@ button {
   color: #003352;
   font-weight: bold;
 }
+
+#btnUpdate {
+  color: #0db9f0 !important;
+  font-weight: 500;
+  padding: 0 !important;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+#btnUpdate:hover{
+  text-decoration: underline !important;
+}
+

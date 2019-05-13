@@ -66,6 +66,7 @@ export class SearchPageComponent implements OnInit {
         data => {
           this.paginationDTO.content = data;
           this.postDTOs = this.paginationDTO.content.content;
+          console.log(this.paginationDTO.content);
           this.totalElements = this.paginationDTO.content.totalElements;
         },
         error => {
@@ -88,12 +89,11 @@ export class SearchPageComponent implements OnInit {
       this.lat = parseFloat(String(this.searchForm.xCoordinate));
       this.lng = parseFloat(String(this.searchForm.yCoordinate));
       this.radius = parseFloat(String(this.searchForm.radius));
-
     });
   }
 
   navigateToDetail(postDTO) {
-    this.router.navigate(['/post'], {queryParams: { id: postDTO.id, title: postDTO.title}, skipLocationChange: false});
+    this.router.navigate(['/post'], {queryParams: { id: postDTO.id}, skipLocationChange: false});
   }
 }
 

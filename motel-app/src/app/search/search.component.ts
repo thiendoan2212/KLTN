@@ -117,7 +117,7 @@ export class SearchComponent implements OnInit {
         this.districtDTOs = data;
       },
       error => {
-        console.log(error.message);
+        console.log(error.error.message);
       }
     );
   }

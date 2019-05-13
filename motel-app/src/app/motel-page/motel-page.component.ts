@@ -40,7 +40,6 @@ export class MotelPageComponent implements OnInit {
       data => {
         this.paginationDTO.content = data;
         this.postDTOs = this.paginationDTO.content.content;
-        console.log(this.postDTOs);
         this.totalElements = this.paginationDTO.content.totalElements;
       },
       error => {
@@ -56,6 +55,6 @@ export class MotelPageComponent implements OnInit {
   }
 
   navigateToDetail(postDTO: PostDTO) {
-    this.router.navigate(['/post'], {queryParams: {id: postDTO.id, title: postDTO.title}, skipLocationChange: false});
+    this.router.navigate(['/post'], {queryParams: {id: postDTO.id}, skipLocationChange: false});
   }
 }
