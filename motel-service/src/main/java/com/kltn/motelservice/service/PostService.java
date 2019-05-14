@@ -23,7 +23,7 @@ public interface PostService {
 
     PostDTO createPost(PostDTO postDTO, String name);
 
-    PostDTO updatePost(Long id, PostDTO postDTO);
+    PostDTO updatePost(Long id, PostDTO postDTO, String name);
 
     PostDTO hidePost(Long id);
 

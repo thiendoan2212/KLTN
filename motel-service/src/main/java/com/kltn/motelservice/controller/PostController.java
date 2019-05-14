@@ -89,8 +89,8 @@ public class PostController {
 
     @PutMapping("/post/{id}")
     @PreAuthorize("hasAnyRole('ROLE_USER')")
-    public PostDTO updatePost(@PathVariable Long id, @RequestBody PostDTO postDTO) {
-        return postService.updatePost(id, postDTO);
+    public PostDTO updatePost(@PathVariable Long id, @RequestBody PostDTO postDTO, OAuth2Authentication auth) {
+        return postService.updatePost(id, postDTO, auth.getName());
     }
 
     @PutMapping("/post/hide/{id}")

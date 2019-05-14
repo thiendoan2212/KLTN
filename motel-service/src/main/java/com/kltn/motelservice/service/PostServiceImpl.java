@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
 
@@ -164,32 +165,36 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostDTO updatePost(Long id, PostDTO postDTO) {
+    public PostDTO updatePost(Long id, PostDTO postDTO, String name) {
         try {
             Optional<Post> post = postRepository.findById(id);
             if (post.isPresent()) {
-                postDTO.setId(id);
-                postDTO.getAccomodationDTO().setId(post.get().getAccomodation().getId());
-                postDTO.setCreateAt(post.get().getCreateAt());
-                //Tạo post mới từ postDTO
-                post = Optional.of(modelMapper.map(postDTO, Post.class));
-                Optional<User> user = userRepository.findById(postDTO.getUserDTO().getId());
-                post.get().setUser(user.get());
-                //Tạo accomodation từ postDTO
-                Accomodation accomodation = modelMapper.map(postDTO.getAccomodationDTO(), Accomodation.class);
-                accomodation.setPost(post.get());
-                accomodation.setId(postDTO.getAccomodationDTO().getId());
-                Optional<District> district = districtRepository.findById(postDTO.getAccomodationDTO().getIdDistrict());
-                accomodation.setDistrict(district.get());
-                post.get().setLastUpdate(LocalDateTime.now());
-                post.get().setAccomodation(accomodation);
+                if (post.get().getUser().getEmail().equals(name)) {
+                    postDTO.setId(id);
+                    postDTO.getAccomodationDTO().setId(post.get().getAccomodation().getId());
+                    postDTO.setCreateAt(post.get().getCreateAt());
+                    //Tạo post mới từ postDTO
+                    post = Optional.of(modelMapper.map(postDTO, Post.class));
+                    Optional<User> user = userRepository.findById(postDTO.getUserDTO().getId());
+                    post.get().setUser(user.get());
+                    //Tạo accomodation từ postDTO
+                    Accomodation accomodation = modelMapper.map(postDTO.getAccomodationDTO(), Accomodation.class);
+                    accomodation.setPost(post.get());
+                    accomodation.setId(postDTO.getAccomodationDTO().getId());
+                    Optional<District> district = districtRepository.findById(postDTO.getAccomodationDTO().getIdDistrict());
+                    accomodation.setDistrict(district.get());
+                    post.get().setLastUpdate(LocalDateTime.now());
+                    post.get().setAccomodation(accomodation);
 
-                postRepository.save(post.get());
-                postDTO = modelMapper.map(post.get(), PostDTO.class);
-                postDTO.setAccomodationDTO(modelMapper.map(post.get().getAccomodation(), AccomodationDTO.class));
-                postDTO.setUserDTO(modelMapper.map(post.get().getUser(), UserDTO.class));
+                    postRepository.save(post.get());
+                    postDTO = modelMapper.map(post.get(), PostDTO.class);
+                    postDTO.setAccomodationDTO(modelMapper.map(post.get().getAccomodation(), AccomodationDTO.class));
+                    postDTO.setUserDTO(modelMapper.map(post.get().getUser(), UserDTO.class));
 
-                return postDTO;
+                    return postDTO;
+                } else {
+                    throw new AccessDeniedException("Access dined");
+                }
             } else
                 throw new PostException("Không tìm thấy post id " + id);
 //                logger.error("Không tìm thấy post id " + id);
