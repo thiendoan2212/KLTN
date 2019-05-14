@@ -31,7 +31,8 @@
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
               <div class="text-right">
-                <button *ngIf="auth.id === user.id" id="btnChangePass" (click)="openModalChangePass()">Đổi mật khẩu</button>
+                <button *ngIf="auth.id === user.id" id="btnChangePass" (click)="openModalChangePass()">Đổi mật khẩu
+                </button>
               </div>
             </div>
           </div>
@@ -67,7 +68,7 @@
                 </div>
               </div>
             </div>
-            <div class="text-center">
+            <div class="text-center" *ngIf="totalElements>0">
               <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
             </div>
           </div>

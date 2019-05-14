@@ -12,6 +12,8 @@ import {ImageHandlerService} from '../service/image-handler.service';
 import {ImageDTO} from '../model/ImageDTO';
 import {DistrictDTO} from '../model/districtDTO';
 import {DistrictService} from '../service/district.service';
+import {NbAuthOAuth2JWTToken, NbAuthService} from '@nebular/auth';
+import {User} from '../model/user';
 
 @Component({
   selector: 'app-update-post',
@@ -77,11 +79,15 @@ export class UpdatePostComponent implements OnInit {
   tv: number;
   heater: number;
 
+  auth: User;
+  notFound = false;
+
   constructor(private geocodingApiService: GeocodingApiServiceService,
               private postService: PostService,
               private imageService: ImageService,
               private activatedRoute: ActivatedRoute,
               private districtService: DistrictService,
+              private authService: NbAuthService,
               private imageHandler: ImageHandlerService,
               private router: Router) {
   }
@@ -103,6 +109,20 @@ export class UpdatePostComponent implements OnInit {
     }
   }
 
+  getUser() {
+    this.authService.onTokenChange().subscribe((token: NbAuthOAuth2JWTToken) => {
+      if (token.isValid()) {
+        this.auth = token.getPayload().account;
+        if (!(this.auth.email === this.postDTO.userDTO.email)) {
+          // this.router.navigate(['/user'], {queryParams: {id: this.auth.id}, skipLocationChange: false});
+          this.notFound = true;
+        }
+      } else {
+        this.notFound = true;
+      }
+    });
+  }
+
   getDistrict() {
     this.districtService.getDistrict().subscribe(
       data => {
@@ -122,50 +142,59 @@ export class UpdatePostComponent implements OnInit {
     this.postService.getPostById(this.idPost).subscribe(
       data => {
         this.postDTO = data;
-        if (this.postDTO.accomodationDTO.status) {
-          this.status = 1;
+        this.getUser();
+        if (this.postDTO.approved) {
+          if (this.postDTO.accomodationDTO.status) {
+            this.status = 1;
+          } else {
+            this.status = 2;
+          }
+          if (this.postDTO.del) {
+            this.del = 1;
+          } else {
+            this.del = 2;
+          }
+          if (this.postDTO.accomodationDTO.motel) {
+            this.motel = 1;
+          } else {
+            this.motel = 2;
+          }
+          if (this.postDTO.accomodationDTO.parking) {
+            this.parking = 1;
+          } else {
+            this.parking = 0;
+          }
+          if (this.postDTO.accomodationDTO.internet) {
+            this.internet = 1;
+          } else {
+            this.internet = 0;
+          }
+          if (this.postDTO.accomodationDTO.airConditioner) {
+            this.airConditioner = 1;
+          } else {
+            this.airConditioner = 0;
+          }
+          if (this.postDTO.accomodationDTO.cableTV) {
+            this.cableTV = 1;
+          } else {
+            this.cableTV = 0;
+          }
+          if (this.postDTO.accomodationDTO.tv) {
+            this.tv = 1;
+          } else {
+            this.tv = 0;
+          }
+          if (this.postDTO.accomodationDTO.heater) {
+            this.heater = 1;
+          } else {
+            this.heater = 0;
+          }
+          if (this.postDTO.notApproved) {
+            this.notFound = true;
+          }
         } else {
-          this.status = 2;
-        }
-        if (this.postDTO.del) {
-          this.del = 1;
-        } else {
-          this.del = 2;
-        }
-        if (this.postDTO.accomodationDTO.motel) {
-          this.motel = 1;
-        } else {
-          this.motel = 2;
-        }
-        if (this.postDTO.accomodationDTO.parking) {
-          this.parking = 1;
-        } else {
-          this.parking = 0;
-        }
-        if (this.postDTO.accomodationDTO.internet) {
-          this.internet = 1;
-        } else {
-          this.internet = 0;
-        }
-        if (this.postDTO.accomodationDTO.airConditioner) {
-          this.airConditioner = 1;
-        } else {
-          this.airConditioner = 0;
-        }
-        if (this.postDTO.accomodationDTO.cableTV) {
-          this.cableTV = 1;
-        } else {
-          this.cableTV = 0;
-        }
-        if (this.postDTO.accomodationDTO.tv) {
-          this.tv = 1;
-        } else {
-          this.tv = 0;
-        }
-        if (this.postDTO.accomodationDTO.heater) {
-          this.heater = 1;
-        } else {
-          this.heater = 0;
+          // this.router.navigate(['/user'], {queryParams: {id: this.auth.id}, skipLocationChange: false});
+          this.notFound = true;
         }
       }
     );
@@ -238,7 +267,6 @@ export class UpdatePostComponent implements OnInit {
     } else {
       this.postDTO.accomodationDTO.motel = false;
     }
-    console.log(this.postDTO);
     this.postService.updatePost(this.postDTO.id, this.postDTO).subscribe(
       data => {
         this.addImageForPost(this.postDTO.id);

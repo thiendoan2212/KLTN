@@ -8,7 +8,7 @@ import {CommentDTO} from '../model/commentDTO';
 import {CommentService} from '../service/comment.service';
 import {PaginationDTO} from '../model/paginationDTO';
 import {User} from '../model/user';
-import {NbAuthService} from '@nebular/auth';
+import {NbAuthOAuth2JWTToken, NbAuthService} from '@nebular/auth';
 
 @Component({
   selector: 'app-detail-post',
@@ -29,10 +29,13 @@ export class DetailPostComponent implements OnInit {
   page = 1;
   totalElements: number;
   commentDTO: CommentDTO = new CommentDTO();
+  auth: User = new User();
+  notFound = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private postService: PostService,
               private router: Router,
+              private authService: NbAuthService,
               private commentService: CommentService) {
   }
 
@@ -45,6 +48,14 @@ export class DetailPostComponent implements OnInit {
 
   }
 
+  getUser() {
+    this.authService.onTokenChange().subscribe((token: NbAuthOAuth2JWTToken) => {
+      if (token.isValid()) {
+        this.auth = token.getPayload().account;
+      }
+    });
+  }
+
   getPostById() {
     this.postDTO.userDTO = this.userDTO;
     this.postDTO.accomodationDTO = this.accomodationDTO;
@@ -54,32 +65,38 @@ export class DetailPostComponent implements OnInit {
     this.postService.getPostById(this.idPost).subscribe(
       data => {
         this.postDTO = data;
-        if (this.postDTO.accomodationDTO.parking) {
-          this.util += 'Chỗ để xe';
-        }
-        if (this.postDTO.accomodationDTO.internet) {
-          this.util += ', Internet';
-        }
-        if (this.postDTO.accomodationDTO.airConditioner) {
-          this.util += ', Điều hòa';
-        }
-        if (this.postDTO.accomodationDTO.cableTV) {
-          this.util += ', Truyền hình cáp';
-        }
-        if (this.postDTO.accomodationDTO.tv) {
-          this.util += ', Tivi';
-        }
-        if (this.postDTO.accomodationDTO.heater) {
-          this.util += ', Máy nước nóng';
-        }
-        if (this.util.startsWith(' , ')) {
-          this.util = this.util.substring(2);
+        if (this.postDTO.notApproved || this.postDTO.del || (!this.postDTO.approved && !this.postDTO.notApproved)) {
+          this.notFound = true;
+          console.log(this.notFound);
+        } else {
+          if (this.postDTO.accomodationDTO.parking) {
+            this.util += 'Chỗ để xe';
+          }
+          if (this.postDTO.accomodationDTO.internet) {
+            this.util += ', Internet';
+          }
+          if (this.postDTO.accomodationDTO.airConditioner) {
+            this.util += ', Điều hòa';
+          }
+          if (this.postDTO.accomodationDTO.cableTV) {
+            this.util += ', Truyền hình cáp';
+          }
+          if (this.postDTO.accomodationDTO.tv) {
+            this.util += ', Tivi';
+          }
+          if (this.postDTO.accomodationDTO.heater) {
+            this.util += ', Máy nước nóng';
+          }
+          if (this.util.startsWith(' , ')) {
+            this.util = this.util.substring(2);
+          }
         }
       },
       error => {
         this.errorMessage = error.error.message;
       }
     );
+    this.getUser();
     this.getComment();
   }
 

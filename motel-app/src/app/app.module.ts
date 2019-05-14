@@ -49,6 +49,7 @@ import {RegisterComponent} from './register/register.component';
 import {MapsSearchComponent} from './maps-search/maps-search.component';
 import {UpdateUserComponent} from './update-user/update-user.component';
 import { ChangePassComponent } from './change-pass/change-pass.component';
+import { NotfoundPageComponent } from './notfound-page/notfound-page.component';
 
 const authConfig: NbOAuth2AuthStrategyOptions = {
   name: 'userpass',
@@ -90,6 +91,7 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     MapsSearchComponent,
     UpdateUserComponent,
     ChangePassComponent,
+    NotfoundPageComponent,
   ],
   imports: [
     NbAuthModule.forRoot({

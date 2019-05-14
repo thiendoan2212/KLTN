@@ -6,7 +6,8 @@
 <!--<mdb-breadcrumb-item class="active">Đăng tin</mdb-breadcrumb-item>-->
 <!--</mdb-breadcrumb>-->
 <!--</div>-->
-<div class="container">
+<app-notfound-page *ngIf="notFound"></app-notfound-page>
+<div class="container" *ngIf="postDTO.id && !notFound">
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-sm-12">
       <h2 id="dangtin">Cập nhật</h2>
@@ -55,9 +56,9 @@
                 <option value='2'>Hết phòng</option>
               </select>
               <!--<div-->
-                <!--*ngIf="(tinhTrang.invalid && (tinhTrang.dirty || tinhTrang.touched)) || (postForm.submitted && tinhTrang.invalid)"-->
-                <!--class="error">-->
-                <!--<p>Vui lòng chọn quận.</p>-->
+              <!--*ngIf="(tinhTrang.invalid && (tinhTrang.dirty || tinhTrang.touched)) || (postForm.submitted && tinhTrang.invalid)"-->
+              <!--class="error">-->
+              <!--<p>Vui lòng chọn quận.</p>-->
               <!--</div>-->
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -71,8 +72,8 @@
                 <option value='2'>Hiện tin đăng</option>
               </select>
               <!--<div *ngIf="(trangThai.invalid && (trangThai.dirty || trangThai.touched)) || (postForm.submitted && trangThai.invalid)"-->
-                   <!--class="error">-->
-                <!--<p>Vui lòng chọn loại phòng.</p>-->
+              <!--class="error">-->
+              <!--<p>Vui lòng chọn loại phòng.</p>-->
               <!--</div>-->
             </div>
           </div>
@@ -441,7 +442,7 @@
   </div>
 </div>
 <div class="space"></div>
-<app-footer></app-footer>
+<app-footer *ngIf="(postDTO.id && !notFound) || notFound"></app-footer>
 
 <div class="modal fade" (click)="ClickedOut($event)" id="modalError" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel"

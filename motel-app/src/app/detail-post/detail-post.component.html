@@ -1,7 +1,8 @@
 <app-nav-bar></app-nav-bar>
 <div class="space"></div>
-<div class="container">
-  <div class="col-lg-12 bc" *ngIf="postDTO">
+<app-notfound-page *ngIf="notFound"></app-notfound-page>
+<div class="container" *ngIf="postDTO.id && !notFound">
+  <div class="col-lg-12 bc">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="/home">Trang chủ</a></li>
@@ -12,19 +13,19 @@
     </nav>
   </div>
 </div>
-<div class="container" *ngIf="postDTO.id">
+<div class="container" *ngIf="postDTO.id && !notFound">
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <div class="text-left" style="display: inline-block">
         <h3 id="tenbaiviet">{{postDTO.title}}</h3>
       </div>
-      <div class="text-right" style="display: inline; float: right;">
+      <div class="text-right" style="display: inline; float: right;" *ngIf="postDTO.userDTO.email === auth.email">
         <button id="btnUpdate" (click)="navigateToUpdate(postDTO.id)">Cập nhật</button>
       </div>
     </div>
   </div>
 </div>
-<div class="container" *ngIf="postDTO.id">
+<div class="container" *ngIf="postDTO.id && !notFound">
   <div class="row">
     <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
       <div class="post-summary">
@@ -167,7 +168,7 @@
     </div>
   </div>
 </div>
-<div class="container" *ngIf="postDTO.id">
+<div class="container" *ngIf="postDTO.id && !notFound">
   <div class="row">
     <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
       <div class="row">
@@ -218,7 +219,7 @@
     </div>
   </div>
 </div>
-<div class="container" *ngIf="postDTO.id && commentDTOs">
+<div class="container" *ngIf="postDTO.id && commentDTOs && !notFound">
   <div class="row">
     <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
       <div class="row">
@@ -229,18 +230,18 @@
           <!--<div class="khung-binhluan">-->
           <!--</div>-->
           <div class="binhluan-content">
-            <!--Nếu đăng nhập-->
-            <textarea class="form-control" id="comment" cols="85" rows="5"
+            <textarea class="form-control" id="comment" cols="85" rows="5" *ngIf="auth.id"
                       placeholder="Vui lòng nhập nội dung bình luận" [(ngModel)]="commentDTO.content"></textarea>
-            <div class="text-right">
+            <div class="text-right" *ngIf="auth.id">
               <button type="button" class="btnPost" mdbWavesEffect (click)="createComment()">Gửi</button>
             </div>
-            <!--Nếu đăng nhập-->
+            <p class="noidung" *ngIf="totalElements === 0">Chưa có bình luận nào</p>
             <div class="text-content"
                  *ngFor="let commentDTO of commentDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
               <a><p class="ten" (click)="navigateToUser(commentDTO.idUser)">{{commentDTO.fullName}}</p></a>
               <p class="noidung">{{commentDTO.content}}</p>
               <p class="gio">{{commentDTO.lastUpdate | date:'d/M/yyyy, h:mm a'}}</p>
+              <p class="noidung" *ngIf="totalElements === 0">Chưa có bình luận</p>
             </div>
             <!--Phân trang-->
             <div class="text-center" *ngIf="totalElements>0">
@@ -253,4 +254,4 @@
     </div>
   </div>
 </div>
-<app-footer *ngIf="postDTO.id && commentDTOs"></app-footer>
+<app-footer *ngIf="notFound || (postDTO.id && commentDTOs && !notFound)"></app-footer>
