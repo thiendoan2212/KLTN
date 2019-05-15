@@ -34,6 +34,10 @@ export class UserPageComponent implements OnInit {
               private postService: PostService,
               private authService: NbAuthService,
               private dialog: MatDialog) {
+    this.activatedRoute.queryParams.subscribe(_ => {
+      this.getUserById();
+      this.getPostByIdUser();
+    });
   }
 
   ngOnInit() {
@@ -50,6 +54,10 @@ export class UserPageComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.innerWidth = window.innerWidth;
+  }
+
+  navigateToUpdate(idPost: number) {
+    this.router.navigate(['/update'], {queryParams: {id: idPost}, skipLocationChange: false});
   }
 
   getUserById() {

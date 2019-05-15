@@ -8,7 +8,7 @@
   <div class="row" style="padding-left: 8px; padding-right: 8px;" *ngIf="!success; else successChangePassword">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <p class="pass">Mật khẩu hiện tại <span *ngIf="changePass.submitted && oldPassword.invalid" class="error"> - Thông tin này là bắt buộc</span>
-        <span *ngIf="wrongPass" class="error"> - Sai mật khẩu</span>
+        <span *ngIf="wrongPass" class="error"> - Mật khẩu không chính xác</span>
       </p>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

@@ -14,6 +14,7 @@ import {DistrictDTO} from '../model/districtDTO';
 import {DistrictService} from '../service/district.service';
 import {NbAuthOAuth2JWTToken, NbAuthService} from '@nebular/auth';
 import {User} from '../model/user';
+import {callbackify} from 'util';
 
 @Component({
   selector: 'app-update-post',
@@ -114,7 +115,6 @@ export class UpdatePostComponent implements OnInit {
       if (token.isValid()) {
         this.auth = token.getPayload().account;
         if (!(this.auth.email === this.postDTO.userDTO.email)) {
-          // this.router.navigate(['/user'], {queryParams: {id: this.auth.id}, skipLocationChange: false});
           this.notFound = true;
         }
       } else {
@@ -196,6 +196,11 @@ export class UpdatePostComponent implements OnInit {
           // this.router.navigate(['/user'], {queryParams: {id: this.auth.id}, skipLocationChange: false});
           this.notFound = true;
         }
+      },
+      error => {
+        this.errorMessage = error.error.message;
+        console.log(this.errorMessage);
+        this.notFound = true;
       }
     );
     this.getImageByteByIdPost(this.idPost);
@@ -245,7 +250,9 @@ export class UpdatePostComponent implements OnInit {
       error => {
         this.errorMessage = error.error.message;
         console.log(this.errorMessage);
+        this.notFound = true;
       }
+      // }
     );
   }
 

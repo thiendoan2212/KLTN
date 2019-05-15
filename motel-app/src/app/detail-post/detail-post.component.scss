@@ -230,7 +230,13 @@ button {
   margin-top: 10px;
 }
 
-#btnUpdate:hover{
+#btnUpdate:hover {
   text-decoration: underline !important;
 }
 
+button:disabled,
+button[disabled] {
+  cursor: not-allowed!important;
+  pointer-events: all !important;
+  opacity: 0.65;
+}

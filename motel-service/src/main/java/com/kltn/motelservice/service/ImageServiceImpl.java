@@ -48,7 +48,7 @@ public class ImageServiceImpl implements ImageService {
                     .toUriString();
             return new ImageDTO(image.getId(), image.getFileName(), file.getContentType(), fileDownloadUri, idPost);
         } else {
-            throw new PostException("Không tìm tháy post id " + idPost);
+            throw new PostException("Không tìm thấy post id " + idPost);
         }
     }
 
@@ -97,7 +97,7 @@ public class ImageServiceImpl implements ImageService {
                 imageRepository.delete(image);
             }
         } else {
-            throw new PostException("Không tìm tháy post id " + idPost);
+            throw new PostException("Không tìm thấy post id " + idPost);
         }
     }
 
@@ -114,7 +114,7 @@ public class ImageServiceImpl implements ImageService {
             }
             return imageDTOS;
         } else {
-            throw new PostException("Không tìm tháy post id " + idPost);
+            throw new PostException("Không tìm thấy post id " + idPost);
         }
     }
 }

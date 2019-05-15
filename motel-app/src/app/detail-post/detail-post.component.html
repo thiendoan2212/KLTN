@@ -20,7 +20,7 @@
         <h3 id="tenbaiviet">{{postDTO.title}}</h3>
       </div>
       <div class="text-right" style="display: inline; float: right;" *ngIf="postDTO.userDTO.email === auth.email">
-        <button id="btnUpdate" (click)="navigateToUpdate(postDTO.id)">Cập nhật</button>
+        <button [disabled]="(!postDTO.approved && !postDTO.notApproved)" id="btnUpdate" (click)="navigateToUpdate(postDTO.id)">Cập nhật</button>
       </div>
     </div>
   </div>
@@ -180,7 +180,7 @@
             <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
               <mdb-carousel-item *ngFor="let imageString of postDTO.imageStrings">
                 <div class="view w-100">
-                  <img class="d-block w-100" src={{imageString}} height="500px" alt="First slide">
+                  <img class="d-block w-100" name="listImg" [src]=imageString height="500px" alt="First slide">
                   <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
                 </div>
               </mdb-carousel-item>
@@ -241,7 +241,6 @@
               <a><p class="ten" (click)="navigateToUser(commentDTO.idUser)">{{commentDTO.fullName}}</p></a>
               <p class="noidung">{{commentDTO.content}}</p>
               <p class="gio">{{commentDTO.lastUpdate | date:'d/M/yyyy, h:mm a'}}</p>
-              <p class="noidung" *ngIf="totalElements === 0">Chưa có bình luận</p>
             </div>
             <!--Phân trang-->
             <div class="text-center" *ngIf="totalElements>0">

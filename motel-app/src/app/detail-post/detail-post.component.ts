@@ -45,7 +45,6 @@ export class DetailPostComponent implements OnInit {
 
   navigateToUpdate(idPost: number) {
     this.router.navigate(['/update'], {queryParams: {id: idPost}, skipLocationChange: false});
-
   }
 
   getUser() {
@@ -65,7 +64,8 @@ export class DetailPostComponent implements OnInit {
     this.postService.getPostById(this.idPost).subscribe(
       data => {
         this.postDTO = data;
-        if (this.postDTO.notApproved || this.postDTO.del || (!this.postDTO.approved && !this.postDTO.notApproved)) {
+        if (this.postDTO.notApproved) {
+        // || this.postDTO.del || (!this.postDTO.approved && !this.postDTO.notApproved)
           this.notFound = true;
           console.log(this.notFound);
         } else {
