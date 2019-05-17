@@ -8,6 +8,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,13 +32,14 @@ public class ImageController {
         imageService.deleteAllImage(idPost);
     }
 
-//    @PostMapping("/uploadMultipleFiles/post/{idPost}")
-//    public List<ImageDTO> uploadMultipleFiles(@PathVariable Long idPost, @RequestParam("files") MultipartFile[] files) {
-//        return Arrays.asList(files)
-//                .stream()
-//                .map(file -> uploadFile(idPost, file))
-//                .collect(Collectors.toList());
-//    }
+    @PostMapping("/uploadMultipleFiles/post/{idPost}")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    public List<ImageDTO> uploadMultipleFiles(@PathVariable Long idPost, @RequestParam("files") MultipartFile[] files) {
+        return Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(idPost, file))
+                .collect(Collectors.toList());
+    }
 
     @GetMapping("/imageByte/post/{idPost}")
     public List<ImageDTO> getImageDTOByIdPost(@PathVariable Long idPost) {

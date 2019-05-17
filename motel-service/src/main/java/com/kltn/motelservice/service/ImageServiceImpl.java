@@ -36,10 +36,6 @@ public class ImageServiceImpl implements ImageService {
     public ImageDTO uploadFile(Long idPost, MultipartFile file) {
         Optional<Post> post = postRepository.findById(idPost);
         if (post.isPresent()) {
-//            List<Image> images = imageRepository.findImageByPost(post.get());
-//            for (Image image : images) {
-////                imageRepository.delete(image);
-////            }
             Image image = storeImage(idPost, file);
 
             String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
