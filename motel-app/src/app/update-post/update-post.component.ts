@@ -14,7 +14,6 @@ import {DistrictDTO} from '../model/districtDTO';
 import {DistrictService} from '../service/district.service';
 import {NbAuthOAuth2JWTToken, NbAuthService} from '@nebular/auth';
 import {User} from '../model/user';
-import {callbackify} from 'util';
 
 @Component({
   selector: 'app-update-post',
@@ -50,15 +49,11 @@ export class UpdatePostComponent implements OnInit {
       },
     ]
   };
-
   zoom = 15;
   lat = 10.776111;
   lng = 106.695833;
-
   public innerWidth: any;
-
-  // uploader: FileUploader = new FileUploader({url: ''});
-  public uploader: FileUploader = new FileUploader({
+  uploader: FileUploader = new FileUploader({
     isHTML5: true
   });
 
@@ -193,7 +188,6 @@ export class UpdatePostComponent implements OnInit {
             this.notFound = true;
           }
         } else {
-          // this.router.navigate(['/user'], {queryParams: {id: this.auth.id}, skipLocationChange: false});
           this.notFound = true;
         }
       },
@@ -240,7 +234,7 @@ export class UpdatePostComponent implements OnInit {
         this.images = res;
         const files: Array<File> = [];
         for (const image of this.images) {
-          image.uri = 'data:image/png;base64,' + image.uri;
+          image.uri = 'data:' + image.fileType + ';base64,' + image.uri;
           const dataBlob = this.imageHandler.getBlob(image.uri, image.fileType);
           const file = new File([dataBlob], image.fileName, {type: image.fileType});
           files.push(file);
@@ -279,36 +273,116 @@ export class UpdatePostComponent implements OnInit {
         this.addImageForPost(this.postDTO.id);
       },
       error => {
+        this.showError = true;
         this.errorMessage = error.error.message;
         console.log(this.errorMessage);
       }
     );
   }
 
+  // addImageForPost(id: number) {
+  //   this.uploaderUpdate = _.cloneDeep(this.uploader);
+  //   console.log(this.images);
+  //   for (const image of this.images) {
+  //     image.uri = 'data:' + image.fileType + ';base64,' + image.uri;
+  //     const dataBlob = this.imageHandler.getBlob(image.uri, image.fileType);
+  //     const file = new File([dataBlob], image.fileName, {type: image.fileType});
+  //     const objectOriginal: UpdateImage = new UpdateImage();
+  //     objectOriginal.id = image.id;
+  //     objectOriginal.file = file;
+  //     console.log(objectOriginal);
+  //     this.uploaderOriginal.push(objectOriginal);
+  //     console.log(this.uploaderOriginal);
+  //   }
+  //   if (this.uploaderOriginal.length === 1) {
+  //     for (const uploaderU of this.uploaderUpdate.queue) {
+  //       if (this.uploaderOriginal[0].file.size === uploaderU._file.size) {
+  //         this.uploaderOriginal.splice(0, 1);
+  //         uploaderU.remove();
+  //       }
+  //     }
+  //   } else {
+  //     for (let i = 0; i < this.uploaderOriginal.length; i++) {
+  //       for (const uploaderU of this.uploaderUpdate.queue) {
+  //         if (this.uploaderOriginal[i].file.size === uploaderU._file.size) {
+  //           this.uploaderOriginal.splice(i, 1);
+  //           uploaderU.remove();
+  //         }
+  //       }
+  //     }
+  //   }
+  //   // for (let i = 0; i < this.uploaderOriginal.length; i++) {
+  //   //   for (const uploaderU of this.uploaderUpdate.queue) {
+  //   //     if (this.uploaderOriginal[i].file.size === uploaderU._file.size) {
+  //   //       this.uploaderOriginal.splice(i, 1);
+  //   //       uploaderU.remove();
+  //   //     }
+  //   //   }
+  //   // }
+  //
+  //   const listId: Array<string> = [];
+  //   if (this.uploaderOriginal.length > 0) {
+  //     console.log('upOri > 0');
+  //     for (const ori of this.uploaderOriginal) {
+  //       listId.push(ori.id);
+  //     }
+  //     console.log(listId);
+  //     this.imageService.deleteImage(listId).subscribe(
+  //       data => {
+  //       },
+  //       error => {
+  //         this.errorMessage = error.error.message;
+  //       }
+  //     );
+  //   }
+  //   if (this.uploaderUpdate.queue.length > 0) {
+  //     console.log('upUpd > 0');
+  //     for (const uploader of this.uploaderUpdate.queue) {
+  //       const formData = new FormData();
+  //       const fileItem = uploader._file;
+  //       formData.append('file', fileItem);
+  //       this.imageService.addImageForPost(id, formData).subscribe(
+  //         data => {
+  //           this.imageDTO = Object.assign({}, data);
+  //         },
+  //         error => {
+  //           this.errorMessage = error.error.message;
+  //         }
+  //       );
+  //     }
+  //     this.showNoti = true;
+  //     this.showLoadding = false;
+  //     setTimeout(() => {
+  //       this.router.navigate(['/home']);
+  //     }, 5000);
+  //   }
+  // }
+
   addImageForPost(id: number) {
     if (id != null) {
-      this.imageService.deleteAllImage(id);
+      this.imageService.deleteAllImage(id).subscribe();
+      const formData = new FormData();
+      console.log(this.uploader.queue.length);
       for (const uploader of this.uploader.queue) {
-        const formData = new FormData();
         const fileItem = uploader._file;
-        formData.append('file', fileItem);
-        this.imageService.addImageForPost(id, formData).subscribe(
-          data => {
-            this.imageDTO = data;
-            if (this.imageDTO) {
-              this.showNoti = true;
-              this.showLoadding = false;
-              setTimeout(() => {
-                this.router.navigate(['/home']);
-              }, 5000);
-            }
-          },
-          error => {
-            this.errorMessage = error.error.message;
-            console.log(this.errorMessage);
-          }
-        );
+        formData.append('files', fileItem);
       }
+      this.imageService.addImages(id, formData).subscribe(
+        data => {
+          this.imageDTO = data;
+          if (this.imageDTO) {
+            this.showNoti = true;
+            this.showLoadding = false;
+            setTimeout(() => {
+              this.router.navigate(['/home']);
+            }, 5000);
+          }
+        },
+        error => {
+          this.errorMessage = error.error.message;
+          console.log(this.errorMessage);
+        }
+      );
     } else {
       this.showError = true;
     }
@@ -320,4 +394,5 @@ export class UpdatePostComponent implements OnInit {
       this.showRequired = false;
     }
   }
+
 }
