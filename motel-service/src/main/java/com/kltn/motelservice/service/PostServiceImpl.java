@@ -10,10 +10,7 @@ import com.kltn.motelservice.repository.PostSpecification;
 import com.kltn.motelservice.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -336,11 +333,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDTO> searchPostByMaps(SearchDTO searchForm) {
+    public Page<PostDTO> searchPostByMaps(SearchDTO searchForm, int page) {
         try {
             Specification<Post> spec = new PostSpecification(searchForm);
             List<Post> posts = postRepository.findAll(spec);
             List<PostDTO> postDTOS = new ArrayList<>();
+            Page<PostDTO> postDTOPage = null;
             PostDTO postDTO;
             List<String> images;
             for (Post post : posts) {
@@ -353,7 +351,18 @@ public class PostServiceImpl implements PostService {
                     postDTOS.add(postDTO);
                 }
             }
-            return postDTOS;
+            postDTOPage = new PageImpl<>(postDTOS, PageRequest.of(page, 10), postDTOS.size());
+
+//            if (sort == 1)
+//                postDTOPage = new PageImpl<>(postDTOS, PageRequest.of(page, 15, Sort.by("accomodationDTO.price").ascending()), postDTOS.size());
+//            if (sort == 2)
+//                postDTOPage = new PageImpl<>(postDTOS, PageRequest.of(page, 15, Sort.by("accomodationDTO.price").descending()), postDTOS.size());
+//            if (sort == 3)
+//                postDTOPage = new PageImpl<>(postDTOS, PageRequest.of(page, 15, Sort.by("accomodationDTO.acreage").ascending()), postDTOS.size());
+//            if (sort == 4)
+//                postDTOPage = new PageImpl<>(postDTOS, PageRequest.of(page, 15, Sort.by("accomodationDTO.acreage").descending()), postDTOS.size());
+
+            return postDTOPage;
         } catch (Exception e) {
             e.printStackTrace();
         }
