@@ -2,7 +2,7 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {PostService} from '../service/post.service';
 import {PostDTO} from '../model/postDTO';
 import {ToiletName} from '../model/ToiletName';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationDTO} from '../model/paginationDTO';
 
 
@@ -20,14 +20,16 @@ export class MotelPageComponent implements OnInit {
   totalElements: number;
   page = 1;
   sort = 1;
+  notFound = false;
 
   constructor(private postService: PostService,
+              private activatedRoute: ActivatedRoute,
               private router: Router) {
   }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
-    this.getMotelPost();
+    this.init();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -45,13 +47,24 @@ export class MotelPageComponent implements OnInit {
       error => {
         this.errorMessage = error.error.message;
         console.log(this.errorMessage);
+        this.notFound = true;
       }
     );
   }
 
+  init() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.page = params.page;
+      if (parseInt(String(this.page), 10) !== 0) {
+        this.getMotelPost();
+      } else {
+        this.notFound = true;
+      }
+    });
+  }
+
   getPage(page: number) {
-    this.page = page;
-    this.getMotelPost();
+    this.router.navigate(['/motel'], {queryParams: {page}});
   }
 
   navigateToDetail(postDTO: PostDTO) {

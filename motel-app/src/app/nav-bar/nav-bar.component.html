@@ -14,10 +14,10 @@
           <a class="nav-link waves-light" routerLink="/home" mdbWavesEffect>Trang chủ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link waves-light" routerLink="/motel" mdbWavesEffect>Phòng trọ</a>
+          <a class="nav-link waves-light" [routerLink]="['/motel']" [queryParams]="{page: 1}" mdbWavesEffect>Phòng trọ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link waves-light" routerLink="/house" mdbWavesEffect>Nhà nguyên căn</a>
+          <a class="nav-link waves-light" [routerLink]="['/house']" [queryParams]="{page: 1}" mdbWavesEffect>Nhà nguyên căn</a>
         </li>
       </ul>
       <!-- Links -->

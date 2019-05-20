@@ -6,9 +6,8 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="/home">Trang chủ</a></li>
-        <li class="breadcrumb-item" *ngIf="postDTO.accomodationDTO.motel"><a routerLink="/motel">Phòng trọ</a></li>
-        <li class="breadcrumb-item" *ngIf="!postDTO.accomodationDTO.motel"><a routerLink="/house">Nhà nguyên
-          căn</a></li>
+        <li class="breadcrumb-item" *ngIf="postDTO.accomodationDTO.motel"><a [routerLink]="['/motel']" [queryParams]="{page: 1}">Phòng trọ</a></li>
+        <li class="breadcrumb-item" *ngIf="!postDTO.accomodationDTO.motel"><a [routerLink]="['/house']" [queryParams]="{page: 1}">Nhà nguyên căn</a></li>
       </ol>
     </nav>
   </div>

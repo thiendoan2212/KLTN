@@ -26,20 +26,20 @@ export class SearchPageComponent implements OnInit {
   totalElements: number;
   page = 1;
   sort = 1;
+  notFound = false;
 
   constructor(private postService: PostService,
               private activatedRoute: ActivatedRoute,
               private router: Router) {
     this.activatedRoute.queryParams.subscribe(_ => {
-      this.getParamSearchForm();
-      this.searchPost();
+      this.init();
     });
   }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
-    this.getParamSearchForm();
-    this.searchPost();
+    this.init();
+    // this.searchPost();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -79,22 +79,27 @@ export class SearchPageComponent implements OnInit {
   }
 
   getPage(page: number) {
-    this.page = page;
-    this.searchPost();
+    this.router.navigate(['/result'], {queryParams: {...this.searchForm, page}, skipLocationChange: false});
   }
 
-  getParamSearchForm() {
+  init() {
     this.activatedRoute.queryParams.subscribe(params => {
-      // @ts-ignore
-      this.searchForm = params;
-      this.lat = parseFloat(String(this.searchForm.xCoordinate));
-      this.lng = parseFloat(String(this.searchForm.yCoordinate));
-      this.radius = parseFloat(String(this.searchForm.radius));
+      this.page = params.page;
+      if (parseInt(String(this.page), 10) !== 0) {
+        // @ts-ignore
+        this.searchForm = params;
+        this.lat = parseFloat(String(this.searchForm.xCoordinate));
+        this.lng = parseFloat(String(this.searchForm.yCoordinate));
+        this.radius = parseFloat(String(this.searchForm.radius));
+        this.searchPost();
+      } else {
+        this.notFound = true;
+      }
     });
   }
 
   navigateToDetail(postDTO) {
-    this.router.navigate(['/post'], {queryParams: { id: postDTO.id}, skipLocationChange: false});
+    this.router.navigate(['/post'], {queryParams: {id: postDTO.id}, skipLocationChange: false});
   }
 }
 

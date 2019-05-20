@@ -62,7 +62,7 @@ export class MapsSearchComponent implements OnInit {
 
   navigateToSearchPage1() {
     this.close();
-    this.router.navigate(['/result'], {queryParams: this.searchForm1, skipLocationChange: false});
+    this.router.navigate(['/result'], {queryParams: {...this.searchForm1, page: 1}, skipLocationChange: false});
   }
 
   mapClicked($event: any) {

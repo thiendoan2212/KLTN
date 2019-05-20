@@ -41,4 +41,5 @@ export class HomePageComponent implements OnInit {
   navigateToDetail(postDTO: PostDTO) {
     this.router.navigate(['/post'], {queryParams: {id: postDTO.id}, skipLocationChange: false});
   }
+
 }

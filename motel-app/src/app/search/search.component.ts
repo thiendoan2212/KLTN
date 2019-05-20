@@ -27,15 +27,6 @@ export class SearchComponent implements OnInit {
     hidePointerLabels: true
   };
 
-  // priceOptions1: Options = {
-  //   floor: 0,
-  //   ceil: 50,
-  //   step: 0.5,
-  //   noSwitching: true,
-  //   hideLimitLabels: true,
-  //   hidePointerLabels: true
-  // };
-
   acreageOptions: Options = {
     floor: 0,
     ceil: 1000,
@@ -45,20 +36,9 @@ export class SearchComponent implements OnInit {
     hidePointerLabels: true
   };
 
-  // acreageOptions1: Options = {
-  //   floor: 0,
-  //   ceil: 1000,
-  //   step: 5,
-  //   noSwitching: true,
-  //   hideLimitLabels: true,
-  //   hidePointerLabels: true
-  // };
   address: string;
   zoom = 13;
-  // lat = 10.7756587;
-  // lng = 106.7004238;
   public innerWidth: any;
-  // display = 'none';
   dialogMapsSearch: MatDialogRef<MapsSearchComponent>;
 
   constructor(private router: Router,
@@ -78,12 +58,6 @@ export class SearchComponent implements OnInit {
     this.innerWidth = window.innerWidth;
   }
 
-  // ClickedOut(event) {
-  //   if (event.target.className === 'modal') {
-  //     this.display = 'none';
-  //   }
-  // }
-
   openSearchMaps() {
     // this.display = 'block';
     this.dialogMapsSearch = this.dialog.open(MapsSearchComponent, {
@@ -92,10 +66,6 @@ export class SearchComponent implements OnInit {
       height: '740px'
     });
   }
-
-  // closeSearchMaps() {
-  //   this.display = 'none';
-  // }
 
   setValueSearchForm() {
     this.searchForm.priceStart = this.searchForm1.priceStart = 0;
@@ -108,7 +78,7 @@ export class SearchComponent implements OnInit {
   }
 
   navigateToSearchPage() {
-    this.router.navigate(['/result'], {queryParams: this.searchForm, skipLocationChange: false});
+    this.router.navigate(['/result'], {queryParams: {...this.searchForm, page: 1}, skipLocationChange: false});
   }
 
   getDistrict() {
@@ -120,10 +90,6 @@ export class SearchComponent implements OnInit {
         console.log(error.error.message);
       }
     );
-  }
-
-  navigateToSearchPage1() {
-    this.router.navigate(['/result'], {queryParams: this.searchForm1, skipLocationChange: false});
   }
 
   //
@@ -154,7 +120,4 @@ export class SearchComponent implements OnInit {
   //       }
   //     });
   // }
-  show() {
-    console.log(this.searchForm.idDistrict);
-  }
 }

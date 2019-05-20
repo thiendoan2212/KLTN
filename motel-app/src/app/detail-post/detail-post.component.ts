@@ -134,4 +134,5 @@ export class DetailPostComponent implements OnInit {
   navigateToUser(idUser: number) {
     this.router.navigate(['/user'], {queryParams: {id: idUser}, skipLocationChange: false});
   }
+
 }

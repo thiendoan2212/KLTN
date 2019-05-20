@@ -16,7 +16,8 @@
       <div class="card">
         <!-- Card image -->
         <div class="view overlay">
-          <img class="card-img-top" src="{{postDTO.imageStrings[0] || '../../assets/default-img.jpg'}}" width="350px" height="232.9px"
+          <img class="card-img-top" src="{{postDTO.imageStrings[0] || '../../assets/default-img.jpg'}}" width="350px"
+               height="232.9px"
                alt="Card image cap">
           <a>
             <div class="mask rgba-white-slight" (click)="navigateToDetail(postDTO)"></div>
@@ -29,11 +30,12 @@
             <h6 class="card-title font-weight-bold" class="title">{{postDTO.title}}</h6>
           </a>
           <div class=" d-flex justify-content-between">
-            <a *ngIf="!postDTO.accomodationDTO.motel; else motel" class="light-blue-text" routerLink="/house">
-              <p class="font-weight-bold house" ><i></i> Nhà nguyên căn</p>
+            <a *ngIf="!postDTO.accomodationDTO.motel; else motel" class="light-blue-text" [routerLink]="['/motel']"
+               [queryParams]="{page: 1}">
+              <p class="font-weight-bold house"><i></i> Nhà nguyên căn</p>
             </a>
             <ng-template #motel>
-              <a class="pink-text" routerLink="/motel">
+              <a class="pink-text" [routerLink]="['/motel']" [queryParams]="{page: 1}">
                 <p class="font-weight-bold house"><i></i> Phòng trọ</p>
               </a>
             </ng-template>

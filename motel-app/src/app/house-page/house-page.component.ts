@@ -2,7 +2,7 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {PostDTO} from '../model/postDTO';
 import {PostService} from '../service/post.service';
 import {ToiletName} from '../model/ToiletName';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationDTO} from '../model/paginationDTO';
 
 @Component({
@@ -19,14 +19,16 @@ export class HousePageComponent implements OnInit {
   totalElements: number;
   page = 1;
   sort = 1;
+  notFound = false;
 
   constructor(private postService: PostService,
+              private activatedRoute: ActivatedRoute,
               private router: Router) {
   }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
-    this.getHousePost();
+    this.init();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -48,16 +50,22 @@ export class HousePageComponent implements OnInit {
     );
   }
 
+  init() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.page = params.page;
+      if (parseInt(String(this.page), 10) !== 0) {
+        this.getHousePost();
+      } else {
+        this.notFound = true;
+      }
+    });
+  }
+
   getPage(page: number) {
-    this.page = page;
-    this.getHousePost();
+    this.router.navigate(['/house'], {queryParams: {page}});
   }
 
   navigateToDetail(postDTO: PostDTO) {
     this.router.navigate(['/post'], {queryParams: {id: postDTO.id}, skipLocationChange: false});
   }
-
-  // navigateToUpdate(postDTO: PostDTO) {
-  //   this.router.navigate(['/update'], {queryParams: {id: postDTO.id, title: postDTO.title}, skipLocationChange: false});
-  // }
 }
