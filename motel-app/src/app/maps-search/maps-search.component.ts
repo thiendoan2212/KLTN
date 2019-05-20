@@ -98,9 +98,6 @@ export class MapsSearchComponent implements OnInit {
       this.searchForm1.yCoordinate = response.results[0].geometry.location.lng;
       this.lat = response.results[0].geometry.location.lat;
       this.lng = response.results[0].geometry.location.lng;
-
-      console.log('GEO ' + this.searchForm1.xCoordinate);
-      console.log('GEO ' + this.searchForm1.yCoordinate);
     } else if (response.status === 'ZERO_RESULTS') {
       console.log('geocodingAPIService', 'ZERO_RESULTS', response.status);
     } else {

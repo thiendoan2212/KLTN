@@ -40,6 +40,7 @@ export class DetailPostComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getUser();
     this.getPostById();
   }
 
@@ -64,10 +65,8 @@ export class DetailPostComponent implements OnInit {
     this.postService.getPostById(this.idPost).subscribe(
       data => {
         this.postDTO = data;
-        if (this.postDTO.notApproved) {
-        // || this.postDTO.del || (!this.postDTO.approved && !this.postDTO.notApproved)
+        if (this.postDTO.notApproved || (this.postDTO.del && (this.auth.email !== this.postDTO.userDTO.email))) {
           this.notFound = true;
-          console.log(this.notFound);
         } else {
           if (this.postDTO.accomodationDTO.parking) {
             this.util += 'Chỗ để xe';
@@ -96,7 +95,6 @@ export class DetailPostComponent implements OnInit {
         this.errorMessage = error.error.message;
       }
     );
-    this.getUser();
     this.getComment();
   }
 

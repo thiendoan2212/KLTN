@@ -50,9 +50,11 @@ export class SearchPageComponent implements OnInit {
   searchPost() {
     this.postDTOs = null;
     if (this.searchForm.xCoordinate) {
-      this.postService.searchPostByMaps(this.searchForm).subscribe(
+      this.postService.searchPostByMaps(this.searchForm, this.page - 1).subscribe(
         data => {
-          this.postDTOs = data;
+          this.paginationDTO.content = data;
+          this.postDTOs = this.paginationDTO.content.content;
+          this.totalElements = this.paginationDTO.content.totalElements;
         },
         error => {
           this.errorMessage = error.error.message;
@@ -66,7 +68,6 @@ export class SearchPageComponent implements OnInit {
         data => {
           this.paginationDTO.content = data;
           this.postDTOs = this.paginationDTO.content.content;
-          console.log(this.paginationDTO.content);
           this.totalElements = this.paginationDTO.content.totalElements;
         },
         error => {

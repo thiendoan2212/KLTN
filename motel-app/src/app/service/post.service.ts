@@ -14,7 +14,7 @@ export class PostService {
   constructor(private http: HttpClient) {
   }
 
-  searchPost(searchForm: SearchForm, page: number, sort :number): Observable<PostDTO[]> {
+  searchPost(searchForm: SearchForm, page: number, sort: number): Observable<PostDTO[]> {
     this.searchUrl = 'acreageStart=' + searchForm.acreageStart + '&acreageEnd=' + searchForm.acreageEnd
       + '&priceStart=' + searchForm.priceStart + '&priceEnd=' + searchForm.priceEnd;
     if (searchForm.idDistrict) {
@@ -26,7 +26,7 @@ export class PostService {
     return this.http.get<PostDTO[]>(this.apiUrl + '/posts/search?' + this.searchUrl + '&page=' + page + '&sort=' + sort);
   }
 
-  searchPostByMaps(searchForm: SearchForm): Observable<PostDTO[]> {
+  searchPostByMaps(searchForm: SearchForm, page: number): Observable<PostDTO[]> {
     this.searchUrl = 'acreageStart=' + searchForm.acreageStart + '&acreageEnd=' + searchForm.acreageEnd
       + '&priceStart=' + searchForm.priceStart + '&priceEnd=' + searchForm.priceEnd;
     if (searchForm.idDistrict) {
@@ -39,7 +39,7 @@ export class PostService {
       this.searchUrl += '&xCoordinate=' + searchForm.xCoordinate + '&yCoordinate='
         + searchForm.yCoordinate + '&radius=' + searchForm.radius;
     }
-    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/searchbymaps?' + this.searchUrl);
+    return this.http.get<PostDTO[]>(this.apiUrl + '/posts/searchbymaps?' + this.searchUrl + '&page=' + page);
   }
 
   getPostById(id: number): Observable<PostDTO> {

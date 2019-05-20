@@ -14,6 +14,7 @@ import {DistrictDTO} from '../model/districtDTO';
 import {DistrictService} from '../service/district.service';
 import {NbAuthOAuth2JWTToken, NbAuthService} from '@nebular/auth';
 import {User} from '../model/user';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-update-post',
@@ -85,7 +86,8 @@ export class UpdatePostComponent implements OnInit {
               private districtService: DistrictService,
               private authService: NbAuthService,
               private imageHandler: ImageHandlerService,
-              private router: Router) {
+              private router: Router,
+              private location: Location) {
   }
 
   ngOnInit() {
@@ -218,8 +220,6 @@ export class UpdatePostComponent implements OnInit {
         // this.lng = response.results[0].geometry.location.lng;
         this.postDTO.accomodationDTO.xCoordinate = response.results[0].geometry.location.lat;
         this.postDTO.accomodationDTO.yCoordinate = response.results[0].geometry.location.lng;
-        console.log('GEO ' + this.postDTO.accomodationDTO.xCoordinate);
-        console.log('GEO ' + this.postDTO.accomodationDTO.yCoordinate);
       } else if (response.status === 'ZERO_RESULTS') {
         console.log('geocodingAPIService', 'ZERO_RESULTS', response.status);
       } else {
@@ -374,7 +374,8 @@ export class UpdatePostComponent implements OnInit {
             this.showNoti = true;
             this.showLoadding = false;
             setTimeout(() => {
-              this.router.navigate(['/home']);
+              // this.router.navigate(['/user'], {queryParams: {id: this.postDTO.userDTO.id}, skipLocationChange: false});
+              this.location.back();
             }, 5000);
           }
         },
@@ -395,4 +396,7 @@ export class UpdatePostComponent implements OnInit {
     }
   }
 
+  back() {
+    this.location.back();
+  }
 }
