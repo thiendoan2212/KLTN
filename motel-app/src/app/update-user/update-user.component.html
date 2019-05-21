@@ -7,7 +7,7 @@
   </div>
   <div class="row" style="padding-left: 8px; padding-right: 8px;">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <p class="username">Tên hiển thị <span *ngIf="signUp.submitted && username.invalid" class="error"> - Thông tin này là bắt buộc</span>
+      <p class="username">Họ tên<span *ngIf="signUp.submitted && username.invalid" class="error"> - Thông tin này là bắt buộc</span>
       </p>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -29,7 +29,7 @@
       <input type="text" name="address" class="form-control" [(ngModel)]="user.address">
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-      <button type="submit" name="register" class="btnRegister" [disabled]="disableSubmit" (click)="submit()" mdbWavesEffect>
+      <button name="register" class="btnRegister" [disabled]="disableSubmit" mdbWavesEffect>
         <span *ngIf="loading" class="spinner-border spinner-border-sm"></span> Cập nhật</button>
     </div>
   </div>
