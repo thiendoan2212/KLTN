@@ -141,15 +141,15 @@
               </div>
             </div>
           </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="border-bottom"></div>
+          </div>
         </div>
-        <!--<div class="text-center" *ngIf="(!searchForm.xCoordinate && totalElements > 0)">-->
         <div class="text-center" *ngIf="(totalElements > 0)">
-          <!--&& postDTOs.length > 0-->
           <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
         </div>
       </div>
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="totalElements == 0">
-        <!--*ngIf="postDTOs.length == 0"-->
         <div class="text-center">
           <h4>Xin lỗi, chúng tôi không tìm được kết quả hợp với tìm kiếm của bạn</h4>
         </div>

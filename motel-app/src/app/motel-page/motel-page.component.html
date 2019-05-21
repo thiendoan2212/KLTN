@@ -42,15 +42,12 @@
         <div class="row bor"
              *ngFor="let postDTO of postDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
           <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
-            <!--<div class="row">-->
             <div class="view overlay">
               <img src="{{postDTO.imageStrings[0] || '../../assets/default-img.jpg'}}" height="200px">
               <a>
                 <div class="mask rgba-white-slight" (click)="navigateToDetail(postDTO)"></div>
               </a>
             </div>
-            <!--<img [ngStyle]="{'height': innerWidth<576 ?'200px': '170px'}" src={{postDTO.imageStrings[0]}}>-->
-            <!--</div>-->
           </div>
           <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-12">
             <div [ngStyle]="{'margin-bottom': innerWidth<1200 ?'-5px':'0'}">
@@ -108,6 +105,9 @@
                 </p>
               </div>
             </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="border-bottom"></div>
           </div>
         </div>
         <div class="text-center">
