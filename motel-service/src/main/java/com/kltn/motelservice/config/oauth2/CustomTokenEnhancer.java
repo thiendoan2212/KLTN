@@ -27,6 +27,8 @@ public class CustomTokenEnhancer implements TokenEnhancer {
         final Map<String, Object> additionalInfo = new HashMap<>();
         User user = userRepository.findByEmail(auth.getName()).get();
         UserDTO userDTO = mapper.entityToDTO(user);
+        userDTO.setB64(null);
+        userDTO.setFileType(null);
         userDTO.setRole(user.getRoles().stream().map(Role::getName).collect(Collectors.toList()));
         additionalInfo.put("account", userDTO);
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);

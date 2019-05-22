@@ -30,6 +30,11 @@ public class User {
 
     private boolean block;
 
+    @Lob
+    private String b64;
+
+    private String fileType;
+
     @ManyToMany(fetch = FetchType.EAGER,
             cascade = {
                     CascadeType.PERSIST,
@@ -53,14 +58,16 @@ public class User {
     public User() {
     }
 
-    public User(@NotBlank String email, @NotBlank String fullName, @NotBlank @Size(min = 6, max = 100) String password,
-                String address, String phone, boolean block, List<Role> roles, List<Post> posts, List<Post> comments) {
+    public User(@NotBlank String email, @NotBlank String fullName, @NotBlank @Size(min = 6, max = 100) String password, String address,
+                String phone, boolean block, String b64, String fileType, List<Role> roles, List<Post> posts, List<Post> comments) {
         this.email = email;
         this.fullName = fullName;
         this.password = password;
         this.address = address;
         this.phone = phone;
         this.block = block;
+        this.b64 = b64;
+        this.fileType = fileType;
         this.roles = roles;
         this.posts = posts;
         this.comments = comments;
@@ -120,6 +127,22 @@ public class User {
 
     public void setBlock(boolean block) {
         this.block = block;
+    }
+
+    public String getB64() {
+        return b64;
+    }
+
+    public void setB64(String b64) {
+        this.b64 = b64;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     public List<Role> getRoles() {

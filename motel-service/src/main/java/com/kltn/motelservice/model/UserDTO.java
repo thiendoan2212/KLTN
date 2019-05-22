@@ -19,19 +19,27 @@ public class UserDTO {
 
     private boolean block;
 
+    private String b64;
+
+    private String fileType;
+
     @Enumerated(EnumType.STRING)
     private List<RoleName> role;
 
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String fullName, String email, String address, String phone, boolean block) {
+    public UserDTO(Long id, String fullName, String email, String address, String phone, boolean block, String b64,
+                   String fileType, List<RoleName> role) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.address = address;
         this.phone = phone;
         this.block = block;
+        this.b64 = b64;
+        this.fileType = fileType;
+        this.role = role;
     }
 
     public Long getId() {
@@ -88,5 +96,21 @@ public class UserDTO {
 
     public void setRole(List<RoleName> role) {
         this.role = role;
+    }
+
+    public String getB64() {
+        return b64;
+    }
+
+    public void setB64(String b64) {
+        this.b64 = b64;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 }

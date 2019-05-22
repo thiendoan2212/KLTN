@@ -82,6 +82,8 @@ public class UserServiceImpl implements UserService {
         user.setPhone(userDTO.getPhone());
         user.setFullName(userDTO.getFullName());
         user.setAddress(userDTO.getAddress());
+        user.setB64(userDTO.getB64());
+        user.setFileType(userDTO.getFileType());
 
         return userRepository.save(user);
     }
