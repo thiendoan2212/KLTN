@@ -27,6 +27,7 @@ export class UserPageComponent implements OnInit {
   errorMessage = '';
   updateDialog: MatDialogRef<UpdateUserComponent>;
   changePassDialog: MatDialogRef<ChangePassComponent>;
+  urlAvatar = '';
 
   constructor(private accountService: AccountService,
               private activatedRoute: ActivatedRoute,
@@ -66,6 +67,11 @@ export class UserPageComponent implements OnInit {
     });
     this.accountService.getUserById(this.idUser).subscribe(res => {
       this.user = res;
+      if (this.user.b64) {
+        this.urlAvatar = 'data:' + this.user.fileType + ';base64,' + this.user.b64;
+      } else {
+        this.urlAvatar = '../../assets/avatar.svg';
+      }
     });
   }
 
@@ -97,7 +103,7 @@ export class UserPageComponent implements OnInit {
   openModalUpdateUser() {
     this.updateDialog = this.dialog.open(UpdateUserComponent, {
       hasBackdrop: true,
-      maxHeight: '400px',
+      maxHeight: '600px',
       width: '500px',
     });
     this.updateDialog.afterClosed().subscribe(a => {

@@ -3,7 +3,7 @@ import {Directive, ElementRef, Input, Renderer, OnChanges, SimpleChanges} from '
 @Directive({
   selector: '[appMediaPreview]'
 })
-export class MediaPreviewDirective implements OnChanges{
+export class MediaPreviewDirective implements OnChanges {
 
   @Input() image: any;
 

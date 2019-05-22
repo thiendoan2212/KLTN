@@ -362,7 +362,6 @@ export class UpdatePostComponent implements OnInit {
     if (id != null) {
       this.imageService.deleteAllImage(id).subscribe();
       const formData = new FormData();
-      console.log(this.uploader.queue.length);
       for (const uploader of this.uploader.queue) {
         const fileItem = uploader._file;
         formData.append('files', fileItem);

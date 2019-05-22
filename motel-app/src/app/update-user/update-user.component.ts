@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../model/user';
 import {AccountService} from '../service/account.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material';
+import {FileUploader} from 'ng2-file-upload';
 
 @Component({
   selector: 'app-update-user',
@@ -14,6 +15,11 @@ export class UpdateUserComponent implements OnInit {
   idUser: number;
   loading = false;
   disableSubmit = false;
+  urlAvatar = '';
+  uploader: FileUploader = new FileUploader({
+    isHTML5: true
+  });
+  image;
 
   constructor(private accountService: AccountService,
               private activatedRoute: ActivatedRoute,
@@ -30,8 +36,13 @@ export class UpdateUserComponent implements OnInit {
     });
     this.accountService.getUserById(this.idUser).subscribe(res => {
         this.user = res;
+        if (this.user.b64) {
+          this.urlAvatar = 'data:' + this.user.fileType + ';base64,' + this.user.b64;
+        } else {
+          this.urlAvatar = '../../assets/avatar.svg';
+        }
       }, error => {
-        console.log(error.message);
+        console.log(error.error.message);
       }
     );
   }
@@ -49,5 +60,28 @@ export class UpdateUserComponent implements OnInit {
 
   close() {
     this.dialog.closeAll();
+  }
+
+  changeUploader() {
+    if (this.uploader.queue.length > 1) {
+      this.uploader.queue[0].remove();
+    } else {
+      this.user.fileType = this.uploader.queue[0]._file.type;
+      const file: File = this.uploader.queue[0]._file;
+      const myReader: FileReader = new FileReader();
+      myReader.onloadend = (e) => {
+        this.image = myReader.result.toString().replace('data:' + this.uploader.queue[0]._file.type + ';base64,', '');
+        this.user.b64 = this.image;
+      };
+
+      myReader.readAsDataURL(file);
+    }
+  }
+
+  deleteAvatar() {
+    this.uploader.clearQueue();
+    this.user.fileType = null;
+    this.user.b64 = null;
+    this.urlAvatar = '../../assets/avatar.svg';
   }
 }

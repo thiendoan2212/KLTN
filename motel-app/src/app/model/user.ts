@@ -5,4 +5,6 @@ export class User {
   address: string;
   phone: string;
   block: boolean;
+  b64: string;
+  fileType: string;
 }
