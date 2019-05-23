@@ -351,7 +351,20 @@ public class PostServiceImpl implements PostService {
                     postDTOS.add(postDTO);
                 }
             }
-            postDTOPage = new PageImpl<>(postDTOS, PageRequest.of(page, 10), postDTOS.size());
+            Pageable pageable = PageRequest.of(page, 10);
+
+            int start = (int) pageable.getOffset();
+            int end = (start + pageable.getPageSize()) > postDTOS.size() ? postDTOS.size() : (start + PageRequest.of(page, 10).getPageSize());
+            if (start > end) {
+                int p = Math.round(postDTOS.size() / 10);
+                page = p;
+                pageable = PageRequest.of(page, 10);
+                start = (int) pageable.getOffset();
+                end = (start + pageable.getPageSize()) > postDTOS.size() ? postDTOS.size() : (start + PageRequest.of(page, 10).getPageSize());
+                postDTOPage = new PageImpl<>(postDTOS.subList(start, end), pageable, postDTOS.size());
+            } else {
+                postDTOPage = new PageImpl<>(postDTOS.subList(start, end), pageable, postDTOS.size());
+            }
 
 //            if (sort == 1)
 //                postDTOPage = new PageImpl<>(postDTOS, PageRequest.of(page, 15, Sort.by("accomodationDTO.price").ascending()), postDTOS.size());
