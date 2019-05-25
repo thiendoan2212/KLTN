@@ -78,14 +78,6 @@ export class CreatePostComponent implements OnInit {
     this.innerWidth = window.innerWidth;
     this.setValue();
     this.getDistrict();
-    // this.authService.onTokenChange().subscribe((token: NbAuthOAuth2JWTToken) => {
-    //   if (token.isValid()) {
-    //     this.user = token.getPayload().account;
-    //     this.token = token.getPayload().access_token;
-    //   } else {
-    //     this.router.navigate(['/home']);
-    //   }
-    // });
   }
 
   @HostListener('window:resize', ['$event'])

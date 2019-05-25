@@ -13,7 +13,8 @@ import {Location} from '@angular/common';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent extends NbLoginComponent {
-  // errorEmail = false;
+  showLoadding = false;
+  disableSubmit = false;
   hasError = false;
   dialogRegister: MatDialogRef<RegisterComponent>;
 
@@ -23,13 +24,6 @@ export class LoginComponent extends NbLoginComponent {
               private location: Location) {
     super(authService, options, cd, router);
   }
-
-  // forgot() {
-  //   if (this.user.email === '' || !this.user.email) {
-  //     this.errorEmail = true;
-  //     console.log(this.errorEmail);
-  //   }
-  // }
 
   submitLogin(signIn: NgForm) {
     if (signIn.valid) {
@@ -42,15 +36,18 @@ export class LoginComponent extends NbLoginComponent {
     this.messages = [];
     this.submitted = true;
     this.hasError = false;
+    this.showLoadding = true;
+    this.disableSubmit = true;
 
     this.service.authenticate(this.strategy, this.user).subscribe((result: NbAuthResult) => {
       this.submitted = false;
-
       if (result.isSuccess()) {
         this.messages = result.getMessages();
       } else {
         this.errors = result.getErrors();
         this.hasError = true;
+        this.showLoadding = false;
+        this.disableSubmit = false;
       }
 
       const redirect = this.location.path();
