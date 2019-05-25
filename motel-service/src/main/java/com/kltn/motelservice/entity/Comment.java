@@ -18,6 +18,8 @@ public class Comment {
 
     private LocalDateTime lastUpdate;
 
+    private long rate;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
@@ -30,9 +32,10 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(@NotBlank String content, LocalDateTime lastUpdate, Post post, User user) {
+    public Comment(@NotBlank String content, LocalDateTime lastUpdate, long rate, Post post, User user) {
         this.content = content;
         this.lastUpdate = lastUpdate;
+        this.rate = rate;
         this.post = post;
         this.user = user;
     }
@@ -59,6 +62,14 @@ public class Comment {
 
     public void setLastUpdate(LocalDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    public long getRate() {
+        return rate;
+    }
+
+    public void setRate(long rate) {
+        this.rate = rate;
     }
 
     public Post getPost() {

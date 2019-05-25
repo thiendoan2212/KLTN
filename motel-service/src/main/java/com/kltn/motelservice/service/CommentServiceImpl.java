@@ -6,6 +6,7 @@ import com.kltn.motelservice.entity.User;
 import com.kltn.motelservice.exception.CommentException;
 import com.kltn.motelservice.exception.PostException;
 import com.kltn.motelservice.model.CommentDTO;
+import com.kltn.motelservice.model.UserDTO;
 import com.kltn.motelservice.repository.CommentRepository;
 import com.kltn.motelservice.repository.PostRepository;
 import com.kltn.motelservice.repository.UserRepository;
@@ -14,7 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
+
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -44,8 +48,7 @@ public class CommentServiceImpl implements CommentService {
                 comment.setUser(user.get());
                 commentRepository.save(comment);
                 commentDTO = modelMapper.map(comment, CommentDTO.class);
-                commentDTO.setIdUser(comment.getUser().getId());
-                commentDTO.setFullName(comment.getUser().getFullName());
+                commentDTO.setUserDTO(modelMapper.map(comment.getUser(), UserDTO.class));
                 return commentDTO;
             } else
                 throw new PostException("Không tồn tại post id " + commentDTO.getIdPost());
@@ -55,18 +58,23 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDTO updateComment(Long id, CommentDTO commentDTO) {
+    public CommentDTO updateComment(Long id, CommentDTO commentDTO, String email) {
         try {
             Optional<Comment> comment = commentRepository.findById(id);
             if (!comment.isPresent())
                 throw new CommentException("Comment id " + id + "không tồn tại!!!");
             else {
-                commentDTO.setId(id);
-                comment.get().setContent(commentDTO.getContent());
-                comment.get().setLastUpdate(LocalDateTime.now());
-                commentRepository.save(comment.get());
-                commentDTO = modelMapper.map(comment.get(), CommentDTO.class);
-                return commentDTO;
+                if (comment.get().getUser().equals(email)) {
+                    commentDTO.setId(id);
+                    comment.get().setContent(commentDTO.getContent());
+                    comment.get().setLastUpdate(LocalDateTime.now());
+                    commentRepository.save(comment.get());
+                    commentDTO = modelMapper.map(comment.get(), CommentDTO.class);
+                    return commentDTO;
+                }
+                else {
+                    throw new AccessDeniedException("Access dined");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,8 +105,7 @@ public class CommentServiceImpl implements CommentService {
                 Page<Comment> commentPage = commentRepository.findAllByPost(post.get(), PageRequest.of(page, 10, Sort.by("lastUpdate")));
                 Page<CommentDTO> commentDTOPage = commentPage.map(comment -> {
                     CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
-                    commentDTO.setIdUser(comment.getUser().getId());
-                    commentDTO.setFullName(comment.getUser().getFullName());
+                    commentDTO.setUserDTO(modelMapper.map(comment.getUser(), UserDTO.class));
                     return commentDTO;
                 });
 
