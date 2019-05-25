@@ -16,8 +16,6 @@ public class User {
     @NotBlank
     private String email;
 
-    @NotBlank
-//    @Size(min = 3, max = 50)
     private String fullName;
 
     @NotBlank

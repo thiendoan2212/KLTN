@@ -12,6 +12,9 @@ import com.kltn.motelservice.model.AccountDto;
 import com.kltn.motelservice.model.UserDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  *
@@ -34,4 +37,6 @@ public interface UserService {
     User changeProfile(UserDTO userDTO);
 
     User registration(AccountDto accountDto);
+
+    void changeAvatar(Long id, MultipartFile file) throws IOException;
 }

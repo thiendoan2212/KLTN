@@ -8,13 +8,11 @@ public class AccountDto {
 
     private String fullName;
 
-    public AccountDto() {
-    }
+    private String address;
 
-    public AccountDto(String email, String password, String fullName) {
-        this.email = email;
-        this.password = password;
-        this.fullName = fullName;
+    private String phone;
+
+    public AccountDto() {
     }
 
     public String getEmail() {
@@ -39,5 +37,21 @@ public class AccountDto {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

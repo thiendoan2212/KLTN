@@ -14,13 +14,17 @@ import com.kltn.motelservice.model.AccountDto;
 import com.kltn.motelservice.model.UserDTO;
 import com.kltn.motelservice.repository.RoleRepository;
 import com.kltn.motelservice.repository.UserRepository;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Base64;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -93,11 +97,23 @@ public class UserServiceImpl implements UserService {
         userRepository.findByEmail(accountDto.getEmail()).ifPresent((user) -> new UserException("Email đã tồn tại"));
 
         User user = new User();
-        user.setFullName(accountDto.getFullName());
+        if (accountDto.getFullName().trim().length() <= 0)
+            user.setFullName(user.getEmail());
+        else
+            user.setFullName(accountDto.getFullName());
         user.setEmail(accountDto.getEmail());
+        user.setAddress(accountDto.getAddress());
+        user.setPhone(accountDto.getPhone());
         user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
         user.setRoles(Arrays.asList(selectRoleByName(RoleName.ROLE_USER)));
         return userRepository.save(user);
+    }
+
+    @Override
+    public void changeAvatar(Long id, MultipartFile file) throws IOException {
+        User user = userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id, User.class.getSimpleName()));
+        user.setB64(Base64.getEncoder().encodeToString(file.getBytes()));
+        userRepository.save(user);
     }
 
 

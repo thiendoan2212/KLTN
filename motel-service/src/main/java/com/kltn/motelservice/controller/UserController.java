@@ -15,6 +15,10 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.AbstractMap;
 
 @RestController
 @RequestMapping("/api/users")
@@ -86,7 +90,7 @@ public class UserController {
     // registration flow
 
     @GetMapping("/check")
-    public boolean checkExistUser(@RequestParam("email") String email){
+    public boolean checkExistUser(@RequestParam("email") String email) {
         return (userService.selectUserByEmail(email) != null);
     }
 
@@ -96,45 +100,21 @@ public class UserController {
         return mapper.entityToDTO(user);
     }
 
-//    @RequestMapping(value = "/u/registrationConfirm", method = RequestMethod.GET)
-//    public String confirmRegistration(Locale locale, Model model,
-//                                      @RequestParam(name = "token", defaultValue = "") String token) {
-//
-//        // tìm token trong db
-//        Optional<VerificationToken> verificationToken
-//                = Optional.of(token).map(userService::getVerificationToken);
-//
-//        // token không tồn tại
-//        if (!verificationToken.isPresent()) {
-//            String message = messages.getMessage("auth.message.invalidToken", null, locale);
-//            model.addAttribute("message", message);
-//            return "signup/badConfirmPage";
-//        }
-//
-//        // kiểm tra liệu tài khoản này đã xác nhận chưa
-//        Optional<User> user = verificationToken.map(VerificationToken::getUser);
-//        if (user.get().isEnabled()) {
-//            String message = messages.getMessage("message.activitedEmail", null, locale);
-//            model.addAttribute("message", message);
-//            return "signup/badConfirmPage";
-//        }
-//
-//        Calendar cal = Calendar.getInstance();
-//        // kiểm tra thời hạn token
-//        if (verificationToken.map(VerificationToken::getExpiryDate).get()
-//                .before(cal.getTime())) {
-//            String message = messages.getMessage("auth.message.expired", null, locale);
-//            model.addAttribute("message", message);
-//            model.addAttribute("mailAddress", user.map(User::getEmail).get());
-//            return "signup/badConfirmPage";
-//        }
-//
-//        User u = user.orElse(new User());
-//        u.setEnabled(true);
-//        userService.saveRegisteredUser(u);
-//        model.addAttribute("user", u);
-//        return "signin/loginPage";
-//    }
+    @GetMapping("/{id}/avatar")
+    @PreAuthorize("#oauth2.hasAnyScope('read')") // for authenticated request (logged)
+    public AbstractMap.SimpleEntry<String, String> getAvatar(@PathVariable("id") Long id, OAuth2Authentication auth) {
+        if (!validRequest(auth, id)) throw new AccessDeniedException("Access dined");
+        return new AbstractMap.SimpleEntry<>("data", userService.selectUserById(id).getB64());
+    }
+
+    @PostMapping("/{id}/avatar")
+    @PreAuthorize("#oauth2.hasAnyScope('read')") // for authenticated request (logged)
+    public AbstractMap.SimpleEntry<String, String> uploadAvatar(@PathVariable("id") Long id, OAuth2Authentication auth,
+                                                                @RequestParam("avatar")MultipartFile file) throws IOException {
+        if (!validRequest(auth, id)) throw new AccessDeniedException("Access dined");
+        userService.changeAvatar(id, file);
+        return getAvatar(id, auth);
+    }
 
     //user request change profile or admin
     public boolean validRequest(OAuth2Authentication auth, Long userId) {
