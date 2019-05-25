@@ -26,8 +26,8 @@
     <!--<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">-->
     <!--<button type="button" class="forgot" name="forgot" mdbWavesEffect (click)="signIn.resetForm(); forgot()">Quên mật khẩu?</button>-->
     <!--</div>-->
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <p class="error" *ngIf="hasError" style="margin-bottom: 0px!important;">Sai thông tin tài khoản</p>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="hasError">
+      <p class="error" style="margin-bottom: 0px!important;">Sai thông tin tài khoản</p>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
       <button name="login" class="btnLogin" mdbWavesEffect (click)="submitLogin(signIn)">Đăng nhập</button>

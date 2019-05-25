@@ -50,6 +50,7 @@ import {MapsSearchComponent} from './maps-search/maps-search.component';
 import {UpdateUserComponent} from './update-user/update-user.component';
 import { ChangePassComponent } from './change-pass/change-pass.component';
 import { NotfoundPageComponent } from './notfound-page/notfound-page.component';
+import {AuthGuard} from './auth/auth-guard.service';
 
 const authConfig: NbOAuth2AuthStrategyOptions = {
   name: 'userpass',
@@ -144,12 +145,13 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     MatRippleModule
   ],
   providers: [
+    AuthGuard,
     {provide: NB_WINDOW, useValue: window},
     {provide: HTTP_INTERCEPTORS, useClass: NbAuthJWTInterceptor, multi: true},
     {
       provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER, useValue: (req: HttpRequest<any>) => {
         return (req.url.indexOf('oauth/token') >= 0 && req.body != null
-          && JSON.stringify(req.body).indexOf('grant_type=') >= 0);
+          && JSON.stringify(req.body).indexOf('grant_type=') >= 0) || req.url.indexOf('https://maps.googleapis.com/') >= 0;
       }
     },
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}

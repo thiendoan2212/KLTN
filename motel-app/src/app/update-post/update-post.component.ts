@@ -216,8 +216,6 @@ export class UpdatePostComponent implements OnInit {
     this.geocodingApiService
       .findFromAddress(this.postDTO.accomodationDTO.address).subscribe(response => {
       if (response.status === 'OK') {
-        // this.lat = response.results[0].geometry.location.lat;
-        // this.lng = response.results[0].geometry.location.lng;
         this.postDTO.accomodationDTO.xCoordinate = response.results[0].geometry.location.lat;
         this.postDTO.accomodationDTO.yCoordinate = response.results[0].geometry.location.lng;
       } else if (response.status === 'ZERO_RESULTS') {
@@ -280,84 +278,6 @@ export class UpdatePostComponent implements OnInit {
     );
   }
 
-  // addImageForPost(id: number) {
-  //   this.uploaderUpdate = _.cloneDeep(this.uploader);
-  //   console.log(this.images);
-  //   for (const image of this.images) {
-  //     image.uri = 'data:' + image.fileType + ';base64,' + image.uri;
-  //     const dataBlob = this.imageHandler.getBlob(image.uri, image.fileType);
-  //     const file = new File([dataBlob], image.fileName, {type: image.fileType});
-  //     const objectOriginal: UpdateImage = new UpdateImage();
-  //     objectOriginal.id = image.id;
-  //     objectOriginal.file = file;
-  //     console.log(objectOriginal);
-  //     this.uploaderOriginal.push(objectOriginal);
-  //     console.log(this.uploaderOriginal);
-  //   }
-  //   if (this.uploaderOriginal.length === 1) {
-  //     for (const uploaderU of this.uploaderUpdate.queue) {
-  //       if (this.uploaderOriginal[0].file.size === uploaderU._file.size) {
-  //         this.uploaderOriginal.splice(0, 1);
-  //         uploaderU.remove();
-  //       }
-  //     }
-  //   } else {
-  //     for (let i = 0; i < this.uploaderOriginal.length; i++) {
-  //       for (const uploaderU of this.uploaderUpdate.queue) {
-  //         if (this.uploaderOriginal[i].file.size === uploaderU._file.size) {
-  //           this.uploaderOriginal.splice(i, 1);
-  //           uploaderU.remove();
-  //         }
-  //       }
-  //     }
-  //   }
-  //   // for (let i = 0; i < this.uploaderOriginal.length; i++) {
-  //   //   for (const uploaderU of this.uploaderUpdate.queue) {
-  //   //     if (this.uploaderOriginal[i].file.size === uploaderU._file.size) {
-  //   //       this.uploaderOriginal.splice(i, 1);
-  //   //       uploaderU.remove();
-  //   //     }
-  //   //   }
-  //   // }
-  //
-  //   const listId: Array<string> = [];
-  //   if (this.uploaderOriginal.length > 0) {
-  //     console.log('upOri > 0');
-  //     for (const ori of this.uploaderOriginal) {
-  //       listId.push(ori.id);
-  //     }
-  //     console.log(listId);
-  //     this.imageService.deleteImage(listId).subscribe(
-  //       data => {
-  //       },
-  //       error => {
-  //         this.errorMessage = error.error.message;
-  //       }
-  //     );
-  //   }
-  //   if (this.uploaderUpdate.queue.length > 0) {
-  //     console.log('upUpd > 0');
-  //     for (const uploader of this.uploaderUpdate.queue) {
-  //       const formData = new FormData();
-  //       const fileItem = uploader._file;
-  //       formData.append('file', fileItem);
-  //       this.imageService.addImageForPost(id, formData).subscribe(
-  //         data => {
-  //           this.imageDTO = Object.assign({}, data);
-  //         },
-  //         error => {
-  //           this.errorMessage = error.error.message;
-  //         }
-  //       );
-  //     }
-  //     this.showNoti = true;
-  //     this.showLoadding = false;
-  //     setTimeout(() => {
-  //       this.router.navigate(['/home']);
-  //     }, 5000);
-  //   }
-  // }
-
   addImageForPost(id: number) {
     if (id != null) {
       this.imageService.deleteAllImage(id).subscribe();
@@ -373,7 +293,6 @@ export class UpdatePostComponent implements OnInit {
             this.showNoti = true;
             this.showLoadding = false;
             setTimeout(() => {
-              // this.router.navigate(['/user'], {queryParams: {id: this.postDTO.userDTO.id}, skipLocationChange: false});
               this.location.back();
             }, 5000);
           }
@@ -393,9 +312,5 @@ export class UpdatePostComponent implements OnInit {
       this.showError = false;
       this.showRequired = false;
     }
-  }
-
-  back() {
-    this.location.back();
   }
 }

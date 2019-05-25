@@ -9,15 +9,20 @@ import {SearchPageComponent} from './search-page/search-page.component';
 import {UpdatePostComponent} from './update-post/update-post.component';
 import {UserPageComponent} from './user-page/user-page.component';
 import {LogoutComponent} from './logout/logout.component';
+import {AuthGuard} from './auth/auth-guard.service';
 
 const routes: Routes = [
+  {
+    path: 'create-post',
+    canActivate: [AuthGuard], // here we tell Angular to check the access with our AuthGuard
+    component: CreatePostComponent
+  },
   {path: 'user', component: UserPageComponent},
   {path: 'update', component: UpdatePostComponent},
   {path: 'result', component: SearchPageComponent},
   {path: 'house', component: HousePageComponent},
   {path: 'motel', component: MotelPageComponent},
   {path: 'post', component: DetailPostComponent},
-  {path: 'create-post', component: CreatePostComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomePageComponent},
   {path: 'logout', component: LogoutComponent}

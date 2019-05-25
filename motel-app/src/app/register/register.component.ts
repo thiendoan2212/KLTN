@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
     this.dialog.closeAll();
     this.dialog.open(LoginComponent, {
       hasBackdrop: true,
-      height: '370px',
+      maxHeight: '370px',
       width: '500px',
     });
   }

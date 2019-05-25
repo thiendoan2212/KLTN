@@ -51,7 +51,7 @@ export class NavBarComponent implements OnInit {
   login() {
     this.dialogLogin = this.dialog.open(LoginComponent, {
       hasBackdrop: true,
-      height: '370px',
+      maxHeight: '370px',
       width: '500px',
     });
   }

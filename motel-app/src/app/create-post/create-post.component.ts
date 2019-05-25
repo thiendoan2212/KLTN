@@ -78,14 +78,14 @@ export class CreatePostComponent implements OnInit {
     this.innerWidth = window.innerWidth;
     this.setValue();
     this.getDistrict();
-    this.authService.onTokenChange().subscribe((token: NbAuthOAuth2JWTToken) => {
-      if (token.isValid()) {
-        this.user = token.getPayload().account;
-        this.token = token.getPayload().access_token;
-      } else {
-        this.router.navigate(['/home']);
-      }
-    });
+    // this.authService.onTokenChange().subscribe((token: NbAuthOAuth2JWTToken) => {
+    //   if (token.isValid()) {
+    //     this.user = token.getPayload().account;
+    //     this.token = token.getPayload().access_token;
+    //   } else {
+    //     this.router.navigate(['/home']);
+    //   }
+    // });
   }
 
   @HostListener('window:resize', ['$event'])
@@ -127,35 +127,19 @@ export class CreatePostComponent implements OnInit {
   }
 
   updateLatLngFromAddress() {
-    let response: any;
-    // this.geocodingApiService
-    //   .findFromAddress(this.postDTO.accomodationDTO.address).subscribe(response => {
-    //   if (response.status === 'OK') {
-    //     // this.lat = response.results[0].geometry.location.lat;
-    //     // this.lng = response.results[0].geometry.location.lng;
-    //     this.postDTO.accomodationDTO.xCoordinate = response.results[0].geometry.location.lat;
-    //     this.postDTO.accomodationDTO.yCoordinate = response.results[0].geometry.location.lng;
-    //     console.log('GEO ' + this.postDTO.accomodationDTO.xCoordinate);
-    //     console.log('GEO ' + this.postDTO.accomodationDTO.yCoordinate);
-    //   } else if (response.status === 'ZERO_RESULTS') {
-    //     console.log('geocodingAPIService', 'ZERO_RESULTS', response.status);
-    //   } else {
-    //     console.log('geocodingAPIService', 'Other error', response.status);
-    //   }
-    // });
-    response = this.geocodingApiService.findFromAddress(this.postDTO.accomodationDTO.address);
-    if (response) {
+    this.geocodingApiService
+      .findFromAddress(this.postDTO.accomodationDTO.address).subscribe(response => {
       if (response.status === 'OK') {
         this.postDTO.accomodationDTO.xCoordinate = response.results[0].geometry.location.lat;
         this.postDTO.accomodationDTO.yCoordinate = response.results[0].geometry.location.lng;
-        // console.log('GEO ' + this.postDTO.accomodationDTO.xCoordinate);
-        // console.log('GEO ' + this.postDTO.accomodationDTO.yCoordinate);
+        console.log('GEO ' + this.postDTO.accomodationDTO.xCoordinate);
+        console.log('GEO ' + this.postDTO.accomodationDTO.yCoordinate);
       } else if (response.status === 'ZERO_RESULTS') {
         console.log('geocodingAPIService', 'ZERO_RESULTS', response.status);
       } else {
         console.log('geocodingAPIService', 'Other error', response.status);
       }
-    }
+    });
   }
 
   createPost() {
