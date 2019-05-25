@@ -6,8 +6,12 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="/home">Trang chủ</a></li>
-        <li class="breadcrumb-item" *ngIf="postDTO.accomodationDTO.motel"><a [routerLink]="['/motel']" [queryParams]="{page: 1}">Phòng trọ</a></li>
-        <li class="breadcrumb-item" *ngIf="!postDTO.accomodationDTO.motel"><a [routerLink]="['/house']" [queryParams]="{page: 1}">Nhà nguyên căn</a></li>
+        <li class="breadcrumb-item" *ngIf="postDTO.accomodationDTO.motel"><a [routerLink]="['/motel']"
+                                                                             [queryParams]="{page: 1}">Phòng trọ</a>
+        </li>
+        <li class="breadcrumb-item" *ngIf="!postDTO.accomodationDTO.motel"><a [routerLink]="['/house']"
+                                                                              [queryParams]="{page: 1}">Nhà nguyên
+          căn</a></li>
       </ol>
     </nav>
   </div>
@@ -19,7 +23,9 @@
         <h3 id="tenbaiviet">{{postDTO.title}}</h3>
       </div>
       <div class="text-right" style="display: inline; float: right;" *ngIf="postDTO.userDTO.email === auth.email">
-        <button [disabled]="(!postDTO.approved && !postDTO.notApproved)" id="btnUpdate" (click)="navigateToUpdate(postDTO.id)">Cập nhật</button>
+        <button [disabled]="(!postDTO.approved && !postDTO.notApproved)" id="btnUpdate"
+                (click)="navigateToUpdate(postDTO.id)">Cập nhật
+        </button>
       </div>
     </div>
   </div>
@@ -237,7 +243,17 @@
             <p class="noidung" *ngIf="totalElements === 0">Chưa có bình luận nào</p>
             <div class="text-content"
                  *ngFor="let commentDTO of commentDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
-              <a><p class="ten" (click)="navigateToUser(commentDTO.idUser)">{{commentDTO.fullName}}</p></a>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div class="avatar">
+                    <a [routerLink]="['/user']" [queryParams]="{id: commentDTO.userDTO.id}"><img class="avatar" [src]="commentDTO.userDTO.b64"></a>
+                  </div>
+                  <div class="name">
+                    <a><p class="ten" [routerLink]="['/user']" [queryParams]="{id: commentDTO.userDTO.id}">{{commentDTO.userDTO.fullName}}</p>
+                    </a>
+                  </div>
+                </div>
+              </div>
               <p class="noidung">{{commentDTO.content}}</p>
               <p class="gio">{{commentDTO.lastUpdate | date:'d/M/yyyy, h:mm a'}}</p>
             </div>

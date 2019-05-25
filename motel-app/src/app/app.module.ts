@@ -64,7 +64,12 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     class: NbAuthOAuth2JWTToken,
     // scope: 'read',
     requireValidToken: true
-  }
+  },
+  refresh: {
+    endpoint: '/oauth/token',
+    grantType: NbOAuth2GrantType.REFRESH_TOKEN,
+    requireValidToken: true
+  },
 };
 
 @NgModule({

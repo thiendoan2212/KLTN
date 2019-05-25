@@ -9,7 +9,8 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <p class="username">Email <span *ngIf="(signIn.submitted && !user.email)"
                                       class="error"> - Thông tin này là bắt buộc</span>
-          <span class="error" *ngIf="signIn.submitted && email.errors?.pattern"> - Vui lòng nhập chính xác định dạng email</span>
+        <span class="error"
+              *ngIf="signIn.submitted && email.errors?.pattern"> - Vui lòng nhập chính xác định dạng email</span>
       </p>
       <input type="email" class="form-control" id="email" required pattern=".+@.+\..+"
              [(ngModel)]="user.email" name="email" #email="ngModel"
@@ -30,7 +31,9 @@
       <p class="error" style="margin-bottom: 0px!important;">Sai thông tin tài khoản</p>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-      <button name="login" class="btnLogin" mdbWavesEffect (click)="submitLogin(signIn)">Đăng nhập</button>
+      <button name="login" class="btnLogin" mdbWavesEffect [disabled]="disableSubmit" (click)="submitLogin(signIn)">
+        <span *ngIf="showLoadding" class="spinner-border spinner-border-sm"></span> Đăng nhập
+      </button>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <p class="register">Tạo tài khoản? <span><button type="button" id="register" name="register" mdbWavesEffect

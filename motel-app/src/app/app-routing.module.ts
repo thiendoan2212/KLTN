@@ -12,13 +12,9 @@ import {LogoutComponent} from './logout/logout.component';
 import {AuthGuard} from './auth/auth-guard.service';
 
 const routes: Routes = [
-  {
-    path: 'create-post',
-    canActivate: [AuthGuard], // here we tell Angular to check the access with our AuthGuard
-    component: CreatePostComponent
-  },
+  {path: 'create-post', component: CreatePostComponent, canActivate: [AuthGuard]},
   {path: 'user', component: UserPageComponent},
-  {path: 'update', component: UpdatePostComponent},
+  {path: 'update', component: UpdatePostComponent, canActivate: [AuthGuard]},
   {path: 'result', component: SearchPageComponent},
   {path: 'house', component: HousePageComponent},
   {path: 'motel', component: MotelPageComponent},

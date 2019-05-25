@@ -18,27 +18,25 @@ public class CommentController {
     @Autowired
     CommentServiceImpl commentService;
 
-//    @GetMapping("/comments/post/{id}")
-//    public List<CommentDTO> getCommentByIdPost(@PathVariable Long id) {
-//        return commentService.getCommentByIdPost(id);
-//    }
-
     @GetMapping("/comments/post/{id}")
     public Page<CommentDTO> getComment(@PathVariable Long id, @RequestParam("page") int page) {
         return commentService.getCommentByIdPost(id, page);
     }
 
     @PostMapping("/comment/post")
+    @PreAuthorize("#oauth2.hasAnyScope('read')")
     public CommentDTO createComment(@RequestBody CommentDTO commentDTO, OAuth2Authentication auth) {
         return commentService.createComment(commentDTO, auth.getName());
     }
 
     @PutMapping("/comment/{id}")
-    public CommentDTO updateComment(@PathVariable Long id, @RequestBody CommentDTO commentDTO) {
-        return commentService.updateComment(id, commentDTO);
+    @PreAuthorize("#oauth2.hasAnyScope('read')")
+    public CommentDTO updateComment(@PathVariable Long id, @RequestBody CommentDTO commentDTO, OAuth2Authentication auth) {
+        return commentService.updateComment(id, commentDTO, auth.getName());
     }
 
     @DeleteMapping("/comment/{id}")
+    @PreAuthorize("#oauth2.hasAnyScope('read')")
     public String deleteComment(@PathVariable Long id) {
         return commentService.deleteComment(id);
     }
