@@ -48,9 +48,10 @@ import {LogoutComponent} from './logout/logout.component';
 import {RegisterComponent} from './register/register.component';
 import {MapsSearchComponent} from './maps-search/maps-search.component';
 import {UpdateUserComponent} from './update-user/update-user.component';
-import { ChangePassComponent } from './change-pass/change-pass.component';
-import { NotfoundPageComponent } from './notfound-page/notfound-page.component';
+import {ChangePassComponent} from './change-pass/change-pass.component';
+import {NotfoundPageComponent} from './notfound-page/notfound-page.component';
 import {AuthGuard} from './auth/auth-guard.service';
+import {StarRatingModule} from 'angular-star-rating';
 
 const authConfig: NbOAuth2AuthStrategyOptions = {
   name: 'userpass',
@@ -100,6 +101,7 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     NotfoundPageComponent,
   ],
   imports: [
+    StarRatingModule.forRoot(),
     NbAuthModule.forRoot({
       strategies: [
         NbOAuth2AuthStrategy.setup(authConfig)

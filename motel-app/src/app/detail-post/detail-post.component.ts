@@ -9,6 +9,7 @@ import {CommentService} from '../service/comment.service';
 import {PaginationDTO} from '../model/paginationDTO';
 import {User} from '../model/user';
 import {NbAuthOAuth2JWTToken, NbAuthService} from '@nebular/auth';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-detail-post',
@@ -31,6 +32,7 @@ export class DetailPostComponent implements OnInit {
   commentDTO: CommentDTO = new CommentDTO();
   auth: User = new User();
   notFound = false;
+  errorRate = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private postService: PostService,
@@ -102,8 +104,16 @@ export class DetailPostComponent implements OnInit {
     this.commentService.getComment(this.idPost, this.page - 1).subscribe(
       data => {
         this.paginationDTO.content = data;
+        console.log(data);
         this.commentDTOs = this.paginationDTO.content.content;
         this.totalElements = this.paginationDTO.content.totalElements;
+        for (const comment of this.commentDTOs) {
+          if (comment.userDTO.b64) {
+            comment.userDTO.b64 = 'data:' + comment.userDTO.fileType + ';base64,' + comment.userDTO.b64;
+          } else {
+            comment.userDTO.b64 = '../../assets/avatar.svg';
+          }
+        }
       },
       error => {
         this.errorMessage = error.error.message;
@@ -116,23 +126,32 @@ export class DetailPostComponent implements OnInit {
     this.getComment();
   }
 
-  createComment() {
-    this.commentDTO.idPost = this.idPost;
-    // this.commentDTO.idUser = this.user.id;
-    this.commentService.createComment(this.commentDTO).subscribe(
-      data => {
-        this.commentDTO = data;
-        this.commentDTO.content = '';
-        this.getComment();
-      }, error => {
-        console.log(error.error.message);
-      }
-    )
-    ;
+  createComment(bl: NgForm) {
+    if (this.commentDTO.rate === 0 || !this.commentDTO.rate) {
+      this.errorRate = true;
+      console.log('Error Rate');
+    } else {
+      console.log('OK');
+      this.commentDTO.idPost = this.idPost;
+      console.log(this.commentDTO.rate);
+      this.commentService.createComment(this.commentDTO).subscribe(
+        data => {
+          this.commentDTO = data;
+          this.commentDTO.rate = 0;
+          bl.resetForm();
+          this.getComment();
+        }, error => {
+          console.log(error.error.message);
+        }
+      );
+    }
   }
 
   navigateToUser(idUser: number) {
     this.router.navigate(['/user'], {queryParams: {id: idUser}, skipLocationChange: false});
   }
 
+  onRatingChange($event: any) {
+    this.commentDTO.rate = $event.rating;
+  }
 }

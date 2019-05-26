@@ -6,4 +6,5 @@ export class CommentDTO {
   lastUpdate: string;
   idPost: number;
   userDTO: User;
+  rate: number;
 }

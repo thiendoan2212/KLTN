@@ -184,14 +184,15 @@ agm-map {
 }
 
 .ten:hover {
-  color: red;
+  text-decoration: underline;
 }
 
 .ten {
   margin-bottom: 3px;
-  color: #212121;
+  color: #212121!important;
   font-weight: 500;
   font-size: 17px;
+  width: fit-content;
 }
 
 .noidung {
@@ -207,7 +208,7 @@ agm-map {
 }
 
 #comment {
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .btnPost {
@@ -245,20 +246,35 @@ button[disabled] {
   opacity: 0.65;
 }
 
-.avatar {
-  float: left;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+#avatarUser {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
 .name {
   width: auto;
-  margin-left: 60px;
+  display: inline;
+}
+
+.avatar {
+  display: inline;
+  float: left;
+  border-radius: 50%;
 }
 
 imageAvatar {
   float: left;
   background-size: cover;
+}
+
+.star-rating {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+.error {
+  color: #dc3545;
+  font-weight: 400;
 }
