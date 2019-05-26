@@ -40,11 +40,10 @@ public class CommentServiceImpl implements CommentService {
         try {
             Optional<Post> post = postRepository.findById(commentDTO.getIdPost());
             if (post.isPresent()) {
-                Comment comment = new Comment();
-                comment.setContent(commentDTO.getContent());
+                Comment comment;
+                comment = modelMapper.map(commentDTO, Comment.class);
                 comment.setLastUpdate(LocalDateTime.now());
                 Optional<User> user = userRepository.findByEmail(email);
-                comment.setPost(post.get());
                 comment.setUser(user.get());
                 commentRepository.save(comment);
                 commentDTO = modelMapper.map(comment, CommentDTO.class);
@@ -102,7 +101,7 @@ public class CommentServiceImpl implements CommentService {
         try {
             Optional<Post> post = postRepository.findById(idPost);
             if (post.isPresent()) {
-                Page<Comment> commentPage = commentRepository.findAllByPost(post.get(), PageRequest.of(page, 10, Sort.by("lastUpdate")));
+                Page<Comment> commentPage = commentRepository.findAllByPost(post.get(), PageRequest.of(page, 10, Sort.by("lastUpdate").descending()));
                 Page<CommentDTO> commentDTOPage = commentPage.map(comment -> {
                     CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
                     commentDTO.setUserDTO(modelMapper.map(comment.getUser(), UserDTO.class));
