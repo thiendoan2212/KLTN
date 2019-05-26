@@ -35,7 +35,7 @@ public class UserController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')") // only ADMIN can get list users
-    public Page<UserDTO> getAlLUser(@PageableDefault(page = 0, size = 12) Pageable page) {
+    public Page<UserDTO> getAlLUser(@PageableDefault(page = 0, size = 20) Pageable page) {
         return userService.selectPageOfUsers(page).map(mapper::entityToDTO);
     }
 
@@ -112,8 +112,17 @@ public class UserController {
     public AbstractMap.SimpleEntry<String, String> uploadAvatar(@PathVariable("id") Long id, OAuth2Authentication auth,
                                                                 @RequestParam("avatar")MultipartFile file) throws IOException {
         if (!validRequest(auth, id)) throw new AccessDeniedException("Access dined");
-        userService.changeAvatar(id, file);
+        userService.changeAvatar(id, file.getBytes());
         return getAvatar(id, auth);
+    }
+
+    @DeleteMapping("/{id}/avatar")
+    @PreAuthorize("#oauth2.hasAnyScope('read')") // for authenticated request (logged)
+    public AbstractMap.SimpleEntry<String, String> removeAvatar(@PathVariable("id") Long id, OAuth2Authentication auth) {
+        if (!validRequest(auth, id)) throw new AccessDeniedException("Access dined");
+        AbstractMap.SimpleEntry<String, String> avatar = getAvatar(id, auth);
+        userService.changeAvatar(id, new byte[]{});
+        return avatar;
     }
 
     //user request change profile or admin

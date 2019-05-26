@@ -38,5 +38,5 @@ public interface UserService {
 
     User registration(AccountDto accountDto);
 
-    void changeAvatar(Long id, MultipartFile file) throws IOException;
+    void changeAvatar(Long id, byte[] fileBytes);
 }
