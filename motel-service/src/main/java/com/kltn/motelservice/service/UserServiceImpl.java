@@ -110,9 +110,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changeAvatar(Long id, MultipartFile file) throws IOException {
+    public void changeAvatar(Long id, byte[] fileBytes) {
         User user = userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id, User.class.getSimpleName()));
-        user.setB64(Base64.getEncoder().encodeToString(file.getBytes()));
+        user.setB64(Base64.getEncoder().encodeToString(fileBytes));
         userRepository.save(user);
     }
 
