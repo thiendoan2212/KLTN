@@ -63,9 +63,10 @@ public class CommentServiceImpl implements CommentService {
             if (!comment.isPresent())
                 throw new CommentException("Comment id " + id + "không tồn tại!!!");
             else {
-                if (comment.get().getUser().equals(email)) {
+                if (comment.get().getUser().getEmail().equals(email)) {
                     commentDTO.setId(id);
                     comment.get().setContent(commentDTO.getContent());
+                    comment.get().setRate(commentDTO.getRate());
                     comment.get().setLastUpdate(LocalDateTime.now());
                     commentRepository.save(comment.get());
                     commentDTO = modelMapper.map(comment.get(), CommentDTO.class);
