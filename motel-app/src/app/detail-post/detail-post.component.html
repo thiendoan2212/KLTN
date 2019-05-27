@@ -246,6 +246,11 @@
               <div class="text-right">
                 <button class="btnPost" mdbWavesEffect>Gửi</button>
               </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div class="border-bottom" style="margin-bottom: 10px;"></div>
+                </div>
+              </div>
             </form>
             <p class="noidung" *ngIf="totalElements === 0">Chưa có bình luận nào</p>
             <div class="text-content"
@@ -261,13 +266,23 @@
                       <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
                         <a class="ten" [routerLink]="['/user']"
                            [queryParams]="{id: commentDTO.userDTO.id}">{{commentDTO.userDTO.fullName}}</a>
-                      </div>
-                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                      </div><!--<i class="fas fa-ellipsis-h"></i>-->
+                      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" *ngIf="auth.email === commentDTO.userDTO.email">
                         <div class="d-flex justify-content-end">
-                          <i class="fas fa-ellipsis-h"></i>
+                          <div class="btn-group" mdbDropdown>
+                            <button mdbDropdownToggle type="button" class="nav-link waves-light"
+                                    mdbWavesEffect style="padding: 0px;">
+                              <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-primary"
+                                 [ngClass]="{'dropdown-menu-right': innerWidth<1200}">
+                              <a class="dropdown-item">Chỉnh sửa</a>
+                              <a class="dropdown-item" (click)="deleteComment(commentDTO.id)">Xóa</a>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      </div>
+                    </div>
                     <div class="row">
                       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="d-flex justify-content-start">

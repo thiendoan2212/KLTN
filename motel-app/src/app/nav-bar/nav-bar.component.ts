@@ -27,7 +27,6 @@ export class NavBarComponent implements OnInit {
       if (token.isValid()) {
         this.user = token.getPayload().account;
         this.dialog.closeAll();
-        // this.dialogRef.close();
       }
     });
   }

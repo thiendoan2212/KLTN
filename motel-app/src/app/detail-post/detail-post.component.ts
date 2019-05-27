@@ -33,6 +33,7 @@ export class DetailPostComponent implements OnInit {
   auth: User = new User();
   notFound = false;
   errorRate = false;
+  public innerWidth: any;
 
   constructor(private activatedRoute: ActivatedRoute,
               private postService: PostService,
@@ -42,8 +43,13 @@ export class DetailPostComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.innerWidth = window.innerWidth;
     this.getUser();
     this.getPostById();
+  }
+
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
   }
 
   navigateToUpdate(idPost: number) {
@@ -104,7 +110,6 @@ export class DetailPostComponent implements OnInit {
     this.commentService.getComment(this.idPost, this.page - 1).subscribe(
       data => {
         this.paginationDTO.content = data;
-        console.log(data);
         this.commentDTOs = this.paginationDTO.content.content;
         this.totalElements = this.paginationDTO.content.totalElements;
         for (const comment of this.commentDTOs) {
@@ -153,5 +158,28 @@ export class DetailPostComponent implements OnInit {
 
   onRatingChange($event: any) {
     this.commentDTO.rate = $event.rating;
+  }
+
+  editComment(id: number, commentDTO: CommentDTO) {
+    this.commentService.editComment(id, commentDTO).subscribe(
+      data => {
+        commentDTO = data;
+        this.getComment();
+      },
+      error => {
+        this.errorMessage = error.error.message;
+      }
+    );
+  }
+
+  deleteComment(id: number) {
+    this.commentService.deleteComment(id).subscribe(
+      data => {
+      },
+      error => {
+        this.errorMessage = error.error.message;
+      }
+    );
+    this.getComment();
   }
 }
