@@ -34,6 +34,9 @@ export class DetailPostComponent implements OnInit {
   notFound = false;
   errorRate = false;
   public innerWidth: any;
+  disableSubmit = false;
+  // commentEdit: CommentDTO = new CommentDTO();
+  idCommentEdit: number;
 
   constructor(private activatedRoute: ActivatedRoute,
               private postService: PostService,
@@ -132,17 +135,17 @@ export class DetailPostComponent implements OnInit {
   }
 
   createComment(bl: NgForm) {
+    this.disableSubmit = true;
     if (this.commentDTO.rate === 0 || !this.commentDTO.rate) {
       this.errorRate = true;
-      console.log('Error Rate');
     } else {
-      console.log('OK');
       this.commentDTO.idPost = this.idPost;
-      console.log(this.commentDTO.rate);
+      this.commentDTO.id = null;
       this.commentService.createComment(this.commentDTO).subscribe(
         data => {
           this.commentDTO = data;
           this.commentDTO.rate = 0;
+          this.disableSubmit = false;
           bl.resetForm();
           this.getComment();
         }, error => {
@@ -160,10 +163,10 @@ export class DetailPostComponent implements OnInit {
     this.commentDTO.rate = $event.rating;
   }
 
-  editComment(id: number, commentDTO: CommentDTO) {
-    this.commentService.editComment(id, commentDTO).subscribe(
+  editComment(commentDTO: CommentDTO) {
+    this.commentService.editComment(this.idCommentEdit, commentDTO).subscribe(
       data => {
-        commentDTO = data;
+        this.idCommentEdit = null;
         this.getComment();
       },
       error => {
@@ -180,6 +183,23 @@ export class DetailPostComponent implements OnInit {
         this.errorMessage = error.error.message;
       }
     );
+    this.getComment();
+  }
+
+
+  change(commentDTO: CommentDTO) {
+    this.idCommentEdit = commentDTO.id;
+    // this.commentEdit.id = commentDTO.id;
+    // this.commentEdit.content = commentDTO.content;
+    // this.commentEdit.rate = commentDTO.rate;
+    // this.commentEdit.userDTO = commentDTO.userDTO;
+    // this.commentEdit.idPost = commentDTO.idPost;
+    // this.commentEdit = JSON.parse(JSON.stringify(commentDTO));
+  }
+
+  discardChange() {
+    // this.commentEdit = new CommentDTO();
+    this.idCommentEdit = null;
     this.getComment();
   }
 }

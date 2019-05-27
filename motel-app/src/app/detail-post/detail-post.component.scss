@@ -189,7 +189,7 @@ agm-map {
 
 .ten {
   margin-bottom: 3px;
-  color: #212121!important;
+  color: #212121 !important;
   font-weight: 500;
   font-size: 17px;
   width: fit-content;
@@ -204,7 +204,7 @@ agm-map {
 
 .gio {
   font-size: 12px;
-  border-bottom: 1px solid #E9ECEF;
+  margin-bottom: 2px;
 }
 
 #comment {
@@ -218,6 +218,13 @@ agm-map {
   font-size: 18px;
   padding: 5px 10px 3px 10px;
   margin-bottom: 10px;
+}
+
+.btnPost button:disabled,
+.btnPost button[disabled] {
+  cursor: not-allowed !important;
+  pointer-events: all !important;
+  opacity: 0.65;
 }
 
 button {
@@ -278,4 +285,44 @@ imageAvatar {
 .error {
   color: #dc3545;
   font-weight: 400;
+}
+
+#editC {
+  height: 38px !important;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+
+#rating {
+  margin-top: 10px;
+}
+
+.btnAccept {
+  margin-top: 5px;
+  font-size: 14px;
+  font-family: inherit !important;
+  color: #385898 !important;
+  font-weight: 400;
+  background: transparent;
+}
+
+.btnAccept:hover {
+  text-decoration: underline !important;
+}
+
+.btnAccept:focus{
+  outline: white;
+}
+
+.btnCancel {
+  margin-top: 6px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-family: inherit !important;
+  color: #385898 !important;
+  font-weight: 400;
+}
+
+.btnCancel:hover {
+  text-decoration: underline !important;
 }
