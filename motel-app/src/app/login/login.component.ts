@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Inject, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {NB_AUTH_OPTIONS, NbAuthResult, NbAuthService, NbLoginComponent} from '@nebular/auth';
 import {Router} from '@angular/router';

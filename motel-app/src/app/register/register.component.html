@@ -16,7 +16,7 @@
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <input type="text" class="form-control" id="email" required pattern=".+@.+\..+"
-             [(ngModel)]="account.email" name="email" #email="ngModel"
+             [(ngModel)]="account.email" name="email" #email="ngModel" appAutofocus="true"
              [ngClass]="{ 'is-invalid': (signUp.submitted && email.invalid) || (signUp.submitted && email.errors?.pattern)}">
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

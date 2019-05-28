@@ -34,7 +34,7 @@
         <p class="basic-text">THÔNG TIN CƠ BẢN</p>
         <div class="thongtincoban">
           <p class="tieude">Tiêu đề</p>
-          <input type="text" class="form-control" id="title" required
+          <input type="text" class="form-control" id="title" appAutofocus="true" required
                  [(ngModel)]="postDTO.title" name="title" #title="ngModel"
                  placeholder="Hãy đặt tiêu đề đầy đủ nghĩa, khách sẽ quan tâm hơn"
                  [ngClass]="{ 'is-invalid': (title.invalid && (title.dirty || title.touched)) || (postForm.submitted && title.invalid)}">

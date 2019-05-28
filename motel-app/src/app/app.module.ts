@@ -52,6 +52,7 @@ import {ChangePassComponent} from './change-pass/change-pass.component';
 import {NotfoundPageComponent} from './notfound-page/notfound-page.component';
 import {AuthGuard} from './auth/auth-guard.service';
 import {StarRatingModule} from 'angular-star-rating';
+import {AutofocusDirective} from './directive/AutoFocus.directive';
 
 const authConfig: NbOAuth2AuthStrategyOptions = {
   name: 'userpass',
@@ -84,6 +85,7 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     MediaPreviewDirective,
     CounterDirective,
     FileSelectDirective,
+    AutofocusDirective,
     FooterComponent,
     CreatePostComponent,
     DetailPostComponent,

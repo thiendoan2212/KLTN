@@ -13,7 +13,7 @@
               *ngIf="signIn.submitted && email.errors?.pattern"> - Vui lòng nhập chính xác định dạng email</span>
       </p>
       <input type="email" class="form-control" id="email" required pattern=".+@.+\..+"
-             [(ngModel)]="user.email" name="email" #email="ngModel"
+               [(ngModel)]="user.email" name="email" #email="ngModel" appAutofocus="true"
              [ngClass]="{ 'is-invalid': (signIn.submitted && email.invalid) || (signIn.submitted && email.errors?.pattern)}">
     </div>
 
