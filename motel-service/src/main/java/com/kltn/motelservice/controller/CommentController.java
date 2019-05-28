@@ -37,7 +37,7 @@ public class CommentController {
 
     @DeleteMapping("/comment/{id}")
     @PreAuthorize("#oauth2.hasAnyScope('read')")
-    public String deleteComment(@PathVariable Long id) {
-        return commentService.deleteComment(id);
+    public void deleteComment(@PathVariable Long id) {
+        commentService.deleteComment(id);
     }
 }

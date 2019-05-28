@@ -67,7 +67,6 @@ public class CommentServiceImpl implements CommentService {
                     commentDTO.setId(id);
                     comment.get().setContent(commentDTO.getContent());
                     comment.get().setRate(commentDTO.getRate());
-                    comment.get().setLastUpdate(LocalDateTime.now());
                     commentRepository.save(comment.get());
                     commentDTO = modelMapper.map(comment.get(), CommentDTO.class);
                     return commentDTO;
@@ -83,19 +82,17 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public String deleteComment(Long id) {
+    public void deleteComment(Long id) {
         try {
             Optional<Comment> comment = commentRepository.findById(id);
             if (!comment.isPresent())
                 throw new CommentException("Comment id " + id + "không tồn tại!!!");
             else {
                 commentRepository.delete(comment.get());
-                return "Đã xóa comment id " + id;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
     }
 
     public Page<CommentDTO> getCommentByIdPost(Long idPost, int page) {
