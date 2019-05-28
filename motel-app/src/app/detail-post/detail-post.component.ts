@@ -35,7 +35,6 @@ export class DetailPostComponent implements OnInit {
   errorRate = false;
   public innerWidth: any;
   disableSubmit = false;
-  // commentEdit: CommentDTO = new CommentDTO();
   idCommentEdit: number;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -175,31 +174,24 @@ export class DetailPostComponent implements OnInit {
     );
   }
 
-  deleteComment(id: number) {
-    this.commentService.deleteComment(id).subscribe(
-      data => {
-      },
-      error => {
-        this.errorMessage = error.error.message;
-      }
-    );
-    this.getComment();
-  }
-
-
   change(commentDTO: CommentDTO) {
     this.idCommentEdit = commentDTO.id;
-    // this.commentEdit.id = commentDTO.id;
-    // this.commentEdit.content = commentDTO.content;
-    // this.commentEdit.rate = commentDTO.rate;
-    // this.commentEdit.userDTO = commentDTO.userDTO;
-    // this.commentEdit.idPost = commentDTO.idPost;
-    // this.commentEdit = JSON.parse(JSON.stringify(commentDTO));
   }
 
   discardChange() {
-    // this.commentEdit = new CommentDTO();
     this.idCommentEdit = null;
     this.getComment();
+  }
+
+  delComment(id: number) {
+    this.commentService.deleteComment(id).subscribe(
+      data => {
+        this.getComment();
+      },
+      error => {
+        this.errorMessage = error.error.message;
+        console.log(error);
+      }
+    );
   }
 }
