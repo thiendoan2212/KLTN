@@ -12,15 +12,18 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
+//@EnableWebMvc
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Qualifier("userDetailsService")
     @Autowired
     private UserDetailsService userDetailsService;
 
-    private static final String[] STATIC_RESOURCES = {"/swagger-resources/**", "/swagger-ui.html", "/v2/api-docs", "/webjars/**", "/data/**"};
+    private static final String[] STATIC_RESOURCES = {"/swagger-resources/**", "/swagger-ui.html", "/v2/api-docs",
+            "/webjars/**", "/data/**", "/static/admin/**"};
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
