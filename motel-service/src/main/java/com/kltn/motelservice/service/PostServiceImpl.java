@@ -106,7 +106,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDTO getPostById(Long id) {
-        try {
+//        try {
             Optional<Post> post = postRepository.findPostById(id);
             if (post.isPresent()) {
                 PostDTO postDTO = postToPostDTO(post.get());
@@ -120,10 +120,9 @@ public class PostServiceImpl implements PostService {
             } else
                 throw new PostException("Post id " + id + " không tồn tại");
 //                logger.error("Post id " + id + " không tồn tại");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override

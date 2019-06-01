@@ -29,7 +29,7 @@ import {DetailPostComponent} from './detail-post/detail-post.component';
 import {MotelPageComponent} from './motel-page/motel-page.component';
 import {HousePageComponent} from './house-page/house-page.component';
 import {SearchPageComponent} from './search-page/search-page.component';
-import {FileSelectDirective} from 'ng2-file-upload';
+import {FileSelectDirective, FileUploadModule} from 'ng2-file-upload';
 import {MediaPreviewDirective} from './directive/MediaPreview.directive';
 import {UpdatePostComponent} from './update-post/update-post.component';
 import {CounterDirective} from './directive/Counter.directive';
@@ -84,7 +84,6 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     OnlynumberDirective,
     MediaPreviewDirective,
     CounterDirective,
-    FileSelectDirective,
     AutofocusDirective,
     FooterComponent,
     CreatePostComponent,
@@ -103,6 +102,7 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     NotfoundPageComponent,
   ],
   imports: [
+    FileUploadModule,
     StarRatingModule.forRoot(),
     NbAuthModule.forRoot({
       strategies: [

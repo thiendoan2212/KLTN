@@ -70,8 +70,7 @@ public class CommentServiceImpl implements CommentService {
                     commentRepository.save(comment.get());
                     commentDTO = modelMapper.map(comment.get(), CommentDTO.class);
                     return commentDTO;
-                }
-                else {
+                } else {
                     throw new AccessDeniedException("Access dined");
                 }
             }
@@ -96,21 +95,23 @@ public class CommentServiceImpl implements CommentService {
     }
 
     public Page<CommentDTO> getCommentByIdPost(Long idPost, int page) {
-        try {
-            Optional<Post> post = postRepository.findById(idPost);
-            if (post.isPresent()) {
-                Page<Comment> commentPage = commentRepository.findAllByPost(post.get(), PageRequest.of(page, 10, Sort.by("lastUpdate").descending()));
-                Page<CommentDTO> commentDTOPage = commentPage.map(comment -> {
-                    CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
-                    commentDTO.setUserDTO(modelMapper.map(comment.getUser(), UserDTO.class));
-                    return commentDTO;
-                });
+//        try {
+        Optional<Post> post = postRepository.findById(idPost);
+        if (post.isPresent()) {
+            Page<Comment> commentPage = commentRepository.findAllByPost(post.get(), PageRequest.of(page, 10, Sort.by("lastUpdate").descending()));
+            Page<CommentDTO> commentDTOPage = commentPage.map(comment -> {
+                CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
+                commentDTO.setUserDTO(modelMapper.map(comment.getUser(), UserDTO.class));
+                return commentDTO;
+            });
 
-                return commentDTOPage;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            return commentDTOPage;
+        } else {
+            throw new PostException("Post " + idPost + " không tồn tại");
         }
-        return null;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
     }
 }

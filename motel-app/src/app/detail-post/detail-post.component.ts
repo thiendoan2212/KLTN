@@ -75,7 +75,8 @@ export class DetailPostComponent implements OnInit {
     this.postService.getPostById(this.idPost).subscribe(
       data => {
         this.postDTO = data;
-        if (this.postDTO.notApproved || (this.postDTO.del && (this.auth.email !== this.postDTO.userDTO.email))) {
+        if (this.postDTO.notApproved || (this.postDTO.del && (this.auth.email !== this.postDTO.userDTO.email)) ||
+          (!this.postDTO.approved && (this.auth.email !== this.postDTO.userDTO.email))) {
           this.notFound = true;
         } else {
           if (this.postDTO.accomodationDTO.parking) {
@@ -103,6 +104,7 @@ export class DetailPostComponent implements OnInit {
       },
       error => {
         this.errorMessage = error.error.message;
+        this.notFound = true;
       }
     );
     this.getComment();
