@@ -64,7 +64,7 @@ export class CreatePostComponent implements OnInit {
   showLoadding = false;
   user: User;
   districtDTOs: DistrictDTO[];
-  token: string;
+  motel: number;
 
   constructor(private geocodingApiService: GeocodingApiServiceService,
               private postService: PostService,
@@ -137,40 +137,10 @@ export class CreatePostComponent implements OnInit {
   createPost() {
     this.disableSubmit = true;
     this.showLoadding = true;
-    if (this.postDTO.accomodationDTO.motel) {
+    if (parseFloat(String(this.motel)) === 1) {
       this.postDTO.accomodationDTO.motel = true;
     } else {
       this.postDTO.accomodationDTO.motel = false;
-    }
-    if (this.postDTO.accomodationDTO.parking) {
-      this.postDTO.accomodationDTO.parking = true;
-    } else {
-      this.postDTO.accomodationDTO.parking = false;
-    }
-    if (this.postDTO.accomodationDTO.internet) {
-      this.postDTO.accomodationDTO.internet = true;
-    } else {
-      this.postDTO.accomodationDTO.internet = false;
-    }
-    if (this.postDTO.accomodationDTO.airConditioner) {
-      this.postDTO.accomodationDTO.airConditioner = true;
-    } else {
-      this.postDTO.accomodationDTO.airConditioner = false;
-    }
-    if (this.postDTO.accomodationDTO.cableTV) {
-      this.postDTO.accomodationDTO.cableTV = true;
-    } else {
-      this.postDTO.accomodationDTO.cableTV = false;
-    }
-    if (this.postDTO.accomodationDTO.tv) {
-      this.postDTO.accomodationDTO.tv = true;
-    } else {
-      this.postDTO.accomodationDTO.tv = false;
-    }
-    if (this.postDTO.accomodationDTO.heater) {
-      this.postDTO.accomodationDTO.heater = true;
-    } else {
-      this.postDTO.accomodationDTO.heater = false;
     }
     this.postService.createPost(this.postDTO).subscribe(
       data => {
