@@ -4,10 +4,7 @@ import com.kltn.motelservice.entity.*;
 import com.kltn.motelservice.exception.PostException;
 import com.kltn.motelservice.exception.UserException;
 import com.kltn.motelservice.model.*;
-import com.kltn.motelservice.repository.DistrictRepository;
-import com.kltn.motelservice.repository.PostRepository;
-import com.kltn.motelservice.repository.PostSpecification;
-import com.kltn.motelservice.repository.UserRepository;
+import com.kltn.motelservice.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -38,6 +35,12 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     ActionServiceImpl actionService;
+
+    @Autowired
+    CriteriaRepository criteriaRepository;
+
+    @Autowired
+    NotificationServiceImpl notificationService;
 
     ModelMapper modelMapper = new ModelMapper();
 
@@ -107,18 +110,18 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDTO getPostById(Long id) {
 //        try {
-            Optional<Post> post = postRepository.findPostById(id);
-            if (post.isPresent()) {
-                PostDTO postDTO = postToPostDTO(post.get());
-                List<CommentDTO> commentDTOS = new ArrayList<>();
-                List<String> images;
-                images = imageService.getImageByIdPost(id);
-                postDTO.setImageStrings(images);
-                postDTO.setCommentDTOS(commentDTOS);
-                postDTO.setUserDTO(modelMapper.map(post.get().getUser(), UserDTO.class));
-                return postDTO;
-            } else
-                throw new PostException("Post id " + id + " không tồn tại");
+        Optional<Post> post = postRepository.findPostById(id);
+        if (post.isPresent()) {
+            PostDTO postDTO = postToPostDTO(post.get());
+            List<CommentDTO> commentDTOS = new ArrayList<>();
+            List<String> images;
+            images = imageService.getImageByIdPost(id);
+            postDTO.setImageStrings(images);
+            postDTO.setCommentDTOS(commentDTOS);
+            postDTO.setUserDTO(modelMapper.map(post.get().getUser(), UserDTO.class));
+            return postDTO;
+        } else
+            throw new PostException("Post id " + id + " không tồn tại");
 //                logger.error("Post id " + id + " không tồn tại");
 //        } catch (Exception e) {
 //            e.printStackTrace();
@@ -290,6 +293,7 @@ public class PostServiceImpl implements PostService {
                 post.get().setApproved(true);
                 post.get().setNotApproved(false);
                 actionService.createAction(post.get(), user.get(), ActionName.APPROVE);
+                createNoti(post.get());
             } else {
                 Optional<User> user = userRepository.findByEmail(usernamApprover);
                 post.get().setNotApproved(true);
@@ -410,5 +414,13 @@ public class PostServiceImpl implements PostService {
         double d = r * c;
         d = Math.pow(d, 2);
         return d;
+    }
+
+    public void createNoti(Post post) {
+        List<Criteria> criteriaList = criteriaRepository.findAllByAcreageStartLessThanEqualAndAcreageEndGreaterThanEqualAndPriceStartLessThanEqualAndPriceEndGreaterThanEqualAndDistrict_IdAndMotel(
+                post.getAccomodation().getAcreage(), post.getAccomodation().getAcreage(), post.getAccomodation().getPrice(), post.getAccomodation().getPrice(), post.getAccomodation().getDistrict().getId(), post.getAccomodation().isMotel());
+        for (Criteria criteria : criteriaList) {
+            notificationService.createNotification(criteria.getUser(), post);
+        }
     }
 }
