@@ -53,6 +53,7 @@ import {NotfoundPageComponent} from './notfound-page/notfound-page.component';
 import {AuthGuard} from './auth/auth-guard.service';
 import {StarRatingModule} from 'angular-star-rating';
 import {AutofocusDirective} from './directive/AutoFocus.directive';
+import { NotificationComponent } from './notification/notification.component';
 
 const authConfig: NbOAuth2AuthStrategyOptions = {
   name: 'userpass',
@@ -100,6 +101,7 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     UpdateUserComponent,
     ChangePassComponent,
     NotfoundPageComponent,
+    NotificationComponent,
   ],
   imports: [
     FileUploadModule,
