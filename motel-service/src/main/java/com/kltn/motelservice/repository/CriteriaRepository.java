@@ -11,8 +11,8 @@ import java.util.List;
 
 @Repository
 public interface CriteriaRepository extends JpaRepository<Criteria, Long> {
-    List<Criteria> findAllByAcreageStartLessThanEqualAndAcreageEndGreaterThanEqualAndPriceStartLessThanEqualAndPriceEndGreaterThanEqualAndDistrict_IdAndMotel(
-            double acreageStart, double acreageEnd, double priceStart, double priceEnd, long idDistrict, boolean motel);
+    List<Criteria> findAllByAcreageStartLessThanEqualAndAcreageEndGreaterThanEqualAndPriceStartLessThanEqualAndPriceEndGreaterThanEqualAndDistrict_IdAndMotelAndStop(
+            double acreageStart, double acreageEnd, double priceStart, double priceEnd, long idDistrict, boolean motel, boolean stop);
 
     Page<Criteria> findAllByUser(User user, Pageable pageable);
 }

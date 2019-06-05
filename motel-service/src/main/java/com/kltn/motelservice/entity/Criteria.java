@@ -15,6 +15,8 @@ public class Criteria {
 
     private boolean motel;
 
+    private boolean stop;
+
     private double priceStart;
 
     private double priceEnd;
@@ -30,9 +32,10 @@ public class Criteria {
     public Criteria() {
     }
 
-    public Criteria(User user, boolean motel, double priceStart, double priceEnd, double acreageStart, double acreageEnd, District district) {
+    public Criteria(User user, boolean motel, boolean stop, double priceStart, double priceEnd, double acreageStart, double acreageEnd, District district) {
         this.user = user;
         this.motel = motel;
+        this.stop = stop;
         this.priceStart = priceStart;
         this.priceEnd = priceEnd;
         this.acreageStart = acreageStart;
@@ -62,6 +65,14 @@ public class Criteria {
 
     public void setMotel(boolean motel) {
         this.motel = motel;
+    }
+
+    public boolean isStop() {
+        return stop;
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
     }
 
     public double getPriceStart() {

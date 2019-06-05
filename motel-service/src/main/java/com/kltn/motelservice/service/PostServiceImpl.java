@@ -417,10 +417,10 @@ public class PostServiceImpl implements PostService {
     }
 
     public void createNoti(Post post) {
-        List<Criteria> criteriaList = criteriaRepository.findAllByAcreageStartLessThanEqualAndAcreageEndGreaterThanEqualAndPriceStartLessThanEqualAndPriceEndGreaterThanEqualAndDistrict_IdAndMotel(
-                post.getAccomodation().getAcreage(), post.getAccomodation().getAcreage(), post.getAccomodation().getPrice(), post.getAccomodation().getPrice(), post.getAccomodation().getDistrict().getId(), post.getAccomodation().isMotel());
+        List<Criteria> criteriaList = criteriaRepository.findAllByAcreageStartLessThanEqualAndAcreageEndGreaterThanEqualAndPriceStartLessThanEqualAndPriceEndGreaterThanEqualAndDistrict_IdAndMotelAndStop(
+                post.getAccomodation().getAcreage(), post.getAccomodation().getAcreage(), post.getAccomodation().getPrice(), post.getAccomodation().getPrice(), post.getAccomodation().getDistrict().getId(), post.getAccomodation().isMotel(), false);
         for (Criteria criteria : criteriaList) {
-            notificationService.createNotification(criteria.getUser(), post);
+            notificationService.createNotification(criteria.getUser(), post, criteria);
         }
     }
 }

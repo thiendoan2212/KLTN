@@ -16,7 +16,6 @@ public class CriteriaController {
 
     @GetMapping("/criterias")
     @PreAuthorize("#oauth2.hasAnyScope('read')")
-
     public Page<CriteriaDTO> getCriteriaByEmail(OAuth2Authentication auth, @RequestParam("page") int page) {
         return criteriaService.getCriteriaByEmail(auth.getName(), page);
     }
@@ -29,13 +28,8 @@ public class CriteriaController {
 
     @PutMapping("/criteria/{id}")
     @PreAuthorize("#oauth2.hasAnyScope('read')")
-    public CriteriaDTO updateCriteria(@PathVariable Long id, @RequestBody CriteriaDTO criteriaDTO){
-        return criteriaService.updateCriteria(id, criteriaDTO);
+    public CriteriaDTO stopCriteria(@PathVariable Long id){
+        return criteriaService.stopCriteria(id);
     }
 
-    @DeleteMapping("/criteria/{id}")
-    @PreAuthorize("#oauth2.hasAnyScope('read')")
-    public void deleteCriteria(@PathVariable Long id){
-        criteriaService.deleteCriteria(id);
-    }
 }

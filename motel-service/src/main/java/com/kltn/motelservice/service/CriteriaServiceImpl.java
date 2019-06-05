@@ -60,24 +60,13 @@ public class CriteriaServiceImpl implements CriteriaService {
     }
 
     @Override
-    public CriteriaDTO updateCriteria(Long idCriteria, CriteriaDTO criteriaDTO) {
+    public CriteriaDTO stopCriteria(Long idCriteria) {
         Optional<Criteria> criteria = criteriaRepository.findById(idCriteria);
         if (criteria.isPresent()) {
-            criteria = Optional.of(modelMapper.map(criteriaDTO, Criteria.class));
-            Optional<District> district = districtRepository.findById(criteriaDTO.getDistrictDTO().getId());
-            criteria.get().setDistrict(district.get());
-
+            criteria.get().setStop(true);
+            CriteriaDTO criteriaDTO = modelMapper.map(criteria.get(), CriteriaDTO.class);
+            criteriaDTO.setDistrictDTO(modelMapper.map(criteria.get().getDistrict(), DistrictDTO.class));
             return criteriaDTO;
-        } else {
-            throw new CriteriaException("Không tìm thấy Criteria id " + idCriteria);
-        }
-    }
-
-    @Override
-    public void deleteCriteria(Long idCriteria) {
-        Optional<Criteria> criteria = criteriaRepository.findById(idCriteria);
-        if (criteria.isPresent()) {
-            criteriaRepository.delete(criteria.get());
         } else {
             throw new CriteriaException("Không tìm thấy Criteria id " + idCriteria);
         }

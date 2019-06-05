@@ -8,7 +8,6 @@ public interface CriteriaService {
 
     CriteriaDTO createCriteria(CriteriaDTO criteriaDTO, String email);
 
-    CriteriaDTO updateCriteria(Long idCriteria, CriteriaDTO criteriaDTO);
+    CriteriaDTO stopCriteria(Long idCriteria);
 
-    void deleteCriteria(Long idCriteria);
 }

@@ -15,16 +15,20 @@ public class CriteriaDTO {
 
     private DistrictDTO districtDTO;
 
+    private boolean stop;
+
     public CriteriaDTO() {
     }
 
-    public CriteriaDTO(Long id, double priceStart, double priceEnd, double acreageStart, double acreageEnd, DistrictDTO districtDTO) {
+    public CriteriaDTO(Long id, boolean motel, double priceStart, double priceEnd, double acreageStart, double acreageEnd, DistrictDTO districtDTO, boolean stop) {
         this.id = id;
+        this.motel = motel;
         this.priceStart = priceStart;
         this.priceEnd = priceEnd;
         this.acreageStart = acreageStart;
         this.acreageEnd = acreageEnd;
         this.districtDTO = districtDTO;
+        this.stop = stop;
     }
 
     public Long getId() {
@@ -73,5 +77,13 @@ public class CriteriaDTO {
 
     public void setDistrictDTO(DistrictDTO districtDTO) {
         this.districtDTO = districtDTO;
+    }
+
+    public boolean isMotel() {
+        return motel;
+    }
+
+    public void setMotel(boolean motel) {
+        this.motel = motel;
     }
 }
