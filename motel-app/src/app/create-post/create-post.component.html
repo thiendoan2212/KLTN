@@ -256,9 +256,6 @@
             </div>
           </div>
           <div class="row">
-            <!--<div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-2" *ngFor="let url of urls">-->
-            <!--<img [src]="url">-->
-            <!--</div>-->
             <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-2 mt-2 previewImage" *ngFor="let item of uploader.queue">
               <img [src]="" appMediaPreview [image]="item?._file" class="media-object"/>
               <button (click)="item.remove()"><i class="fas fa-times"></i></button>

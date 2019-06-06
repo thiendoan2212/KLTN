@@ -124,8 +124,6 @@ export class CreatePostComponent implements OnInit {
       if (response.status === 'OK') {
         this.postDTO.accomodationDTO.xCoordinate = response.results[0].geometry.location.lat;
         this.postDTO.accomodationDTO.yCoordinate = response.results[0].geometry.location.lng;
-        console.log('GEO ' + this.postDTO.accomodationDTO.xCoordinate);
-        console.log('GEO ' + this.postDTO.accomodationDTO.yCoordinate);
       } else if (response.status === 'ZERO_RESULTS') {
         console.log('geocodingAPIService', 'ZERO_RESULTS', response.status);
       } else {
@@ -145,7 +143,6 @@ export class CreatePostComponent implements OnInit {
     this.postService.createPost(this.postDTO).subscribe(
       data => {
         this.postTest = data;
-        console.log(data);
         this.addImageForPost(this.postTest.id);
       },
       error => {

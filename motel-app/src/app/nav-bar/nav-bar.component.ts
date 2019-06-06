@@ -9,9 +9,7 @@ import {NotificationService} from '../service/notification.service';
 import {PaginationDTO} from '../model/paginationDTO';
 import {NotificationDTO} from '../model/notificationDTO';
 import {PostDTO} from '../model/postDTO';
-import {DatePipe} from '@angular/common';
 import * as moment from 'moment';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-nav-bar',
@@ -25,7 +23,6 @@ export class NavBarComponent implements OnInit {
   paginationDTO = new PaginationDTO();
   notificationDTOs: NotificationDTO[];
   page = 0;
-  clock: Observable<any>;
 
   constructor(public dialog: MatDialog,
               private authService: NbAuthService,
@@ -114,14 +111,16 @@ export class NavBarComponent implements OnInit {
   }
 
   seen(notificationDTO: NotificationDTO) {
-    this.notificationService.seenNotification(notificationDTO.id).subscribe(
-      data => {
-        this.getNotificationByEmail();
-      },
-      error => {
-        console.log(error.error.message);
-      }
-    );
+    if (!notificationDTO.seen) {
+      this.notificationService.seenNotification(notificationDTO.id).subscribe(
+        data => {
+          this.getNotificationByEmail();
+        },
+        error => {
+          console.log(error.error.message);
+        }
+      );
+    }
   }
 
   navigateToDetail(postDTO: PostDTO) {

@@ -13,7 +13,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MAT_DIALOG_DEFAULT_OPTIONS,
   MatButtonModule,
-  MatCheckboxModule, MatDialogModule,
+  MatCheckboxModule, MatDialogModule, MatExpansionModule,
   MatFormFieldModule,
   MatInputModule,
   MatRippleModule
@@ -54,6 +54,7 @@ import {AuthGuard} from './auth/auth-guard.service';
 import {StarRatingModule} from 'angular-star-rating';
 import {AutofocusDirective} from './directive/AutoFocus.directive';
 import { NotificationComponent } from './notification/notification.component';
+import {SafeHtml} from './pipe/SafeHtml';
 
 const authConfig: NbOAuth2AuthStrategyOptions = {
   name: 'userpass',
@@ -81,6 +82,7 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     NavBarComponent,
     HomePageComponent,
     TruncatePipe,
+    SafeHtml,
     SearchComponent,
     OnlynumberDirective,
     MediaPreviewDirective,
@@ -104,6 +106,7 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     NotificationComponent,
   ],
   imports: [
+    MatExpansionModule,
     FileUploadModule,
     StarRatingModule.forRoot(),
     NbAuthModule.forRoot({

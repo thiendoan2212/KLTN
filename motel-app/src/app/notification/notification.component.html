@@ -1,3 +1,161 @@
-<p>
-  notification works!
-</p>
+<app-nav-bar></app-nav-bar>
+<div class="space"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/home">Trang chủ</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Quản lý thông báo</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <button type="button" mdbWavesEffect id="btnCreateCriteria"><i class="fas fa-plus"></i> Thêm tiêu chí</button>
+    </div>
+  </div>
+</div>
+<div class="space"></div>
+<div class="container" *ngIf="notificationDTOs && criteriaDTOS">
+  <div class="row">
+    <!--Left-->
+    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+      <p class="criteria">Tiêu chí</p>
+      <div class="criteria-content">
+        <mat-accordion>
+          <mat-expansion-panel (opened)="panelOpenState = true; getNotificationByEmailAndCriteria(criteria.id)"
+                               (closed)="panelOpenState = false"
+                               *ngFor="let criteria of criteriaDTOS">
+            <mat-expansion-panel-header [collapsedHeight]="'70px'" [expandedHeight]="'70px'"
+                                        [ngClass]="{'border-bottom': (panelOpenState)}">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                    Quận: {{criteria.districtDTO.name}}
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                    Loại: <span *ngIf="criteria.motel">Phòng trọ</span>
+                    <span *ngIf="!criteria.motel">Nhà nguyên căn</span>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                    Giá thuê: {{criteria.priceStart / 1000000}} - {{criteria.priceEnd / 1000000}} triệu
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                    Diện tích: {{criteria.acreageStart}} - {{criteria.acreageEnd}} m²
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                    <p class="time"> Thời gian tạo: {{criteria.createAt | date: 'dd/MM/yyyy HH:mm'}}</p>
+                  </div>
+                  <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">-->
+                    <!--<div class="custom-control custom-checkbox">-->
+                      <!--<input type="checkbox" class="custom-control-input" name="parking"-->
+                             <!--[(ngModel)]="a" id="parking">-->
+                      <!--<label class="custom-control-label" for="parking">Dừng nhận thông báo</label>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                </div>
+              </div>
+            </mat-expansion-panel-header>
+            <div class="text-center">
+              <span *ngIf="showLoadding" class="spinner-border spinner-border-sm"></span>
+            </div>
+            <p class="noidung" *ngIf="totalElementSubNoti === 0">Không có thông báo</p>
+            <a style="padding: 0px!important;" *ngFor="let subNotificationDTO of subNotificationDTOS"
+               (click)="navigateToDetail(subNotificationDTO.postDTO); seen(subNotificationDTO);">
+              <div id="inf" class="row border-bottom" *ngIf="totalElementSubNoti > 0">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div class="avatar">
+                    <img id="avatarUser" *ngIf="subNotificationDTO.postDTO.userDTO.b64"
+                         [src]="'data:image;base64,' + subNotificationDTO.postDTO.userDTO.b64 | appSafeHtml">
+                    <img id="avatarUser1" *ngIf="!subNotificationDTO.postDTO.userDTO.b64" src="../../assets/avatar.svg">
+                  </div>
+                  <div class="information">
+                    <div class="row">
+                      <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9">
+                        <p id="name">{{subNotificationDTO.postDTO.userDTO.fullName}}
+                          <span id="more"> đăng một tin mới </span>
+                          {{subNotificationDTO.postDTO.title | truncate:[70]}}
+                        </p>
+                        <p class="time"
+                           *ngIf="subNotificationDTO.unit === 'phút'">{{subNotificationDTO.createAt}} {{subNotificationDTO.unit}}
+                          trước</p>
+                        <p class="time"
+                           *ngIf="subNotificationDTO.unit === 'giờ'">{{subNotificationDTO.createAt}} {{subNotificationDTO.unit}}
+                          trước</p>
+                        <p class="time"
+                           *ngIf="subNotificationDTO.unit === 'ngày'">{{subNotificationDTO.createAt}} {{subNotificationDTO.unit}}
+                          trước</p>
+                        <p class="time"
+                           *ngIf="subNotificationDTO.unit === 'tháng'">{{subNotificationDTO.createAt}} {{subNotificationDTO.unit}}
+                          trước</p>
+                        <p class="time"
+                           *ngIf="subNotificationDTO.unit === 'năm'">{{subNotificationDTO.createAt}} {{subNotificationDTO.unit}}
+                          trước</p>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+                        <img id="imgPost" [src]="subNotificationDTO.postDTO.imageStrings[0]">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </mat-expansion-panel>
+
+        </mat-accordion>
+      </div>
+    </div>
+    <!--Left-->
+    <!--Right-->
+    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+      <p class="notification">Thông báo</p>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <a style="padding: 0px!important;" *ngFor="let notificationDTO of notificationDTOs"
+           (click)="navigateToDetail(notificationDTO.postDTO); seen(notificationDTO);">
+          <div id="noti" class="row border-bottom border-left border-right">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div class="avatar">
+                <img id="avatarUserPost" *ngIf="notificationDTO.postDTO.userDTO.b64"
+                     [src]="'data:image;base64,' + notificationDTO.postDTO.userDTO.b64 | appSafeHtml">
+                <img id="avatarUserPost1" *ngIf="!notificationDTO.postDTO.userDTO.b64" src="../../assets/avatar.svg">
+              </div>
+              <div class="information">
+                <div class="row">
+                  <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9">
+                    <p id="namePost">{{notificationDTO.postDTO.userDTO.fullName}}
+                      <span id="morePost"> đăng một tin mới </span>
+                      {{notificationDTO.postDTO.title | truncate:[70]}}
+                    </p>
+                    <p class="time"
+                       *ngIf="notificationDTO.unit === 'phút'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
+                      trước</p>
+                    <p class="time"
+                       *ngIf="notificationDTO.unit === 'giờ'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
+                      trước</p>
+                    <p class="time"
+                       *ngIf="notificationDTO.unit === 'ngày'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
+                      trước</p>
+                    <p class="time"
+                       *ngIf="notificationDTO.unit === 'tháng'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
+                      trước</p>
+                    <p class="time"
+                       *ngIf="notificationDTO.unit === 'năm'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
+                      trước</p>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+                    <img id="img" [src]="notificationDTO.postDTO.imageStrings[0]">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <!--Right-->
+  </div>
+</div>

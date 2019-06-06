@@ -10,8 +10,10 @@ import {UpdatePostComponent} from './update-post/update-post.component';
 import {UserPageComponent} from './user-page/user-page.component';
 import {LogoutComponent} from './logout/logout.component';
 import {AuthGuard} from './auth/auth-guard.service';
+import {NotificationComponent} from './notification/notification.component';
 
 const routes: Routes = [
+  {path: 'notification', component: NotificationComponent},
   {path: 'create-post', component: CreatePostComponent, canActivate: [AuthGuard]},
   {path: 'user', component: UserPageComponent},
   {path: 'update', component: UpdatePostComponent, canActivate: [AuthGuard]},

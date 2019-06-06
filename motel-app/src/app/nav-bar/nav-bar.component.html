@@ -50,7 +50,7 @@
                 </div>
                 <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
                   <div class="d-flex justify-content-end">
-                    <button class="btnSetting">Cài đặt thông báo</button>
+                    <button class="btnSetting" routerLink="/notification">Cài đặt nhận thông báo</button>
                   </div>
                 </div>
               </div>
@@ -64,9 +64,9 @@
                     <div class="information">
                       <div class="row">
                         <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9">
-                          <p id="name"> {{notificationDTO.postDTO.userDTO.fullName}}
+                          <p id="name">{{notificationDTO.postDTO.userDTO.fullName}}
                             <span id="more"> đăng một tin mới </span>
-                            {{notificationDTO.postDTO.title | truncate:[42]}}
+                            {{notificationDTO.postDTO.title | truncate:[30]}}
                           </p>
                           <p class="time"
                              *ngIf="notificationDTO.unit === 'phút'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
@@ -97,7 +97,7 @@
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                   <div class="text-center">
-                    <button class="btnSeemore">Xem thêm</button>
+                    <button class="btnSeemore" routerLink="/notification">Xem thêm</button>
                   </div>
                 </div>
               </div>

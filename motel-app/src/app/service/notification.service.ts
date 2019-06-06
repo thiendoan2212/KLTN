@@ -16,6 +16,10 @@ export class NotificationService {
     return this.http.get<NotificationDTO[]>(this.apiUrl + '/notification?page=' + page + '&screen=' + screen);
   }
 
+  getNotificationByEmailAndCriteria(idCriteria: number, page: number): Observable<NotificationDTO[]> {
+    return this.http.get<NotificationDTO[]>(this.apiUrl + '/notification/criteria?idCriteria=' + idCriteria + '&page=' + page);
+  }
+
   seenNotification(id: number): Observable<NotificationDTO> {
     return this.http.put<NotificationDTO>(this.apiUrl + '/notification/' + id, null);
   }
