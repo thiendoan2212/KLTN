@@ -15,4 +15,6 @@ public interface CriteriaRepository extends JpaRepository<Criteria, Long> {
             double acreageStart, double acreageEnd, double priceStart, double priceEnd, long idDistrict, boolean motel, boolean stop);
 
     Page<Criteria> findAllByUser(User user, Pageable pageable);
+
+    Page<Criteria> findAllByUserAndStop(User user, boolean stop, Pageable pageable);
 }

@@ -20,6 +20,12 @@ public class NotificationController {
         return notificationService.getNotificationByEmail(auth.getName(), page, screen);
     }
 
+    @GetMapping("/notification/criteria")
+    @PreAuthorize("#oauth2.hasAnyScope('read')")
+    public Page<NotificationDTO> getNotificationByEmailAndCriteria(OAuth2Authentication auth, @RequestParam("idCriteria") long id, @RequestParam("page") int page) {
+        return notificationService.getNotificationByEmailAndCriteria(auth.getName(), id, page);
+    }
+
     @PutMapping("/notification/{id}")
     @PreAuthorize("#oauth2.hasAnyScope('read')")
     public NotificationDTO seenNotification(@PathVariable long id) {

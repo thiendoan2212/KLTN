@@ -16,8 +16,8 @@ public class CriteriaController {
 
     @GetMapping("/criterias")
     @PreAuthorize("#oauth2.hasAnyScope('read')")
-    public Page<CriteriaDTO> getCriteriaByEmail(OAuth2Authentication auth, @RequestParam("page") int page) {
-        return criteriaService.getCriteriaByEmail(auth.getName(), page);
+    public Page<CriteriaDTO> getCriteriaByEmail(OAuth2Authentication auth, @RequestParam("page") int page, @RequestParam("all") boolean bool) {
+        return criteriaService.getCriteriaByEmail(auth.getName(), page, bool);
     }
 
     @PostMapping("/criteria")

@@ -10,6 +10,7 @@ CREATE TABLE `criteria`  (
   `price_end` double NOT NULL,
   `acreage_start` double NOT NULL,
   `acreage_end` double NOT NULL,
+  `create_at` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `FKoiqm9rfwl0j4o349q2gqn7n20`(`district_id`) USING BTREE,
   INDEX `FKq7e8qgeirqpqadbcb2pqmsupi`(`user_id`) USING BTREE,

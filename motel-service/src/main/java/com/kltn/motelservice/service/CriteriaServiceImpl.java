@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -33,11 +34,16 @@ public class CriteriaServiceImpl implements CriteriaService {
     ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public Page<CriteriaDTO> getCriteriaByEmail(String email, int page) {
+    public Page<CriteriaDTO> getCriteriaByEmail(String email, int page, boolean bool) {
         Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent()) {
-            Page<Criteria> criteriaPage = criteriaRepository.findAllByUser(user.get(), PageRequest.of(page, 10));
-            return criteriaPage.map(this::criteriaToCriteriaDTO);
+            if (bool) {
+                Page<Criteria> criteriaPage = criteriaRepository.findAllByUser(user.get(), PageRequest.of(page, 10, Sort.by("createAt").descending()));
+                return criteriaPage.map(this::criteriaToCriteriaDTO);
+            } else {
+                Page<Criteria> criteriaPage = criteriaRepository.findAllByUserAndStop(user.get(), false, PageRequest.of(page, 10, Sort.by("createAt").descending()));
+                return criteriaPage.map(this::criteriaToCriteriaDTO);
+            }
         } else {
             throw new UserException("Không tìm thấy user " + user.get().getEmail());
         }
@@ -51,8 +57,10 @@ public class CriteriaServiceImpl implements CriteriaService {
             Criteria criteria = modelMapper.map(criteriaDTO, Criteria.class);
             criteria.setUser(user.get());
             criteria.setDistrict(district.get());
+            criteria.setCreateAt(LocalDateTime.now());
             criteriaRepository.save(criteria);
 
+            criteriaDTO = criteriaToCriteriaDTO(criteria);
             return criteriaDTO;
         } else {
             throw new UserException("Không tìm thấy user " + user.get().getEmail());

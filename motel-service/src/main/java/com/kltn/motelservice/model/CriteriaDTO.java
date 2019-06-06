@@ -1,5 +1,7 @@
 package com.kltn.motelservice.model;
 
+import java.time.LocalDateTime;
+
 public class CriteriaDTO {
     private Long id;
 
@@ -17,10 +19,13 @@ public class CriteriaDTO {
 
     private boolean stop;
 
+    private LocalDateTime createAt;
+
     public CriteriaDTO() {
     }
 
-    public CriteriaDTO(Long id, boolean motel, double priceStart, double priceEnd, double acreageStart, double acreageEnd, DistrictDTO districtDTO, boolean stop) {
+    public CriteriaDTO(Long id, boolean motel, double priceStart, double priceEnd, double acreageStart, double acreageEnd,
+                       DistrictDTO districtDTO, boolean stop, LocalDateTime createAt) {
         this.id = id;
         this.motel = motel;
         this.priceStart = priceStart;
@@ -29,6 +34,7 @@ public class CriteriaDTO {
         this.acreageEnd = acreageEnd;
         this.districtDTO = districtDTO;
         this.stop = stop;
+        this.createAt = createAt;
     }
 
     public Long getId() {
@@ -37,6 +43,14 @@ public class CriteriaDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isMotel() {
+        return motel;
+    }
+
+    public void setMotel(boolean motel) {
+        this.motel = motel;
     }
 
     public double getPriceStart() {
@@ -79,11 +93,19 @@ public class CriteriaDTO {
         this.districtDTO = districtDTO;
     }
 
-    public boolean isMotel() {
-        return motel;
+    public boolean isStop() {
+        return stop;
     }
 
-    public void setMotel(boolean motel) {
-        this.motel = motel;
+    public void setStop(boolean stop) {
+        this.stop = stop;
+    }
+
+    public LocalDateTime getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = createAt;
     }
 }

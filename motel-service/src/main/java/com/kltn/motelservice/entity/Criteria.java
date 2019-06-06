@@ -1,6 +1,7 @@
 package com.kltn.motelservice.entity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "criteria")
@@ -25,6 +26,8 @@ public class Criteria {
 
     private double acreageEnd;
 
+    private LocalDateTime createAt;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "district_id")
     private District district;
@@ -32,7 +35,8 @@ public class Criteria {
     public Criteria() {
     }
 
-    public Criteria(User user, boolean motel, boolean stop, double priceStart, double priceEnd, double acreageStart, double acreageEnd, District district) {
+    public Criteria(User user, boolean motel, boolean stop, double priceStart, double priceEnd, double acreageStart,
+                    double acreageEnd, LocalDateTime createAt, District district) {
         this.user = user;
         this.motel = motel;
         this.stop = stop;
@@ -40,6 +44,7 @@ public class Criteria {
         this.priceEnd = priceEnd;
         this.acreageStart = acreageStart;
         this.acreageEnd = acreageEnd;
+        this.createAt = createAt;
         this.district = district;
     }
 
@@ -105,6 +110,14 @@ public class Criteria {
 
     public void setAcreageEnd(double acreageEnd) {
         this.acreageEnd = acreageEnd;
+    }
+
+    public LocalDateTime getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = createAt;
     }
 
     public District getDistrict() {

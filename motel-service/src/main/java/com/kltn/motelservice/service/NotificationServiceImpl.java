@@ -65,7 +65,7 @@ public class NotificationServiceImpl implements NotificationService {
     public Page<NotificationDTO> getNotificationByEmail(String email, int page, boolean screen) {
         Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent()) {
-            Page<Notification> notificationPage = null;
+            Page<Notification> notificationPage;
             if (screen)
                 notificationPage = notificationRepository.findAllByUser(user.get(), PageRequest.of(page, 10, Sort.by("createAt").descending()));
             else
