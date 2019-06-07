@@ -77,24 +77,18 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<PostDTO> getPostByIdUser(long idUser, int page, OAuth2Authentication auth) {
-        try {
-            Optional<User> user = userRepository.findById(idUser);
-            if (user.isPresent()) {
-                if (auth == null || !user.get().getEmail().equals(auth.getName())) {
-                    return postRepository.findAllByUser_EmailAndDelAndApproved(user.get().getEmail(),
-                            false, true, PageRequest.of(page, 10, Sort.by("createAt").descending()))
-                            .map(this::postToPostDTO);
-                } else {
-                    return postRepository.findByUser(user.get(), PageRequest.of(page, 10, Sort.by("createAt").descending()))
-                            .map(this::postToPostDTO);
-                }
-            } else
-                throw new UserException("Không tìm thấy user id " + idUser);
-//                logger.error("Không tìm thấy user " + username);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        Optional<User> user = userRepository.findById(idUser);
+        if (user.isPresent()) {
+            if (auth == null || !user.get().getEmail().equals(auth.getName())) {
+                return postRepository.findAllByUser_EmailAndDelAndApproved(user.get().getEmail(),
+                        false, true, PageRequest.of(page, 10, Sort.by("createAt").descending()))
+                        .map(this::postToPostDTO);
+            } else {
+                return postRepository.findByUser(user.get(), PageRequest.of(page, 10, Sort.by("createAt").descending()))
+                        .map(this::postToPostDTO);
+            }
+        } else
+            throw new UserException("Không tìm thấy user id " + idUser);
     }
 
     @Override

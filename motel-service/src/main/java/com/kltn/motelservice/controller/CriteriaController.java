@@ -26,10 +26,15 @@ public class CriteriaController {
         return criteriaService.createCriteria(criteriaDTO, auth.getName());
     }
 
-    @PutMapping("/criteria/{id}")
+    @PutMapping("/criteria/stop/{id}")
     @PreAuthorize("#oauth2.hasAnyScope('read')")
-    public CriteriaDTO stopCriteria(@PathVariable Long id){
+    public CriteriaDTO stopCriteria(@PathVariable Long id) {
         return criteriaService.stopCriteria(id);
     }
 
+    @PutMapping("/criteria/start/{id}")
+    @PreAuthorize("#oauth2.hasAnyScope('read')")
+    public CriteriaDTO startCriteria(@PathVariable Long id) {
+        return criteriaService.startCriteria(id);
+    }
 }

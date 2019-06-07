@@ -55,6 +55,8 @@ public class CriteriaServiceImpl implements CriteriaService {
         if (user.isPresent()) {
             Optional<District> district = districtRepository.findById(criteriaDTO.getDistrictDTO().getId());
             Criteria criteria = modelMapper.map(criteriaDTO, Criteria.class);
+            criteria.setPriceStart(criteria.getPriceStart()*1000000);
+            criteria.setPriceEnd(criteria.getPriceEnd()*1000000);
             criteria.setUser(user.get());
             criteria.setDistrict(district.get());
             criteria.setCreateAt(LocalDateTime.now());
@@ -72,9 +74,20 @@ public class CriteriaServiceImpl implements CriteriaService {
         Optional<Criteria> criteria = criteriaRepository.findById(idCriteria);
         if (criteria.isPresent()) {
             criteria.get().setStop(true);
-            CriteriaDTO criteriaDTO = modelMapper.map(criteria.get(), CriteriaDTO.class);
-            criteriaDTO.setDistrictDTO(modelMapper.map(criteria.get().getDistrict(), DistrictDTO.class));
-            return criteriaDTO;
+            criteriaRepository.save(criteria.get());
+            return criteriaToCriteriaDTO(criteria.get());
+        } else {
+            throw new CriteriaException("Không tìm thấy Criteria id " + idCriteria);
+        }
+    }
+
+    @Override
+    public CriteriaDTO startCriteria(Long idCriteria) {
+        Optional<Criteria> criteria = criteriaRepository.findById(idCriteria);
+        if (criteria.isPresent()) {
+            criteria.get().setStop(false);
+            criteriaRepository.save(criteria.get());
+            return criteriaToCriteriaDTO(criteria.get());
         } else {
             throw new CriteriaException("Không tìm thấy Criteria id " + idCriteria);
         }

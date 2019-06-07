@@ -10,4 +10,5 @@ public interface CriteriaService {
 
     CriteriaDTO stopCriteria(Long idCriteria);
 
+    CriteriaDTO startCriteria(Long idCriteria);
 }
