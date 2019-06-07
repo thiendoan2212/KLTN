@@ -29,23 +29,37 @@ button[disabled] {
 }
 
 
-p.criteria, p.notification {
+.criteria, .notification {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 20px;
-  font-weight: bold;
+  font-weight: 700;
   background: #374B5F;
   color: white;
-  padding: 10px 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   margin-bottom: 0px;
+}
+
+.notification {
+  font-size: 18px;
+}
+
+#tieuchi {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  margin: 0;
 }
 
 #criteria, #notification {
   font-weight: 600;
 }
 
+.margin-bottom {
+  margin-bottom: 20px;
+}
+
 .mat-expansion-panel-header {
-  padding-left: 0px;
-  border-radius: 0px;
+  padding-left: 0px !important;
+  border-radius: 0px !important;
 }
 
 div.mat-expansion-panel-body {
@@ -120,4 +134,36 @@ div.mat-expansion-panel-body {
   font-weight: 400;
   margin-top: 7px;
   color: #383838;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #0db9f0;
+  border-color: #0db9f0;
+}
+
+.custom-checkbox > [type="checkbox"]:disabled:checked + label:after {
+  color: #dadada;
+  cursor: not-allowed;
+}
+
+.custom-checkbox > [type="checkbox"]:disabled + label {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.labelCheckbox {
+  font-size: 13px;
+  font-weight: 400;
+  color: #9498A0;
+}
+
+.custom-control-label::before,
+.custom-control-label::after {
+  width: 13px;
+  height: 13px;
+}
+
+.all {
+  font-size: 13px;
+  font-weight: 600;
 }

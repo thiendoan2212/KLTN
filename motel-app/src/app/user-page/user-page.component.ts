@@ -28,6 +28,7 @@ export class UserPageComponent implements OnInit {
   updateDialog: MatDialogRef<UpdateUserComponent>;
   changePassDialog: MatDialogRef<ChangePassComponent>;
   urlAvatar = '';
+  notFound = false;
 
   constructor(private accountService: AccountService,
               private activatedRoute: ActivatedRoute,
@@ -66,13 +67,17 @@ export class UserPageComponent implements OnInit {
       this.idUser = params.id;
     });
     this.accountService.getUserById(this.idUser).subscribe(res => {
-      this.user = res;
-      if (this.user.b64) {
-        this.urlAvatar = 'data:' + this.user.fileType + ';base64,' + this.user.b64;
-      } else {
-        this.urlAvatar = '../../assets/avatar.svg';
-      }
-    });
+        this.user = res;
+        if (this.user.b64) {
+          this.urlAvatar = 'data:' + this.user.fileType + ';base64,' + this.user.b64;
+        } else {
+          this.urlAvatar = '../../assets/avatar.svg';
+        }
+      },
+      error => {
+        this.notFound = true;
+        this.errorMessage = error.error.message;
+      });
   }
 
   getPage(page: number) {
@@ -91,7 +96,6 @@ export class UserPageComponent implements OnInit {
       },
       error => {
         this.errorMessage = error.error.message;
-        console.log(this.errorMessage);
       }
     );
   }

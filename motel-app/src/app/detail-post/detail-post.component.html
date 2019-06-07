@@ -316,12 +316,17 @@
                 </div>
               </form>
               <p class="gio"
-                 *ngIf="idCommentEdit !== commentDTO.id">{{commentDTO.lastUpdate | date:'d/M/yyyy, h:mm a'}}</p>
+                 *ngIf="idCommentEdit !== commentDTO.id">{{commentDTO.lastUpdate | date:'d/M/yyyy, h:mm'}}</p>
               <div class="border-bottom" style="margin-bottom: 10px;"></div>
             </div>
             <!--Phân trang-->
-            <div class="text-center" *ngIf="totalElements>0">
-              <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+            <div class="text-center">
+              <pagination-controls (pageChange)="getPage($event)" id="server"
+                                   autoHide="true"
+                                   responsive="true"
+                                   previousLabel="Trước"
+                                   nextLabel="Sau">
+              </pagination-controls>
             </div>
             <!--Phân trang-->
           </div>

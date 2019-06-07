@@ -21,7 +21,6 @@
 
 .searchform {
   font-weight: 400;
-  padding: 10px 0;
 }
 
 .search-detail-district, .search-detail-type, .search-detail-price {
@@ -69,10 +68,6 @@ agm-map {
   border: none !important;
 }
 
-.searchBtn {
-  padding-bottom: 10px;
-}
-
 .ng5-slider {
   margin-top: 10px !important;
   background-color: black !important;
@@ -102,4 +97,9 @@ agm-map {
 
 #address {
   font-weight: bold;
+}
+
+.error {
+  color: #dc3545;
+  font-weight: 400;
 }

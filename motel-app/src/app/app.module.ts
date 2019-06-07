@@ -55,6 +55,7 @@ import {StarRatingModule} from 'angular-star-rating';
 import {AutofocusDirective} from './directive/AutoFocus.directive';
 import { NotificationComponent } from './notification/notification.component';
 import {SafeHtml} from './pipe/SafeHtml';
+import { CreateCriteriaComponent } from './create-criteria/create-criteria.component';
 
 const authConfig: NbOAuth2AuthStrategyOptions = {
   name: 'userpass',
@@ -104,6 +105,7 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     ChangePassComponent,
     NotfoundPageComponent,
     NotificationComponent,
+    CreateCriteriaComponent,
   ],
   imports: [
     MatExpansionModule,
@@ -171,7 +173,7 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent, RegisterComponent, MapsSearchComponent, UpdateUserComponent, ChangePassComponent]
+  entryComponents: [LoginComponent, RegisterComponent, MapsSearchComponent, UpdateUserComponent, ChangePassComponent, CreateCriteriaComponent]
 })
 export class AppModule {
 }

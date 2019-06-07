@@ -15,4 +15,16 @@ export class CriteriaService {
   getCriteria(page: number, all: boolean): Observable<CriteriaDTO[]> {
     return this.http.get<CriteriaDTO[]>(this.apiUrl + '/criterias?page=' + page + '&all=' + all);
   }
+
+  stopCriteria(idCriteria: number): Observable<CriteriaDTO> {
+    return this.http.put<CriteriaDTO>(this.apiUrl + '/criteria/stop/' + idCriteria, null);
+  }
+
+  startCriteria(idCriteria: number): Observable<CriteriaDTO> {
+    return this.http.put<CriteriaDTO>(this.apiUrl + '/criteria/start/' + idCriteria, null);
+  }
+
+  createCriteria(criteriaDTO: CriteriaDTO): Observable<CriteriaDTO> {
+    return this.http.post<CriteriaDTO>(this.apiUrl + '/criteria', criteriaDTO);
+  }
 }

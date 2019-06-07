@@ -13,7 +13,7 @@ import {AuthGuard} from './auth/auth-guard.service';
 import {NotificationComponent} from './notification/notification.component';
 
 const routes: Routes = [
-  {path: 'notification', component: NotificationComponent},
+  {path: 'notification', component: NotificationComponent, canActivate: [AuthGuard]},
   {path: 'create-post', component: CreatePostComponent, canActivate: [AuthGuard]},
   {path: 'user', component: UserPageComponent},
   {path: 'update', component: UpdatePostComponent, canActivate: [AuthGuard]},

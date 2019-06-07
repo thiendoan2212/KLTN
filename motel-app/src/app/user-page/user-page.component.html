@@ -1,6 +1,7 @@
 <app-nav-bar></app-nav-bar>
 <div class="space"></div>
-<div class="container" *ngIf="user">
+<app-notfound-page *ngIf="notFound"></app-notfound-page>
+<div class="container" *ngIf="user && !notFound">
   <div class="row">
     <div class="col-lg-12">
       <nav aria-label="breadcrumb">
@@ -12,7 +13,7 @@
     </div>
   </div>
 </div>
-<div class="container" *ngIf="user">
+<div class="container" *ngIf="user && !notFound">
   <div class="row">
     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
       <p class="thongtin">Thông tin</p>
@@ -101,8 +102,12 @@
               </div>
             </div>
             <p id="emptyPost" *ngIf="totalElements === 0">Chưa có tin đăng</p>
-            <div class="text-center" *ngIf="totalElements>0">
-              <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+            <div class="text-center">
+              <pagination-controls (pageChange)="getPage($event)" id="server"
+                                   autoHide="true"
+                                   responsive="true"
+                                   previousLabel="Trước"
+                                   nextLabel="Sau"></pagination-controls>
             </div>
           </div>
         </div>

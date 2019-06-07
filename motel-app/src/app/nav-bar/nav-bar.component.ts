@@ -33,9 +33,9 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {
     this.authService.onTokenChange().subscribe((token: NbAuthOAuth2JWTToken) => {
       if (token.isValid()) {
+        this.getNotificationByEmail();
         this.user = token.getPayload().account;
         this.dialog.closeAll();
-        this.getNotificationByEmail();
       }
     });
   }

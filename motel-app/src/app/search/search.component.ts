@@ -91,33 +91,4 @@ export class SearchComponent implements OnInit {
       }
     );
   }
-
-  //
-  // mapClicked($event: any) {
-  //   this.searchForm1.xCoordinate = $event.coords.lat;
-  //   this.searchForm1.yCoordinate = $event.coords.lng;
-  // }
-  //
-  // markerDragEnd($event: any) {
-  //   this.searchForm1.xCoordinate = $event.coords.lat;
-  //   this.searchForm1.yCoordinate = $event.coords.lng;
-  // }
-  //
-  // updateLatLngFromAddress() {
-  //   this.geocodingAPIService
-  //     .findFromAddress(this.address).subscribe(response => {
-  //       if (response.status === 'OK') {
-  //         this.lat = response.results[0].geometry.location.lat;
-  //         this.lng = response.results[0].geometry.location.lng;
-  //         this.searchForm1.xCoordinate = response.results[0].geometry.location.lat;
-  //         this.searchForm1.yCoordinate = response.results[0].geometry.location.lng;
-  //         console.log('GEO ' + this.lat);
-  //         console.log('GEO ' + this.lng);
-  //       } else if (response.status === 'ZERO_RESULTS') {
-  //         console.log('geocodingAPIService', 'ZERO_RESULTS', response.status);
-  //       } else {
-  //         console.log('geocodingAPIService', 'Other error', response.status);
-  //       }
-  //     });
-  // }
 }

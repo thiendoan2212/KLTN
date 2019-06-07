@@ -8,6 +8,8 @@ import {CriteriaDTO} from '../model/criteriaDTO';
 import {PostDTO} from '../model/postDTO';
 import {Router} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
+import {MatDialog, MatDialogRef} from '@angular/material';
+import {CreateCriteriaComponent} from '../create-criteria/create-criteria.component';
 
 @Component({
   selector: 'app-notification',
@@ -28,11 +30,16 @@ export class NotificationComponent implements OnInit {
   pageCriteria = 0;
   pageSubNoti = 0;
   showLoadding = false;
-  a: boolean;
+  all = false;
+  disabledCheckbox = false;
+  disabledCheckboxStop = false;
+  dialogCreateCriteria: MatDialogRef<CreateCriteriaComponent>;
+  idCriteria: number;
 
   constructor(private notificationService: NotificationService,
               private criteriaService: CriteriaService,
               private sanitizer: DomSanitizer,
+              private dialog: MatDialog,
               private router: Router) {
   }
 
@@ -92,11 +99,14 @@ export class NotificationComponent implements OnInit {
   }
 
   getCriteria() {
-    this.criteriaService.getCriteria(this.pageCriteria, true).subscribe(
+    this.paginationDTO = new PaginationDTO();
+    this.disabledCheckbox = true;
+    this.criteriaService.getCriteria(this.pageCriteria, this.all).subscribe(
       data => {
         this.paginationDTO.content = data;
         this.criteriaDTOS = this.paginationDTO.content.content;
         this.totalElementCriteria = this.paginationDTO.content.totalElements;
+        this.disabledCheckbox = false;
       },
       error => {
       }
@@ -104,6 +114,7 @@ export class NotificationComponent implements OnInit {
   }
 
   getNotificationByEmailAndCriteria(idCriteria: number) {
+    this.idCriteria = idCriteria;
     this.totalElementSubNoti = -1;
     this.paginationDTO = new PaginationDTO();
     this.showLoadding = true;
@@ -138,5 +149,55 @@ export class NotificationComponent implements OnInit {
       error => {
       }
     );
+  }
+
+  stopCriteria(idCriteria: number, stop: boolean) {
+    this.disabledCheckboxStop = true;
+    if (stop) {
+      console.log('stop ' + stop);
+      this.criteriaService.stopCriteria(idCriteria).subscribe(
+        data => {
+          this.disabledCheckboxStop = false;
+          this.getCriteria();
+        },
+        error => {
+        }
+      );
+    } else {
+      this.criteriaService.startCriteria(idCriteria).subscribe(
+        data => {
+          this.disabledCheckboxStop = false;
+          this.getCriteria();
+        },
+        error => {
+        }
+      );
+    }
+  }
+
+  openCreateCriteria() {
+    this.dialogCreateCriteria = this.dialog.open(CreateCriteriaComponent, {
+      hasBackdrop: true,
+      width: 'auto',
+      height: 'auto'
+    });
+    this.dialogCreateCriteria.afterClosed().subscribe(a => {
+      this.getCriteria();
+    });
+  }
+
+  getPageNoti(page: number) {
+    this.pageNoti = page;
+    this.getNotificationByEmail();
+  }
+
+  getPageCriteria(page: number) {
+    this.pageCriteria = page;
+    this.getCriteria();
+  }
+
+  getPageSubNoti(page: number) {
+    this.pageSubNoti = page;
+    this.getNotificationByEmailAndCriteria(this.idCriteria);
   }
 }

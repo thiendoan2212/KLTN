@@ -12,10 +12,12 @@
     </div>
   </div>
 </div>
-<div class="container">
+<div class="container" *ngIf="notificationDTOs && criteriaDTOS">
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <button type="button" mdbWavesEffect id="btnCreateCriteria"><i class="fas fa-plus"></i> Thêm tiêu chí</button>
+      <button mdbWavesEffect id="btnCreateCriteria" (click)="openCreateCriteria()"><i class="fas fa-plus"></i> Thêm tiêu
+        chí
+      </button>
     </div>
   </div>
 </div>
@@ -24,12 +26,28 @@
   <div class="row">
     <!--Left-->
     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-      <p class="criteria">Tiêu chí</p>
-      <div class="criteria-content">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 criteria">
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+            <p id="tieuchi">Tiêu chí</p>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+            <div class="d-flex justify-content-end">
+              <div class="custom-control custom-checkbox" style="margin-top:3px;">
+                <input type="checkbox" class="custom-control-input" [(ngModel)]="all"
+                       (ngModelChange)="getCriteria()" id="showAll" [disabled]="disabledCheckbox">
+                <label class="custom-control-label all" for="showAll">Hiện tất cả</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="criteria-content margin-bottom">
         <mat-accordion>
           <mat-expansion-panel (opened)="panelOpenState = true; getNotificationByEmailAndCriteria(criteria.id)"
                                (closed)="panelOpenState = false"
-                               *ngFor="let criteria of criteriaDTOS">
+                               *ngFor="let criteria of criteriaDTOS | paginate: { id: 'second', itemsPerPage: 10, currentPage: pageCriteria, totalItems: totalElementCriteria};
+                                let i=index">
             <mat-expansion-panel-header [collapsedHeight]="'70px'" [expandedHeight]="'70px'"
                                         [ngClass]="{'border-bottom': (panelOpenState)}">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -48,15 +66,16 @@
                     Diện tích: {{criteria.acreageStart}} - {{criteria.acreageEnd}} m²
                   </div>
                   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
-                    <p class="time"> Thời gian tạo: {{criteria.createAt | date: 'dd/MM/yyyy HH:mm'}}</p>
+                    <p class="time">Khởi tạo: {{criteria.createAt | date: 'dd/MM/yyyy HH:mm'}}</p>
                   </div>
-                  <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">-->
-                    <!--<div class="custom-control custom-checkbox">-->
-                      <!--<input type="checkbox" class="custom-control-input" name="parking"-->
-                             <!--[(ngModel)]="a" id="parking">-->
-                      <!--<label class="custom-control-label" for="parking">Dừng nhận thông báo</label>-->
-                    <!--</div>-->
-                  <!--</div>-->
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                    <div class="custom-control custom-checkbox" (click)="$event.stopPropagation()">
+                      <input type="checkbox" class="custom-control-input" name="checkbox-list"
+                             [(ngModel)]="criteria.stop" (ngModelChange)="stopCriteria(criteria.id, criteria.stop)"
+                             id="{{i}}" ngDefaultControl [disabled]="disabledCheckboxStop" style="padding-right: 5px;">
+                      <label class="custom-control-label labelCheckbox" for="{{i}}">Dừng nhận thông báo</label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </mat-expansion-panel-header>
@@ -64,7 +83,8 @@
               <span *ngIf="showLoadding" class="spinner-border spinner-border-sm"></span>
             </div>
             <p class="noidung" *ngIf="totalElementSubNoti === 0">Không có thông báo</p>
-            <a style="padding: 0px!important;" *ngFor="let subNotificationDTO of subNotificationDTOS"
+            <a style="padding: 0px!important;"
+               *ngFor="let subNotificationDTO of subNotificationDTOS | paginate: { id: 'third', itemsPerPage: 10, currentPage: pageSubNoti, totalItems: totalElementSubNoti}"
                (click)="navigateToDetail(subNotificationDTO.postDTO); seen(subNotificationDTO);">
               <div id="inf" class="row border-bottom" *ngIf="totalElementSubNoti > 0">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -104,17 +124,36 @@
                 </div>
               </div>
             </a>
+            <div class="text-center" style="margin-top: 10px;">
+              <pagination-controls (pageChange)="getPageSubNoti($event)" id="third"
+                                   autoHide="true"
+                                   responsive="true"
+                                   previousLabel="Trước"
+                                   nextLabel="Sau">
+              </pagination-controls>
+            </div>
           </mat-expansion-panel>
-
         </mat-accordion>
+        <div class="text-center" style="margin-top: 10px;">
+          <pagination-controls (pageChange)="getPageCriteria($event)" id="second"
+                               autoHide = "true"
+                               responsive="true"
+                               previousLabel="Trước"
+                               nextLabel="Sau">
+          </pagination-controls>
+        </div>
       </div>
     </div>
     <!--Left-->
     <!--Right-->
     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-      <p class="notification">Thông báo</p>
-      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-        <a style="padding: 0px!important;" *ngFor="let notificationDTO of notificationDTOs"
+      <div class="notification">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">Thông báo
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 margin-bottom">
+        <a style="padding: 0px!important;"
+           *ngFor="let notificationDTO of notificationDTOs | paginate: { id: 'first', itemsPerPage: 10, currentPage: pageNoti, totalItems: totalElementNoti }"
            (click)="navigateToDetail(notificationDTO.postDTO); seen(notificationDTO);">
           <div id="noti" class="row border-bottom border-left border-right">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -154,8 +193,17 @@
             </div>
           </div>
         </a>
+        <div class="text-center" style="margin-top: 10px;">
+          <pagination-controls (pageChange)="getPageNoti($event)" id="first"
+                               autoHide="true"
+                               responsive="true"
+                               previousLabel="Trước"
+                               nextLabel="Sau">
+          </pagination-controls>
+        </div>
       </div>
     </div>
     <!--Right-->
   </div>
 </div>
+<app-footer *ngIf="notificationDTOs && criteriaDTOS"></app-footer>
