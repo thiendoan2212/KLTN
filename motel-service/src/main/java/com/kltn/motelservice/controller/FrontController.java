@@ -13,6 +13,6 @@ public class FrontController {
 
     @GetMapping("/")
     public String getUserApp(){
-        return "/index.html";
+        return "/app/index.html";
     }
 }

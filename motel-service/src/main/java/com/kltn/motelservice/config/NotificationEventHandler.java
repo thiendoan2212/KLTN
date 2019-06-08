@@ -6,9 +6,11 @@ import com.kltn.motelservice.repository.CriteriaRepository;
 import com.kltn.motelservice.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class NotificationEventHandler implements ApplicationListener<NotificationEvent> {
 
     @Autowired
