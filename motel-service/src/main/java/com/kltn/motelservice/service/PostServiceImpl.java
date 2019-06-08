@@ -1,5 +1,6 @@
 package com.kltn.motelservice.service;
 
+import com.kltn.motelservice.config.NotificationEvent;
 import com.kltn.motelservice.entity.*;
 import com.kltn.motelservice.exception.PostException;
 import com.kltn.motelservice.exception.UserException;
@@ -7,6 +8,7 @@ import com.kltn.motelservice.model.*;
 import com.kltn.motelservice.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.AccessDeniedException;
@@ -41,6 +43,9 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     NotificationServiceImpl notificationService;
+
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
     ModelMapper modelMapper = new ModelMapper();
 
@@ -287,7 +292,8 @@ public class PostServiceImpl implements PostService {
                 post.get().setApproved(true);
                 post.get().setNotApproved(false);
                 actionService.createAction(post.get(), user.get(), ActionName.APPROVE);
-                createNoti(post.get());
+                applicationEventPublisher.publishEvent(new NotificationEvent(this, post.get()));
+//                createNoti(post.get());
             } else {
                 Optional<User> user = userRepository.findByEmail(usernamApprover);
                 post.get().setNotApproved(true);
@@ -410,11 +416,11 @@ public class PostServiceImpl implements PostService {
         return d;
     }
 
-    public void createNoti(Post post) {
-        List<Criteria> criteriaList = criteriaRepository.findAllByAcreageStartLessThanEqualAndAcreageEndGreaterThanEqualAndPriceStartLessThanEqualAndPriceEndGreaterThanEqualAndDistrict_IdAndMotelAndStop(
-                post.getAccomodation().getAcreage(), post.getAccomodation().getAcreage(), post.getAccomodation().getPrice(), post.getAccomodation().getPrice(), post.getAccomodation().getDistrict().getId(), post.getAccomodation().isMotel(), false);
-        for (Criteria criteria : criteriaList) {
-            notificationService.createNotification(criteria.getUser(), post, criteria);
-        }
-    }
+//    public void createNoti(Post post) {
+//        List<Criteria> criteriaList = criteriaRepository.findAllByAcreageStartLessThanEqualAndAcreageEndGreaterThanEqualAndPriceStartLessThanEqualAndPriceEndGreaterThanEqualAndDistrict_IdAndMotelAndStop(
+//                post.getAccomodation().getAcreage(), post.getAccomodation().getAcreage(), post.getAccomodation().getPrice(), post.getAccomodation().getPrice(), post.getAccomodation().getDistrict().getId(), post.getAccomodation().isMotel(), false);
+//        for (Criteria criteria : criteriaList) {
+//            notificationService.createNotification(criteria.getUser(), post, criteria);
+//        }
+//    }
 }
