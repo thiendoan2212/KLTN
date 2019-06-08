@@ -27,15 +27,19 @@ public class Notification {
 
     private LocalDateTime createAt;
 
+    @Enumerated(EnumType.STRING)
+    private NotificationName notificationName;
+
     public Notification() {
     }
 
-    public Notification(User user, Criteria criteria, Post post, boolean seen, LocalDateTime createAt) {
+    public Notification(User user, Criteria criteria, Post post, boolean seen, LocalDateTime createAt, NotificationName notificationName) {
         this.user = user;
         this.criteria = criteria;
         this.post = post;
         this.seen = seen;
         this.createAt = createAt;
+        this.notificationName = notificationName;
     }
 
     public Long getId() {
@@ -84,5 +88,13 @@ public class Notification {
 
     public void setCreateAt(LocalDateTime createAt) {
         this.createAt = createAt;
+    }
+
+    public NotificationName getNotificationName() {
+        return notificationName;
+    }
+
+    public void setNotificationName(NotificationName notificationName) {
+        this.notificationName = notificationName;
     }
 }

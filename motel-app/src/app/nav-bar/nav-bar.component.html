@@ -40,7 +40,7 @@
         </li>
         <li class="nav-item dropdown" *ngIf="user" dropdown>
           <a dropdownToggle mdbWavesEffect type="button" class="nav-link waves-light" mdbWavesEffect>
-            <i class="fas fa-bell" style="color: #0db9f0;"></i></a>
+            <i class="fas fa-bell" [ngStyle]="{'color':noti?'#0db9f0':'white'}"></i></a>
           <div *dropdownMenu class="dropdown-menu dropdown-primary dropdown-menu-right"
                style="width: 400px; padding: 0px; max-height: 422px" role="menu">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -54,46 +54,76 @@
                   </div>
                 </div>
               </div>
-              <a style="padding: 0px!important;" *ngFor="let notificationDTO of notificationDTOs"
-                 (click)="navigateToDetail(notificationDTO.postDTO); seen(notificationDTO);">
-                <div id="inf" class="row border-bottom" [ngStyle]="{'background-color': (notificationDTO.seen)?'#FFFFFF':'#EDF2FA'}">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="avatar">
-                      <img id="avatarUser" [src]="notificationDTO.postDTO.userDTO.b64">
-                    </div>
-                    <div class="information">
-                      <div class="row">
-                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9">
-                          <p id="name">{{notificationDTO.postDTO.userDTO.fullName}}
-                            <span id="more"> đăng một tin mới </span>
-                            {{notificationDTO.postDTO.title | truncate:[30]}}
-                          </p>
-                          <p class="time"
-                             *ngIf="notificationDTO.unit === 'phút'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
-                            trước</p>
-                          <p class="time"
-                             *ngIf="notificationDTO.unit === 'giờ'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
-                            trước</p>
-                          <p class="time"
-                             *ngIf="notificationDTO.unit === 'ngày'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
-                            trước</p>
-                          <p class="time"
-                             *ngIf="notificationDTO.unit === 'tháng'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
-                            trước</p>
-                          <p class="time"
-                             *ngIf="notificationDTO.unit === 'năm'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
-                            trước</p>
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-                          <div class="row">
-                            <img id="imgPost" [src]="notificationDTO.postDTO.imageStrings[0]">
+              <div *ngIf="showLoadding" class="text-center">
+                <span class="spinner-border spinner-border-sm"></span>
+              </div>
+              <div class="row border-bottom">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <p id="nothingNoti" *ngIf="totalElements === 0">Không có thông báo</p>
+                </div>
+              </div>
+              <div *ngIf="totalElements > 0">
+                <a style="padding: 0px!important;" *ngFor="let notificationDTO of notificationDTOs"
+                   (click)="navigateToDetail(notificationDTO.postDTO); seen(notificationDTO);">
+                  <div id="inf" class="row border-bottom"
+                       [ngStyle]="{'background-color': (notificationDTO.seen)?'#FFFFFF':'#EDF2FA'}">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                      <div class="avatar">
+                        <img id="avatarUser" *ngIf="notificationDTO.notificationName === notiName.NOTIFICATION"
+                             [src]="notificationDTO.postDTO.userDTO.b64">
+                        <img id="approve" *ngIf="notificationDTO.notificationName === notiName.APPROVE"
+                             [src]="'../../assets/success.png'">
+                        <img id="block" *ngIf="notificationDTO.notificationName === notiName.BLOCK"
+                             [src]="'../../assets/cancel.png'">
+                      </div>
+                      <div class="information">
+                        <div class="row">
+                          <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9">
+                            <div *ngIf="notificationDTO.notificationName === notiName.NOTIFICATION">
+                              <p class="name">{{notificationDTO.postDTO.userDTO.fullName}}
+                                <span class="more"> đăng một tin mới </span>
+                                {{notificationDTO.postDTO.title | truncate:[40]}}
+                              </p>
+                            </div>
+                            <div *ngIf="notificationDTO.notificationName === notiName.APPROVE">
+                              <p class="name">Kiểm duyệt viên
+                                <span class="more"> đã duyệt </span>
+                                {{notificationDTO.postDTO.title | truncate:[40]}}
+                              </p>
+                            </div>
+                            <div *ngIf="notificationDTO.notificationName === notiName.BLOCK">
+                              <p class="name">Kiểm duyệt viên
+                                <span class="more"> đã khóa </span>
+                                {{notificationDTO.postDTO.title | truncate:[40]}}
+                              </p>
+                            </div>
+                            <p class="time"
+                               *ngIf="notificationDTO.unit === 'phút'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
+                              trước</p>
+                            <p class="time"
+                               *ngIf="notificationDTO.unit === 'giờ'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
+                              trước</p>
+                            <p class="time"
+                               *ngIf="notificationDTO.unit === 'ngày'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
+                              trước</p>
+                            <p class="time"
+                               *ngIf="notificationDTO.unit === 'tháng'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
+                              trước</p>
+                            <p class="time"
+                               *ngIf="notificationDTO.unit === 'năm'">{{notificationDTO.createAt}} {{notificationDTO.unit}}
+                              trước</p>
+                          </div>
+                          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+                            <div class="row">
+                              <img id="imgPost" [src]="notificationDTO.postDTO.imageStrings[0]">
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </a>
+                </a>
+              </div>
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                   <div class="text-center">

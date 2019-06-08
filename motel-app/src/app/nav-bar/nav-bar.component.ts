@@ -10,6 +10,7 @@ import {PaginationDTO} from '../model/paginationDTO';
 import {NotificationDTO} from '../model/notificationDTO';
 import {PostDTO} from '../model/postDTO';
 import * as moment from 'moment';
+import {NotificationName} from '../model/NotificationName';
 
 @Component({
   selector: 'app-nav-bar',
@@ -23,6 +24,10 @@ export class NavBarComponent implements OnInit {
   paginationDTO = new PaginationDTO();
   notificationDTOs: NotificationDTO[];
   page = 0;
+  notiName = NotificationName;
+  showLoadding = false;
+  noti = false;
+  totalElements: number;
 
   constructor(public dialog: MatDialog,
               private authService: NbAuthService,
@@ -73,11 +78,16 @@ export class NavBarComponent implements OnInit {
   }
 
   getNotificationByEmail() {
+    this.showLoadding = true;
     this.notificationService.getNotificationByEmail(this.page, false).subscribe(
       data => {
         this.paginationDTO.content = data;
         this.notificationDTOs = this.paginationDTO.content.content;
+        this.totalElements = this.paginationDTO.content.totalElements;
         for (const notificationDTO of this.notificationDTOs) {
+          if (!notificationDTO.seen) {
+            this.noti = true;
+          }
           if (notificationDTO.postDTO.userDTO.b64) {
             notificationDTO.postDTO.userDTO.b64 = 'data:' + notificationDTO.postDTO.userDTO.fileType + ';base64,'
               + notificationDTO.postDTO.userDTO.b64;
@@ -104,6 +114,7 @@ export class NavBarComponent implements OnInit {
             notificationDTO.unit = 'năm';
           }
         }
+        this.showLoadding = false;
       }, error => {
         console.log(error.error.message);
       }
