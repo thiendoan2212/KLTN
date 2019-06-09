@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.AbstractMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -35,8 +36,8 @@ public class UserController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')") // only ADMIN can get list users
-    public Page<UserDTO> getAlLUser(@PageableDefault(page = 0, size = 20) Pageable page) {
-        return userService.selectPageOfUsers(page).map(mapper::entityToDTO);
+    public Page<UserDTO> getAlLUser(@PageableDefault(page = 0, size = 10) Pageable page) {
+        return userService.selectPageOfUsers(page).map(mapper::entityToDTOWithRoles);
     }
 
     @GetMapping("/{id}")
@@ -45,7 +46,7 @@ public class UserController {
 
         User user = userService.selectUserById(id);
 
-        return mapper.entityToDTO(user);
+        return mapper.entityToDTOWithRoles(user);
     }
 
     @PutMapping("/{id}")
@@ -55,7 +56,7 @@ public class UserController {
         userDTO.setId(id);
         User user = userService.changeProfile(userDTO);
 
-        return mapper.entityToDTO(user);
+        return mapper.entityToDTOWithRoles(user);
     }
 
     @PutMapping("/{id}/block")
@@ -63,7 +64,7 @@ public class UserController {
     public UserDTO blockUser(@PathVariable("id") Long id) {
         User user = userService.blockUserById(id, true);
 
-        return mapper.entityToDTO(user);
+        return mapper.entityToDTOWithRoles(user);
     }
 
     @PutMapping("/{id}/unblock")
@@ -71,7 +72,7 @@ public class UserController {
     public UserDTO unblockUser(@PathVariable("id") Long id) {
         User user = userService.blockUserById(id, false);
 
-        return mapper.entityToDTO(user);
+        return mapper.entityToDTOWithRoles(user);
     }
 
     @PostMapping("/{id}/password")
@@ -97,7 +98,7 @@ public class UserController {
     @PostMapping
     public UserDTO registerUserAccount(@RequestBody AccountDto accountDto) {
         User user = userService.registration(accountDto);
-        return mapper.entityToDTO(user);
+        return mapper.entityToDTOWithRoles(user);
     }
 
     @GetMapping("/{id}/avatar")
@@ -110,7 +111,7 @@ public class UserController {
     @PostMapping("/{id}/avatar")
     @PreAuthorize("#oauth2.hasAnyScope('read')") // for authenticated request (logged)
     public AbstractMap.SimpleEntry<String, String> uploadAvatar(@PathVariable("id") Long id, OAuth2Authentication auth,
-                                                                @RequestParam("avatar")MultipartFile file) throws IOException {
+                                                                @RequestParam("avatar") MultipartFile file) throws IOException {
         if (!validRequest(auth, id)) throw new AccessDeniedException("Access dined");
         userService.changeAvatar(id, file.getBytes());
         return getAvatar(id, auth);
@@ -123,6 +124,14 @@ public class UserController {
         AbstractMap.SimpleEntry<String, String> avatar = getAvatar(id, auth);
         userService.changeAvatar(id, new byte[]{});
         return avatar;
+    }
+
+    @PutMapping("/{id}/role")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    public UserDTO changeRole(@PathVariable("id") Long id,
+                              @RequestBody List<RoleName> role) {
+        User user = userService.changeRole(id, role);
+        return mapper.entityToDTO(user);
     }
 
     //user request change profile or admin

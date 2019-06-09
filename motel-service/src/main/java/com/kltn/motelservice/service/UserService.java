@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -36,7 +37,10 @@ public interface UserService {
 
     User changeProfile(UserDTO userDTO);
 
+    User changeRole(Long id, List<RoleName> role);
+
     User registration(AccountDto accountDto);
 
     void changeAvatar(Long id, byte[] fileBytes);
+
 }

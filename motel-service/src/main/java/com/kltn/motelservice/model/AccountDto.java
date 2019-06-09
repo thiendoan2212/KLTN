@@ -1,5 +1,9 @@
 package com.kltn.motelservice.model;
 
+import com.kltn.motelservice.entity.RoleName;
+
+import java.util.List;
+
 public class AccountDto {
 
     private String email;
@@ -11,6 +15,8 @@ public class AccountDto {
     private String address;
 
     private String phone;
+
+    private List<RoleName> role;
 
     public AccountDto() {
     }
@@ -53,5 +59,13 @@ public class AccountDto {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public List<RoleName> getRole() {
+        return role;
+    }
+
+    public void setRole(List<RoleName> role) {
+        this.role = role;
     }
 }

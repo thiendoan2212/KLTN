@@ -20,11 +20,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -93,6 +93,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User changeRole(Long id, List<RoleName> role) {
+        User user = selectUserById(id);
+        user.setRoles(role.stream().map(this::selectRoleByName).collect(Collectors.toList()));
+        return userRepository.save(user);
+    }
+
+    @Override
     public User registration(AccountDto accountDto) {
         userRepository.findByEmail(accountDto.getEmail()).ifPresent((user) -> new UserException("Email đã tồn tại"));
 
@@ -105,7 +112,11 @@ public class UserServiceImpl implements UserService {
         user.setAddress(accountDto.getAddress());
         user.setPhone(accountDto.getPhone());
         user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
-        user.setRoles(Arrays.asList(selectRoleByName(RoleName.ROLE_USER)));
+        if (accountDto.getRole() != null && !accountDto.getRole().isEmpty()) {
+            user.setRoles(accountDto.getRole().stream().map(this::selectRoleByName).collect(Collectors.toList()));
+        } else {
+            user.setRoles(Arrays.asList(selectRoleByName(RoleName.ROLE_USER)));
+        }
         return userRepository.save(user);
     }
 
