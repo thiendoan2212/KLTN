@@ -1,5 +1,7 @@
 package com.kltn.motelservice.model;
 
+import com.kltn.motelservice.entity.NotificationName;
+
 import java.time.LocalDateTime;
 
 public class NotificationDTO {
@@ -11,14 +13,17 @@ public class NotificationDTO {
 
     private LocalDateTime createAt;
 
+    private NotificationName notificationName;
+
     public NotificationDTO() {
     }
 
-    public NotificationDTO(Long id, PostDTO postDTO, boolean seen, LocalDateTime createAt) {
+    public NotificationDTO(Long id, PostDTO postDTO, boolean seen, LocalDateTime createAt, NotificationName notificationName) {
         this.id = id;
         this.postDTO = postDTO;
         this.seen = seen;
         this.createAt = createAt;
+        this.notificationName = notificationName;
     }
 
     public Long getId() {
@@ -51,5 +56,13 @@ public class NotificationDTO {
 
     public void setCreateAt(LocalDateTime createAt) {
         this.createAt = createAt;
+    }
+
+    public NotificationName getNotificationName() {
+        return notificationName;
+    }
+
+    public void setNotificationName(NotificationName notificationName) {
+        this.notificationName = notificationName;
     }
 }

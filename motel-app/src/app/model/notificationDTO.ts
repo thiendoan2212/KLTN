@@ -6,4 +6,5 @@ export class NotificationDTO {
   seen: boolean;
   createAt: string;
   unit: string;
+  notificationName: string;
 }

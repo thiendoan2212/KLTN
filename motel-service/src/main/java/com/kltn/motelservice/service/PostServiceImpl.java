@@ -299,6 +299,7 @@ public class PostServiceImpl implements PostService {
                 post.get().setNotApproved(true);
                 post.get().setApproved(false);
                 actionService.createAction(post.get(), user.get(), ActionName.BLOCK);
+                applicationEventPublisher.publishEvent(new NotificationEvent(this, post.get()));
             }
             postRepository.save(post.get());
             PostDTO postDTO = modelMapper.map(post.get(), PostDTO.class);

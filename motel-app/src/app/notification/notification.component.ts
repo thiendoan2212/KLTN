@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {CreateCriteriaComponent} from '../create-criteria/create-criteria.component';
+import {NotificationName} from '../model/NotificationName';
 
 @Component({
   selector: 'app-notification',
@@ -35,6 +36,7 @@ export class NotificationComponent implements OnInit {
   disabledCheckboxStop = false;
   dialogCreateCriteria: MatDialogRef<CreateCriteriaComponent>;
   idCriteria: number;
+  notiName = NotificationName;
 
   constructor(private notificationService: NotificationService,
               private criteriaService: CriteriaService,

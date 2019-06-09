@@ -1,9 +1,6 @@
 package com.kltn.motelservice.service;
 
-import com.kltn.motelservice.entity.Criteria;
-import com.kltn.motelservice.entity.Notification;
-import com.kltn.motelservice.entity.Post;
-import com.kltn.motelservice.entity.User;
+import com.kltn.motelservice.entity.*;
 import com.kltn.motelservice.exception.NotificationException;
 import com.kltn.motelservice.exception.UserException;
 import com.kltn.motelservice.model.NotificationDTO;
@@ -40,13 +37,25 @@ public class NotificationServiceImpl implements NotificationService {
     ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public void createNotification(User user, Post post, Criteria criteria) {
+    public void createNotification(User user, Post post, Criteria criteria, NotificationName notificationName) {
         Notification notification = new Notification();
         notification.setUser(user);
         notification.setPost(post);
-        notification.setCriteria(criteria);
-        notification.setSeen(false);
         notification.setCreateAt(LocalDateTime.now());
+        if (notificationName.equals(NotificationName.NOTIFICATION)) {
+            notification.setCriteria(criteria);
+            notification.setNotificationName(notificationName);
+            notification.setSeen(false);
+        } else if (notificationName.equals(NotificationName.APPROVE)){
+            notification.setCriteria(null);
+            notification.setNotificationName(notificationName);
+            notification.setSeen(true);
+        } else {
+            notification.setCriteria(null);
+            notification.setNotificationName(notificationName);
+            notification.setSeen(true);
+        }
+
         notificationRepository.save(notification);
     }
 
@@ -54,7 +63,7 @@ public class NotificationServiceImpl implements NotificationService {
     public Page<NotificationDTO> getNotificationByEmailAndCriteria(String email, Long idCriteria, int page) {
         Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent()) {
-            Page<Notification> notificationPage = notificationRepository.findAllByUserAndAndCriteria_Id(user.get() ,idCriteria, PageRequest.of(page, 10));
+            Page<Notification> notificationPage = notificationRepository.findAllByUserAndAndCriteria_Id(user.get(), idCriteria, PageRequest.of(page, 10));
             return notificationPage.map(this::notificationToNotificationDTO);
         } else {
             throw new UserException("Không tìm thấy user " + email);

@@ -20,10 +20,10 @@ CREATE TABLE `criteria`  (
 
 -- SET FOREIGN_KEY_CHECKS = 1;
 
-INSERT INTO criteria(district_id, motel, stop, user_id, price_start, price_end, acreage_start, acreage_end)
-VALUES (1, 1, 0, 2, 3000000, 10000000, 20, 40);
-INSERT INTO criteria(district_id, motel, stop, user_id, price_start, price_end, acreage_start, acreage_end)
-VALUES (13, 0, 0, 1, 1000000, 3000000, 10, 35);
+INSERT INTO criteria(district_id, motel, stop, user_id, price_start, price_end, acreage_start, acreage_end, create_at)
+VALUES (1, 1, 0, 2, 3000000, 10000000, 20, 40, now());
+INSERT INTO criteria(district_id, motel, stop, user_id, price_start, price_end, acreage_start, acreage_end, create_at)
+VALUES (13, 0, 0, 1, 1000000, 3000000, 10, 35, now());
 
 CREATE TABLE `notification`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -32,6 +32,7 @@ CREATE TABLE `notification`  (
   `criteria_id` bigint(20) NULL DEFAULT NULL,
   `seen` bit(1) NOT NULL,
   `create_at` datetime(0) NULL DEFAULT NULL,
+  `notification_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `FKoiqm9rfwl0j4o349q2gqn7n21`(`post_id`) USING BTREE,
   INDEX `FKq7e8qgeirqpqadbcb2pqmsupo`(`user_id`) USING BTREE,

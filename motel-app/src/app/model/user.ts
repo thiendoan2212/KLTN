@@ -7,4 +7,5 @@ export class User {
   block: boolean;
   b64: string;
   fileType: string;
+  role: string[];
 }
