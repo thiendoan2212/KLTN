@@ -4,7 +4,8 @@
       <form (ngSubmit)="create.form.valid && createCriteria()" #create="ngForm">
         <div class="row searchform">
           <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-            <h4><strong>Thêm tiêu chí mới</strong></h4>
+            <button type="button" class="close" (click)="close()">&times;</button>
+            <h4 style="font-weight: 500;">Thêm tiêu chí mới</h4>
             <hr>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6 col-12 search-detail-district"
@@ -105,7 +106,8 @@
         <div class="col-lg-12 col-sm-12">
           <div class="text-center">
             <button class="btn btnSearch" mdbWavesEffect [disabled]="showLoadding">
-              <span *ngIf="showLoadding" class="spinner-border spinner-border-sm"></span>Thêm tiêu chí</button>
+              <span *ngIf="showLoadding" class="spinner-border spinner-border-sm"></span>Thêm</button>
+            <button type="button" class="btn btn-danger btnSearch" mdbWavesEffect (click)="close()">Đóng</button>
           </div>
         </div>
       </form>

@@ -87,4 +87,8 @@ export class CreateCriteriaComponent implements OnInit {
       }
     );
   }
+
+  close() {
+    this.dialog.closeAll();
+  }
 }

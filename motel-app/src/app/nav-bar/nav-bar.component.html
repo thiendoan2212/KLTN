@@ -69,8 +69,10 @@
                        [ngStyle]="{'background-color': (notificationDTO.seen)?'#FFFFFF':'#EDF2FA'}">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                       <div class="avatar">
-                        <img id="avatarUser" *ngIf="notificationDTO.notificationName === notiName.NOTIFICATION"
+                        <img id="avatarUser" *ngIf="notificationDTO.notificationName === notiName.NOTIFICATION && notificationDTO.postDTO.userDTO.b64"
                              [src]="notificationDTO.postDTO.userDTO.b64">
+                        <img id="avatarUserNull" *ngIf="notificationDTO.notificationName === notiName.NOTIFICATION && !notificationDTO.postDTO.userDTO.b64"
+                             [src]="'../../assets/avatar.svg'">
                         <img id="approve" *ngIf="notificationDTO.notificationName === notiName.APPROVE"
                              [src]="'../../assets/success.png'">
                         <img id="block" *ngIf="notificationDTO.notificationName === notiName.BLOCK"

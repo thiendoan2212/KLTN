@@ -90,7 +90,7 @@ div.mat-expansion-panel-body {
   margin-top: 10px;
 }
 
-#avatarUser, #avatarUserPost, #avatarUserPost1, #avatarUser1 {
+#avatarUser, #avatarUserPost, #avatarUserNull, #approve, #block {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   width: 50px;
   height: 50px;
@@ -104,14 +104,14 @@ div.mat-expansion-panel-body {
   padding: 5px 0px;
 }
 
-#name, #namePost {
+#name, .namePost {
   margin-top: 7px;
   margin-bottom: 0px;
   font-size: 13px;
   font-weight: 500;
 }
 
-#more, #morePost {
+#more, .morePost {
   font-weight: 400;
 }
 
