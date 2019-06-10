@@ -120,7 +120,7 @@ export class DetailPostComponent implements OnInit {
           if (comment.userDTO.b64) {
             comment.userDTO.b64 = 'data:' + comment.userDTO.fileType + ';base64,' + comment.userDTO.b64;
           } else {
-            comment.userDTO.b64 = '../../assets/avatar.svg';
+            comment.userDTO.b64 = 'assets/avatar.svg';
           }
         }
       },

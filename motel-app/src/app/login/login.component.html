@@ -24,11 +24,11 @@
              [(ngModel)]="user.password" name="passwordSignIn" #passwordSignIn="ngModel"
              [ngClass]="{ 'is-invalid': signIn.submitted && passwordSignIn.invalid}">
     </div>
-    <!--<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">-->
-    <!--<button type="button" class="forgot" name="forgot" mdbWavesEffect (click)="signIn.resetForm(); forgot()">Quên mật khẩu?</button>-->
-    <!--</div>-->
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="hasError">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="wrongAccount">
       <p class="error" style="margin-bottom: 0px!important;">Sai thông tin tài khoản</p>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="blockAccount">
+      <p class="error" style="margin-bottom: 0px!important;">Tài khoản đã bị khóa</p>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
       <button name="login" class="btnLogin" mdbWavesEffect [disabled]="disableSubmit" (click)="submitLogin(signIn)">

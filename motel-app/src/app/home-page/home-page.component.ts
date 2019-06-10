@@ -3,6 +3,7 @@ import {PostService} from '../service/post.service';
 import {PostDTO} from '../model/postDTO';
 import {Router} from '@angular/router';
 import {PaginationDTO} from '../model/paginationDTO';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home-page',
@@ -41,5 +42,4 @@ export class HomePageComponent implements OnInit {
   navigateToDetail(postDTO: PostDTO) {
     this.router.navigate(['/post'], {queryParams: {id: postDTO.id}, skipLocationChange: false});
   }
-
 }

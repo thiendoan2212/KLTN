@@ -15,7 +15,8 @@ import {Location} from '@angular/common';
 export class LoginComponent extends NbLoginComponent {
   showLoadding = false;
   disableSubmit = false;
-  hasError = false;
+  wrongAccount = false;
+  blockAccount = false;
   dialogRegister: MatDialogRef<RegisterComponent>;
 
   constructor(private dialog: MatDialog, authService: NbAuthService,
@@ -35,7 +36,8 @@ export class LoginComponent extends NbLoginComponent {
     this.errors = [];
     this.messages = [];
     this.submitted = true;
-    this.hasError = false;
+    this.wrongAccount = false;
+    this.blockAccount = false;
     this.showLoadding = true;
     this.disableSubmit = true;
 
@@ -45,7 +47,12 @@ export class LoginComponent extends NbLoginComponent {
         this.messages = result.getMessages();
       } else {
         this.errors = result.getErrors();
-        this.hasError = true;
+        if (this.errors.toString() === 'Bad credentials') {
+          this.wrongAccount = true;
+        }
+        if (this.errors.toString() === 'User account is locked') {
+          this.blockAccount = true;
+        }
         this.showLoadding = false;
         this.disableSubmit = false;
       }
