@@ -71,7 +71,7 @@ export class UserPageComponent implements OnInit {
         if (this.user.b64) {
           this.urlAvatar = 'data:' + this.user.fileType + ';base64,' + this.user.b64;
         } else {
-          this.urlAvatar = '../../assets/avatar.svg';
+          this.urlAvatar = 'assets/avatar.svg';
         }
       },
       error => {

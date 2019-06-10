@@ -39,7 +39,7 @@ export class UpdateUserComponent implements OnInit {
         if (this.user.b64) {
           this.urlAvatar = 'data:' + this.user.fileType + ';base64,' + this.user.b64;
         } else {
-          this.urlAvatar = '../../assets/avatar.svg';
+          this.urlAvatar = 'assets/avatar.svg';
         }
       }, error => {
         console.log(error.error.message);
@@ -82,6 +82,6 @@ export class UpdateUserComponent implements OnInit {
     this.uploader.clearQueue();
     this.user.fileType = null;
     this.user.b64 = null;
-    this.urlAvatar = '../../assets/avatar.svg';
+    this.urlAvatar = 'assets/avatar.svg';
   }
 }

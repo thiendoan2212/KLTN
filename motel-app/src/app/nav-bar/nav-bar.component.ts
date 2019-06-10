@@ -92,7 +92,7 @@ export class NavBarComponent implements OnInit {
             notificationDTO.postDTO.userDTO.b64 = 'data:' + notificationDTO.postDTO.userDTO.fileType + ';base64,'
               + notificationDTO.postDTO.userDTO.b64;
           } else {
-            notificationDTO.postDTO.userDTO.b64 = '../../assets/avatar.svg';
+            notificationDTO.postDTO.userDTO.b64 = 'assets/avatar.svg';
           }
           const a = new Date();
           const date: number = moment(notificationDTO.createAt, 'YYYY-MM-DDTHH:mm:ss').valueOf();

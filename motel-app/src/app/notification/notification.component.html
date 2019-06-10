@@ -95,7 +95,7 @@
                       <img id="avatarUser" *ngIf="subNotificationDTO.postDTO.userDTO.b64"
                            [src]="'data:image;base64,' + subNotificationDTO.postDTO.userDTO.b64 | appSafeHtml">
                       <img id="avatarUser1" *ngIf="!subNotificationDTO.postDTO.userDTO.b64"
-                           src="../../assets/avatar.svg">
+                           src="assets/avatar.svg">
                     </div>
                     <div class="information">
                       <div class="row">
@@ -165,11 +165,11 @@
                   <img id="avatarUserPost" *ngIf="notificationDTO.notificationName === notiName.NOTIFICATION &&  notificationDTO.postDTO.userDTO.b64"
                        [src]="'data:image;base64,' + notificationDTO.postDTO.userDTO.b64 | appSafeHtml">
                   <img id="avatarUserNull" *ngIf="notificationDTO.notificationName === notiName.NOTIFICATION && !notificationDTO.postDTO.userDTO.b64"
-                       [src]="'../../assets/avatar.svg'">
+                       [src]="'assets/avatar.svg'">
                   <img id="approve" *ngIf="notificationDTO.notificationName === notiName.APPROVE"
-                       [src]="'../../assets/success.png'">
+                       [src]="'assets/success.png'">
                   <img id="block" *ngIf="notificationDTO.notificationName === notiName.BLOCK"
-                       [src]="'../../assets/cancel.png'">
+                       [src]="'assets/cancel.png'">
                 </div>
                 <div class="information">
                   <div class="row">
