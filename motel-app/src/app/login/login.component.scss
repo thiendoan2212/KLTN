@@ -119,3 +119,7 @@ button:disabled:hover {
   background: #0db9f0;
   color: white;
 }
+
+.btnLogin:focus {
+  outline: none;
+}
