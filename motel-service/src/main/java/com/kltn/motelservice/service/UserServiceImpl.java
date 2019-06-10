@@ -53,11 +53,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User changePassword(Long id, String oldPassword, String newPassword) throws Exception {
+    public User changePassword(Long id, String newPassword) throws Exception {
         User user = selectUserById(id);
 
-        if (!passwordEncoder.matches(oldPassword, user.getPassword()))
-            throw new WrongPasswordException("Mật khẩu không đúng");
+//        if (!passwordEncoder.matches(oldPassword, user.getPassword()))
+//            throw new WrongPasswordException("Mật khẩu không đúng");
         user.setPassword(passwordEncoder.encode(newPassword));
 
         return userRepository.save(user);

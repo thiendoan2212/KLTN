@@ -79,11 +79,10 @@ public class UserController {
     @PreAuthorize("#oauth2.hasAnyScope('read')") // for authenticated request (logged)
     public UserDTO changePasswordAUser(@PathVariable("id") Long id,
                                        @RequestParam("password") String newPassword,
-                                       @RequestParam("oldPassword") String oldPassword,
                                        OAuth2Authentication auth) throws Exception {
         if (!validRequest(auth, id)) throw new AccessDeniedException("Access dined");
 
-        User user = userService.changePassword(id, oldPassword, newPassword);
+        User user = userService.changePassword(id, newPassword);
 
         return mapper.entityToDTO(user);
     }
