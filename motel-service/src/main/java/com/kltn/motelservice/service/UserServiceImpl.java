@@ -9,7 +9,6 @@ import com.kltn.motelservice.entity.Role;
 import com.kltn.motelservice.entity.RoleName;
 import com.kltn.motelservice.entity.User;
 import com.kltn.motelservice.exception.UserException;
-import com.kltn.motelservice.exception.WrongPasswordException;
 import com.kltn.motelservice.model.AccountDto;
 import com.kltn.motelservice.model.UserDTO;
 import com.kltn.motelservice.repository.RoleRepository;
@@ -64,8 +63,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> selectPageOfUsers(Pageable page) {
-        return userRepository.findAll(page);
+    public Page<User> selectPageOfUsersInRoles(Pageable page, List<String> rolesString) {
+        List<Role> roles = rolesString.stream()
+                .map(RoleName::valueOf)
+                .map(this::selectRoleByName).collect(Collectors.toList());
+        return userRepository.findAllByRolesIn(page, roles);
     }
 
     @Override
