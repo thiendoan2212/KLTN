@@ -13,7 +13,6 @@ import {NgForm} from '@angular/forms';
 export class RegisterComponent implements OnInit {
   account: Account = new Account();
   disableSubmit = false;
-  showLoadding = false;
   alreadyEmail = false;
   success = false;
   type = 'password';
@@ -38,7 +37,6 @@ export class RegisterComponent implements OnInit {
   submitRegister(signUp: NgForm) {
     if (signUp.valid) {
       this.disableSubmit = true;
-      this.showLoadding = true;
       this.accountService.checkExistUser(this.account.email).subscribe(res => {
         if (res) {
           this.alreadyEmail = res;
@@ -49,6 +47,7 @@ export class RegisterComponent implements OnInit {
             }
           });
         }
+        this.disableSubmit = false;
       });
     }
   }

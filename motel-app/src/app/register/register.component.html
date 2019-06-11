@@ -17,6 +17,7 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <input type="text" class="form-control" id="email" required pattern=".+@.+\..+"
              [(ngModel)]="account.email" name="email" #email="ngModel" appAutofocus="true"
+             (keydown.space)="$event.preventDefault();"
              [ngClass]="{ 'is-invalid': (signUp.submitted && email.invalid) || (signUp.submitted && email.errors?.pattern)}">
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -33,9 +34,6 @@
       </p>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <!--<input type="password" class="form-control" id="password" required-->
-      <!--[(ngModel)]="account.password" name="password" #password="ngModel"-->
-      <!--[ngClass]="{ 'is-invalid': signUp.submitted && password.invalid}">-->
       <input type={{type}} class="form-control" id="password" required
              [(ngModel)]="account.password" name="password" #password="ngModel"
              [ngClass]="{ 'is-invalid': signUp.submitted && password.invalid}">
@@ -48,8 +46,9 @@
 
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-      <button type="submit" name="register" class="btnRegister" (click)="submitRegister(signUp)" mdbWavesEffect>Đăng
-        ký
+      <button type="submit" name="register" class="btnRegister" [disabled]="disableSubmit" (click)="submitRegister(signUp)" mdbWavesEffect>
+        <span *ngIf="disableSubmit" class="spinner-border spinner-border-sm"></span>
+        Đăng ký
       </button>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

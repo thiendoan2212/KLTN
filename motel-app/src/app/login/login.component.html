@@ -14,6 +14,7 @@
       </p>
       <input type="email" class="form-control" id="email" required pattern=".+@.+\..+"
                [(ngModel)]="user.email" name="email" #email="ngModel" appAutofocus="true"
+             (keydown.space)="$event.preventDefault();"
              [ngClass]="{ 'is-invalid': (signIn.submitted && email.invalid) || (signIn.submitted && email.errors?.pattern)}">
     </div>
 

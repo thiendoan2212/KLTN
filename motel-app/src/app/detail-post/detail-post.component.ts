@@ -136,10 +136,10 @@ export class DetailPostComponent implements OnInit {
   }
 
   createComment(bl: NgForm) {
-    this.disableSubmit = true;
     if (this.commentDTO.rate === 0 || !this.commentDTO.rate) {
       this.errorRate = true;
     } else {
+      this.disableSubmit = true;
       this.commentDTO.idPost = this.idPost;
       this.commentDTO.id = null;
       this.commentService.createComment(this.commentDTO).subscribe(

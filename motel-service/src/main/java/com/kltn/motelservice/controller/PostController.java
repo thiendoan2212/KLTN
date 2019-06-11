@@ -76,7 +76,7 @@ public class PostController {
     }
 
     @PostMapping("/post")
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("#oauth2.hasAnyScope('read')")
     public PostDTO createPost(@RequestBody PostDTO postDTO, OAuth2Authentication auth) {
         return postService.createPost(postDTO, auth.getName());
     }
@@ -88,13 +88,13 @@ public class PostController {
     }
 
     @PutMapping("/post/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("#oauth2.hasAnyScope('read')")
     public PostDTO updatePost(@PathVariable Long id, @RequestBody PostDTO postDTO, OAuth2Authentication auth) {
         return postService.updatePost(id, postDTO, auth.getName());
     }
 
     @PutMapping("/post/hide/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("#oauth2.hasAnyScope('read')")
     public PostDTO hidePost(@PathVariable Long id) {
         return postService.hidePost(id);
     }

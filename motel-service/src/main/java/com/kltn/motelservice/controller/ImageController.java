@@ -33,7 +33,7 @@ public class ImageController {
     }
 
     @PostMapping("/uploadMultipleFiles/post/{idPost}")
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("#oauth2.hasAnyScope('read')")
     public List<ImageDTO> uploadMultipleFiles(@PathVariable Long idPost, @RequestParam("files") MultipartFile[] files) {
         return Arrays.asList(files)
                 .stream()
