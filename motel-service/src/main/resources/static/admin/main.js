@@ -214,8 +214,8 @@ var UserService = /** @class */ (function () {
     function UserService(http) {
         this.http = http;
     }
-    UserService.prototype.getAllApproverAccounts = function (page) {
-        return this.http.get("/api/users?page=" + page);
+    UserService.prototype.getAllApproverAccounts = function (page, accountType) {
+        return this.http.get("/api/users?page=" + page + "&role=" + accountType.join(','));
     };
     UserService.prototype.getAccountById = function (id) {
         return this.http.get("/api/users/" + id);
@@ -503,19 +503,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRoutingModule", function() { return AppRoutingModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
-/* harmony import */ var _post_post_management_post_management_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./post/post-management/post-management.component */ "./src/app/post/post-management/post-management.component.ts");
-/* harmony import */ var _user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./user/user-list/user-list.component */ "./src/app/user/user-list/user-list.component.ts");
-/* harmony import */ var _post_post_detail_post_detail_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./post/post-detail/post-detail.component */ "./src/app/post/post-detail/post-detail.component.ts");
-/* harmony import */ var _user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user/user-detail/user-detail.component */ "./src/app/user/user-detail/user-detail.component.ts");
-/* harmony import */ var _user_user_edit_profile_user_edit_profile_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./user/user-edit-profile/user-edit-profile.component */ "./src/app/user/user-edit-profile/user-edit-profile.component.ts");
-/* harmony import */ var _user_create_new_user_create_new_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./user/create-new/user-create-new.component */ "./src/app/user/create-new/user-create-new.component.ts");
-/* harmony import */ var _user_user_security_user_security_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./user/user-security/user-security.component */ "./src/app/user/user-security/user-security.component.ts");
-/* harmony import */ var _layout_home_home_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./layout/home/home.component */ "./src/app/layout/home/home.component.ts");
-/* harmony import */ var _layout_login_login_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./layout/login/login.component */ "./src/app/layout/login/login.component.ts");
-/* harmony import */ var _layout_logout_logout_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./layout/logout/logout.component */ "./src/app/layout/logout/logout.component.ts");
-/* harmony import */ var _api_util_auth_guard_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./api/util/auth-guard.service */ "./src/app/api/util/auth-guard.service.ts");
-/* harmony import */ var _api_util_role_guard_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./api/util/role-guard.service */ "./src/app/api/util/role-guard.service.ts");
+/* harmony import */ var _post_post_management_post_management_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./post/post-management/post-management.component */ "./src/app/post/post-management/post-management.component.ts");
+/* harmony import */ var _user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./user/user-list/user-list.component */ "./src/app/user/user-list/user-list.component.ts");
+/* harmony import */ var _post_post_detail_post_detail_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./post/post-detail/post-detail.component */ "./src/app/post/post-detail/post-detail.component.ts");
+/* harmony import */ var _user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./user/user-detail/user-detail.component */ "./src/app/user/user-detail/user-detail.component.ts");
+/* harmony import */ var _user_user_edit_profile_user_edit_profile_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user/user-edit-profile/user-edit-profile.component */ "./src/app/user/user-edit-profile/user-edit-profile.component.ts");
+/* harmony import */ var _user_create_new_user_create_new_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./user/create-new/user-create-new.component */ "./src/app/user/create-new/user-create-new.component.ts");
+/* harmony import */ var _user_user_security_user_security_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./user/user-security/user-security.component */ "./src/app/user/user-security/user-security.component.ts");
+/* harmony import */ var _layout_home_home_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./layout/home/home.component */ "./src/app/layout/home/home.component.ts");
+/* harmony import */ var _layout_login_login_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./layout/login/login.component */ "./src/app/layout/login/login.component.ts");
+/* harmony import */ var _layout_logout_logout_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./layout/logout/logout.component */ "./src/app/layout/logout/logout.component.ts");
+/* harmony import */ var _api_util_auth_guard_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./api/util/auth-guard.service */ "./src/app/api/util/auth-guard.service.ts");
+/* harmony import */ var _api_util_role_guard_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./api/util/role-guard.service */ "./src/app/api/util/role-guard.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -536,35 +535,33 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
-
 var routes = [
-    { path: '', component: _layout_home_home_component__WEBPACK_IMPORTED_MODULE_10__["HomeComponent"], canActivate: [_api_util_auth_guard_service__WEBPACK_IMPORTED_MODULE_13__["AuthGuard"]], data: { breadcrumb: 'Trang chính', title: 'Trang chính' },
+    { path: '', component: _layout_home_home_component__WEBPACK_IMPORTED_MODULE_9__["HomeComponent"], canActivate: [_api_util_auth_guard_service__WEBPACK_IMPORTED_MODULE_12__["AuthGuard"]], data: { breadcrumb: 'Trang chính', title: 'Trang chính' },
         children: [
-            { path: 'users', component: _user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_4__["UserListComponent"], canActivate: [_api_util_role_guard_service__WEBPACK_IMPORTED_MODULE_14__["RoleGuard"]],
+            { path: 'users', component: _user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_3__["UserListComponent"], canActivate: [_api_util_role_guard_service__WEBPACK_IMPORTED_MODULE_13__["RoleGuard"]],
                 data: { breadcrumb: 'Quản lý người dùng', title: 'Danh sách người dùng' } },
-            { path: 'users', canActivateChild: [_api_util_role_guard_service__WEBPACK_IMPORTED_MODULE_14__["RoleGuard"]],
+            { path: 'users', canActivateChild: [_api_util_role_guard_service__WEBPACK_IMPORTED_MODULE_13__["RoleGuard"]],
                 data: { breadcrumb: 'Quản lý người dùng', title: 'Danh sách người dùng' },
                 children: [
-                    { path: ':id/detail', component: _user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_6__["UserDetailComponent"], data: { breadcrumb: 'Thông tin cá nhân', title: 'Thông tin người dùng' } },
+                    { path: ':id/detail', component: _user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_5__["UserDetailComponent"], data: { breadcrumb: 'Thông tin cá nhân', title: 'Thông tin người dùng' } },
                     { path: ':id/detail', data: { breadcrumb: 'Thông tin cá nhân', title: 'Thông tin người dùng' },
                         children: [
-                            { path: 'edit', component: _user_user_edit_profile_user_edit_profile_component__WEBPACK_IMPORTED_MODULE_7__["UserEditProfileComponent"], data: { breadcrumb: 'Chỉnh sửa thông tin', title: 'Chỉnh sửa thông tin người dùng' } },
-                            { path: 'security', component: _user_user_security_user_security_component__WEBPACK_IMPORTED_MODULE_9__["UserSecurityComponent"], data: { breadcrumb: 'Bảo mật tài khoản', title: 'Thay đổi mật khẩu' } }
+                            { path: 'edit', component: _user_user_edit_profile_user_edit_profile_component__WEBPACK_IMPORTED_MODULE_6__["UserEditProfileComponent"], data: { breadcrumb: 'Chỉnh sửa thông tin', title: 'Chỉnh sửa thông tin người dùng' } },
+                            { path: 'security', component: _user_user_security_user_security_component__WEBPACK_IMPORTED_MODULE_8__["UserSecurityComponent"], data: { breadcrumb: 'Bảo mật tài khoản', title: 'Thay đổi mật khẩu' } }
                         ] },
-                    { path: 'add', component: _user_create_new_user_create_new_component__WEBPACK_IMPORTED_MODULE_8__["UserCreateNewComponent"], data: { breadcrumb: 'Tạo mới người dùng', title: 'Tạo mới người dùng' } }
+                    { path: 'add', component: _user_create_new_user_create_new_component__WEBPACK_IMPORTED_MODULE_7__["UserCreateNewComponent"], data: { breadcrumb: 'Tạo mới người dùng', title: 'Tạo mới người dùng' } }
                 ]
             },
-            { path: 'profile', component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_2__["ProfileComponent"], data: { breadcrumb: 'Thông tin cá nhân', title: 'Thông tin cá nhân' } },
-            { path: 'posts', component: _post_post_management_post_management_component__WEBPACK_IMPORTED_MODULE_3__["PostManagementComponent"], data: { breadcrumb: 'Quản lý bài đăng', title: 'Danh sách bài đăng' } },
+            { path: 'posts', component: _post_post_management_post_management_component__WEBPACK_IMPORTED_MODULE_2__["PostManagementComponent"], data: { breadcrumb: 'Quản lý bài đăng', title: 'Danh sách bài đăng' } },
             { path: 'posts', data: { breadcrumb: 'Quản lý bài đăng', title: 'Danh sách bài đăng' },
                 children: [
-                    { path: ':id/detail', component: _post_post_detail_post_detail_component__WEBPACK_IMPORTED_MODULE_5__["PostDetailComponent"], data: { breadcrumb: 'Chi tiết bài đăng', title: 'Chi tiết bài đăng' } }
+                    { path: ':id/detail', component: _post_post_detail_post_detail_component__WEBPACK_IMPORTED_MODULE_4__["PostDetailComponent"], data: { breadcrumb: 'Chi tiết bài đăng', title: 'Chi tiết bài đăng' } }
                 ] },
             { path: '', redirectTo: '/posts', pathMatch: 'full' }
         ]
     },
-    { path: 'login', component: _layout_login_login_component__WEBPACK_IMPORTED_MODULE_11__["LoginComponent"] },
-    { path: 'logout', component: _layout_logout_logout_component__WEBPACK_IMPORTED_MODULE_12__["LogoutComponent"] }
+    { path: 'login', component: _layout_login_login_component__WEBPACK_IMPORTED_MODULE_10__["LoginComponent"] },
+    { path: 'logout', component: _layout_logout_logout_component__WEBPACK_IMPORTED_MODULE_11__["LogoutComponent"] }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -660,37 +657,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _angular_common_locales_en__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/locales/en */ "./node_modules/@angular/common/locales/en.js");
 /* harmony import */ var _angular_common_locales_en__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_angular_common_locales_en__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
-/* harmony import */ var _post_post_list_post_list_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./post/post-list/post-list.component */ "./src/app/post/post-list/post-list.component.ts");
-/* harmony import */ var _post_post_management_post_management_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./post/post-management/post-management.component */ "./src/app/post/post-management/post-management.component.ts");
-/* harmony import */ var _ant_design_icons_angular_icons__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ant-design/icons-angular/icons */ "./node_modules/@ant-design/icons-angular/fesm5/ant-design-icons-angular-icons.js");
-/* harmony import */ var _user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./user/user-list/user-list.component */ "./src/app/user/user-list/user-list.component.ts");
-/* harmony import */ var _post_post_detail_post_detail_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./post/post-detail/post-detail.component */ "./src/app/post/post-detail/post-detail.component.ts");
-/* harmony import */ var _ckeditor_ckeditor5_angular__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ckeditor/ckeditor5-angular */ "./node_modules/@ckeditor/ckeditor5-angular/fesm5/ckeditor-ckeditor5-angular.js");
-/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
-/* harmony import */ var _user_user_edit_profile_user_edit_profile_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./user/user-edit-profile/user-edit-profile.component */ "./src/app/user/user-edit-profile/user-edit-profile.component.ts");
-/* harmony import */ var _user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./user/user-detail/user-detail.component */ "./src/app/user/user-detail/user-detail.component.ts");
-/* harmony import */ var _user_create_new_user_create_new_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./user/create-new/user-create-new.component */ "./src/app/user/create-new/user-create-new.component.ts");
-/* harmony import */ var _user_user_security_user_security_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./user/user-security/user-security.component */ "./src/app/user/user-security/user-security.component.ts");
-/* harmony import */ var _nebular_auth__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @nebular/auth */ "./node_modules/@nebular/auth/index.js");
-/* harmony import */ var _nebular_theme__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @nebular/theme */ "./node_modules/@nebular/theme/index.js");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./config */ "./src/app/config.ts");
-/* harmony import */ var _layout_home_home_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./layout/home/home.component */ "./src/app/layout/home/home.component.ts");
-/* harmony import */ var _layout_login_login_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./layout/login/login.component */ "./src/app/layout/login/login.component.ts");
-/* harmony import */ var _layout_header_header_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./layout/header/header.component */ "./src/app/layout/header/header.component.ts");
-/* harmony import */ var _layout_logout_logout_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./layout/logout/logout.component */ "./src/app/layout/logout/logout.component.ts");
-/* harmony import */ var _layout_title_page_title_page_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./layout/title-page/title-page.component */ "./src/app/layout/title-page/title-page.component.ts");
-/* harmony import */ var _nebular_security__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @nebular/security */ "./node_modules/@nebular/security/index.js");
-/* harmony import */ var _api_util_role_provider__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./api/util/role.provider */ "./src/app/api/util/role.provider.ts");
-/* harmony import */ var _api_util_auth_guard_service__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./api/util/auth-guard.service */ "./src/app/api/util/auth-guard.service.ts");
-/* harmony import */ var _api_util_role_guard_service__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./api/util/role-guard.service */ "./src/app/api/util/role-guard.service.ts");
+/* harmony import */ var _post_post_list_post_list_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./post/post-list/post-list.component */ "./src/app/post/post-list/post-list.component.ts");
+/* harmony import */ var _post_post_management_post_management_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./post/post-management/post-management.component */ "./src/app/post/post-management/post-management.component.ts");
+/* harmony import */ var _ant_design_icons_angular_icons__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ant-design/icons-angular/icons */ "./node_modules/@ant-design/icons-angular/fesm5/ant-design-icons-angular-icons.js");
+/* harmony import */ var _user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./user/user-list/user-list.component */ "./src/app/user/user-list/user-list.component.ts");
+/* harmony import */ var _post_post_detail_post_detail_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./post/post-detail/post-detail.component */ "./src/app/post/post-detail/post-detail.component.ts");
+/* harmony import */ var _ckeditor_ckeditor5_angular__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ckeditor/ckeditor5-angular */ "./node_modules/@ckeditor/ckeditor5-angular/fesm5/ckeditor-ckeditor5-angular.js");
+/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
+/* harmony import */ var _user_user_edit_profile_user_edit_profile_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./user/user-edit-profile/user-edit-profile.component */ "./src/app/user/user-edit-profile/user-edit-profile.component.ts");
+/* harmony import */ var _user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./user/user-detail/user-detail.component */ "./src/app/user/user-detail/user-detail.component.ts");
+/* harmony import */ var _user_create_new_user_create_new_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./user/create-new/user-create-new.component */ "./src/app/user/create-new/user-create-new.component.ts");
+/* harmony import */ var _user_user_security_user_security_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./user/user-security/user-security.component */ "./src/app/user/user-security/user-security.component.ts");
+/* harmony import */ var _nebular_auth__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @nebular/auth */ "./node_modules/@nebular/auth/index.js");
+/* harmony import */ var _nebular_theme__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @nebular/theme */ "./node_modules/@nebular/theme/index.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./config */ "./src/app/config.ts");
+/* harmony import */ var _layout_home_home_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./layout/home/home.component */ "./src/app/layout/home/home.component.ts");
+/* harmony import */ var _layout_login_login_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./layout/login/login.component */ "./src/app/layout/login/login.component.ts");
+/* harmony import */ var _layout_header_header_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./layout/header/header.component */ "./src/app/layout/header/header.component.ts");
+/* harmony import */ var _layout_logout_logout_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./layout/logout/logout.component */ "./src/app/layout/logout/logout.component.ts");
+/* harmony import */ var _layout_title_page_title_page_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./layout/title-page/title-page.component */ "./src/app/layout/title-page/title-page.component.ts");
+/* harmony import */ var _nebular_security__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @nebular/security */ "./node_modules/@nebular/security/index.js");
+/* harmony import */ var _api_util_role_provider__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./api/util/role.provider */ "./src/app/api/util/role.provider.ts");
+/* harmony import */ var _api_util_auth_guard_service__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./api/util/auth-guard.service */ "./src/app/api/util/auth-guard.service.ts");
+/* harmony import */ var _api_util_role_guard_service__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./api/util/role-guard.service */ "./src/app/api/util/role-guard.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -726,7 +721,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 Object(_angular_common__WEBPACK_IMPORTED_MODULE_8__["registerLocaleData"])(_angular_common_locales_en__WEBPACK_IMPORTED_MODULE_9___default.a);
-var antDesignIcons = _ant_design_icons_angular_icons__WEBPACK_IMPORTED_MODULE_13__;
+var antDesignIcons = _ant_design_icons_angular_icons__WEBPACK_IMPORTED_MODULE_12__;
 var icons = Object.keys(antDesignIcons).map(function (key) { return antDesignIcons[key]; });
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -735,20 +730,19 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"],
-                _layout_home_home_component__WEBPACK_IMPORTED_MODULE_25__["HomeComponent"],
-                _layout_title_page_title_page_component__WEBPACK_IMPORTED_MODULE_29__["TitlePageComponent"],
-                _layout_login_login_component__WEBPACK_IMPORTED_MODULE_26__["LoginComponent"],
-                _profile_profile_component__WEBPACK_IMPORTED_MODULE_10__["ProfileComponent"],
-                _layout_header_header_component__WEBPACK_IMPORTED_MODULE_27__["HeaderComponent"],
-                _layout_logout_logout_component__WEBPACK_IMPORTED_MODULE_28__["LogoutComponent"],
-                _post_post_list_post_list_component__WEBPACK_IMPORTED_MODULE_11__["PostListComponent"],
-                _post_post_management_post_management_component__WEBPACK_IMPORTED_MODULE_12__["PostManagementComponent"],
-                _post_post_detail_post_detail_component__WEBPACK_IMPORTED_MODULE_15__["PostDetailComponent"],
-                _user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_14__["UserListComponent"],
-                _user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_19__["UserDetailComponent"],
-                _user_user_edit_profile_user_edit_profile_component__WEBPACK_IMPORTED_MODULE_18__["UserEditProfileComponent"],
-                _user_create_new_user_create_new_component__WEBPACK_IMPORTED_MODULE_20__["UserCreateNewComponent"],
-                _user_user_security_user_security_component__WEBPACK_IMPORTED_MODULE_21__["UserSecurityComponent"]
+                _layout_home_home_component__WEBPACK_IMPORTED_MODULE_24__["HomeComponent"],
+                _layout_title_page_title_page_component__WEBPACK_IMPORTED_MODULE_28__["TitlePageComponent"],
+                _layout_login_login_component__WEBPACK_IMPORTED_MODULE_25__["LoginComponent"],
+                _layout_header_header_component__WEBPACK_IMPORTED_MODULE_26__["HeaderComponent"],
+                _layout_logout_logout_component__WEBPACK_IMPORTED_MODULE_27__["LogoutComponent"],
+                _post_post_list_post_list_component__WEBPACK_IMPORTED_MODULE_10__["PostListComponent"],
+                _post_post_management_post_management_component__WEBPACK_IMPORTED_MODULE_11__["PostManagementComponent"],
+                _post_post_detail_post_detail_component__WEBPACK_IMPORTED_MODULE_14__["PostDetailComponent"],
+                _user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_13__["UserListComponent"],
+                _user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_18__["UserDetailComponent"],
+                _user_user_edit_profile_user_edit_profile_component__WEBPACK_IMPORTED_MODULE_17__["UserEditProfileComponent"],
+                _user_create_new_user_create_new_component__WEBPACK_IMPORTED_MODULE_19__["UserCreateNewComponent"],
+                _user_user_security_user_security_component__WEBPACK_IMPORTED_MODULE_20__["UserSecurityComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -757,26 +751,26 @@ var AppModule = /** @class */ (function () {
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__["BrowserAnimationsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ReactiveFormsModule"],
-                _ckeditor_ckeditor5_angular__WEBPACK_IMPORTED_MODULE_16__["CKEditorModule"],
-                _agm_core__WEBPACK_IMPORTED_MODULE_17__["AgmCoreModule"].forRoot({
+                _ckeditor_ckeditor5_angular__WEBPACK_IMPORTED_MODULE_15__["CKEditorModule"],
+                _agm_core__WEBPACK_IMPORTED_MODULE_16__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyBKKUL9LFa4guJTQbouBA75Ypkd6G4DdD8'
                 }),
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_2__["AppRoutingModule"],
-                _nebular_auth__WEBPACK_IMPORTED_MODULE_22__["NbAuthModule"].forRoot({
-                    strategies: [_nebular_auth__WEBPACK_IMPORTED_MODULE_22__["NbOAuth2AuthStrategy"].setup(_config__WEBPACK_IMPORTED_MODULE_24__["authConfig"])],
-                    forms: _config__WEBPACK_IMPORTED_MODULE_24__["formLoginConfig"]
+                _nebular_auth__WEBPACK_IMPORTED_MODULE_21__["NbAuthModule"].forRoot({
+                    strategies: [_nebular_auth__WEBPACK_IMPORTED_MODULE_21__["NbOAuth2AuthStrategy"].setup(_config__WEBPACK_IMPORTED_MODULE_23__["authConfig"])],
+                    forms: _config__WEBPACK_IMPORTED_MODULE_23__["formLoginConfig"]
                 }),
-                _nebular_security__WEBPACK_IMPORTED_MODULE_30__["NbSecurityModule"].forRoot(_config__WEBPACK_IMPORTED_MODULE_24__["aclConfig"])
+                _nebular_security__WEBPACK_IMPORTED_MODULE_29__["NbSecurityModule"].forRoot(_config__WEBPACK_IMPORTED_MODULE_23__["aclConfig"])
             ],
             providers: [
                 { provide: ng_zorro_antd__WEBPACK_IMPORTED_MODULE_4__["NZ_I18N"], useValue: ng_zorro_antd__WEBPACK_IMPORTED_MODULE_4__["en_US"] },
                 { provide: ng_zorro_antd__WEBPACK_IMPORTED_MODULE_4__["NZ_ICONS"], useValue: icons },
                 { provide: _angular_common__WEBPACK_IMPORTED_MODULE_8__["APP_BASE_HREF"], useValue: '/' },
-                { provide: _nebular_theme__WEBPACK_IMPORTED_MODULE_23__["NB_WINDOW"], useValue: window },
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HTTP_INTERCEPTORS"], useClass: _nebular_auth__WEBPACK_IMPORTED_MODULE_22__["NbAuthJWTInterceptor"], multi: true },
-                { provide: _nebular_auth__WEBPACK_IMPORTED_MODULE_22__["NB_AUTH_TOKEN_INTERCEPTOR_FILTER"], useValue: function (req) { return Object(_config__WEBPACK_IMPORTED_MODULE_24__["filterRefreshTokenReq"])(req); } },
-                { provide: _nebular_security__WEBPACK_IMPORTED_MODULE_30__["NbRoleProvider"], useClass: _api_util_role_provider__WEBPACK_IMPORTED_MODULE_31__["RoleProvider"] },
-                _api_util_auth_guard_service__WEBPACK_IMPORTED_MODULE_32__["AuthGuard"], _api_util_role_guard_service__WEBPACK_IMPORTED_MODULE_33__["RoleGuard"]
+                { provide: _nebular_theme__WEBPACK_IMPORTED_MODULE_22__["NB_WINDOW"], useValue: window },
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HTTP_INTERCEPTORS"], useClass: _nebular_auth__WEBPACK_IMPORTED_MODULE_21__["NbAuthJWTInterceptor"], multi: true },
+                { provide: _nebular_auth__WEBPACK_IMPORTED_MODULE_21__["NB_AUTH_TOKEN_INTERCEPTOR_FILTER"], useValue: function (req) { return Object(_config__WEBPACK_IMPORTED_MODULE_23__["filterRefreshTokenReq"])(req); } },
+                { provide: _nebular_security__WEBPACK_IMPORTED_MODULE_29__["NbRoleProvider"], useClass: _api_util_role_provider__WEBPACK_IMPORTED_MODULE_30__["RoleProvider"] },
+                _api_util_auth_guard_service__WEBPACK_IMPORTED_MODULE_31__["AuthGuard"], _api_util_role_guard_service__WEBPACK_IMPORTED_MODULE_32__["RoleGuard"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
         })
@@ -1395,7 +1389,7 @@ var TitlePageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-title-page></app-title-page>\r\n<div class=\"default-card\">\r\n\r\n  <!--title-->\r\n  <div class=\"mb-3 row\">\r\n    <div class=\"col-sm-8 order-12 order-sm-1 p-2\">\r\n      <span class=\"title\">{{ post.title }} </span>\r\n    </div>\r\n    <div class=\"col-sm-4 order-1 order-sm-12 p-2\">\r\n      <div class=\" d-flex justify-content-end \">\r\n        <button nz-button nzType=\"danger\" [disabled]=\"disableBtnAction || post.notApproved\" class=\"mr-2\"\r\n                (click)=\"blockPost()\">Khóa bài\r\n        </button>\r\n        <button nz-button nzType=\"primary\" [disabled]=\"disableBtnAction || post.approved\" (click)=\"approvePost()\">Duyệt\r\n          bài\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <!--infomation-->\r\n  <div class=\"row\">\r\n    <div class=\"col-md-8\">\r\n      <div class=\"row my-2\">\r\n        <div class=\"col-4\">\r\n          <div class=\"description\">\r\n            <span class=\"term\">Người đăng</span>\r\n            <b class=\"detail\"><a href=\"javascript:void(0)\">{{ post?.userDTO?.fullName}}</a></b>\r\n          </div>\r\n        </div>\r\n        <div class=\"col-8\">\r\n          <div class=\"description\">\r\n            <span class=\"term\">Thời gian</span>\r\n            <b class=\"detail\">{{ post.createAt | date: 'dd/MM/yyyy HH:mm' }}</b>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"row my-2\">\r\n        <div class=\"col\">\r\n          <div class=\"description\">\r\n            <span class=\"term\">Giá thuê</span>\r\n            <b class=\"detail\">{{ post.accomodationDTO.price | number }} đ/tháng</b>\r\n          </div>\r\n        </div>\r\n        <div class=\"col\">\r\n          <div class=\"description\">\r\n            <span class=\"term\">Loại phòng</span>\r\n            <b class=\"detail\">\r\n              <span *ngIf=\"!post.accomodationDTO.motel\">nhà nguyên căn</span>\r\n              <span *ngIf=\"post.accomodationDTO.motel\">phòng trọ</span>\r\n            </b>\r\n          </div>\r\n        </div>\r\n        <div class=\"col\">\r\n          <div class=\"description\">\r\n            <span class=\"term\">Diện tích</span>\r\n            <b class=\"detail\">{{ post.accomodationDTO.acreage }} m<sup>2</sup></b>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"row my-2\">\r\n        <div class=\"col\">\r\n          <div class=\"description\">\r\n            <span class=\"term\">Địa chỉ</span>\r\n            <p class=\"detail\">{{ post.accomodationDTO.address }}\r\n              <i nz-icon [ngClass]=\"showMap ? 'serve' :'not-serve'\" style=\"font-size: 1rem\"\r\n                 (click)=\"showMap = !showMap\">\r\n                <svg>\r\n                  <path\r\n                    d=\"M658.285714 365.714286q0-60.562286-42.861714-103.424t-103.424-42.861714-103.424 42.861714-42.861714 103.424 42.861714 103.424 103.424 42.861714 103.424-42.861714 42.861714-103.424zM804.571429 365.714286q0 62.317714-18.870857 102.253714l-208.018286 442.294857q-9.142857 18.870857-27.136 29.696t-38.546286 10.825143-38.546286-10.825143-26.550857-29.696l-208.603429-442.294857q-18.870857-40.009143-18.870857-102.253714 0-121.124571 85.723429-206.848t206.848-85.723429 206.848 85.723429 85.723429 206.848z\"/>\r\n                </svg>\r\n              </i>\r\n            </p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"col-md-4 text-right extra-content\">\r\n      <div class=\"row\">\r\n        <div class=\"col\">\r\n          <span class=\"label\">Giá điện (VND/kWh)</span>\r\n          <p class=\"detail\">\r\n            <b *ngIf=\"post.accomodationDTO.electricPrice != 0\">{{ post.accomodationDTO.electricPrice }}</b>\r\n            <b *ngIf=\"post.accomodationDTO.electricPrice == 0\">Nhà nước qui định</b>\r\n          </p>\r\n        </div>\r\n        <div class=\"col\">\r\n          <span class=\"label\">Giá nước (VND/m<sup>3</sup>)</span>\r\n          <p class=\"detail\">\r\n            <b *ngIf=\"post.accomodationDTO.waterPrice != 0\">{{ post.accomodationDTO.waterPrice }}</b>\r\n            <b *ngIf=\"post.accomodationDTO.waterPrice == 0\">Nhà nước qui định</b>\r\n          </p>\r\n        </div>\r\n      </div>\r\n      <div class=\"row extra-content\">\r\n        <div class=\"col\">\r\n          <span class=\"label\">Tiện ích khác</span>\r\n          <p class=\"detail\">\r\n            <i class=\"fas fa-parking serve\" *ngIf=\"post.accomodationDTO.parking\"\r\n               nzPlacement=\"bottom\" nz-tooltip nzTitle=\"Chỗ đậu xe\"></i>\r\n\r\n            <i class=\"fas fa-wifi serve\" *ngIf=\"post.accomodationDTO.internet\"\r\n               nzPlacement=\"bottom\" nz-tooltip nzTitle=\"Wifi\"> </i>\r\n\r\n            <i class=\"fas fa-snowflake serve\" *ngIf=\"post.accomodationDTO.airConditioner\"\r\n               nzPlacement=\"bottom\" nz-tooltip nzTitle=\"Điều hòa\"></i>\r\n\r\n            <i class=\"fas fa-tv serve\" *ngIf=\"post.accomodationDTO.tv\"\r\n               nzPlacement=\"bottom\" nz-tooltip nzTitle=\"Tivi\"> </i>\r\n\r\n            <i class=\"fas fa-shower serve\" *ngIf=\"post.accomodationDTO.heater\"\r\n               nzPlacement=\"bottom\" nz-tooltip nzTitle=\"Máy nước nóng\"></i>\r\n\r\n            <i class=\"fas fa-toilet serve\" *ngIf=\"post.accomodationDTO.toilet\"\r\n               nzPlacement=\"bottom\" nz-tooltip nzTitle=\"Toilet riêng\"></i>\r\n          </p>\r\n        </div>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n  <!--location-->\r\n  <agm-map *ngIf=\"showMap\" #vmap fullscreenControl=\"true\" [zoom]=\"18\" [usePanning]=\"false\"\r\n           [latitude]=\"post.accomodationDTO.xCoordinate\"\r\n           disableDoubleClickZoom=\"false\" [longitude]=\"post.accomodationDTO.yCoordinate\">\r\n    <agm-marker [latitude]=\"post.accomodationDTO.xCoordinate\"\r\n                [longitude]=\"post.accomodationDTO.yCoordinate\" title=\"TP HCM\">\r\n    </agm-marker>\r\n  </agm-map>\r\n\r\n  <nz-tabset>\r\n    <nz-tab nzTitle=\"Nội dung\">\r\n      <p [innerHtml]=\"post.content\"></p>\r\n    </nz-tab>\r\n    <nz-tab nzTitle=\"Ảnh minh họa\">\r\n      <div class=\"row\">\r\n        <img class=\"col-4\" *ngFor=\"let img of post.imageStrings\" src=\"{{ img }}\" alt=\"\">\r\n        <!--<nz-upload-->\r\n        <!--nzAction=\"https://jsonplaceholder.typicode.com/posts/\"-->\r\n        <!--nzListType=\"picture-card\"-->\r\n        <!--[nzFileList]=\"fileList\"-->\r\n        <!--[nzShowButton]=\"fileList.length < 10\"-->\r\n        <!--[nzShowUploadList]=\"showUploadList\"-->\r\n        <!--[nzPreview]=\"handlePreview\">-->\r\n        <!--<i nz-icon type=\"plus\"></i>-->\r\n        <!--<div class=\"ant-upload-text\">Upload</div>-->\r\n        <!--</nz-upload>-->\r\n        <!--<nz-modal-->\r\n        <!--[nzVisible]=\"previewVisible\"-->\r\n        <!--[nzContent]=\"modalContent\"-->\r\n        <!--[nzFooter]=\"null\"-->\r\n        <!--(nzOnCancel)=\"previewVisible = false\">-->\r\n        <!--<ng-template #modalContent>-->\r\n        <!--<img [src]=\"data.image\" [ngStyle]=\"{ width: '100%' }\"/>-->\r\n        <!--</ng-template>-->\r\n        <!--</nz-modal>-->\r\n      </div>\r\n    </nz-tab>\r\n  </nz-tabset>\r\n\r\n</div>\r\n"
+module.exports = "<app-title-page></app-title-page>\r\n<div class=\"default-card\">\r\n\r\n  <!--title-->\r\n  <div class=\"mb-3 row\">\r\n    <div class=\"col-sm-8 order-12 order-sm-1 p-2\">\r\n      <span class=\"title\">{{ post.title }} </span>\r\n    </div>\r\n    <div class=\"col-sm-4 order-1 order-sm-12 p-2\">\r\n      <div class=\" d-flex justify-content-end \">\r\n        <button nz-button nzType=\"danger\" [disabled]=\"disableBtnAction || post.notApproved\" class=\"mr-2\"\r\n                (click)=\"blockPost()\">Khóa bài\r\n        </button>\r\n        <button nz-button nzType=\"primary\" [disabled]=\"disableBtnAction || post.approved\" (click)=\"approvePost()\">Duyệt\r\n          bài\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <!--infomation-->\r\n  <div class=\"row\">\r\n    <div class=\"col-md-8\">\r\n      <div class=\"row my-2\">\r\n        <div class=\"col-4\">\r\n          <div class=\"description\">\r\n            <span class=\"term\">Người đăng</span>\r\n            <b class=\"detail\"><a href=\"javascript:void(0)\">{{ post?.userDTO?.fullName}}</a></b>\r\n          </div>\r\n        </div>\r\n        <div class=\"col-8\">\r\n          <div class=\"description\">\r\n            <span class=\"term\">Thời gian</span>\r\n            <b class=\"detail\">{{ post.createAt | date: 'dd/MM/yyyy HH:mm' }}</b>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"row my-2\">\r\n        <div class=\"col\">\r\n          <div class=\"description\">\r\n            <span class=\"term\">Giá thuê</span>\r\n            <b class=\"detail\">{{ post.accomodationDTO.price | number }} đ/tháng</b>\r\n          </div>\r\n        </div>\r\n        <div class=\"col\">\r\n          <div class=\"description\">\r\n            <span class=\"term\">Loại phòng</span>\r\n            <b class=\"detail\">\r\n              <span *ngIf=\"!post.accomodationDTO.motel\">nhà nguyên căn</span>\r\n              <span *ngIf=\"post.accomodationDTO.motel\">phòng trọ</span>\r\n            </b>\r\n          </div>\r\n        </div>\r\n        <div class=\"col\">\r\n          <div class=\"description\">\r\n            <span class=\"term\">Diện tích</span>\r\n            <b class=\"detail\">{{ post.accomodationDTO.acreage }} m<sup>2</sup></b>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"row my-2\">\r\n        <div class=\"col\">\r\n          <div class=\"description\">\r\n            <span class=\"term\">Địa chỉ</span>\r\n            <p class=\"detail\">{{ post.accomodationDTO.address }}\r\n              <i nz-icon [ngClass]=\"showMap ? 'serve' :'not-serve'\" style=\"font-size: 1rem\"\r\n                 (click)=\"showMap = !showMap\">\r\n                <svg>\r\n                  <path\r\n                    d=\"M658.285714 365.714286q0-60.562286-42.861714-103.424t-103.424-42.861714-103.424 42.861714-42.861714 103.424 42.861714 103.424 103.424 42.861714 103.424-42.861714 42.861714-103.424zM804.571429 365.714286q0 62.317714-18.870857 102.253714l-208.018286 442.294857q-9.142857 18.870857-27.136 29.696t-38.546286 10.825143-38.546286-10.825143-26.550857-29.696l-208.603429-442.294857q-18.870857-40.009143-18.870857-102.253714 0-121.124571 85.723429-206.848t206.848-85.723429 206.848 85.723429 85.723429 206.848z\"/>\r\n                </svg>\r\n              </i>\r\n            </p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"col-md-4 text-right extra-content\">\r\n      <div class=\"row\">\r\n        <div class=\"col\">\r\n          <span class=\"label\">Giá điện (VND/kWh)</span>\r\n          <p class=\"detail\">\r\n            <b *ngIf=\"post.accomodationDTO.electricPrice != 0\">{{ post.accomodationDTO.electricPrice }}</b>\r\n            <b *ngIf=\"post.accomodationDTO.electricPrice == 0\">Nhà nước qui định</b>\r\n          </p>\r\n        </div>\r\n        <div class=\"col\">\r\n          <span class=\"label\">Giá nước (VND/m<sup>3</sup>)</span>\r\n          <p class=\"detail\">\r\n            <b *ngIf=\"post.accomodationDTO.waterPrice != 0\">{{ post.accomodationDTO.waterPrice }}</b>\r\n            <b *ngIf=\"post.accomodationDTO.waterPrice == 0\">Nhà nước qui định</b>\r\n          </p>\r\n        </div>\r\n      </div>\r\n      <div class=\"row extra-content\">\r\n        <div class=\"col\">\r\n          <span class=\"label\">Tiện ích khác</span>\r\n          <p class=\"detail\">\r\n            <i class=\"fas fa-parking serve\" *ngIf=\"post.accomodationDTO.parking\"\r\n               nzPlacement=\"bottom\" nz-tooltip nzTitle=\"Chỗ đậu xe\"></i>\r\n\r\n            <i class=\"fas fa-wifi serve\" *ngIf=\"post.accomodationDTO.internet\"\r\n               nzPlacement=\"bottom\" nz-tooltip nzTitle=\"Wifi\"> </i>\r\n\r\n            <i class=\"fas fa-snowflake serve\" *ngIf=\"post.accomodationDTO.airConditioner\"\r\n               nzPlacement=\"bottom\" nz-tooltip nzTitle=\"Điều hòa\"></i>\r\n\r\n            <i class=\"fas fa-tv serve\" *ngIf=\"post.accomodationDTO.tv\"\r\n               nzPlacement=\"bottom\" nz-tooltip nzTitle=\"Tivi\"> </i>\r\n\r\n            <i class=\"fas fa-shower serve\" *ngIf=\"post.accomodationDTO.heater\"\r\n               nzPlacement=\"bottom\" nz-tooltip nzTitle=\"Máy nước nóng\"></i>\r\n\r\n            <i class=\"fas fa-toilet serve\" *ngIf=\"post.accomodationDTO.toilet\"\r\n               nzPlacement=\"bottom\" nz-tooltip nzTitle=\"Toilet riêng\"></i>\r\n          </p>\r\n        </div>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n  <!--location-->\r\n  <agm-map *ngIf=\"showMap\" #vmap fullscreenControl=\"true\" [zoom]=\"18\" [usePanning]=\"false\"\r\n           [latitude]=\"post.accomodationDTO.xCoordinate\"\r\n           disableDoubleClickZoom=\"false\" [longitude]=\"post.accomodationDTO.yCoordinate\">\r\n    <agm-marker [latitude]=\"post.accomodationDTO.xCoordinate\"\r\n                [longitude]=\"post.accomodationDTO.yCoordinate\" title=\"TP HCM\">\r\n    </agm-marker>\r\n  </agm-map>\r\n\r\n  <nz-tabset>\r\n    <nz-tab nzTitle=\"Nội dung\">\r\n      <p [innerHtml]=\"post.content\"></p>\r\n    </nz-tab>\r\n    <nz-tab nzTitle=\"Ảnh minh họa\">\r\n      <div class=\"row\">\r\n        <img class=\"col-4 mb-3\" height=\"300\" *ngFor=\"let img of post.imageStrings\" src=\"{{ img }}\" alt=\"\">\r\n        <!--<nz-upload-->\r\n        <!--nzAction=\"https://jsonplaceholder.typicode.com/posts/\"-->\r\n        <!--nzListType=\"picture-card\"-->\r\n        <!--[nzFileList]=\"fileList\"-->\r\n        <!--[nzShowButton]=\"fileList.length < 10\"-->\r\n        <!--[nzShowUploadList]=\"showUploadList\"-->\r\n        <!--[nzPreview]=\"handlePreview\">-->\r\n        <!--<i nz-icon type=\"plus\"></i>-->\r\n        <!--<div class=\"ant-upload-text\">Upload</div>-->\r\n        <!--</nz-upload>-->\r\n        <!--<nz-modal-->\r\n        <!--[nzVisible]=\"previewVisible\"-->\r\n        <!--[nzContent]=\"modalContent\"-->\r\n        <!--[nzFooter]=\"null\"-->\r\n        <!--(nzOnCancel)=\"previewVisible = false\">-->\r\n        <!--<ng-template #modalContent>-->\r\n        <!--<img [src]=\"data.image\" [ngStyle]=\"{ width: '100%' }\"/>-->\r\n        <!--</ng-template>-->\r\n        <!--</nz-modal>-->\r\n      </div>\r\n    </nz-tab>\r\n  </nz-tabset>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1788,94 +1782,6 @@ var PostManagementComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/profile/profile.component.css":
-/*!***********************************************!*\
-  !*** ./src/app/profile/profile.component.css ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3Byb2ZpbGUvcHJvZmlsZS5jb21wb25lbnQuY3NzIn0= */"
-
-/***/ }),
-
-/***/ "./src/app/profile/profile.component.html":
-/*!************************************************!*\
-  !*** ./src/app/profile/profile.component.html ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<app-title-page></app-title-page>\r\n<div class=\"default-card\">\r\n  <div style=\"text-align:center\">\r\n    <nz-avatar [nzSize]=\"96\" nzIcon=\"user\"></nz-avatar>\r\n    <h3>Anh Tuấn</h3>\r\n    <p><span>97lynk@gmail.com</span> | <a href=\"#\">Edit</a></p>\r\n  </div>\r\n  <nz-card class=\"w-100\" [nzBordered]=\"false\">\r\n    <nz-card-tab>\r\n      <nz-tabset nzSize=\"large\" [nzSelectedIndex]=\"0\" [nzTabBarStyle]=\"{'text-align': 'center'}\">\r\n        <nz-tab nzTitle=\"Activity\">\r\n          <nz-card [nzBordered]=\"false\" nzTitle=\"Most Recently Activity\">\r\n            <nz-timeline>\r\n              <nz-timeline-item nzColor=\"green\">Create a services site 2015-09-01</nz-timeline-item>\r\n              <nz-timeline-item nzColor=\"green\">Solve initial network problems 2015-09-01</nz-timeline-item>\r\n              <nz-timeline-item nzColor=\"red\">\r\n                <p>Solve initial network problems 1</p>\r\n                <p>Solve initial network problems 2</p>\r\n                <p>Solve initial network problems 3 2015-09-01</p>\r\n              </nz-timeline-item>\r\n              <nz-timeline-item>\r\n                <p>Technical testing 1</p>\r\n                <p>Technical testing 2</p>\r\n                <p>Technical testing 3 2015-09-01</p>\r\n              </nz-timeline-item>\r\n            </nz-timeline>\r\n          </nz-card>\r\n        </nz-tab>\r\n\r\n        <nz-tab nzTitle=\"Posts\">\r\n          <nz-list\r\n            [nzDataSource]=\"data\"\r\n            [nzItemLayout]=\"'vertical'\"\r\n            [nzRenderItem]=\"item\"\r\n            [nzPagination]=\"pagination\"\r\n            [nzFooter]=\"footer\"\r\n          >\r\n            <ng-template #item let-item>\r\n              <nz-list-item [nzContent]=\"item.content\" [nzActions]=\"[starAction, likeAction, msgAction]\"\r\n                            [nzExtra]=\"extra\">\r\n                <ng-template #starAction><i nz-icon type=\"star-o\" style=\"margin-right: 8px;\"></i> 156</ng-template>\r\n                <ng-template #likeAction><i nz-icon type=\"like-o\" style=\"margin-right: 8px;\"></i> 156</ng-template>\r\n                <ng-template #msgAction><i nz-icon type=\"message\" style=\"margin-right: 8px;\"></i> 2</ng-template>\r\n                <nz-list-item-meta [nzAvatar]=\"item.avatar\" [nzTitle]=\"nzTitle\" [nzDescription]=\"item.description\">\r\n                  <ng-template #nzTitle\r\n                  ><a href=\"{{ item.href }}\">{{ item.title }}</a></ng-template\r\n                  >\r\n                </nz-list-item-meta>\r\n                <ng-template #extra>\r\n                  <img width=\"272\" alt=\"logo\"\r\n                       src=\"https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png\"/>\r\n                </ng-template>\r\n              </nz-list-item>\r\n            </ng-template>\r\n            <ng-template #footer>\r\n              <div><b>ant design</b> footer part</div>\r\n            </ng-template>\r\n            <ng-template #pagination>\r\n              <nz-pagination [nzPageIndex]=\"1\" [nzTotal]=\"50\" (nzPageIndexChange)=\"loadData($event)\"></nz-pagination>\r\n            </ng-template>\r\n          </nz-list>\r\n        </nz-tab>\r\n\r\n        <nz-tab nzTitle=\"Comments\">\r\n          <nz-list [nzDataSource]=\"data1\" [nzRenderItem]=\"item1\" [nzItemLayout]=\"'horizontal'\">\r\n            <ng-template #item1 let-item>\r\n              <nz-list-item>\r\n                <nz-list-item-meta\r\n                  [nzTitle]=\"nzTitle1\"\r\n                  nzAvatar=\"https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png\"\r\n                  nzDescription=\"Ant Design, a design language for background applications, is refined by Ant UED Team\"\r\n                >\r\n                  <ng-template #nzTitle1>\r\n                    <a href=\"https://ng.ant.design\">{{ item1.title }}</a>\r\n                  </ng-template>\r\n                </nz-list-item-meta>\r\n              </nz-list-item>\r\n            </ng-template>\r\n          </nz-list>\r\n        </nz-tab>\r\n      </nz-tabset>\r\n    </nz-card-tab>\r\n  </nz-card>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "./src/app/profile/profile.component.ts":
-/*!**********************************************!*\
-  !*** ./src/app/profile/profile.component.ts ***!
-  \**********************************************/
-/*! exports provided: ProfileComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileComponent", function() { return ProfileComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var ProfileComponent = /** @class */ (function () {
-    function ProfileComponent() {
-        // tab comment
-        this.data1 = [
-            {
-                title: 'Ant Design Title 1'
-            },
-            {
-                title: 'Ant Design Title 2'
-            },
-            {
-                title: 'Ant Design Title 3'
-            },
-            {
-                title: 'Ant Design Title 4'
-            }
-        ];
-        // tab posts
-        this.data = [];
-    }
-    ProfileComponent.prototype.ngOnInit = function () {
-        this.loadData(1);
-    };
-    ProfileComponent.prototype.loadData = function (pi) {
-        this.data = new Array(5).fill({}).map(function (_, index) {
-            return {
-                href: 'http://ant.design',
-                title: "ant design part " + index + " (page: " + pi + ")",
-                avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-                description: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-                content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.'
-            };
-        });
-    };
-    ProfileComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-profile',
-            template: __webpack_require__(/*! ./profile.component.html */ "./src/app/profile/profile.component.html"),
-            styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/profile/profile.component.css")]
-        })
-    ], ProfileComponent);
-    return ProfileComponent;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/user/create-new/user-create-new.component.html":
 /*!****************************************************************!*\
   !*** ./src/app/user/create-new/user-create-new.component.html ***!
@@ -1947,7 +1853,7 @@ var UserCreateNewComponent = /** @class */ (function () {
         this.beforeUpload = function (file) {
             _this.fileUpload = null;
             _this.avatarUrl = '';
-            console.log(file);
+            // console.log(file);
             var isJPG = (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png');
             if (!isJPG) {
                 _this.msg.error('Ảnh đại diện phải thuộc định dạng PNG/JPG/JPEG');
@@ -2019,7 +1925,7 @@ var UserCreateNewComponent = /** @class */ (function () {
                 var formData = new FormData();
                 formData.append('avatar', _this.fileUpload);
                 _this.userService.uploadAvatar(value.id, formData).subscribe(function (value1) {
-                    console.log(value1);
+                    // console.log(value1);
                 });
             }
             _this.router.navigateByUrl('/users');
@@ -2243,7 +2149,7 @@ var UserDetailComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-title-page></app-title-page>\r\n<div class=\"default-card\">\r\n  <div nz-row>\r\n    <div nz-col [nzLg]=\"8\" [nzMd]=\"24\">\r\n      <h2>Ảnh đại diện</h2>\r\n      <p><i>Mọi thay đổi sẽ dược cập nhật</i></p>\r\n    </div>\r\n    <div nz-col [nzLg]=\"16\" [nzMd]=\"24\">\r\n      <div class=\"clearfix\">\r\n        <nz-upload\r\n          class=\"avatar-uploader float-left mr-3\"\r\n          nzAction=\"/api/users/{{ user.id }}/avatar\"\r\n          nzName=\"avatar\"\r\n          nzListType=\"picture-card\"\r\n          [nzShowUploadList]=\"false\"\r\n          [nzBeforeUpload]=\"beforeUpload\"\r\n          (nzChange)=\"handleChange($event)\">\r\n          <ng-container *ngIf=\"!avatarUrl\">\r\n            <i class=\"upload-icon\" nz-icon [type]=\"loading ? 'loading' : 'plus'\"></i>\r\n            <div class=\"ant-upload-text\">Upload</div>\r\n          </ng-container>\r\n          <img *ngIf=\"avatarUrl\" [src]=\"avatarUrl\" class=\"avatar\"/>\r\n        </nz-upload>\r\n\r\n        <div>\r\n          <h3>Tải lên ảnh mới</h3>\r\n          <p>Kích thước ảnh tối đa 2MB</p>\r\n          <button *ngIf=\"avatarUrl\" nz-button nzType=\"danger\" [disabled]=\"loading\"\r\n                  nz-popconfirm nzTitle=\"Xoá ảnh này?\" nzPlacement=\"bottom\"\r\n                  nzCancelText=\"Hủy\" nzOkText=\"Xóa\" (nzOnConfirm)=\"deleteAvatar()\">\r\n            Xoá ảnh đại diện\r\n          </button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <nz-divider></nz-divider>\r\n\r\n  <div nz-row style=\"padding-bottom: 100px\">\r\n    <div nz-col [nzLg]=\"8\" [nzMd]=\"24\">\r\n      <h2>Thông tin cá nhân</h2>\r\n      <p><i>Địa chỉ email và ID không thể thay đổi</i></p>\r\n    </div>\r\n    <div nz-col [nzLg]=\"16\" [nzMd]=\"24\">\r\n      <div nz-form nzLayout=\"vertical\">\r\n        <div class=\"d-flex\">\r\n          <nz-form-item class=\"flex-fill\">\r\n            <nz-form-label>Địa chỉ email - <strong>tài khoản</strong></nz-form-label>\r\n            <nz-form-control>\r\n              <input nz-input readonly [value]=\"user.email\"/>\r\n            </nz-form-control>\r\n          </nz-form-item>\r\n          <div class=\"ml-2\">\r\n            <nz-form-item>\r\n              <nz-form-label>ID</nz-form-label>\r\n              <nz-form-control>\r\n                <input nz-input readonly [value]=\"user.id\"/>\r\n              </nz-form-control>\r\n            </nz-form-item>\r\n          </div>\r\n        </div>\r\n\r\n        <nz-form-item>\r\n          <nz-form-label class=\"require-title\">Họ và tên</nz-form-label>\r\n          <nz-form-control [nzValidateStatus]=\"fullName.dirty ? (fullName.invalid  ? 'error' : 'success') : ''\">\r\n            <input nz-input [(ngModel)]=\"user.fullName\" name=\"fullName\" id=\"fullName\" #fullName=\"ngModel\" required/>\r\n            <ng-container *ngIf=\"fullName.invalid && fullName.touched\">\r\n              <nz-form-explain *ngIf=\"fullName.errors?.required\" class=\"invalid-msg\">\r\n                Họ tên không được trống\r\n              </nz-form-explain>\r\n            </ng-container>\r\n          </nz-form-control>\r\n        </nz-form-item>\r\n\r\n        <nz-form-item>\r\n          <nz-form-label>Số điện thoại</nz-form-label>\r\n          <nz-form-control>\r\n            <input nz-input [(ngModel)]=\"user.phone\"/>\r\n          </nz-form-control>\r\n        </nz-form-item>\r\n\r\n        <nz-form-item>\r\n          <nz-form-label>Địa chỉ</nz-form-label>\r\n          <nz-form-control>\r\n            <textarea nz-input [(ngModel)]=\"user.address\"></textarea>\r\n          </nz-form-control>\r\n        </nz-form-item>\r\n\r\n        <div nz-row nzType=\"flex\" nzJustify=\"space-between\">\r\n          <button nz-col nz-button nzType=\"primary\" [disabled]=\"disableBtnAction || fullName.invalid\" (click)=\"saveChangeProfile()\">Lưu thay\r\n            đổi\r\n          </button>\r\n          <button nz-col nz-button nzType=\"default\" routerLink=\"/users\">Hủy</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<app-title-page></app-title-page>\r\n<div class=\"default-card\">\r\n  <div nz-row>\r\n    <div nz-col [nzLg]=\"8\" [nzMd]=\"24\">\r\n      <h2>Ảnh đại diện</h2>\r\n      <p><i>Mọi thay đổi sẽ dược cập nhật</i></p>\r\n    </div>\r\n    <div nz-col [nzLg]=\"16\" [nzMd]=\"24\">\r\n      <div class=\"clearfix\">\r\n        <nz-upload\r\n          class=\"avatar-uploader float-left mr-3\"\r\n          nzAction=\"/api/users/{{ user.id }}/avatar\"\r\n          nzName=\"avatar\"\r\n          nzListType=\"picture-card\"\r\n          [nzShowUploadList]=\"false\"\r\n          [nzBeforeUpload]=\"beforeUpload\"\r\n          (nzChange)=\"handleChange($event)\">\r\n          <ng-container *ngIf=\"!avatarUrl\">\r\n            <i class=\"upload-icon\" nz-icon [type]=\"loading ? 'loading' : 'plus'\"></i>\r\n            <div class=\"ant-upload-text\">Upload</div>\r\n          </ng-container>\r\n          <img *ngIf=\"avatarUrl\" [src]=\"avatarUrl\" class=\"avatar\"/>\r\n        </nz-upload>\r\n\r\n        <div>\r\n          <h3>Tải lên ảnh mới</h3>\r\n          <p>Kích thước ảnh tối đa 2MB</p>\r\n          <button *ngIf=\"avatarUrl\" nz-button nzType=\"danger\" [disabled]=\"loading\"\r\n                  nz-popconfirm nzTitle=\"Xoá ảnh này?\" nzPlacement=\"bottom\"\r\n                  nzCancelText=\"Hủy\" nzOkText=\"Xóa\" (nzOnConfirm)=\"deleteAvatar()\">\r\n            Xoá ảnh đại diện\r\n          </button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <nz-divider></nz-divider>\r\n\r\n  <div nz-row style=\"padding-bottom: 100px\">\r\n    <div nz-col [nzLg]=\"8\" [nzMd]=\"24\">\r\n      <h2>Thông tin cá nhân</h2>\r\n      <p><i>Địa chỉ email và ID không thể thay đổi</i></p>\r\n    </div>\r\n    <div nz-col [nzLg]=\"16\" [nzMd]=\"24\">\r\n      <div nz-form nzLayout=\"vertical\">\r\n        <div class=\"d-flex\">\r\n          <nz-form-item class=\"flex-fill\">\r\n            <nz-form-label>Địa chỉ email - <strong>tài khoản</strong></nz-form-label>\r\n            <nz-form-control>\r\n              <input nz-input readonly [value]=\"user.email\"/>\r\n            </nz-form-control>\r\n          </nz-form-item>\r\n          <div class=\"ml-2\">\r\n            <nz-form-item>\r\n              <nz-form-label>ID</nz-form-label>\r\n              <nz-form-control>\r\n                <input nz-input readonly [value]=\"user.id\"/>\r\n              </nz-form-control>\r\n            </nz-form-item>\r\n          </div>\r\n        </div>\r\n\r\n        <nz-form-item>\r\n          <nz-form-label class=\"require-title\">Họ và tên</nz-form-label>\r\n          <nz-form-control [nzValidateStatus]=\"fullName.dirty ? (fullName.invalid  ? 'error' : 'success') : ''\">\r\n            <input nz-input [(ngModel)]=\"user.fullName\" name=\"fullName\" id=\"fullName\" #fullName=\"ngModel\" required/>\r\n            <ng-container *ngIf=\"fullName.invalid && fullName.touched\">\r\n              <nz-form-explain *ngIf=\"fullName.errors?.required\" class=\"invalid-msg\">\r\n                Họ tên không được trống\r\n              </nz-form-explain>\r\n            </ng-container>\r\n          </nz-form-control>\r\n        </nz-form-item>\r\n\r\n        <nz-form-item>\r\n          <nz-form-label>Số điện thoại</nz-form-label>\r\n          <nz-form-control>\r\n            <input nz-input [(ngModel)]=\"user.phone\"/>\r\n          </nz-form-control>\r\n        </nz-form-item>\r\n\r\n        <nz-form-item>\r\n          <nz-form-label>Địa chỉ</nz-form-label>\r\n          <nz-form-control>\r\n            <textarea nz-input [(ngModel)]=\"user.address\"></textarea>\r\n          </nz-form-control>\r\n        </nz-form-item>\r\n\r\n        <div nz-row nzType=\"flex\" nzJustify=\"space-between\">\r\n          <button nz-col nz-button nzType=\"primary\" [disabled]=\"disableBtnAction || fullName.invalid\" (click)=\"saveChangeProfile()\">Lưu thay\r\n            đổi\r\n          </button>\r\n          <button nz-col nz-button nzType=\"default\" routerLink=\"/users/{{ user.id }}/detail\">Hủy</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -2402,7 +2308,7 @@ var UserEditProfileComponent = /** @class */ (function () {
         this.userService.removeAvatar(this.user.id)
             .subscribe(function (value) {
             _this.avatarUrl = null;
-            console.log(value);
+            // console.log(value);
         });
     };
     UserEditProfileComponent = __decorate([
@@ -2433,7 +2339,7 @@ var UserEditProfileComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-title-page></app-title-page>\r\n<div nz-row nzType=\"flex\" nzJustify=\"space-between\" nzAlign=\"bottom\" class=\"mb-2\">\r\n  <div nz-col nz-form nzLayout=\"vertical\" [nzSpan]=\"12\">\r\n    <!--<nz-form-item  class=\"mb-0 pb-0\">-->\r\n    <!--<nz-form-label>Tìm kiếm</nz-form-label>-->\r\n    <!--<nz-input-group nzCompact>-->\r\n    <!--<nz-select [ngModel]=\"1\">-->\r\n    <!--<nz-option nzLabel=\"Tài khoản\" [nzValue]=\"0\"></nz-option>-->\r\n    <!--<nz-option nzLabel=\"Họ tên\" [nzValue]=\"1\"></nz-option>-->\r\n    <!--<nz-option nzLabel=\"Lần truy cập cuối\" [nzValue]=\"2\"></nz-option>-->\r\n    <!--<nz-option nzLabel=\"Trạng thái\" [nzValue]=\"3\"></nz-option>-->\r\n    <!--</nz-select>-->\r\n    <!--<input type=\"text\" nz-input ngModel=\"\" style=\"width:50%;\"/>-->\r\n    <!--</nz-input-group>-->\r\n    <!--</nz-form-item>-->\r\n\r\n  </div>\r\n  <div nz-col>\r\n    <button nz-button nzType=\"primary\" routerLink=\"/users/add\">\r\n      <i nz-icon nzType=\"plus\" nzTheme=\"outline\"></i> Tạo người dùng\r\n    </button>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"default-card\">\r\n  <nz-table #nzTable2 [nzData]=\"page.content\" [nzLoading]=\"loading\"\r\n            [nzPageSize]=\"page.size\"\r\n            nzShowPagination=\"false\"\r\n            nzNoResult=\"Không có dữ liệu\">\r\n    <thead>\r\n    <tr>\r\n      <th>Tài khoản</th>\r\n      <th>Họ tên</th>\r\n      <th>Loại tài khoản</th>\r\n      <th>Trạng thái tài khoản</th>\r\n    </tr>\r\n    </thead>\r\n    <tbody>\r\n    <ng-template ngFor let-item [ngForOf]=\"nzTable2.data\">\r\n      <tr routerLink=\"/users/{{ item.id }}/detail\">\r\n        <td>{{ item.email }}</td>\r\n        <td>{{ item.fullName }}</td>\r\n        <td>{{ item?.role?.length <= 0 ? ROLE_NAME.ROLE_USER : ROLE_NAME[item.role[0]] }}</td>\r\n        <td *ngIf=\"!item.block\">\r\n          <nz-tag [nzColor]=\"'green'\">Đang hoạt động</nz-tag>\r\n        </td>\r\n        <td *ngIf=\"item.block\">\r\n          <nz-tag [nzColor]=\"'red'\">Đã khóa</nz-tag>\r\n        </td>\r\n      </tr>\r\n    </ng-template>\r\n    </tbody>\r\n  </nz-table>\r\n\r\n  <div class=\"mt-2\" style=\"text-align: right;\">\r\n    <nz-pagination [nzPageIndex]=\"page.number + 1\" [nzPageSize]=\"page.size\" [nzTotal]=\"page.totalElements\"\r\n                   (nzPageIndexChange)=\"loadData($event)\"></nz-pagination>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<app-title-page></app-title-page>\r\n<div nz-row nzType=\"flex\" nzJustify=\"space-between\" nzAlign=\"bottom\" class=\"mb-2\">\r\n  <div nz-col [nzSpan]=\"18\">\r\n  </div>\r\n  <div nz-col>\r\n    <button nz-button nzType=\"primary\" routerLink=\"/users/add\">\r\n      <i nz-icon nzType=\"plus\" nzTheme=\"outline\"></i> Tạo người dùng\r\n    </button>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"default-card\">\r\n  <label\r\n    nz-checkbox\r\n    [(ngModel)]=\"allChecked\"\r\n    (ngModelChange)=\"updateAllChecked()\"\r\n    [nzIndeterminate]=\"indeterminate\"> Tất cả tài khoản</label>\r\n  <nz-checkbox-group [(ngModel)]=\"accountOptions\" (ngModelChange)=\"updateSingleChecked()\"></nz-checkbox-group>\r\n\r\n  <nz-table #nzTable2 [nzData]=\"page.content\" [nzLoading]=\"loading\"\r\n            [nzPageSize]=\"page.size\"\r\n            nzShowPagination=\"false\"\r\n            nzNoResult=\"Không có dữ liệu\">\r\n    <thead>\r\n    <tr>\r\n      <th>Tài khoản</th>\r\n      <th>Họ tên</th>\r\n      <th>Loại tài khoản</th>\r\n      <th>Trạng thái tài khoản</th>\r\n    </tr>\r\n    </thead>\r\n    <tbody>\r\n    <ng-template ngFor let-item [ngForOf]=\"nzTable2.data\">\r\n      <tr routerLink=\"/users/{{ item.id }}/detail\">\r\n        <td>{{ item.email }}</td>\r\n        <td>{{ item.fullName }}</td>\r\n        <td>{{ item?.role?.length <= 0 ? ROLE_NAME.ROLE_USER : ROLE_NAME[item.role[0]] }}</td>\r\n        <td *ngIf=\"!item.block\">\r\n          <nz-tag [nzColor]=\"'green'\">Đang hoạt động</nz-tag>\r\n        </td>\r\n        <td *ngIf=\"item.block\">\r\n          <nz-tag [nzColor]=\"'red'\">Đã khóa</nz-tag>\r\n        </td>\r\n      </tr>\r\n    </ng-template>\r\n    </tbody>\r\n  </nz-table>\r\n\r\n  <div class=\"mt-2\" style=\"text-align: right;\">\r\n    <nz-pagination [nzPageIndex]=\"page.number + 1\" [nzPageSize]=\"page.size\" [nzTotal]=\"page.totalElements\"\r\n                   (nzPageIndexChange)=\"loadData($event)\" nzHideOnSinglePage=\"true\"></nz-pagination>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -2461,6 +2367,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _api_service_user_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../api/service/user.service */ "./src/app/api/service/user.service.ts");
 /* harmony import */ var _api_model_Page__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../api/model/Page */ "./src/app/api/model/Page.ts");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2483,7 +2400,18 @@ var UserListComponent = /** @class */ (function () {
             ROLE_MODERATOR: 'Kiểm duyệt viên'
         };
         this.loading = false;
+        // filter account
+        this.allChecked = true;
+        this.indeterminate = false;
+        this.accountOptions = [
+            { label: 'Khách hàng', value: 'ROLE_USER', checked: true },
+            { label: 'Kiểm duyệt viên', value: 'ROLE_MODERATOR', checked: true },
+            { label: 'Quản trị viên', value: 'ROLE_ADMIN', checked: true }
+        ];
         this.page.content = [];
+        this.page.totalElements = 0;
+        this.page.size = 0;
+        this.page.totalPages = 0;
     }
     UserListComponent.prototype.ngOnInit = function () {
         this.loadData(1);
@@ -2491,13 +2419,42 @@ var UserListComponent = /** @class */ (function () {
     UserListComponent.prototype.loadData = function (page) {
         var _this = this;
         this.loading = true;
-        this.userSerive.getAllApproverAccounts(page - 1)
+        var filterBy = this.accountOptions.filter(function (item) { return item.checked; }).map(function (item) { return item.value; });
+        this.userSerive.getAllApproverAccounts(page - 1, filterBy)
             .subscribe(function (data) {
             _this.page = data;
             _this.loading = false;
         }, function (error) {
             _this.loading = false;
         });
+    };
+    UserListComponent.prototype.updateAllChecked = function () {
+        this.indeterminate = false;
+        if (this.allChecked) {
+            this.accountOptions = this.accountOptions.map(function (item) {
+                return __assign({}, item, { checked: true });
+            });
+        }
+        else {
+            this.accountOptions = this.accountOptions.map(function (item) {
+                return __assign({}, item, { checked: false });
+            });
+        }
+        this.loadData(1);
+    };
+    UserListComponent.prototype.updateSingleChecked = function () {
+        this.loadData(1);
+        if (this.accountOptions.every(function (item) { return item.checked === false; })) {
+            this.allChecked = false;
+            this.indeterminate = false;
+        }
+        else if (this.accountOptions.every(function (item) { return item.checked === true; })) {
+            this.allChecked = true;
+            this.indeterminate = false;
+        }
+        else {
+            this.indeterminate = true;
+        }
     };
     UserListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -2532,7 +2489,7 @@ module.exports = ".invalid-msg {\r\n  color: #f5222d;\r\n}\r\n\r\n[nz-radio] {\r
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-title-page></app-title-page>\r\n<div class=\"default-card\">\r\n  <nz-skeleton [nzLoading]=\"loading\" nzActive=\"true\" [nzParagraph]=\"{ rows: 6}\">\r\n    <div nz-row *ngIf=\"canChangeRole\">\r\n      <div nz-col [nzLg]=\"8\" [nzMd]=\"24\">\r\n        <h2>Thay đổi loại tài khoản</h2>\r\n        <p><i>Địa chỉ email và ID không thể thay đổi</i></p>\r\n      </div>\r\n      <div nz-col [nzLg]=\"16\" [nzMd]=\"24\">\r\n        <div nz-form nzLayout=\"vertical\">\r\n          <div class=\"d-flex\">\r\n            <nz-form-item class=\"flex-fill\">\r\n              <nz-form-label>Địa chỉ email - <strong>tài khoản</strong></nz-form-label>\r\n              <nz-form-control>\r\n                <input nz-input readonly [value]=\"user.email\"/>\r\n              </nz-form-control>\r\n            </nz-form-item>\r\n            <div class=\"ml-2\">\r\n              <nz-form-item>\r\n                <nz-form-label>ID</nz-form-label>\r\n                <nz-form-control>\r\n                  <input nz-input readonly [value]=\"user.id\"/>\r\n                </nz-form-control>\r\n              </nz-form-item>\r\n            </div>\r\n          </div>\r\n\r\n          <nz-form-item>\r\n            <nz-form-label>Loại tài khoản</nz-form-label>\r\n            <nz-radio-group [(ngModel)]=\"role\" name=\"role\">\r\n              <label nz-radio nzValue=\"ROLE_USER\">Khách hàng</label>\r\n              <label nz-radio nzValue=\"ROLE_MODERATOR\">Kiểm duyệt viên</label>\r\n              <label nz-radio nzValue=\"ROLE_ADMIN\">Quản trị viên</label>\r\n            </nz-radio-group>\r\n          </nz-form-item>\r\n\r\n          <div nz-row nzType=\"flex\" nzJustify=\"space-between\">\r\n            <button nz-col nz-button nzType=\"primary\" (click)=\"saveChangeRole()\" [disabled]=\"role == preRole\">\r\n              Lưu thay đổi\r\n            </button>\r\n            <button nz-col nz-button nzType=\"default\" routerLink=\"/users\">Hủy</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </nz-skeleton>\r\n\r\n  <nz-divider *ngIf=\"canChangeRole\"></nz-divider>\r\n\r\n  <div nz-row style=\"padding-bottom: 100px\">\r\n    <div nz-col [nzLg]=\"8\" [nzMd]=\"24\">\r\n      <h2 class=\"require-title\">Thay đổi mật khẩu</h2>\r\n    </div>\r\n    <div nz-col [nzLg]=\"16\" [nzMd]=\"24\">\r\n      <form #form=\"ngForm\" nz-form nzLayout=\"vertical\">\r\n\r\n        <nz-form-item>\r\n          <nz-form-label>Mật khẩu mới</nz-form-label>\r\n          <nz-form-control>\r\n            <nz-input-group [nzSuffix]=\"suffixPassword\">\r\n              <input nz-input #newPass=\"ngModel\" name=\"newPassword\" [(ngModel)]=\"newPassword\"\r\n                     (focus)=\"noMatchPassword = false\" required\r\n                     [type]=\"passwordVisible ? 'text' : 'password'\"/>\r\n            </nz-input-group>\r\n\r\n            <ng-template #suffixPassword>\r\n              <i nz-icon [nzType]=\"passwordVisible ? 'eye-invisible' : 'eye'\"\r\n                 (click)=\"passwordVisible = !passwordVisible\"></i>\r\n            </ng-template>\r\n\r\n            <ng-container *ngIf=\"newPass.invalid && newPass.touched\">\r\n              <nz-form-explain *ngIf=\"newPass.errors?.required\" class=\"invalid-msg\">\r\n                Mật khẩu không được trống\r\n              </nz-form-explain>\r\n            </ng-container>\r\n          </nz-form-control>\r\n        </nz-form-item>\r\n\r\n        <nz-form-item>\r\n          <nz-form-label>Xác nhận mật khẩu</nz-form-label>\r\n          <nz-form-control>\r\n            <nz-input-group [nzSuffix]=\"suffixCfPassword\">\r\n              <input nz-input #confirmPass=\"ngModel\" name=\"confirmPassword\"\r\n                     (focusout)=\"noMatchPassword = (confirmPassword != newPassword)\"\r\n                     (focus)=\"noMatchPassword = false\"\r\n                     [(ngModel)]=\"confirmPassword\" required\r\n                     [type]=\"cfPasswordVisible ? 'text' : 'password'\"/>\r\n              <ng-template #suffixCfPassword>\r\n                <i nz-icon [nzType]=\"cfPasswordVisible ? 'eye-invisible' : 'eye'\"\r\n                   (click)=\"cfPasswordVisible  = !cfPasswordVisible \"></i>\r\n              </ng-template>\r\n            </nz-input-group>\r\n            <ng-container *ngIf=\"confirmPass.invalid && confirmPass.touched\">\r\n              <nz-form-explain *ngIf=\"confirmPass.errors?.required\" class=\"invalid-msg\">\r\n                Mật khẩu không được trống\r\n              </nz-form-explain>\r\n            </ng-container>\r\n\r\n            <ng-container *ngIf=\"noMatchPassword && confirmPassword.length > 0\">\r\n              <nz-form-explain class=\"invalid-msg\">\r\n                Mật khẩu xác nhận không khớp với mật khẩu mới\r\n              </nz-form-explain>\r\n            </ng-container>\r\n          </nz-form-control>\r\n        </nz-form-item>\r\n\r\n        <div nz-row nzType=\"flex\" nzJustify=\"space-between\">\r\n          <button nz-col nz-button nzType=\"primary\" (click)=\"saveChange()\"\r\n                  [disabled]=\"!form.valid || newPassword != confirmPassword\">Lưu thay đổi\r\n          </button>\r\n          <button nz-col nz-button nzType=\"default\" routerLink=\"/users\">Hủy</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<app-title-page></app-title-page>\r\n<div class=\"default-card\">\r\n  <nz-skeleton [nzLoading]=\"loading\" nzActive=\"true\" [nzParagraph]=\"{ rows: 6}\">\r\n    <div nz-row *ngIf=\"canChangeRole\">\r\n      <div nz-col [nzLg]=\"8\" [nzMd]=\"24\">\r\n        <h2>Thay đổi loại tài khoản</h2>\r\n        <p><i>Địa chỉ email và ID không thể thay đổi</i></p>\r\n      </div>\r\n      <div nz-col [nzLg]=\"16\" [nzMd]=\"24\">\r\n        <div nz-form nzLayout=\"vertical\">\r\n          <div class=\"d-flex\">\r\n            <nz-form-item class=\"flex-fill\">\r\n              <nz-form-label>Địa chỉ email - <strong>tài khoản</strong></nz-form-label>\r\n              <nz-form-control>\r\n                <input nz-input readonly [value]=\"user.email\"/>\r\n              </nz-form-control>\r\n            </nz-form-item>\r\n            <div class=\"ml-2\">\r\n              <nz-form-item>\r\n                <nz-form-label>ID</nz-form-label>\r\n                <nz-form-control>\r\n                  <input nz-input readonly [value]=\"user.id\"/>\r\n                </nz-form-control>\r\n              </nz-form-item>\r\n            </div>\r\n          </div>\r\n\r\n          <nz-form-item>\r\n            <nz-form-label>Loại tài khoản</nz-form-label>\r\n            <nz-radio-group [(ngModel)]=\"role\" name=\"role\">\r\n              <label nz-radio nzValue=\"ROLE_USER\">Khách hàng</label>\r\n              <label nz-radio nzValue=\"ROLE_MODERATOR\">Kiểm duyệt viên</label>\r\n              <label nz-radio nzValue=\"ROLE_ADMIN\">Quản trị viên</label>\r\n            </nz-radio-group>\r\n          </nz-form-item>\r\n\r\n          <div nz-row nzType=\"flex\" nzJustify=\"space-between\">\r\n            <button nz-col nz-button nzType=\"primary\" (click)=\"saveChangeRole()\" [disabled]=\"role == preRole\">\r\n              Lưu thay đổi\r\n            </button>\r\n            <button nz-col nz-button nzType=\"default\" routerLink=\"/users/{{ user.id }}/detail\">Hủy</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </nz-skeleton>\r\n\r\n  <nz-divider *ngIf=\"canChangeRole\"></nz-divider>\r\n\r\n  <div nz-row style=\"padding-bottom: 100px\">\r\n    <div nz-col [nzLg]=\"8\" [nzMd]=\"24\">\r\n      <h2 class=\"require-title\">Thay đổi mật khẩu</h2>\r\n    </div>\r\n    <div nz-col [nzLg]=\"16\" [nzMd]=\"24\">\r\n      <form #form=\"ngForm\" nz-form nzLayout=\"vertical\">\r\n\r\n        <nz-form-item>\r\n          <nz-form-label>Mật khẩu mới</nz-form-label>\r\n          <nz-form-control>\r\n            <nz-input-group [nzSuffix]=\"suffixPassword\">\r\n              <input nz-input #newPass=\"ngModel\" name=\"newPassword\" [(ngModel)]=\"newPassword\"\r\n                     (focus)=\"noMatchPassword = false\" required\r\n                     [type]=\"passwordVisible ? 'text' : 'password'\"/>\r\n            </nz-input-group>\r\n\r\n            <ng-template #suffixPassword>\r\n              <i nz-icon [nzType]=\"passwordVisible ? 'eye-invisible' : 'eye'\"\r\n                 (click)=\"passwordVisible = !passwordVisible\"></i>\r\n            </ng-template>\r\n\r\n            <ng-container *ngIf=\"newPass.invalid && newPass.touched\">\r\n              <nz-form-explain *ngIf=\"newPass.errors?.required\" class=\"invalid-msg\">\r\n                Mật khẩu không được trống\r\n              </nz-form-explain>\r\n            </ng-container>\r\n          </nz-form-control>\r\n        </nz-form-item>\r\n\r\n        <nz-form-item>\r\n          <nz-form-label>Xác nhận mật khẩu</nz-form-label>\r\n          <nz-form-control>\r\n            <nz-input-group [nzSuffix]=\"suffixCfPassword\">\r\n              <input nz-input #confirmPass=\"ngModel\" name=\"confirmPassword\"\r\n                     (focusout)=\"noMatchPassword = (confirmPassword != newPassword)\"\r\n                     (focus)=\"noMatchPassword = false\"\r\n                     [(ngModel)]=\"confirmPassword\" required\r\n                     [type]=\"cfPasswordVisible ? 'text' : 'password'\"/>\r\n              <ng-template #suffixCfPassword>\r\n                <i nz-icon [nzType]=\"cfPasswordVisible ? 'eye-invisible' : 'eye'\"\r\n                   (click)=\"cfPasswordVisible  = !cfPasswordVisible \"></i>\r\n              </ng-template>\r\n            </nz-input-group>\r\n            <ng-container *ngIf=\"confirmPass.invalid && confirmPass.touched\">\r\n              <nz-form-explain *ngIf=\"confirmPass.errors?.required\" class=\"invalid-msg\">\r\n                Mật khẩu không được trống\r\n              </nz-form-explain>\r\n            </ng-container>\r\n\r\n            <ng-container *ngIf=\"noMatchPassword && confirmPassword.length > 0\">\r\n              <nz-form-explain class=\"invalid-msg\">\r\n                Mật khẩu xác nhận không khớp với mật khẩu mới\r\n              </nz-form-explain>\r\n            </ng-container>\r\n          </nz-form-control>\r\n        </nz-form-item>\r\n\r\n        <div nz-row nzType=\"flex\" nzJustify=\"space-between\">\r\n          <button nz-col nz-button nzType=\"primary\" (click)=\"saveChange()\"\r\n                  [disabled]=\"!form.valid || newPassword != confirmPassword\">Lưu thay đổi\r\n          </button>\r\n          <button nz-col nz-button nzType=\"default\" routerLink=\"/users/{{ user.id }}/detail\">Hủy</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 

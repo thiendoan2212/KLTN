@@ -36,8 +36,9 @@ public class UserController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')") // only ADMIN can get list users
-    public Page<UserDTO> getAlLUser(@PageableDefault(page = 0, size = 10) Pageable page) {
-        return userService.selectPageOfUsers(page).map(mapper::entityToDTOWithRoles);
+    public Page<UserDTO> getAlLUser(@PageableDefault(page = 0, size = 10) Pageable page,
+                                    @RequestParam(value = "role", defaultValue = "") List<String> roles) {
+        return userService.selectPageOfUsersInRoles(page, roles).map(mapper::entityToDTOWithRoles);
     }
 
     @GetMapping("/{id}")

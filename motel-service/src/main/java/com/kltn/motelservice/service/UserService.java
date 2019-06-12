@@ -29,7 +29,7 @@ public interface UserService {
 
     User changePassword(Long id, String newPassword) throws Exception;
 
-    Page<User> selectPageOfUsers(Pageable page);
+    Page<User> selectPageOfUsersInRoles(Pageable page, List<String> rolesString);
 
     User blockUserById(Long id, boolean block);
 
