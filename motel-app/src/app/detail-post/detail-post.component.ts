@@ -42,6 +42,10 @@ export class DetailPostComponent implements OnInit {
               private router: Router,
               private authService: NbAuthService,
               private commentService: CommentService) {
+    this.activatedRoute.queryParams.subscribe(_ => {
+      this.getUser();
+      this.getPostById();
+    });
   }
 
   ngOnInit() {
@@ -67,6 +71,7 @@ export class DetailPostComponent implements OnInit {
   }
 
   getPostById() {
+    this.notFound = false;
     this.postDTO.userDTO = this.userDTO;
     this.postDTO.accomodationDTO = this.accomodationDTO;
     this.activatedRoute.queryParams.subscribe(params => {
@@ -79,6 +84,7 @@ export class DetailPostComponent implements OnInit {
           (!this.postDTO.approved && (this.auth.email !== this.postDTO.userDTO.email))) {
           this.notFound = true;
         } else {
+          this.util = ' ';
           if (this.postDTO.accomodationDTO.parking) {
             this.util += 'Chỗ để xe';
           }

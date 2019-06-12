@@ -63,6 +63,7 @@ export class UserPageComponent implements OnInit {
   }
 
   getUserById() {
+    this.notFound = false;
     this.activatedRoute.queryParams.subscribe(params => {
       this.idUser = params.id;
     });
