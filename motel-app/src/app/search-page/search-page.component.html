@@ -23,8 +23,8 @@
           <div class="text-center head">
             <p id="news">Kết quả tìm kiếm</p>
           </div>
-          <br *ngIf="searchForm.xCoordinate">
-          <div class="text-right" *ngIf="!searchForm.xCoordinate">
+          <!--<br *ngIf="searchForm.xCoordinate">-->
+          <div class="text-right">
             <select class="browser-default custom-select sort" style="width: 180px; margin-top: -32px;"
                     [(ngModel)]="sort"
                     (change)="searchPost()">
@@ -39,9 +39,25 @@
       </div>
     </div>
     <div class="container">
+      <div class="text-center" *ngIf="!postDTOs">
+        <div class="sk-fading-circle">
+          <div class="sk-circle1 sk-circle"></div>
+          <div class="sk-circle2 sk-circle"></div>
+          <div class="sk-circle3 sk-circle"></div>
+          <div class="sk-circle4 sk-circle"></div>
+          <div class="sk-circle5 sk-circle"></div>
+          <div class="sk-circle6 sk-circle"></div>
+          <div class="sk-circle7 sk-circle"></div>
+          <div class="sk-circle8 sk-circle"></div>
+          <div class="sk-circle9 sk-circle"></div>
+          <div class="sk-circle10 sk-circle"></div>
+          <div class="sk-circle11 sk-circle"></div>
+          <div class="sk-circle12 sk-circle"></div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-lg-12"
-             *ngIf="searchForm.xCoordinate && searchForm.yCoordinate && searchForm.radius && totalElements > 0">
+             *ngIf="searchForm.xCoordinate && searchForm.yCoordinate && searchForm.radius && postDTOs">
           <agm-map [latitude]="lat"
                    [longitude]="lng"
                    [zoom]=zoom
@@ -68,7 +84,7 @@
     <div class="space"></div>
     <div class="container">
       <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="totalElements > 0 || !totalElements">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="postDTOs">
           <div class="row bor"
                *ngFor="let postDTO of postDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
@@ -150,7 +166,12 @@
             </div>
           </div>
           <div class="text-center" *ngIf="(totalElements > 0)">
-            <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+            <pagination-controls (pageChange)="getPage($event)" id="server"
+                                 autoHide="true"
+                                 responsive="true"
+                                 nextLabel=""
+                                 previousLabel=""
+            ></pagination-controls>
           </div>
         </div>
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="totalElements == 0">
@@ -162,4 +183,4 @@
     </div>
   </ng-template>
 </div>
-<app-footer *ngIf="postDTOs || notFound"></app-footer>
+<app-footer *ngIf="postDTOs || !postDTOs || notFound"></app-footer>

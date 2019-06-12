@@ -39,7 +39,7 @@ public interface PostService {
 
     Page<PostDTO> searchPost(SearchDTO searchForm, int page, int sort);
 
-    Page<PostDTO> searchPostByMaps(SearchDTO searchForm, int page);
+    Page<PostDTO> searchPostByMaps(SearchDTO searchForm, int page, int sort);
 
     Page<PostDTO> getPostWaitingApprove( int page);
 }

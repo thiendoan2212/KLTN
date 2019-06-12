@@ -31,11 +31,11 @@ public class PostController {
     }
 
     @GetMapping("/posts/searchbymaps")
-    public Page<PostDTO> searchPostMaps(SearchDTO searchForm, @RequestParam int page){
+    public Page<PostDTO> searchPostMaps(SearchDTO searchForm, @RequestParam int page, @RequestParam int sort){
         searchForm.setPriceStart(searchForm.getPriceStart()*1000000);
         searchForm.setPriceEnd(searchForm.getPriceEnd()*1000000);
 //        searchForm.setRadius(searchForm.getRadius()/1000);
-        return postService.searchPostByMaps(searchForm, page);
+        return postService.searchPostByMaps(searchForm, page, sort);
     }
 
     @GetMapping("/posts")

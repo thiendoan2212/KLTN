@@ -50,7 +50,7 @@ export class SearchPageComponent implements OnInit {
   searchPost() {
     this.postDTOs = null;
     if (this.searchForm.xCoordinate) {
-      this.postService.searchPostByMaps(this.searchForm, this.page - 1).subscribe(
+      this.postService.searchPostByMaps(this.searchForm, this.page - 1, this.sort).subscribe(
         data => {
           this.paginationDTO.content = data;
           this.postDTOs = this.paginationDTO.content.content;
