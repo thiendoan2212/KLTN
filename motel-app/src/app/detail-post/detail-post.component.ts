@@ -171,6 +171,7 @@ export class DetailPostComponent implements OnInit {
   }
 
   editComment(commentDTO: CommentDTO) {
+    commentDTO.rate = this.commentDTO.rate;
     this.commentService.editComment(this.idCommentEdit, commentDTO).subscribe(
       data => {
         this.idCommentEdit = null;
