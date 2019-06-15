@@ -3,3 +3,6 @@ env: flex
 handlers:
   - url: /.*
     script: this field is required, but ignored
+
+readiness_check:
+  app_start_timeout_sec: 1800
