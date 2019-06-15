@@ -3,6 +3,6 @@ env: flex
 handlers:
   - url: /.*
   script: this field is required, but ignored
-  -
+
 runtime_config:
   jdk: openjdk8
