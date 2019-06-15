@@ -118,6 +118,9 @@
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>1.3.2</version>
+                <configuration>
+                    <project>motel-242404</project>
+                </configuration>
             </plugin>
             <!--<plugin>-->
                 <!--<groupId>com.google.appengine</groupId>-->
