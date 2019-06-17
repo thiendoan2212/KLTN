@@ -85,11 +85,11 @@
             <version>1.2.0.Final</version>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>com.google.cloud.sql</groupId>
-            <artifactId>mysql-socket-factory</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.google.cloud.sql</groupId>-->
+            <!--<artifactId>mysql-socket-factory</artifactId>-->
+            <!--<version>1.0.0</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.google.api-client</groupId>
             <artifactId>google-api-client</artifactId>
@@ -122,11 +122,11 @@
                     <project>motel-242404</project>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.google.appengine</groupId>
-                <artifactId>appengine-maven-plugin</artifactId>
-                <version>1.9.9</version>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>com.google.appengine</groupId>-->
+                <!--<artifactId>appengine-maven-plugin</artifactId>-->
+                <!--<version>1.9.9</version>-->
+            <!--</plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
