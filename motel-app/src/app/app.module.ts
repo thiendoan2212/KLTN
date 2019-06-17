@@ -59,7 +59,7 @@ import { CreateCriteriaComponent } from './create-criteria/create-criteria.compo
 
 const authConfig: NbOAuth2AuthStrategyOptions = {
   name: 'userpass',
-  baseEndpoint: 'http://localhost:8080',
+  baseEndpoint: 'https://xomtro.herokuapp.com',
   clientId: 'clientIdPassword',
   clientSecret: '123',
   clientAuthMethod: NbOAuth2ClientAuthMethod.BASIC,
