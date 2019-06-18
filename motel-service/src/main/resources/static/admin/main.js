@@ -753,7 +753,7 @@ var AppModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ReactiveFormsModule"],
                 _ckeditor_ckeditor5_angular__WEBPACK_IMPORTED_MODULE_15__["CKEditorModule"],
                 _agm_core__WEBPACK_IMPORTED_MODULE_16__["AgmCoreModule"].forRoot({
-                    apiKey: 'AIzaSyBKKUL9LFa4guJTQbouBA75Ypkd6G4DdD8'
+                    apiKey: 'AIzaSyDCsT_O-XMJwHBfETVpFVFA_lLz0pG31r0'
                 }),
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_2__["AppRoutingModule"],
                 _nebular_auth__WEBPACK_IMPORTED_MODULE_21__["NbAuthModule"].forRoot({
