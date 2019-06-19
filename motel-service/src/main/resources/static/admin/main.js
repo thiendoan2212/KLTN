@@ -800,7 +800,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var authConfig = {
     name: 'userpass',
-    baseEndpoint: 'http://localhost:8080/',
+    baseEndpoint: 'https://xomtro.herokuapp.com/',
     clientId: 'clientIdPassword',
     clientSecret: '123',
     clientAuthMethod: _nebular_auth__WEBPACK_IMPORTED_MODULE_0__["NbOAuth2ClientAuthMethod"].BASIC,

@@ -118,6 +118,7 @@ public class PostServiceImpl implements PostService {
             postDTO.setImageStrings(images);
             postDTO.setCommentDTOS(commentDTOS);
             postDTO.setUserDTO(modelMapper.map(post.get().getUser(), UserDTO.class));
+            postDTO.getUserDTO().setB64(null);
             return postDTO;
         } else
             throw new PostException("Post id " + id + " không tồn tại");
@@ -405,7 +406,7 @@ public class PostServiceImpl implements PostService {
     public PostDTO postToPostDTO(Post post) {
         PostDTO postDTO = modelMapper.map(post, PostDTO.class);
         postDTO.setAccomodationDTO(modelMapper.map(post.getAccomodation(), AccomodationDTO.class));
-        postDTO.setUserDTO(modelMapper.map(post.getUser(), UserDTO.class));
+//        postDTO.setUserDTO(modelMapper.map(post.getUser(), UserDTO.class));
         List<String> images = imageService.getImageByIdPost(post.getId());
         postDTO.setImageStrings(images);
         return postDTO;
@@ -424,12 +425,4 @@ public class PostServiceImpl implements PostService {
         d = Math.pow(d, 2);
         return d;
     }
-
-//    public void createNoti(Post post) {
-//        List<Criteria> criteriaList = criteriaRepository.findAllByAcreageStartLessThanEqualAndAcreageEndGreaterThanEqualAndPriceStartLessThanEqualAndPriceEndGreaterThanEqualAndDistrict_IdAndMotelAndStop(
-//                post.getAccomodation().getAcreage(), post.getAccomodation().getAcreage(), post.getAccomodation().getPrice(), post.getAccomodation().getPrice(), post.getAccomodation().getDistrict().getId(), post.getAccomodation().isMotel(), false);
-//        for (Criteria criteria : criteriaList) {
-//            notificationService.createNotification(criteria.getUser(), post, criteria);
-//        }
-//    }
 }
