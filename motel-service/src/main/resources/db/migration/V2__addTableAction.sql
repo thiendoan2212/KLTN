@@ -4,6 +4,7 @@ CREATE TABLE `action`  (
   `post_id` bigint(20) NULL DEFAULT NULL,
   `user_id` bigint(20) NULL DEFAULT NULL,
   `action` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+  `time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `FKoiqm9rfwl0j4o349q2gqn7n20`(`post_id`) USING BTREE,
   INDEX `FKq7e8qgeirqpqadbcb2pqmsupi`(`user_id`) USING BTREE,
