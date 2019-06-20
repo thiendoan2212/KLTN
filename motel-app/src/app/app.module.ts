@@ -135,7 +135,7 @@ const authConfig: NbOAuth2AuthStrategyOptions = {
       }
     }),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBKKUL9LFa4guJTQbouBA75Ypkd6G4DdD8'
+      apiKey: 'AIzaSyDCsT_O-XMJwHBfETVpFVFA_lLz0pG31r0'
     }),
     NgxPaginationModule,
     AngularEditorModule,

@@ -1,15 +1,14 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {map, skip} from 'rxjs/operators';
-import {RequestOptions} from '@angular/http';
+import {map} from 'rxjs/operators';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeocodingApiServiceService {
-  API_URL = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBKKUL9LFa4guJTQbouBA75Ypkd6G4DdD8&address=';
+  API_URL = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDCsT_O-XMJwHBfETVpFVFA_lLz0pG31r0&address=';
   data: any;
 
   constructor(private http: HttpClient) {
