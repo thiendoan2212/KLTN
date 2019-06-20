@@ -19,11 +19,11 @@ CREATE TABLE `criteria`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- SET FOREIGN_KEY_CHECKS = 1;
-
-INSERT INTO criteria(district_id, motel, stop, user_id, price_start, price_end, acreage_start, acreage_end, create_at)
-VALUES (1, 1, 0, 2, 3000000, 10000000, 20, 40, now());
-INSERT INTO criteria(district_id, motel, stop, user_id, price_start, price_end, acreage_start, acreage_end, create_at)
-VALUES (13, 0, 0, 1, 1000000, 3000000, 10, 35, now());
+--
+-- INSERT INTO criteria(district_id, motel, stop, user_id, price_start, price_end, acreage_start, acreage_end, create_at)
+-- VALUES (1, 1, 0, 2, 3000000, 10000000, 20, 40, now());
+-- INSERT INTO criteria(district_id, motel, stop, user_id, price_start, price_end, acreage_start, acreage_end, create_at)
+-- VALUES (13, 0, 0, 1, 1000000, 3000000, 10, 35, now());
 
 CREATE TABLE `notification`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,

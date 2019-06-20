@@ -46,7 +46,23 @@
         <p class="thongtin">Tin đăng</p>
         <div class="row">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="border-thongtin">
+            <div class="text-center" *ngIf="!postDTOs">
+              <div class="sk-fading-circle">
+                <div class="sk-circle1 sk-circle"></div>
+                <div class="sk-circle2 sk-circle"></div>
+                <div class="sk-circle3 sk-circle"></div>
+                <div class="sk-circle4 sk-circle"></div>
+                <div class="sk-circle5 sk-circle"></div>
+                <div class="sk-circle6 sk-circle"></div>
+                <div class="sk-circle7 sk-circle"></div>
+                <div class="sk-circle8 sk-circle"></div>
+                <div class="sk-circle9 sk-circle"></div>
+                <div class="sk-circle10 sk-circle"></div>
+                <div class="sk-circle11 sk-circle"></div>
+                <div class="sk-circle12 sk-circle"></div>
+              </div>
+            </div>
+            <div class="border-thongtin" *ngIf="postDTOs">
               <div class="row bor"
                    *ngFor="let postDTO of postDTOs | paginate: { id: 'server', itemsPerPage: 10, currentPage: page, totalItems: totalElements }">
                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">
