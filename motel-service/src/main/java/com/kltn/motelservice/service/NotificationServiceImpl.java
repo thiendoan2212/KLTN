@@ -78,7 +78,7 @@ public class NotificationServiceImpl implements NotificationService {
             if (screen)
                 notificationPage = notificationRepository.findAllByUser(user.get(), PageRequest.of(page, 10, Sort.by("createAt").descending()));
             else
-                notificationPage = notificationRepository.findAllByUser(user.get(), PageRequest.of(page, 5, Sort.by("createAt").descending()));
+                notificationPage = notificationRepository.findAllByUser(user.get(), PageRequest.of(page, 4, Sort.by("createAt").descending()));
             return notificationPage.map(this::notificationToNotificationDTO);
         } else {
             throw new UserException("Không tìm thấy user " + email);
