@@ -89,7 +89,8 @@
               <a style="padding: 0px!important;"
                  *ngFor="let subNotificationDTO of subNotificationDTOS | paginate: { id: 'third', itemsPerPage: 10, currentPage: pageSubNoti, totalItems: totalElementSubNoti}"
                  (click)="navigateToDetail(subNotificationDTO.postDTO); seen(subNotificationDTO);">
-                <div id="inf" class="row border-bottom" *ngIf="totalElementSubNoti > 0">
+                <div id="inf" class="row border-bottom" *ngIf="totalElementSubNoti > 0"
+                     [ngStyle]="{'background-color': (subNotificationDTO.seen)?'#FFFFFF':'#EDF2FA'}">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="avatar">
                       <img id="avatarUser" *ngIf="subNotificationDTO.postDTO.userDTO.b64"
@@ -159,7 +160,8 @@
           <a style="padding: 0px!important;"
              *ngFor="let notificationDTO of notificationDTOs | paginate: { id: 'first', itemsPerPage: 10, currentPage: pageNoti, totalItems: totalElementNoti }"
              (click)="navigateToDetail(notificationDTO.postDTO); seen(notificationDTO);">
-            <div id="noti" class="row border-bottom border-left border-right">
+            <div id="noti" class="row border-bottom border-left border-right"
+                 [ngStyle]="{'background-color': (notificationDTO.seen)?'#FFFFFF':'#EDF2FA'}">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="avatar">
                   <img id="avatarUserPost" *ngIf="notificationDTO.notificationName === notiName.NOTIFICATION &&  notificationDTO.postDTO.userDTO.b64"
