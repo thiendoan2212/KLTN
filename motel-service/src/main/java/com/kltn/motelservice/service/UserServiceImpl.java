@@ -9,6 +9,7 @@ import com.kltn.motelservice.entity.Role;
 import com.kltn.motelservice.entity.RoleName;
 import com.kltn.motelservice.entity.User;
 import com.kltn.motelservice.exception.UserException;
+import com.kltn.motelservice.exception.WrongPasswordException;
 import com.kltn.motelservice.model.AccountDto;
 import com.kltn.motelservice.model.UserDTO;
 import com.kltn.motelservice.repository.RoleRepository;
@@ -52,11 +53,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User changePassword(Long id, String newPassword) throws Exception {
+    public User changePassword(Long id, String newPassword, String oldPassword, String role) throws Exception {
         User user = selectUserById(id);
 
-//        if (!passwordEncoder.matches(oldPassword, user.getPassword()))
-//            throw new WrongPasswordException("Mật khẩu không đúng");
+        if (role.equals("ROLE_USER")) {
+            if (!passwordEncoder.matches(oldPassword, user.getPassword()))
+                throw new WrongPasswordException("Mật khẩu không đúng");
+        }
+
         user.setPassword(passwordEncoder.encode(newPassword));
 
         return userRepository.save(user);

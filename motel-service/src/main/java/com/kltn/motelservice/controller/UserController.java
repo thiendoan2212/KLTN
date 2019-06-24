@@ -80,10 +80,17 @@ public class UserController {
     @PreAuthorize("#oauth2.hasAnyScope('read')") // for authenticated request (logged)
     public UserDTO changePasswordAUser(@PathVariable("id") Long id,
                                        @RequestParam("password") String newPassword,
+                                       @RequestParam(value = "oldPassword", defaultValue = "") String oldPassword,
                                        OAuth2Authentication auth) throws Exception {
+        String role = "";
         if (!validRequest(auth, id)) throw new AccessDeniedException("Access dined");
-
-        User user = userService.changePassword(id, newPassword);
+        User authUser = userService.selectUserByEmail(auth.getName());
+        if (authUser.getRoles().stream().map(Role::getName).anyMatch(roleName -> roleName == RoleName.ROLE_ADMIN)) {
+            role = "ROLE_ADMIN";
+        } else {
+            role = "ROLE_USER";
+        }
+        User user = userService.changePassword(id, newPassword, oldPassword, role);
 
         return mapper.entityToDTO(user);
     }
