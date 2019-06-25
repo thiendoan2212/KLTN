@@ -55,7 +55,17 @@ public class UserController {
     public UserDTO updateProfile(@PathVariable("id") Long id,
                                  @RequestBody UserDTO userDTO) {
         userDTO.setId(id);
-        User user = userService.changeProfile(userDTO);
+        User user = userService.changeProfile(userDTO, false);
+
+        return mapper.entityToDTOWithRoles(user);
+    }
+
+    @PutMapping("/{id}/admin")
+    @PreAuthorize("#oauth2.hasAnyScope('read')") // for authenticated request (logged)
+    public UserDTO updateProfileAdmin(@PathVariable("id") Long id,
+                                 @RequestBody UserDTO userDTO) {
+        userDTO.setId(id);
+        User user = userService.changeProfile(userDTO, true);
 
         return mapper.entityToDTOWithRoles(user);
     }

@@ -36,7 +36,7 @@ public interface UserService {
 
     User selectUserById(Long id);
 
-    User changeProfile(UserDTO userDTO);
+    User changeProfile(UserDTO userDTO, boolean admin);
 
     User changeRole(Long id, List<RoleName> role);
 

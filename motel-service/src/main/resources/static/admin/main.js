@@ -221,7 +221,7 @@ var UserService = /** @class */ (function () {
         return this.http.get("/api/users/" + id);
     };
     UserService.prototype.updateProfile = function (id, user) {
-        return this.http.put("/api/users/" + id, user);
+        return this.http.put("/api/users/" + id + "/admin", user);
     };
     UserService.prototype.blockAccount = function (id) {
         return this.http.put("/api/users/" + id + "/block", null);

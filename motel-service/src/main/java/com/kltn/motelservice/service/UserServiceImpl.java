@@ -87,13 +87,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User changeProfile(UserDTO userDTO) {
+    public User changeProfile(UserDTO userDTO, boolean admin) {
         User user = selectUserById(userDTO.getId());
         user.setPhone(userDTO.getPhone());
         user.setFullName(userDTO.getFullName());
         user.setAddress(userDTO.getAddress());
-        user.setB64(userDTO.getB64());
         user.setFileType(userDTO.getFileType());
+        if (!admin)
+            user.setB64(userDTO.getB64());
 
         return userRepository.save(user);
     }
