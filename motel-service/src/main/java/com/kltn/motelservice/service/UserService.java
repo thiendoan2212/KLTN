@@ -12,6 +12,7 @@ import com.kltn.motelservice.model.AccountDto;
 import com.kltn.motelservice.model.UserDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ public interface UserService {
 
     Role selectRoleByName(RoleName name);
 
-    User changePassword(Long id, String newPassword) throws Exception;
+    User changePassword(Long id, String newPassword, String oldPassword, String role) throws Exception;
 
     Page<User> selectPageOfUsersInRoles(Pageable page, List<String> rolesString);
 
@@ -35,7 +36,7 @@ public interface UserService {
 
     User selectUserById(Long id);
 
-    User changeProfile(UserDTO userDTO);
+    User changeProfile(UserDTO userDTO, boolean admin);
 
     User changeRole(Long id, List<RoleName> role);
 
