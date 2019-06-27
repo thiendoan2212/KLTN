@@ -240,6 +240,9 @@ public class PostServiceImpl implements PostService {
                 if (sort == 4)
                     postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
                             true, PageRequest.of(page, 10, Sort.by("accomodation.acreage").descending()), false);
+                if (sort == 5)
+                    postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
+                            true, PageRequest.of(page, 10, Sort.by("createAt").descending()), false);
             } else { //Get House
                 if (sort == 1)
                     postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
@@ -253,6 +256,9 @@ public class PostServiceImpl implements PostService {
                 if (sort == 4)
                     postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
                             false, PageRequest.of(page, 10, Sort.by("accomodation.acreage").descending()), false);
+                if (sort == 5)
+                    postPage = postRepository.findAllByApprovedAndNotApprovedAndAndAccomodation_MotelAndDel(true, false,
+                            false, PageRequest.of(page, 10, Sort.by("createAt").descending()), false);
             }
             Page<PostDTO> postDTOPage = postPage.map(post -> {
                 PostDTO postDTO = postToPostDTO(post);
@@ -325,6 +331,8 @@ public class PostServiceImpl implements PostService {
                 postPage = postRepository.findAll(spec, PageRequest.of(page, 10, Sort.by("accomodation.acreage").ascending()));
             if (sort == 4)
                 postPage = postRepository.findAll(spec, PageRequest.of(page, 10, Sort.by("accomodation.acreage").descending()));
+            if (sort == 5)
+                postPage = postRepository.findAll(spec, PageRequest.of(page, 10, Sort.by("createAt").descending()));
             Page<PostDTO> postDTOPage = postPage.map(post -> {
                 PostDTO postDTO = postToPostDTO(post);
                 return postDTO;
@@ -350,6 +358,8 @@ public class PostServiceImpl implements PostService {
                 posts = postRepository.findAll(spec, Sort.by("accomodation.acreage").ascending());
             if (sort == 4)
                 posts = postRepository.findAll(spec, Sort.by("accomodation.acreage").descending());
+            if (sort == 5)
+                posts = postRepository.findAll(spec, Sort.by("createAt").descending());
             List<PostDTO> postDTOS = new ArrayList<>();
             Page<PostDTO> postDTOPage = null;
             PostDTO postDTO;
@@ -378,15 +388,6 @@ public class PostServiceImpl implements PostService {
             } else {
                 postDTOPage = new PageImpl<>(postDTOS.subList(start, end), pageable, postDTOS.size());
             }
-
-//            if (sort == 1)
-//                postDTOPage = new PageImpl<>(postDTOS, PageRequest.of(page, 15, Sort.by("accomodationDTO.price").ascending()), postDTOS.size());
-//            if (sort == 2)
-//                postDTOPage = new PageImpl<>(postDTOS, PageRequest.of(page, 15, Sort.by("accomodationDTO.price").descending()), postDTOS.size());
-//            if (sort == 3)
-//                postDTOPage = new PageImpl<>(postDTOS, PageRequest.of(page, 15, Sort.by("accomodationDTO.acreage").ascending()), postDTOS.size());
-//            if (sort == 4)
-//                postDTOPage = new PageImpl<>(postDTOS, PageRequest.of(page, 15, Sort.by("accomodationDTO.acreage").descending()), postDTOS.size());
 
             return postDTOPage;
         } catch (Exception e) {
