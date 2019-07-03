@@ -89,7 +89,7 @@ export class NavBarComponent implements OnInit {
             this.noti = true;
           }
           if (notificationDTO.postDTO.userDTO.b64) {
-            notificationDTO.postDTO.userDTO.b64 = 'data:' + notificationDTO.postDTO.userDTO.fileType + ';base64,'
+            notificationDTO.postDTO.userDTO.b64 = 'data:image;base64,'
               + notificationDTO.postDTO.userDTO.b64;
           } else {
             notificationDTO.postDTO.userDTO.b64 = 'assets/avatar.svg';

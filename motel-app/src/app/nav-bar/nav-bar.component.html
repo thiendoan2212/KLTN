@@ -70,7 +70,7 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                       <div class="avatar">
                         <img id="avatarUser" *ngIf="notificationDTO.notificationName === notiName.NOTIFICATION && notificationDTO.postDTO.userDTO.b64"
-                             [src]="notificationDTO.postDTO.userDTO.b64">
+                             [src]="notificationDTO.postDTO.userDTO.b64 | appSafeHtml">
                         <img id="avatarUserNull" *ngIf="notificationDTO.notificationName === notiName.NOTIFICATION && !notificationDTO.postDTO.userDTO.b64"
                              [src]="'assets/avatar.svg'">
                         <img id="approve" *ngIf="notificationDTO.notificationName === notiName.APPROVE"
@@ -84,7 +84,7 @@
                             <div *ngIf="notificationDTO.notificationName === notiName.NOTIFICATION">
                               <p class="name">{{notificationDTO.postDTO.userDTO.fullName}}
                                 <span class="more"> đăng một tin mới </span>
-                                {{notificationDTO.postDTO.title | truncate:[40]}}
+                                {{notificationDTO.postDTO.title | truncate:[35]}}
                               </p>
                             </div>
                             <div *ngIf="notificationDTO.notificationName === notiName.APPROVE">

@@ -37,7 +37,7 @@ export class UpdateUserComponent implements OnInit {
     this.accountService.getUserById(this.idUser).subscribe(res => {
         this.user = res;
         if (this.user.b64) {
-          this.urlAvatar = 'data:' + this.user.fileType + ';base64,' + this.user.b64;
+          this.urlAvatar = 'data:image;base64,' + this.user.b64;
         } else {
           this.urlAvatar = 'assets/avatar.svg';
         }
