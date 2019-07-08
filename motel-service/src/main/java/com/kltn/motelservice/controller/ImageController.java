@@ -3,6 +3,8 @@ package com.kltn.motelservice.controller;
 import com.kltn.motelservice.entity.Image;
 import com.kltn.motelservice.model.ImageDTO;
 import com.kltn.motelservice.service.ImageServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -18,20 +20,24 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
+@Api(value = "Tìm nhà trọ", description = "Quản lý hình ảnh")
 public class ImageController {
     @Autowired
     private ImageServiceImpl imageService;
 
+    @ApiOperation(value = "Upload 1 hình ảnh cho một tin đăng")
     @PostMapping("/uploadImage/post/{idPost}")
     public ImageDTO uploadFile(@PathVariable Long idPost, @RequestParam("file") MultipartFile file) {
         return imageService.uploadFile(idPost, file);
     }
 
+    @ApiOperation(value = "Delete hình ảnh một tin đăng")
     @DeleteMapping("/deleteImage/post/{idPost}")
     public void deleteFile(@PathVariable Long idPost) {
         imageService.deleteAllImage(idPost);
     }
 
+    @ApiOperation(value = "Upload nhiều hình ảnh cho một tin đăng")
     @PostMapping("/uploadMultipleFiles/post/{idPost}")
     @PreAuthorize("#oauth2.hasAnyScope('read')")
     public List<ImageDTO> uploadMultipleFiles(@PathVariable Long idPost, @RequestParam("files") MultipartFile[] files) {
@@ -41,11 +47,13 @@ public class ImageController {
                 .collect(Collectors.toList());
     }
 
+    @ApiOperation(value = "Lấy danh sách hình ảnh của một tin đăng khi chỉnh sửa tin đăng")
     @GetMapping("/imageByte/post/{idPost}")
     public List<ImageDTO> getImageDTOByIdPost(@PathVariable Long idPost) {
         return imageService.getImageDTOByIdPost(idPost);
     }
 
+    @ApiOperation(value = "Render 1 ảnh thành link")
     @GetMapping("/image/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {
         // Load file from database
@@ -56,7 +64,7 @@ public class ImageController {
 //                .header("attachment; filename=\"" + image.getFileName() + "\"")
                 .body(new ByteArrayResource(image.getData()));
     }
-
+    @ApiOperation(value = "Lấy danh sách hình ảnh của một tin đăng khi xem chi tiết tin đăng")
     @GetMapping("/image/post/{idPost}")
     public List<String> getImageByIdPost(@PathVariable Long idPost) {
         return imageService.getImageByIdPost(idPost);
