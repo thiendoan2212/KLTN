@@ -259,7 +259,7 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                   <div class="avatar">
                     <a [routerLink]="['/user']" [queryParams]="{id: commentDTO.userDTO.id}"><img id="avatarUser"
-                                                                                                 [src]="commentDTO.userDTO.b64"></a>
+                                                                                                 [src]="commentDTO.userDTO.b64 | appSafeHtml"></a>
                   </div>
                   <div class="name">
                     <div class="row">

@@ -124,7 +124,7 @@ export class DetailPostComponent implements OnInit {
         this.totalElements = this.paginationDTO.content.totalElements;
         for (const comment of this.commentDTOs) {
           if (comment.userDTO.b64) {
-            comment.userDTO.b64 = 'data:' + comment.userDTO.fileType + ';base64,' + comment.userDTO.b64;
+            comment.userDTO.b64 = 'data:image;base64,' + comment.userDTO.b64;
           } else {
             comment.userDTO.b64 = 'assets/avatar.svg';
           }

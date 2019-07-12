@@ -17,7 +17,8 @@
             <label for="imageUpload"><i class="fas fa-pencil-alt"></i></label>
           </div>
           <div class="avatar-preview">
-            <div id="imagePreview1" *ngIf="uploader.queue.length === 0" [style.background-image]="'url(' + urlAvatar + ')'"></div>
+            <!--<div id="imagePreview1" *ngIf="uploader.queue.length === 0" [style.background-image]="'url(' + urlAvatar + ')'"></div>-->
+            <img id="imagePreview1" *ngIf="uploader.queue.length === 0" style="width: 125px; height: 125px; border-radius: 100%;" [src]="urlAvatar | appSafeHtml" class="media-object"/>
             <img id="imagePreview" *ngIf="uploader.queue.length > 0" appMediaPreview [image]="uploader.queue[0]._file" class="media-object"/>
             <!--<div id="imagePreview1" *ngIf="uploader.queue.length > 0" [style.background-image]="'url(' + 'data:image/jpeg' + ';base64,' + uploader.queue[0]._file + ')'"></div>-->
           </div>

@@ -20,7 +20,7 @@
         <p class="thongtin">Thông tin</p>
         <div class="thongtin-content">
           <div class="text-center">
-            <img [src]="urlAvatar" width="157px" height="157px" id="avatar">
+            <img [src]="urlAvatar | appSafeHtml" width="157px" height="157px" id="avatar">
           </div>
           <div class="thongtin-chitiet">
             <p class="attribute">Email: {{user.email}}</p>

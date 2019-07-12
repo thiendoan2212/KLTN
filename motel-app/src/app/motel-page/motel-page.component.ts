@@ -19,7 +19,7 @@ export class MotelPageComponent implements OnInit {
   paginationDTO = new PaginationDTO();
   totalElements: number;
   page = 1;
-  sort = 1;
+  sort = 5;
   notFound = false;
 
   constructor(private postService: PostService,

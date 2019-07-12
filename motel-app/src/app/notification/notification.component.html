@@ -179,19 +179,19 @@
                       <div *ngIf="notificationDTO.notificationName === notiName.NOTIFICATION">
                         <p class="namePost">{{notificationDTO.postDTO.userDTO.fullName}}
                           <span class="morePost"> đăng một tin mới </span>
-                          {{notificationDTO.postDTO.title | truncate:[50]}}
+                          {{notificationDTO.postDTO.title | truncate:[60]}}
                         </p>
                       </div>
                       <div *ngIf="notificationDTO.notificationName === notiName.APPROVE">
                         <p class="namePost">Kiểm duyệt viên
                           <span class="morePost"> đã duyệt </span>
-                          {{notificationDTO.postDTO.title | truncate:[50]}}
+                          {{notificationDTO.postDTO.title | truncate:[70]}}
                         </p>
                       </div>
                       <div *ngIf="notificationDTO.notificationName === notiName.BLOCK">
                         <p class="namePost">Kiểm duyệt viên
                           <span class="morePost"> đã khóa </span>
-                          {{notificationDTO.postDTO.title | truncate:[50]}}
+                          {{notificationDTO.postDTO.title | truncate:[70]}}
                         </p>
                       </div>
                       <p class="time"
