@@ -1,0 +1,85 @@
+<div class="background">
+  <div id="login-form">
+    <!--<h1></h1>-->
+    <nz-card [nzTitle]="cardTitle" [nzBordered]="false">
+      <form nz-form (ngSubmit)="login()" #form="ngForm">
+        <nz-form-item>
+          <nz-form-control [nzValidateStatus]="email.dirty ? (email.invalid  ? 'error' : 'success') : ''">
+            <nz-input-group [nzPrefix]="prefixUser">
+              <input type="text" nz-input (focus)="hasError = false"
+                     [(ngModel)]="user.email"
+                     #email="ngModel"
+                     name="email"
+                     id="input-email"
+                     placeholder="Email"
+                     [pattern]="getConfigValue('forms.validation.email.pattern')"
+                     [required]="getConfigValue('forms.validation.email.required')"
+                     [attr.aria-invalid]="email.invalid && email.touched ? true : null"/>
+            </nz-input-group>
+            <ng-container *ngIf="email.invalid && email.touched">
+              <nz-form-explain *ngIf="email.errors?.required" class="invalid-msg">
+                Email không được trống
+              </nz-form-explain>
+              <nz-form-explain *ngIf="email.errors?.pattern" class="invalid-msg">
+                Email không đúng định dạng
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control [nzValidateStatus]="password.dirty ? (password.invalid  ? 'error' : 'success') : ''">
+            <nz-input-group [nzPrefix]="prefixLock">
+              <input type="password" (focus)="hasError = false"
+                     nz-input
+                     [(ngModel)]="user.password"
+                     #password="ngModel"
+                     name="password"
+                     type="password"
+                     id="input-password"
+                     placeholder="Mật khẩu"
+                     required
+                     [required]="getConfigValue('forms.validation.password.required')"
+                     [minlength]="getConfigValue('forms.validation.password.minLength')"
+                     [maxlength]="getConfigValue('forms.validation.password.maxLength')"
+                     [attr.aria-invalid]="password.invalid && password.touched ? true : null"/>
+            </nz-input-group>
+            <ng-container *ngIf="password.invalid && password.touched ">
+              <nz-form-explain *ngIf="password.errors?.required"
+                               class="invalid-msg">
+                Mật khẩu không được trống
+              </nz-form-explain>
+              <nz-form-explain *ngIf="password.errors?.minlength || password.errors?.maxlength"
+                               class="invalid-msg">
+                Mật khẩu phải
+                từ {{ getConfigValue('forms.validation.password.minLength') }}
+                đến {{ getConfigValue('forms.validation.password.maxLength') }}
+                kí tự
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="mb-0">
+          <div class="invalid-msg" *ngIf="hasError">{{ errorMsg }}</div>
+
+          <nz-form-control>
+            <!--<label nz-checkbox name="rememberMe" [(ngModel)]="user.rememberMe" *ngIf="rememberMe">-->
+            <!--<span>Nhớ mật khẩu</span>-->
+            <!--</label>-->
+            <button nz-button class="login-form-button"
+                    [disabled]="submitted || !form.valid"
+                    [nzType]="'primary'">Đăng nhập
+            </button>
+            <a (click)="showTip = !showTip">Quên mật khẩu ?</a>
+            <br>
+            <span *ngIf="showTip"><i>Liên hệ quản trị hệ thống để lấy lại mật khẩu</i></span>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+      <ng-template #cardTitle><h2 class="m-0">Đăng nhập</h2></ng-template>
+      <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+      <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+    </nz-card>
+  </div>
+
+</div>

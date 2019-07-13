@@ -1,0 +1,73 @@
+<app-title-page></app-title-page>
+<div class="default-card">
+  <div class="info-panel">
+    <div style="position: absolute; top: 0px; right: 0px">
+      <button nz-button nzType="default" routerLink="/users/{{ user.id }}/detail/edit" nzTitle="Sửa thông tin"
+              nzPlacement="bottom"
+              nz-tooltip>
+        <i nz-icon nzType="edit" nzTheme="outline"></i>
+      </button>
+      <button nz-button nzType="default" routerLink="/users/{{ user.id }}/detail/security" nzTitle="Bảo mật"
+              nzPlacement="bottom"
+              nz-tooltip>
+        <i nz-icon nzType="key" nzTheme="outline"></i>
+      </button>
+      <ng-container *nbIsGranted="['edit', 'user']">
+        <ng-container *ngIf="canBlock">
+          <button *ngIf="!user.block" nz-button nzType="danger" nzPlacement="bottom" nz-tooltip nzTitle="Khóa tài khoản"
+                  (click)="confirmBlockAccount()">
+            <i nz-icon nzType="lock" nzTheme="outline"></i>
+          </button>
+          <button *ngIf="user.block" nz-button nzType="primary" nzGhost nzPlacement="bottom" nz-tooltip
+                  nzTitle="Mở khóa tài khoản"
+                  (click)="confirmUnBlockAccount()">
+            <i nz-icon nzType="unlock" nzTheme="outline"></i>
+          </button>
+        </ng-container>
+      </ng-container>
+    </div>
+    <img style="width: 96px; height: 96px; border-radius: 50%" [src]="avatar">
+    <h3>{{ user.email }} - <b>{{ user?.role?.length <= 0 ? ROLE_NAME.ROLE_USER : ROLE_NAME[user.role[0]] }}</b></h3>
+    <p><span>{{ user.fullName }}</span></p>
+  </div>
+  <nz-card class="w-100" [nzBordered]="false">
+    <nz-card-tab>
+      <nz-divider *ngIf="role == 'ROLE_USER'" nzDashed [nzText]="title" nzOrientation="left">
+        <ng-template #title>
+          <h4>Bài đăng</h4>
+        </ng-template>
+      </nz-divider>
+      <app-post-list *ngIf="role == 'ROLE_USER'" [filterBy]="id"></app-post-list>
+
+      <nz-tabset *ngIf="role != 'ROLE_USER'" nzSize="large" [nzSelectedIndex]="0"
+                 [nzTabBarStyle]="{'text-align': 'center'}">
+        <nz-tab nzTitle="Hoạt động">
+          <nz-card [nzBordered]="false" nzTitle="Hoạt động gần đây">
+            <nz-timeline [nzPending]="pending">
+              <nz-timeline-item *ngFor="let action of actions" [nzColor]="ACTION_COLOR[action.action]">
+                <p>
+                  <small>{{ fomatDateTime(action.time) }}</small>
+                </p>
+                <p><b>{{ action.username }}</b>
+                  <span *ngIf="action.action == 'CREATE'"> đã tạo một bài đăng </span>
+                  <span *ngIf="action.action == 'APPROVE'"> đã duyệt bài đăng </span>
+                  <span *ngIf="action.action == 'BLOCK'"> đã khóa bài đăng </span>
+                  <a href="javascript:void(0)" routerLink="/posts/{{ action.postId }}/detail">{{ action.postTitle }}</a>
+                  <span *ngIf="action.action == 'CREATE'"> đang chờ kiểm duyệt</span>
+                </p>
+              </nz-timeline-item>
+            </nz-timeline>
+            <ng-template #more>
+              <a href="javascript:void(0)" (click)="loadAction(user.id)">Xem thêm...</a>
+            </ng-template>
+          </nz-card>
+        </nz-tab>
+
+        <nz-tab nzTitle="Bài đăng">
+          <app-post-list [filterBy]="id"></app-post-list>
+        </nz-tab>
+
+      </nz-tabset>
+    </nz-card-tab>
+  </nz-card>
+</div>

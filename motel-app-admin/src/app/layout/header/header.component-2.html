@@ -1,0 +1,34 @@
+<nz-header style="background: white; padding:0;" class="d-flex">
+  <div>
+    <i class="trigger" nz-icon
+       [type]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+       (click)="changeTrigger()"></i>
+
+  </div>
+  <div class="flex-fill pr-3">
+    <nz-input-group [nzSuffix]="suffixTemplate" [nzPrefix]="prefixTemplate">
+      <input type="text" nz-input placeholder="Tìm kiếm các trang làm việc" [(ngModel)]="inputSearch">
+    </nz-input-group>
+    <ng-template #prefixTemplate><i nz-icon type="search"></i></ng-template>
+    <ng-template #suffixTemplate><i nz-icon type="close-circle" (click)="inputSearch = ''" *ngIf="inputSearch"></i>
+    </ng-template>
+  </div>
+  <div class="d-flex flex-row-reverse pr-3">
+    <nz-dropdown>
+      <button nz-dropdown nz-button nzType="dashed" nzSize="large">
+        <nz-avatar [nzSrc]="avatar"></nz-avatar>
+        <span style="vertical-align: middle;"> {{ user.fullName }}</span>
+      </button>
+
+      <ul nz-menu>
+        <li nz-menu-item routerLink="/users/{{ user.id }}/detail">
+          <a href="javascript:void(0)"><i nz-icon type="user" theme="outline"></i> Tài khoản</a>
+        </li>
+        <li nz-menu-item routerLink="/logout">
+          <a href="javascript:void(0)"><i nz-icon type="logout" theme="outline"></i> Đăng xuất</a>
+        </li>
+      </ul>
+    </nz-dropdown>
+  </div>
+  <!--</div>-->
+</nz-header>

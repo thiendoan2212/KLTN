@@ -1,0 +1,101 @@
+<app-title-page [hasSetting]="true">
+  <div nz-row nzJustify="end" nzType="flex" style="margin-bottom: 12px">
+    <div nz-col>
+      <span>Chế độ ngang </span>
+      <nz-switch nzSize="small" [(ngModel)]="positionTop"></nz-switch>
+    </div>
+  </div>
+
+</app-title-page>
+<div class="default-card">
+  <nz-tabset [nzTabPosition]="positionTop ?'top' : 'left'" [nzSelectedIndex]="tabIndex">
+    <nz-tab nzTitle="Hoạt động">
+      <ng-template nz-tab>
+        <nz-divider nzDashed [nzText]="title0" nzOrientation="left">
+          <ng-template #title0>
+            <h4>Hoạt động gần đây</h4>
+          </ng-template>
+        </nz-divider>
+        <div class="mx-4">
+          <nz-timeline [nzPending]="pending">
+            <nz-timeline-item *ngFor="let action of actions" [nzColor]="ACTION_COLOR[action.action]">
+              <p>
+                <small>{{ fomatDateTime(action.time) }}</small>
+              </p>
+              <p><b>{{ action.username }}</b>
+                <span *ngIf="action.action == 'CREATE'"> đã tạo một bài đăng </span>
+                <span *ngIf="action.action == 'APPROVE'"> đã duyệt bài đăng </span>
+                <span *ngIf="action.action == 'BLOCK'"> đã khóa bài đăng </span>
+                <a href="javascript:void(0)" routerLink="/posts/{{ action.postId }}/detail">{{ action.postTitle }}</a>
+                <span *ngIf="action.action == 'CREATE'"> đang chờ kiểm duyệt</span>
+              </p>
+            </nz-timeline-item>
+          </nz-timeline>
+          <ng-template #more>
+            <a href="javascript:void(0)" (click)="loadAction(-1)">Xem thêm...</a>
+          </ng-template>
+        </div>
+      </ng-template>
+    </nz-tab>
+
+    <nz-tab [nzTitle]="openingTitle">
+      <ng-template nz-tab>
+        <nz-divider nzDashed [nzText]="title2" nzOrientation="left">
+          <ng-template #title2>
+            <h4>Bài đăng chờ kiểm duyệt</h4>
+          </ng-template>
+        </nz-divider>
+        <app-post-list [filterBy]="'WAITING'" (loadComplete)="loadWaitingPostTabComplete($event)"></app-post-list>
+      </ng-template>
+
+      <ng-template #openingTitle>
+        <nz-badge [nzDot]="true" [nzStyle]="{ 'background-color' : hasWaitingPosts ? '#1890FF' : 'white' }">
+          Chờ kiểm duyệt
+        </nz-badge>
+      </ng-template>
+    </nz-tab>
+
+    <nz-tab nzTitle="Đã duyệt">
+      <ng-template nz-tab>
+        <nz-divider nzDashed [nzText]="title3" nzOrientation="left">
+          <ng-template #title3>
+            <h4>Bài đăng đã được duyệt</h4>
+          </ng-template>
+        </nz-divider>
+        <app-post-list [filterBy]="'APPROVED'"></app-post-list>
+      </ng-template>
+      <ng-template>
+        <i nz-icon type="close" class="ant-tabs-close-x"></i>
+      </ng-template>
+    </nz-tab>
+
+    <nz-tab nzTitle="Đã khóa">
+      <ng-template nz-tab>
+        <nz-divider nzDashed [nzText]="title4" nzOrientation="left">
+          <ng-template #title4>
+            <h4>Bài đăng đã khóa</h4>
+          </ng-template>
+        </nz-divider>
+        <app-post-list [filterBy]="'BLOCKED'"></app-post-list>
+      </ng-template>
+    </nz-tab>
+
+    <nz-tab nzTitle="Tất cả">
+      <ng-template nz-tab>
+        <nz-divider nzDashed [nzText]="title1" nzOrientation="left">
+          <ng-template #title1><h4>Tất cả các bài đăng</h4></ng-template>
+        </nz-divider>
+        <app-post-list [filterBy]="'*'"></app-post-list>
+      </ng-template>
+    </nz-tab>
+  </nz-tabset>
+
+  <ng-template #deleteTemp>
+    <i nz-icon type="delete" theme="outline" style="font-size: 16px;"></i>
+  </ng-template>
+
+  <ng-template #dotTemplate>
+    <i nz-icon type="clock-circle-o" style="font-size: 16px;"></i>
+  </ng-template>
+</div>
+

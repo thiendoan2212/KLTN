@@ -1,0 +1,52 @@
+<app-title-page></app-title-page>
+<div nz-row nzType="flex" nzJustify="space-between" nzAlign="bottom" class="mb-2">
+  <div nz-col [nzSpan]="18">
+  </div>
+  <div nz-col>
+    <button nz-button nzType="primary" routerLink="/users/add">
+      <i nz-icon nzType="plus" nzTheme="outline"></i> Tạo người dùng
+    </button>
+  </div>
+</div>
+
+<div class="default-card">
+  <div class="mb-2">
+    <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="updateAllChecked()"
+           [nzIndeterminate]="indeterminate"> Tất cả tài khoản</label>
+    <nz-checkbox-group [(ngModel)]="accountOptions" (ngModelChange)="updateSingleChecked()"></nz-checkbox-group>
+  </div>
+
+  <nz-table #nzTable2 [nzData]="page.content" [nzLoading]="loading"
+            [nzPageSize]="page.size"
+            nzShowPagination="false"
+            nzNoResult="Không có dữ liệu">
+    <thead>
+    <tr>
+      <th>Tài khoản</th>
+      <th>Họ tên</th>
+      <th>Loại tài khoản</th>
+      <th>Trạng thái tài khoản</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-template ngFor let-item [ngForOf]="nzTable2.data">
+      <tr routerLink="/users/{{ item.id }}/detail">
+        <td>{{ item.email }}</td>
+        <td>{{ item.fullName }}</td>
+        <td>{{ item?.role?.length <= 0 ? ROLE_NAME.ROLE_USER : ROLE_NAME[item.role[0]] }}</td>
+        <td *ngIf="!item.block">
+          <nz-tag [nzColor]="'green'">Đang hoạt động</nz-tag>
+        </td>
+        <td *ngIf="item.block">
+          <nz-tag [nzColor]="'red'">Đã khóa</nz-tag>
+        </td>
+      </tr>
+    </ng-template>
+    </tbody>
+  </nz-table>
+
+  <div class="mt-2" style="text-align: right;">
+    <nz-pagination [nzPageIndex]="page.number + 1" [nzPageSize]="page.size" [nzTotal]="page.totalElements"
+                   (nzPageIndexChange)="loadData($event)" nzHideOnSinglePage="true"></nz-pagination>
+  </div>
+</div>

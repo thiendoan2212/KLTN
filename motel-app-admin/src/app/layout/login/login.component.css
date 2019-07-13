@@ -1,0 +1,36 @@
+@import "~bootstrap/dist/css/bootstrap-grid.min.css";
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+
+#login-form {
+  top: 40%;
+  left: 50%;
+  width: 30em;
+  height: 18em;
+  margin-top: -9em; /*set to a negative number 1/2 of your height*/
+  margin-left: -15em; /*set to a negative number 1/2 of your width*/
+  /*background-color: #f3f3f3;*/
+  position: fixed;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+
+.background {
+  background-color: #01518C;
+  background-image:linear-gradient(to top left, #0181C2, #01518C);
+  height: 100%;
+  width: 100%;
+}
+
+#login-form /deep/ .ant-card-head {
+  border-bottom: 2px solid #0181C2;
+}
+
+.invalid-msg {
+  color: #f5222d;
+}

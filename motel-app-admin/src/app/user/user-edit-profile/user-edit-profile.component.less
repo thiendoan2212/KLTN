@@ -1,0 +1,41 @@
+@import "~ng-zorro-antd/style/themes/default";
+@import "~bootstrap/dist/css/bootstrap-grid.min.css";
+
+@avatar-size: 128px;
+.float-left {
+  float: left;
+}
+
+.avatar {
+  width: @avatar-size;
+  height: @avatar-size;
+  border-radius: 50%;
+}
+
+.upload-icon {
+  font-size: 32px;
+  color: #999;
+}
+
+.ant-upload-text {
+  margin-top: 8px;
+  color: #666;
+}
+
+/deep/ .ant-upload.ant-upload-select-picture-card {
+  border-radius: 50% !important;
+  width: @avatar-size;
+  height: @avatar-size;
+}
+
+/deep/ .ant-upload {
+  padding: 0 !important;
+}
+
+.require-title::after {
+  display: inline-block;
+  margin-left: 4px;
+  color: #f5222d;
+  line-height: 1;
+  content: '*';
+}

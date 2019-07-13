@@ -1,0 +1,31 @@
+<nz-header style="background: white; padding:0; position:fixed; width:100%; z-index: 999;">
+  <div class="logo" routerLink="/"><i class="fas fa-map-marker-alt icon-marker"></i><span> XómTrọHCM</span></div>
+  <div class="user">
+    <nz-dropdown>
+      <button nz-dropdown nzGhost nz-button nzType="dashed" nzSize="large">
+        <nz-avatar [nzSrc]="avatar"></nz-avatar>
+        <span style="vertical-align: middle;"> {{ user.fullName }}</span>
+      </button>
+
+      <ul nz-menu nzMode="horizontal">
+        <li nz-menu-item routerLink="/users/{{ user.id }}/detail" nzSelected="true">
+          <a href="javascript:void(0)"><i nz-icon type="user" theme="outline"></i> Tài khoản</a>
+        </li>
+        <li nz-menu-item routerLink="/logout">
+          <a href="javascript:void(0)"><i nz-icon type="logout" theme="outline"></i> Đăng xuất</a>
+        </li>
+      </ul>
+    </nz-dropdown>
+  </div>
+
+  <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;">
+    <li nz-menu-item routerLink="/posts" *nbIsGranted="['view', 'list_posts']">
+      <span><i nz-icon type="file"></i><span class="nav-text"> Bài đăng</span></span>
+    </li>
+    <li nz-menu-item routerLink="/users" *nbIsGranted="['view', 'list_users']">
+      <span><i nz-icon nzType="audit" nzTheme="outline"></i><span class="nav-text"> Người dùng</span></span>
+    </li>
+  </ul>
+
+  <!--</div>-->
+</nz-header>

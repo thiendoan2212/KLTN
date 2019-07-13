@@ -1,0 +1,91 @@
+<nz-list
+  [nzDataSource]="data"
+  [nzItemLayout]="'vertical'"
+  [nzRenderItem]="item"
+  [nzPagination]="pagination"
+  [nzLoading]="loading"
+  nzNoResult="Không có dữ liệu">
+  <ng-template #item let-item>
+
+    <nz-list-item [nzExtra]="extra">
+
+      <nz-list-item-meta [nzAvatar]="avatar" [nzTitle]="nzTitle" [nzDescription]="description">
+        <ng-template #nzTitle>
+          <a href="javascript:void(0)" routerLink="/posts/{{ item.id }}/detail">{{ item.title }} </a>
+          <nz-tag *ngIf="item.approved && !item.notApproved" nzColor="blue">Đã duyệt</nz-tag>
+          <nz-tag *ngIf="item.notApproved" nzColor="red">Đã khóa</nz-tag>
+          <nz-tag *ngIf="!item.approved && !item.notApproved" nzColor="green">Chờ duyệt</nz-tag>
+        </ng-template>
+      </nz-list-item-meta>
+
+      <ng-template #avatar>
+        <img width="255" height="200" alt="logo" [src]="item.imageStrings[0]"/>
+      </ng-template>
+
+      <ng-template #description>
+
+        <div class="row my-2">
+          <div class="col-lg-4 col-md-12 order-lg-1 order-md-2 order-sm-2">
+            <span>Diện tích: </span>
+            <b>{{ item.accomodationDTO.acreage }} m<sup>2</sup></b>
+          </div>
+          <div class="col-lg-4 col-md-12 order-lg-2 order-md-3 order-sm-3">
+            <span>Loại phòng: </span>
+            <b *ngIf="!item.accomodationDTO.motel">nhà nguyên căn</b>
+            <b *ngIf="item.accomodationDTO.motel">phòng trọ</b>
+          </div>
+          <div class="col-lg-4 col-md-12 order-lg-3 order-md-1 order-sm-1" style="text-align: right">{{ item.createAt | date: 'dd/MM/yyyy HH:mm' }}</div>
+        </div>
+        <div class="row my-2">
+          <div class="col-lg-4 col-md-12">
+            <span>Giá thuê: </span>
+            <b>{{ item.accomodationDTO.price | number }} đ/tháng</b>
+          </div>
+          <div class="col-lg-8 col-md-12">
+            <span>Tiện tích: </span>
+            <i class="fas fa-parking serve" *ngIf="item.accomodationDTO.parking"
+               nzPlacement="bottom" nz-tooltip nzTitle="Chỗ đậu xe"></i>
+
+            <i class="fas fa-wifi serve" *ngIf="item.accomodationDTO.internet"
+               nzPlacement="bottom" nz-tooltip nzTitle="Wifi"> </i>
+
+            <i class="fas fa-snowflake serve" *ngIf="item.accomodationDTO.airConditioner"
+               nzPlacement="bottom" nz-tooltip nzTitle="Điều hòa"></i>
+
+            <i class="fas fa-tv serve" *ngIf="item.accomodationDTO.tv"
+               nzPlacement="bottom" nz-tooltip nzTitle="Tivi"> </i>
+
+            <i class="fas fa-shower serve" *ngIf="item.accomodationDTO.heater"
+               nzPlacement="bottom" nz-tooltip nzTitle="Máy nước nóng"></i>
+
+            <i class="fas fa-toilet serve" *ngIf="item.accomodationDTO.toilet"
+               nzPlacement="bottom" nz-tooltip nzTitle="Toilet riêng"></i>
+          </div>
+        </div>
+
+        <div class="row my-2">
+         <div class="col">
+           <span>Địa chỉ: </span>
+           <b>{{ item.accomodationDTO.address }}</b>
+         </div>
+        </div>
+      </ng-template>
+
+      <ng-template #extra>
+        <button [disabled]="disableBtnAction" *ngIf="!item.approved && !item.notApproved"
+                nz-button nzType="default" nzShape="circle"
+                nz-tooltip nzTitle="duyệt bài" nzPlacement="left"
+                nz-popconfirm nzTitle="Duyệt bài viết này ngay?" nzPlacement="left"
+                nzCancelText="Hủy" nzOkText="Duyệt" (nzOnConfirm)="approvePost(item.id)">
+          <i nz-icon nzType="check" nzTheme="outline" style="font-size: 18px"></i>
+        </button>
+      </ng-template>
+
+    </nz-list-item>
+  </ng-template>
+
+  <ng-template #pagination>
+    <nz-pagination nzHideOnSinglePage="true" [nzPageIndex]="page.number + 1" [nzPageSize]="page.size" [nzTotal]="page.totalElements"
+                   (nzPageIndexChange)="loadData($event)"></nz-pagination>
+  </ng-template>
+</nz-list>

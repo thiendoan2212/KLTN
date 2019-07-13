@@ -1,0 +1,99 @@
+<app-title-page></app-title-page>
+<div class="default-card">
+  <div nz-row>
+    <div nz-col [nzLg]="8" [nzMd]="24">
+      <h2>Ảnh đại diện</h2>
+      <p><i>Mọi thay đổi sẽ dược cập nhật</i></p>
+    </div>
+    <div nz-col [nzLg]="16" [nzMd]="24">
+      <div class="clearfix">
+        <nz-upload
+          class="avatar-uploader float-left mr-3"
+          nzAction="/api/users/{{ user.id }}/avatar"
+          nzName="avatar"
+          nzListType="picture-card"
+          [nzShowUploadList]="false"
+          [nzBeforeUpload]="beforeUpload"
+          (nzChange)="handleChange($event)">
+          <ng-container *ngIf="!avatarUrl">
+            <i class="upload-icon" nz-icon [type]="loading ? 'loading' : 'plus'"></i>
+            <div class="ant-upload-text">Upload</div>
+          </ng-container>
+          <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar"/>
+        </nz-upload>
+
+        <div>
+          <h3>Tải lên ảnh mới</h3>
+          <p>Kích thước ảnh tối đa 2MB</p>
+          <button *ngIf="avatarUrl" nz-button nzType="danger" [disabled]="loading"
+                  nz-popconfirm nzTitle="Xoá ảnh này?" nzPlacement="bottom"
+                  nzCancelText="Hủy" nzOkText="Xóa" (nzOnConfirm)="deleteAvatar()">
+            Xoá ảnh đại diện
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nz-divider></nz-divider>
+
+  <div nz-row style="padding-bottom: 100px">
+    <div nz-col [nzLg]="8" [nzMd]="24">
+      <h2>Thông tin cá nhân</h2>
+      <p><i>Địa chỉ email và ID không thể thay đổi</i></p>
+    </div>
+    <div nz-col [nzLg]="16" [nzMd]="24">
+      <div nz-form nzLayout="vertical">
+        <div class="d-flex">
+          <nz-form-item class="flex-fill">
+            <nz-form-label>Địa chỉ email - <strong>tài khoản</strong></nz-form-label>
+            <nz-form-control>
+              <input nz-input readonly [value]="user.email"/>
+            </nz-form-control>
+          </nz-form-item>
+          <div class="ml-2">
+            <nz-form-item>
+              <nz-form-label>ID</nz-form-label>
+              <nz-form-control>
+                <input nz-input readonly [value]="user.id"/>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+
+        <nz-form-item>
+          <nz-form-label class="require-title">Họ và tên</nz-form-label>
+          <nz-form-control [nzValidateStatus]="fullName.dirty ? (fullName.invalid  ? 'error' : 'success') : ''">
+            <input nz-input [(ngModel)]="user.fullName" name="fullName" id="fullName" #fullName="ngModel" required/>
+            <ng-container *ngIf="fullName.invalid && fullName.touched">
+              <nz-form-explain *ngIf="fullName.errors?.required" class="invalid-msg">
+                Họ tên không được trống
+              </nz-form-explain>
+            </ng-container>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label>Số điện thoại</nz-form-label>
+          <nz-form-control>
+            <input nz-input [(ngModel)]="user.phone"/>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label>Địa chỉ</nz-form-label>
+          <nz-form-control>
+            <textarea nz-input [(ngModel)]="user.address"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+
+        <div nz-row nzType="flex" nzJustify="space-between">
+          <button nz-col nz-button nzType="primary" [disabled]="disableBtnAction || fullName.invalid" (click)="saveChangeProfile()">Lưu thay
+            đổi
+          </button>
+          <button nz-col nz-button nzType="default" routerLink="/users/{{ user.id }}/detail">Hủy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

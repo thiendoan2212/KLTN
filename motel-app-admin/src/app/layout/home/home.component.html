@@ -1,0 +1,98 @@
+<!--<div class="row">-->
+  <!--<div class="col">-->
+    <!--<nz-card class="block-1 d-flex flex-column-reverse" routerLink="/posts" [queryParams]="{tab:1}">-->
+      <!--<div class="pb-2">-->
+        <!--<h3 class="text-white">Kiểm duyệt bài</h3>-->
+        <!--<a href="#" class="text-white">-->
+          <!--Danh sách bài đăng của khách hàng đang chời kiểm duyệt...-->
+        <!--</a></div>-->
+      <!--<div class="d-flex justify-content-end"><i nz-icon nzType="right-circle" nzTheme="outline"></i></div>-->
+    <!--</nz-card>-->
+  <!--</div>-->
+
+  <!--<div class="col">-->
+    <!--<nz-card class="block-2 d-flex flex-column-reverse" routerLink="/customers">-->
+      <!--<div class="pb-2">-->
+        <!--<h3 class="text-white">Khách hàng</h3>-->
+        <!--<a href="#" class="text-white">-->
+          <!--Quản lý hoạt động, thông tin, chứng thực của khách hàng-->
+        <!--</a></div>-->
+      <!--<div class="d-flex justify-content-end"><i nz-icon nzType="right-circle" nzTheme="outline"></i></div>-->
+    <!--</nz-card>-->
+  <!--</div>-->
+
+  <!--<div class="col">-->
+    <!--<nz-card class="block-3 d-flex flex-column-reverse" routerLink="/users">-->
+      <!--<div class="pb-2">-->
+        <!--<h3 class="text-white">Kiểm duyệt viên</h3>-->
+        <!--<a href="#" class="text-white">-->
+          <!--Quản lý hoạt động, thông tin, chứng thực, quyền truy cập của kiểm duyệt viên-->
+        <!--</a></div>-->
+      <!--<div class="d-flex justify-content-end"><i nz-icon nzType="right-circle" nzTheme="outline"></i></div>-->
+    <!--</nz-card>-->
+  <!--</div>-->
+
+<!--</div>-->
+
+<!--<div class="row">-->
+
+  <!--<div class="col">-->
+    <!--<nz-card class="block-4 d-flex flex-column-reverse" routerLink="/posts" [queryParams]="{tab:0}">-->
+      <!--<div class="pb-2">-->
+        <!--<h3 class="text-white">Hoạt động chung</h3>-->
+        <!--<a href="#" class="text-white">-->
+          <!--Lịch sử hoạt động chung của hệ thống-->
+        <!--</a></div>-->
+      <!--<div class="d-flex justify-content-end"><i nz-icon nzType="right-circle" nzTheme="outline"></i></div>-->
+    <!--</nz-card>-->
+  <!--</div>-->
+
+  <!--<div class="col">-->
+    <!--<nz-card class="block-5 d-flex flex-column-reverse" [routerLink]="['/users/1/detail']">-->
+      <!--<div class="pb-2">-->
+        <!--<h3 class="text-white">Lịch sử</h3>-->
+        <!--<a href="#" class="text-white">-->
+          <!--Lịch sử hoạt động của bản thân-->
+        <!--</a></div>-->
+      <!--<div class="d-flex justify-content-end"><i nz-icon nzType="right-circle" nzTheme="outline"></i></div>-->
+    <!--</nz-card>-->
+  <!--</div>-->
+
+  <!--<div class="col">-->
+    <!--<nz-card class="block-6 d-flex flex-column-reverse">-->
+      <!--<div class="pb-2">-->
+        <!--<h3 class="text-white">Title</h3>-->
+        <!--<a href="#" class="text-white">-->
+          <!--Coming soon!-->
+        <!--</a></div>-->
+      <!--<div class="d-flex justify-content-end"><i nz-icon nzType="right-circle" nzTheme="outline"></i></div>-->
+    <!--</nz-card>-->
+  <!--</div>-->
+<!--</div>-->
+
+<nz-layout>
+  <!--lef sidebar-->
+  <!--<nz-sider nzWidth="220" nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate">-->
+    <!--<h5 class="logo" routerLink="/"><i class="fas fa-map-marker-alt icon-marker"></i><span> {{ LOGO }}</span></h5>-->
+    <!--<ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">-->
+      <!--<li nz-menu-item routerLink="/posts" *nbIsGranted="['view', 'list_posts']">-->
+        <!--<span><i nz-icon type="file"></i><span class="nav-text"> Bài đăng</span></span>-->
+      <!--</li>-->
+      <!--<li nz-menu-item routerLink="/users" *nbIsGranted="['view', 'list_users']">-->
+        <!--<span><i nz-icon nzType="audit" nzTheme="outline"></i><span class="nav-text"> Người dùng</span></span>-->
+      <!--</li>-->
+    <!--</ul>-->
+  <!--</nz-sider>-->
+
+  <!--content-->
+  <nz-layout>
+    <!--header-->
+    <app-header (collapse)="collapse($event)"></app-header>
+    <!--main content-->
+    <nz-content style="margin:70px 16px">
+      <router-outlet></router-outlet>
+    </nz-content>
+
+    <nz-footer>sdbjcxk</nz-footer>
+  </nz-layout>
+</nz-layout>

@@ -1,0 +1,6 @@
+@import "~bootstrap/dist/css/bootstrap-grid.css";
+
+.default-card {
+  padding: 24px;
+  background: #fff;
+}

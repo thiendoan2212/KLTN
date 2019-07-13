@@ -1,0 +1,10 @@
+<div class="my-3">
+  <nz-breadcrumb [nzAutoGenerate]="true"></nz-breadcrumb>
+</div>
+<div class="title d-flex">
+  <nz-page-header (nzBack)="goBack()" nzBackIcon class="flex-grow-1" [nzTitle]="title"></nz-page-header>
+  <div class="d-flex align-items-center mr-3"
+       *ngIf="hasSetting"
+       (click)="showSetting = !showSetting"><i nz-icon nzType="setting"></i></div>
+</div>
+<ng-content *ngIf="showSetting"></ng-content>

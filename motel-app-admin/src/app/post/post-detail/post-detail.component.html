@@ -1,0 +1,164 @@
+<app-title-page></app-title-page>
+<div class="default-card">
+
+  <!--title-->
+  <div class="mb-3 row">
+    <div class="col-sm-8 order-12 order-sm-1 p-2">
+      <span class="title">{{ post.title }} </span>
+    </div>
+    <div class="col-sm-4 order-1 order-sm-12 p-2">
+      <div class=" d-flex justify-content-end ">
+        <button nz-button nzType="danger" [disabled]="disableBtnAction || post.notApproved" class="mr-2"
+                (click)="blockPost()">Khóa bài
+        </button>
+        <button nz-button nzType="primary" [disabled]="disableBtnAction || post.approved" (click)="approvePost()">Duyệt
+          bài
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!--infomation-->
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row my-2">
+        <div class="col-4">
+          <div class="description">
+            <span class="term">Người đăng</span>
+            <b class="detail"><a href="javascript:void(0)">{{ post?.userDTO?.fullName}}</a></b>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="description">
+            <span class="term">Thời gian</span>
+            <b class="detail">{{ post.createAt | date: 'dd/MM/yyyy HH:mm' }}</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-2">
+        <div class="col">
+          <div class="description">
+            <span class="term">Giá thuê</span>
+            <b class="detail">{{ post.accomodationDTO.price | number }} đ/tháng</b>
+          </div>
+        </div>
+        <div class="col">
+          <div class="description">
+            <span class="term">Loại phòng</span>
+            <b class="detail">
+              <span *ngIf="!post.accomodationDTO.motel">nhà nguyên căn</span>
+              <span *ngIf="post.accomodationDTO.motel">phòng trọ</span>
+            </b>
+          </div>
+        </div>
+        <div class="col">
+          <div class="description">
+            <span class="term">Diện tích</span>
+            <b class="detail">{{ post.accomodationDTO.acreage }} m<sup>2</sup></b>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-2">
+        <div class="col">
+          <div class="description">
+            <span class="term">Địa chỉ</span>
+            <p class="detail">{{ post.accomodationDTO.address }}
+              <i nz-icon [ngClass]="showMap ? 'serve' :'not-serve'" style="font-size: 1rem"
+                 (click)="showMap = !showMap">
+                <svg>
+                  <path
+                    d="M658.285714 365.714286q0-60.562286-42.861714-103.424t-103.424-42.861714-103.424 42.861714-42.861714 103.424 42.861714 103.424 103.424 42.861714 103.424-42.861714 42.861714-103.424zM804.571429 365.714286q0 62.317714-18.870857 102.253714l-208.018286 442.294857q-9.142857 18.870857-27.136 29.696t-38.546286 10.825143-38.546286-10.825143-26.550857-29.696l-208.603429-442.294857q-18.870857-40.009143-18.870857-102.253714 0-121.124571 85.723429-206.848t206.848-85.723429 206.848 85.723429 85.723429 206.848z"/>
+                </svg>
+              </i>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 text-right extra-content">
+      <div class="row">
+        <div class="col">
+          <span class="label">Giá điện (VND/kWh)</span>
+          <p class="detail">
+            <b *ngIf="post.accomodationDTO.electricPrice != 0">{{ post.accomodationDTO.electricPrice }}</b>
+            <b *ngIf="post.accomodationDTO.electricPrice == 0">Nhà nước qui định</b>
+          </p>
+        </div>
+        <div class="col">
+          <span class="label">Giá nước (VND/m<sup>3</sup>)</span>
+          <p class="detail">
+            <b *ngIf="post.accomodationDTO.waterPrice != 0">{{ post.accomodationDTO.waterPrice }}</b>
+            <b *ngIf="post.accomodationDTO.waterPrice == 0">Nhà nước qui định</b>
+          </p>
+        </div>
+      </div>
+      <div class="row extra-content">
+        <div class="col">
+          <span class="label">Tiện ích khác</span>
+          <p class="detail">
+            <i class="fas fa-parking serve" *ngIf="post.accomodationDTO.parking"
+               nzPlacement="bottom" nz-tooltip nzTitle="Chỗ đậu xe"></i>
+
+            <i class="fas fa-wifi serve" *ngIf="post.accomodationDTO.internet"
+               nzPlacement="bottom" nz-tooltip nzTitle="Wifi"> </i>
+
+            <i class="fas fa-snowflake serve" *ngIf="post.accomodationDTO.airConditioner"
+               nzPlacement="bottom" nz-tooltip nzTitle="Điều hòa"></i>
+
+            <i class="fas fa-tv serve" *ngIf="post.accomodationDTO.tv"
+               nzPlacement="bottom" nz-tooltip nzTitle="Tivi"> </i>
+
+            <i class="fas fa-shower serve" *ngIf="post.accomodationDTO.heater"
+               nzPlacement="bottom" nz-tooltip nzTitle="Máy nước nóng"></i>
+
+            <i class="fas fa-toilet serve" *ngIf="post.accomodationDTO.toilet"
+               nzPlacement="bottom" nz-tooltip nzTitle="Toilet riêng"></i>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!--location-->
+  <agm-map *ngIf="showMap" #vmap fullscreenControl="true" [zoom]="18" [usePanning]="false"
+           [latitude]="post.accomodationDTO.xCoordinate"
+           disableDoubleClickZoom="false" [longitude]="post.accomodationDTO.yCoordinate">
+    <agm-marker [latitude]="post.accomodationDTO.xCoordinate"
+                [longitude]="post.accomodationDTO.yCoordinate" title="TP HCM">
+    </agm-marker>
+  </agm-map>
+
+  <nz-tabset>
+    <nz-tab nzTitle="Nội dung">
+      <p [innerHtml]="post.content"></p>
+    </nz-tab>
+    <nz-tab nzTitle="Ảnh minh họa">
+      <div class="row">
+        <img class="col-4 mb-3" height="300" *ngFor="let img of post.imageStrings" src="{{ img }}" alt="">
+        <!--<nz-upload-->
+        <!--nzAction="https://jsonplaceholder.typicode.com/posts/"-->
+        <!--nzListType="picture-card"-->
+        <!--[nzFileList]="fileList"-->
+        <!--[nzShowButton]="fileList.length < 10"-->
+        <!--[nzShowUploadList]="showUploadList"-->
+        <!--[nzPreview]="handlePreview">-->
+        <!--<i nz-icon type="plus"></i>-->
+        <!--<div class="ant-upload-text">Upload</div>-->
+        <!--</nz-upload>-->
+        <!--<nz-modal-->
+        <!--[nzVisible]="previewVisible"-->
+        <!--[nzContent]="modalContent"-->
+        <!--[nzFooter]="null"-->
+        <!--(nzOnCancel)="previewVisible = false">-->
+        <!--<ng-template #modalContent>-->
+        <!--<img [src]="data.image" [ngStyle]="{ width: '100%' }"/>-->
+        <!--</ng-template>-->
+        <!--</nz-modal>-->
+      </div>
+    </nz-tab>
+  </nz-tabset>
+
+</div>
