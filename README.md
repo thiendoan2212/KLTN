@@ -3,7 +3,6 @@
 | Tác giả| MSSV | Email|
 | ------------- |:-------------:|:-----------:|
 | Đoàn Huỳnh Thiện| 15110129 | thiendoanspkt@gmail.com
- | Lê Văn Quang | 15110106 | ...
  
 Tìm kiếm phòng trọ tại thành phố Hồ Chí Minh để ở luôn là một trong những vấn đề khó khăn đối với những người đi thuê, đặc biệt là đối với các bạn học sinh, sinh viên từ quê vào thành phố để tiếp tục con đường học tập. Còn đối với người cho thuê, họ cũng khó có thể tiếp cận với những người đi thuê với các cách tiếp thị truyền thống.
 
