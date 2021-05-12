@@ -30,7 +30,7 @@
     "@types/chart.js": "^2.7.50",
     "angular-bootstrap-md": "^7.4.3",
     "angular-star-rating": "^4.0.0-beta.3",
-    "chart.js": "^2.5.0",
+    "chart.js": "^2.9.4",
     "core-js": "^2.5.4",
     "css-star-rating": "^1.2.4",
     "hammerjs": "^2.0.8",
